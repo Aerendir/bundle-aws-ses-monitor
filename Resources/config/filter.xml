@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="shivas_bouncer.filter.class">Shivas\BouncerBundle\Plugin\BouncerFilterPlugin</parameter>
+    </parameters>
+
+    <services>
+        <service id="shivas_bouncer.swift_mailer.filter" class="%shivas_bouncer.filter.class%">
+            <argument id="shivas_bouncer.object_manager" type="service" />
+        </service>
+    </services>
+</container>

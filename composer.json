@@ -1,0 +1,33 @@
+{
+    "name": "shivas/bouncer-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony2 bundle for AWS SES/SNS Bounce topic listener and swiftmailer filter",
+    "keywords": ["aws", "ses", "sns", "bounce", "blacklist", "swiftmailer"],
+    "homepage": "https://github.com/shivas/bouncer-bundle",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/shivas/bouncer-bundle/issues",
+        "wiki": "https://github.com/shivas/bouncer-bundle/wiki"
+    },
+    "authors": [
+        {
+            "name": "Audrius Karabanovas",
+            "email": "audrius@karabanovas.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/framework-bundle": "~2.6",
+        "aws/aws-sdk-php": "~2.7",
+        "symfony/swiftmailer-bundle": "~2.3"
+    },
+    "require-dev": {
+        "doctrine/common": "~2.4",
+        "symfony/yaml": "~2.6",
+        "phpunit/phpunit": "~4.5"
+    },
+    "autoload": {
+        "psr-4": { "Shivas\\BouncerBundle\\": "" }
+    },
+    "minimum-stability": "dev"
+}

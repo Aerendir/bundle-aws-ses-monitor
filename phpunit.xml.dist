@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="true" bootstrap="vendor/autoload.php">
+    <php>
+        <!-- Disable E_USER_DEPRECATED until 3.0 -->
+        <!-- php -r 'echo -1 & ~E_USER_DEPRECATED;' -->
+        <ini name="error_reporting" value="-16385"/>
+    </php>
+    <testsuites>
+        <testsuite name="ShivasBouncerBundle for the Symfony Framework">
+            <directory>./Tests</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory>.</directory>
+            <exclude>
+                <directory>./Resources</directory>
+                <directory>./Tests</directory>
+                <directory>./vendor</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>
