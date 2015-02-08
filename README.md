@@ -1,3 +1,6 @@
+Bouncer bundle
+==============
+
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/56ca074b-524c-4ebe-84f4-f7d0772814b0/mini.png)](https://insight.sensiolabs.com/projects/56ca074b-524c-4ebe-84f4-f7d0772814b0)
 [![Build Status](https://travis-ci.org/shivas/bouncer-bundle.svg)](https://travis-ci.org/shivas/bouncer-bundle)
 [![Total Downloads](https://img.shields.io/packagist/dt/shivas/bouncer-bundle.svg?style=flat)](https://packagist.org/packages/shivas/bouncer-bundle)
