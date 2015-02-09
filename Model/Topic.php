@@ -12,7 +12,7 @@ class Topic
     /** @var null|string */
     protected $token;
 
-    function __construct($topicArn, $token = null)
+    public function __construct($topicArn, $token = null)
     {
         $this->topicArn = $topicArn;
         $this->token = $token;

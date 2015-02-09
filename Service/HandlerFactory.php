@@ -18,7 +18,7 @@ class HandlerFactory
      */
     private $awsFactory;
 
-    function __construct(ObjectManager $entityManager, AwsClientFactory $awsFactory)
+    public function __construct(ObjectManager $entityManager, AwsClientFactory $awsFactory)
     {
         $this->objectManager = $entityManager;
         $this->awsFactory = $awsFactory;

@@ -23,7 +23,7 @@ class Bounce
      */
     protected $permanent;
 
-    function __construct($emailAddress, $lastTimeBounce, $bounceCount = 1 , $permanent = false)
+    public function __construct($emailAddress, $lastTimeBounce, $bounceCount = 1 , $permanent = false)
     {
         $this->setEmailAddress($emailAddress);
         $this->lastTimeBounce = $lastTimeBounce;

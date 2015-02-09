@@ -14,7 +14,7 @@ class AwsClientFactory
     /**
      * @param array $awsApiKeyConfig
      */
-    function __construct($awsApiKeyConfig)
+    public function __construct($awsApiKeyConfig)
     {
         $this->awsApiKeyConfig = $awsApiKeyConfig;
     }
