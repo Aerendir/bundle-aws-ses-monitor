@@ -3,6 +3,7 @@ Bouncer bundle
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/56ca074b-524c-4ebe-84f4-f7d0772814b0/mini.png)](https://insight.sensiolabs.com/projects/56ca074b-524c-4ebe-84f4-f7d0772814b0)
 [![Build Status](https://travis-ci.org/shivas/bouncer-bundle.svg)](https://travis-ci.org/shivas/bouncer-bundle)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/shivas/bouncer-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/shivas/bouncer-bundle/?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/shivas/bouncer-bundle.svg?style=flat)](https://packagist.org/packages/shivas/bouncer-bundle)
 
 Symfony2 bundle to automate AWS SES users using swiftmailer to filter out bouncing email recipients inside project.
