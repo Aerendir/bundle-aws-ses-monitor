@@ -16,18 +16,20 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3",
-        "symfony/framework-bundle": "~2.6",
+        "php": ">=5.4.0",
+        "symfony/framework-bundle": "~2.5",
         "aws/aws-sdk-php": "~2.7",
         "symfony/swiftmailer-bundle": "~2.3"
     },
     "require-dev": {
         "doctrine/common": "~2.4",
-        "symfony/yaml": "~2.6",
+        "symfony/yaml": "~2.5",
+	    "symfony/console": "~2.5",
         "phpunit/phpunit": "~4.5"
     },
     "autoload": {
         "psr-4": { "Shivas\\BouncerBundle\\": "" }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
