@@ -9,7 +9,7 @@ Bouncer bundle
 Symfony2 bundle to automate AWS SES users using swiftmailer to filter out bouncing email recipients inside project.
 
 AWS SES users know, if you get big amount of Bouncing emails, AWS will send you into probation period.
-In some cases, there is no easy way to solve issue. This bundle solves problem transparently filtering recipients lists trough own database built my listening on AWS SNS Bounce topic that it creates and hooks to your identity.
+In some cases, there is no easy way to solve issue. This bundle solves problem transparently filtering recipients lists trough own database built by listening on AWS SNS Bounce topic that it creates and hooks to your identity.
 
 Requirements:
 =============
