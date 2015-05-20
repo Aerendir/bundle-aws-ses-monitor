@@ -16,7 +16,7 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('shivas_bouncer');
 
         $supportedDrivers = array('orm');
-        $supportedProtocols = array('HTTP', 'HTTPS');
+        $supportedProtocols = array('HTTP', 'HTTPS', 'http', 'https');
 
         $rootNode
             ->children()
@@ -48,7 +48,7 @@ class Configuration implements ConfigurationInterface
                                 ->ifNotInArray($supportedProtocols)
                                 ->thenInvalid('The protocol %s is not supported. Please choose one of '.json_encode($supportedProtocols))
                             ->end()
-                            ->defaultValue('HTTP')
+                            ->defaultValue('http')
                             ->cannotBeEmpty()
                         ->end()
                         ->scalarNode('host')->defaultValue('localhost.local')->cannotBeEmpty()->end()
