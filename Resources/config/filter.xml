@@ -11,6 +11,7 @@
     <services>
         <service id="shivas_bouncer.swift_mailer.filter" class="%shivas_bouncer.filter.class%">
             <argument id="shivas_bouncer.object_manager" type="service" />
+            <argument>%shivas_bouncer.filter.filter_not_permanent%</argument>
         </service>
     </services>
 </container>

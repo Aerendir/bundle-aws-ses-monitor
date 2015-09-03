@@ -81,6 +81,7 @@ shivas_bouncer:
         host:                 localhost.local # hostname of your project when in production
     filter:
         enabled:              true # if false, no filtering of bounced recipients will happen
+        filter_not_permanent: false # if false, all temporary bounces will not make that address to be filtered forever
         mailer_name:          # array of mailer names where to register filtering plugin
             - default
  ```

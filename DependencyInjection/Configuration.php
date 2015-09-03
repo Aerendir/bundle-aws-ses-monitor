@@ -58,6 +58,7 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->booleanNode('enabled')->defaultTrue()->end()
+                        ->booleanNode('filter_not_permanent')->defaultFalse()->end()
                         ->arrayNode('mailer_name')
                             ->isRequired()
                             ->prototype('scalar')->end()

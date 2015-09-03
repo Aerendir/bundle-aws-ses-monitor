@@ -11,5 +11,6 @@ shivas_bouncer:
         host:                 localhost.local
     filter:
         enabled:              false
+        filter_not_permanent: true
         mailer_name:
             - default

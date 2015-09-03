@@ -12,10 +12,15 @@ class BouncerFilterPlugin implements \Swift_Events_SendListener
     private $bounceRepo;
 
     private $blacklisted;
+    /**
+     * @var bool
+     */
+    private $filterNotPermanent;
 
-    public function __construct(ObjectManager $manager)
+    public function __construct(ObjectManager $manager, $filterNotPermanent)
     {
         $this->bounceRepo = $manager->getRepository('ShivasBouncerBundle:Bounce');
+        $this->filterNotPermanent = $filterNotPermanent;
     }
 
     /**
@@ -55,11 +60,14 @@ class BouncerFilterPlugin implements \Swift_Events_SendListener
 
         $emails = array_keys($recipients);
 
-        foreach($emails as $email) {
+        foreach ($emails as $email) {
             $bounce = $this->bounceRepo->findBounceByEmail($email);
             if ($bounce instanceof Bounce) {
-                $this->blacklisted[$email] = $recipients[$email];
-                unset($recipients[$email]);
+
+                if ($bounce->isPermanent() || $this->filterNotPermanent) {
+                    $this->blacklisted[$email] = $recipients[$email];
+                    unset($recipients[$email]);
+                }
             }
         }
 

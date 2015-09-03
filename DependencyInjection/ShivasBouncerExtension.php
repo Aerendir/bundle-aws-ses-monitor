@@ -38,6 +38,7 @@ class ShivasBouncerExtension extends Extension
         $container->setParameter('shivas_bouncer.manager_name', $config['model_manager_name']);
         $container->setParameter('shivas_bouncer.bounce_endpoint', $config['bounce_endpoint']);
         $container->setParameter('shivas_bouncer.filter', $config['filter']);
+        $container->setParameter('shivas_bouncer.filter.filter_not_permanent', $config['filter']['filter_not_permanent']);
         $container->setParameter('shivas_bouncer.aws_api_key', $config['aws_api_key']);
     }
 }

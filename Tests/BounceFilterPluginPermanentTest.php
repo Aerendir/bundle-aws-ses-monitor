@@ -1,7 +1,7 @@
 <?php
 use Shivas\BouncerBundle\Plugin\BouncerFilterPlugin;
 
-class BounceFilterPluginTest extends \PHPUnit_Framework_TestCase
+class BounceFilterPluginPermanentTest extends \PHPUnit_Framework_TestCase
 {
     private $bounced;
     private $om;
@@ -12,6 +12,7 @@ class BounceFilterPluginTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->bounced = $this->getMockBuilder('Shivas\BouncerBundle\Model\Bounce')->disableOriginalConstructor()->getMock();
+        $this->bounced->method('isPermanent')->willReturn(true);
 
         $map = array(
             array('bounced@example.com', $this->bounced),
@@ -88,9 +89,9 @@ class BounceFilterPluginTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayNotHasKey('bounced@example.com', $recipients);
     }
 
-    public function testRecipientsAreFilteredAll()
+    public function testRecipientsAreFiltered()
     {
-        $filter = new BouncerFilterPlugin($this->om, true);
+        $filter = new BouncerFilterPlugin($this->om, false);
         $filter->beforeSendPerformed($this->event);
         $filter->sendPerformed($this->event);
     }
