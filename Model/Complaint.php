@@ -2,9 +2,9 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 
 /**
- * Represents a Bounce
+ * Represents a Complaint.
  */
-class Bounce
+class Complaint
 {
     /**
      * @var string
@@ -14,12 +14,7 @@ class Bounce
     /**
      * @var \DateTime
      */
-    protected $lastTimeBounce;
-
-    /**
-     * @var int
-     */
-    protected $bounceCount;
+    protected $complaintTime;
 
     /**
      * @var bool
@@ -27,17 +22,15 @@ class Bounce
     protected $permanent;
 
     /**
-     * Bounce constructor.
+     * Complaint constructor.
      * @param $emailAddress
-     * @param $lastTimeBounce
-     * @param int $bounceCount
+     * @param $complaintTime
      * @param bool $permanent
      */
-    public function __construct($emailAddress, $lastTimeBounce, $bounceCount = 1 , $permanent = false)
+    public function __construct($emailAddress, $complaintTime , $permanent = false)
     {
         $this->setEmailAddress($emailAddress);
-        $this->lastTimeBounce = $lastTimeBounce;
-        $this->bounceCount = $bounceCount;
+        $this->complaintTime = $complaintTime;
         $this->permanent = $permanent;
     }
 
@@ -62,36 +55,18 @@ class Bounce
     /**
      * @return \DateTime
      */
-    public function getLastTimeBounce()
+    public function getComplaintTime()
     {
-        return $this->lastTimeBounce;
+        return $this->complaintTime;
     }
 
     /**
-     * @param \DateTime $lastTimeBounce
+     * @param \DateTime $complaintTime
      * @return $this
      */
-    public function setLastTimeBounce($lastTimeBounce)
+    public function setComplaintTime($complaintTime)
     {
-        $this->lastTimeBounce = $lastTimeBounce;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getBounceCount()
-    {
-        return $this->bounceCount;
-    }
-
-    /**
-     * @param int $bounceCount
-     * @return $this
-     */
-    public function setBounceCount($bounceCount)
-    {
-        $this->bounceCount = $bounceCount;
+        $this->complaintTime = $complaintTime;
         return $this;
     }
 
@@ -110,15 +85,6 @@ class Bounce
     public function setPermanent($permanent)
     {
         $this->permanent = $permanent;
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function incrementBounceCounter()
-    {
-        $this->bounceCount++;
         return $this;
     }
 }

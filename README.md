@@ -124,7 +124,7 @@ aws_ses_monitor:
 ```
 
 Add routing file for bounce endpoint (feel free to edit prefix)
- 
+
 ```yaml
 # app/config/routing.yml
 bouncer:
@@ -133,28 +133,40 @@ bouncer:
 ```
 
 
- 
+
 Step 4: Update your database schema
 -----------------------------------
 
 ```
 $ php app/console doctrine:schema:update --force
 ```
- 
-Step 5: Setup subscription to Bounce topic
-------------------------------------------
 
-Run in console:
+Step 5: Setup bounces and complaints handling
+---------------------------------------------
+
+Now it's time to create our topics for bounces and complaints. As told in the [post](http://sesblog.amazon.com/post/TxJE1JNZ6T9JXK/-Handling-span-class-matches-Bounces-span-and-Complaints.pdf)
+Handling Bounces and Complaints on the [Amazon SES Blog](http://sesblog.amazon.com/), topics should follow the following nomenclature:
+
+    ses-bounces-topic
+
+Something like `ses-your_app-bounces-topic` may be better to avoid conflicts with other apps of yours.
+
+So, run in console:
 ```
-./app/console swiftmailer:sns:setup-bounce-topic Bounce
+app/console awssesmonitor:sns:setup-bounces-topic ses-your_app-bounces-topic
 ```
 
-This will use your AWS keys to fetch available identities, and provide you option to choose what identities to subscribe to.
-"Bounce" in console is name of topic to setup (Naming rules should follow AWS naming rules for topics)
+and then
+
+```
+app/console awssesmonitor:sns:setup-complaints-topic ses-your_app-complaints-topic
+```
+
+This will use your AWS Credentials to fetch available identities and will provide you the option to choose what identities to subscribe to.
 
 What will happen:
 
-1. Bounce topic will be created
+1. `ses-your_app-bounces-topic` topic will be created
 2. All chosen identities will be configured to send Bounce notifications to that topic
 3. Your project url will be provided as HTTP or HTTPS (configuration) endpoint for AWS
 4. Automatic subscription confirmation will occur on AWS request to confirm (if your endpoint is reachable)
@@ -162,9 +174,4 @@ What will happen:
 Contribute
 ----------
 
-Contribute trough issues or pull request. 
-
-Todo
-----
-
-Mapping for MongoDB and other supported databases by Doctrine
+Contribute through issues or pull request.

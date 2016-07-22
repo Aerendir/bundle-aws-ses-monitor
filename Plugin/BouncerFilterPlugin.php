@@ -4,12 +4,20 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin;
 use Doctrine\Common\Persistence\ObjectManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\BounceRepositoryInterface;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\ComplaintRepositoryInterface;
 use Swift_Events_SendEvent;
 
+/**
+ * The SwiftMailer filter.
+ */
 class BouncerFilterPlugin implements \Swift_Events_SendListener
 {
     /** @var BounceRepositoryInterface */
     private $bounceRepo;
+
+    /** @var ComplaintRepositoryInterface */
+    private $complaintRepo;
 
     private $blacklisted;
     /**
@@ -20,6 +28,7 @@ class BouncerFilterPlugin implements \Swift_Events_SendListener
     public function __construct(ObjectManager $manager, $filterNotPermanent)
     {
         $this->bounceRepo = $manager->getRepository('AwsSesMonitorBundle:Bounce');
+        $this->complaintRepo = $manager->getRepository('AwsSesMonitorBundle:Complaint');
         $this->filterNotPermanent = $filterNotPermanent;
     }
 
@@ -61,16 +70,46 @@ class BouncerFilterPlugin implements \Swift_Events_SendListener
         $emails = array_keys($recipients);
 
         foreach ($emails as $email) {
-            $bounce = $this->bounceRepo->findBounceByEmail($email);
-            if ($bounce instanceof Bounce) {
-
-                if ($bounce->isPermanent() || $this->filterNotPermanent) {
-                    $this->blacklisted[$email] = $recipients[$email];
-                    unset($recipients[$email]);
-                }
+            if ($this->isBounced($email) || $this->isCoplained($email)) {
+                $this->blacklisted[$email] = $recipients[$email];
+                unset($recipients[$email]);
             }
         }
 
         return $recipients;
+    }
+
+    /**
+     * @param $email
+     * @return bool
+     */
+    private function isBounced($email)
+    {
+        $bounce = $this->bounceRepo->findBounceByEmail($email);
+        if ($bounce instanceof Bounce) {
+
+            if ($bounce->isPermanent() || $this->filterNotPermanent) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $email
+     * @return bool
+     */
+    private function isCoplained($email)
+    {
+        $complaint = $this->complaintRepo->findComplaintByEmail($email);
+        if ($complaint instanceof Complaint) {
+
+            if ($complaint->isPermanent() || $this->filterNotPermanent) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

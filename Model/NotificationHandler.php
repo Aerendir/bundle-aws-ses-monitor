@@ -1,8 +1,8 @@
 <?php
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 
-use Aws\Sns\MessageValidator\Message;
-use Aws\Sns\MessageValidator\MessageValidator;
+//use Aws\Sns\MessageValidator\Message;
+//use Aws\Sns\MessageValidator\MessageValidator;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Symfony\Component\HttpFoundation\Request;
 

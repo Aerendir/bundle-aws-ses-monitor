@@ -6,11 +6,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Handles the coplaints.
+ * Handles the bounces.
  */
-class ComplaintsController extends Controller
+class BouncesController extends Controller
 {
-    public function complaintsAction(Request $request)
+    public function bouncesAction(Request $request)
     {
         $factory = $this->get('aws_ses_monitor.handler.factory');
         $monitorHandler = $factory->buildHandler($request);

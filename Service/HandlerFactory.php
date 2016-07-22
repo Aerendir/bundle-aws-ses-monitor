@@ -21,6 +21,11 @@ class HandlerFactory
      */
     private $awsFactory;
 
+    /**
+     * HandlerFactory constructor.
+     * @param ObjectManager $entityManager
+     * @param AwsClientFactory $awsFactory
+     */
     public function __construct(ObjectManager $entityManager, AwsClientFactory $awsFactory)
     {
         $this->objectManager = $entityManager;
@@ -32,6 +37,24 @@ class HandlerFactory
      * @return BouncerHandlerInterface
      */
     public function buildBouncesHandler(Request $request)
+    {
+        return $this->buildHandler($request);
+    }
+
+    /**
+     * @param Request $request
+     * @return BouncerHandlerInterface
+     */
+    public function buildComplaintsHandler(Request $request)
+    {
+        return $this->buildHandler($request);
+    }
+
+    /**
+     * @param Request $request
+     * @return BouncerHandlerInterface
+     */
+    public function buildHandler(Request $request)
     {
         $headerType = $request->headers->get('x-amz-sns-message-type');
 
