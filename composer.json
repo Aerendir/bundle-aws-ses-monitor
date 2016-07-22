@@ -18,7 +18,7 @@
     "require": {
         "php": ">=5.4.0",
         "symfony/framework-bundle": "~2.5",
-        "aws/aws-sdk-php": "~2.7",
+        "aws/aws-sdk-php": "^3.2",
         "symfony/swiftmailer-bundle": "~2.3"
     },
     "require-dev": {
