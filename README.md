@@ -91,7 +91,7 @@ shivas_bouncer:
 ```yaml
 # app/config/routing.yml
 bouncer:
-    resource: @ShivasBouncerBundle/Resources/config/routing.yml
+    resource: '@ShivasBouncerBundle/Resources/config/routing.yml'
     prefix: /aws/endpoints
 ```
  
