@@ -16,7 +16,7 @@
         </service>
 
         <service id="shivas_bouncer.aws.client.factory" class="%shivas_bouncer.aws.client.factory.class%">
-            <argument type="string">%shivas_bouncer.aws_api_key%</argument>
+            <argument type="string">%shivas_bouncer.aws_config%</argument>
         </service>
     </services>
 

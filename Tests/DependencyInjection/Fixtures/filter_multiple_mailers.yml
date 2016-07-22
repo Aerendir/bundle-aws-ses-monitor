@@ -1,9 +1,7 @@
 shivas_bouncer:
     db_driver:            orm
     model_manager_name:   null
-    aws_api_key:
-        key:                  test
-        secret:               test
+    aws_config:
         region:               us-east-1
     bounce_endpoint:
         route_name:           _shivasbouncebundle_bounce_endpoint

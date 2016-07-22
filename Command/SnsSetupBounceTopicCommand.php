@@ -30,8 +30,9 @@ class SnsSetupBounceTopicCommand extends ContainerAwareCommand
 
         $apiFactory = $container->get('shivas_bouncer.aws.client.factory');
 
-        $sesClient = $apiFactory->getSesClient();
-        $snsClient = $apiFactory->getSnsClient();
+        $credentials = $container->getParameter('shivas_bouncer.aws_config')['credentials_service_name'];
+        $sesClient = $apiFactory->getSesClient($container->get($credentials));
+        $snsClient = $apiFactory->getSnsClient($container->get($credentials));
 
         // fetch identities
         $response = $sesClient->listIdentities();
