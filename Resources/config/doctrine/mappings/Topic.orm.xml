@@ -13,7 +13,7 @@
             <generator strategy="AUTO" />
         </id>
 
-        <field name="topicArn" type="string" column="topic_arn" length="1224" />
+        <field name="topicArn" type="string" column="topic_arn" length="1024" />
         <field name="token" type="string" length="1024" column="token" nullable="true" />
 
     </entity>
