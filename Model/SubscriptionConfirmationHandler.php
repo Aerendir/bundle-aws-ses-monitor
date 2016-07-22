@@ -7,7 +7,7 @@ use Doctrine\Common\Persistence\ObjectRepository;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory;
 use Symfony\Component\HttpFoundation\Request;
 
-class SubscriptionConfirmationHandler implements BouncerHandlerInterface
+class SubscriptionConfirmationHandler implements MonitorHandlerInterface
 {
     const HEADER_TYPE = 'SubscriptionConfirmation';
 

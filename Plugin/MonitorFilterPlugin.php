@@ -11,7 +11,7 @@ use Swift_Events_SendEvent;
 /**
  * The SwiftMailer filter.
  */
-class BouncerFilterPlugin implements \Swift_Events_SendListener
+class MonitorFilterPlugin implements \Swift_Events_SendListener
 {
     /** @var BounceRepositoryInterface */
     private $bounceRepo;
@@ -25,6 +25,10 @@ class BouncerFilterPlugin implements \Swift_Events_SendListener
      */
     private $filterNotPermanent;
 
+    /**
+     * @param ObjectManager $manager
+     * @param $filterNotPermanent
+     */
     public function __construct(ObjectManager $manager, $filterNotPermanent)
     {
         $this->bounceRepo = $manager->getRepository('AwsSesMonitorBundle:Bounce');

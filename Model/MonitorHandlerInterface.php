@@ -3,7 +3,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 
 use Symfony\Component\HttpFoundation\Request;
 
-interface BouncerHandlerInterface
+interface MonitorHandlerInterface
 {
     /**
      * @param Request $request

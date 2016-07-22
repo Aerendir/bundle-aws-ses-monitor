@@ -2,7 +2,7 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\BouncerHandlerInterface;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MonitorHandlerInterface;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\NoopHandler;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\NotificationHandler;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\SubscriptionConfirmationHandler;
@@ -34,7 +34,7 @@ class HandlerFactory
 
     /**
      * @param Request $request
-     * @return BouncerHandlerInterface
+     * @return MonitorHandlerInterface
      */
     public function buildBouncesHandler(Request $request)
     {
@@ -43,7 +43,7 @@ class HandlerFactory
 
     /**
      * @param Request $request
-     * @return BouncerHandlerInterface
+     * @return MonitorHandlerInterface
      */
     public function buildComplaintsHandler(Request $request)
     {
@@ -52,7 +52,7 @@ class HandlerFactory
 
     /**
      * @param Request $request
-     * @return BouncerHandlerInterface
+     * @return MonitorHandlerInterface
      */
     public function buildHandler(Request $request)
     {
