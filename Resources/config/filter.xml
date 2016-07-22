@@ -5,13 +5,13 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="shivas_bouncer.filter.class">Shivas\BouncerBundle\Plugin\BouncerFilterPlugin</parameter>
+        <parameter key="aws_ses_monitor.filter.class">SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin\BouncerFilterPlugin</parameter>
     </parameters>
 
     <services>
-        <service id="shivas_bouncer.swift_mailer.filter" class="%shivas_bouncer.filter.class%">
-            <argument id="shivas_bouncer.object_manager" type="service" />
-            <argument>%shivas_bouncer.filter.filter_not_permanent%</argument>
+        <service id="aws_ses_monitor.swift_mailer.filter" class="%aws_ses_monitor.filter.class%">
+            <argument id="aws_ses_monitor.object_manager" type="service" />
+            <argument>%aws_ses_monitor.filter.filter_not_permanent%</argument>
         </service>
     </services>
 </container>

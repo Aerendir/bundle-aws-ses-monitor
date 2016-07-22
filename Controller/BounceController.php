@@ -1,5 +1,5 @@
 <?php
-namespace Shivas\BouncerBundle\Controller;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,7 +9,7 @@ class BounceController extends Controller
 {
     public function bounceAction(Request $request)
     {
-        $factory = $this->get('shivas_bouncer.handler.factory');
+        $factory = $this->get('aws_ses_monitor.handler.factory');
         $bouncerHandler = $factory->buildHandler($request);
         $responseCode  = $bouncerHandler->handleRequest($request);
         return new Response('', $responseCode);

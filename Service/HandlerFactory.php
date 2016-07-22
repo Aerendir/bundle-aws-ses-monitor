@@ -1,11 +1,11 @@
 <?php
-namespace Shivas\BouncerBundle\Service;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Shivas\BouncerBundle\Model\BouncerHandlerInterface;
-use Shivas\BouncerBundle\Model\NoopHandler;
-use Shivas\BouncerBundle\Model\NotificationHandler;
-use Shivas\BouncerBundle\Model\SubscriptionConfirmationHandler;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\BouncerHandlerInterface;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\NoopHandler;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\NotificationHandler;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\SubscriptionConfirmationHandler;
 use Symfony\Component\HttpFoundation\Request;
 
 class HandlerFactory
@@ -35,12 +35,12 @@ class HandlerFactory
         switch($headerType) {
             case NotificationHandler::HEADER_TYPE:
                 return new NotificationHandler(
-                    $this->objectManager->getRepository('ShivasBouncerBundle:Bounce')
+                    $this->objectManager->getRepository('AwsSesMonitorBundle:Bounce')
                 );
 
             case SubscriptionConfirmationHandler::HEADER_TYPE:
                 return new SubscriptionConfirmationHandler(
-                    $this->objectManager->getRepository('ShivasBouncerBundle:Topic'),
+                    $this->objectManager->getRepository('AwsSesMonitorBundle:Topic'),
                     $this->awsFactory
                 );
 

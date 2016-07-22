@@ -1,18 +1,21 @@
 {
-    "name": "shivas/bouncer-bundle",
+    "name": "serendipity/aws-ses-monitor-bundle",
     "type": "symfony-bundle",
-    "description": "Symfony2 bundle for AWS SES/SNS Bounce topic listener and swiftmailer filter",
-    "keywords": ["aws", "ses", "sns", "bounce", "blacklist", "swiftmailer"],
-    "homepage": "https://github.com/shivas/bouncer-bundle",
+    "description": "Symfony2.8 bundle to monitor AWS SES bounces and complaints. Includes SwiftMailer filters.",
+    "keywords": ["aws", "ses", "sns", "bounce", "complaints", "blacklist", "swiftmailer"],
+    "homepage": "https://github.com/Aerendir/aws-ses-bouncer-bundle",
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/shivas/bouncer-bundle/issues",
-        "wiki": "https://github.com/shivas/bouncer-bundle/wiki"
+        "issues": "https://github.com/Aerendir/aws-ses-monitor-bundle/issues"
     },
     "authors": [
         {
             "name": "Audrius Karabanovas",
             "email": "audrius@karabanovas.net"
+        },
+        {
+            "name": "Adamo Aerendir Crespi",
+            "email": "hello@aerendir.me"
         }
     ],
     "require": {
@@ -28,7 +31,7 @@
         "phpunit/phpunit": "~5"
     },
     "autoload": {
-        "psr-4": { "Shivas\\BouncerBundle\\": "" }
+        "psr-4": { "SerendipityHQ\\Bundle\\AwsSesMonitorBundle\\": "" }
     },
     "minimum-stability": "dev",
     "prefer-stable": true

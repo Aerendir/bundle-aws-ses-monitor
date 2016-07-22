@@ -1,3 +1,3 @@
 _shivasbouncerbundle_bounce_endpoint:
   pattern: /sns/bounce
-  defaults: { _controller: ShivasBouncerBundle:Bounce:bounce }
+  defaults: { _controller: AwsSesMonitorBundle:Bounce:bounce }

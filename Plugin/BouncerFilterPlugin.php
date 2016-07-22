@@ -1,9 +1,9 @@
 <?php
-namespace Shivas\BouncerBundle\Plugin;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Shivas\BouncerBundle\Model\Bounce;
-use Shivas\BouncerBundle\Model\BounceRepositoryInterface;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\BounceRepositoryInterface;
 use Swift_Events_SendEvent;
 
 class BouncerFilterPlugin implements \Swift_Events_SendListener
@@ -19,7 +19,7 @@ class BouncerFilterPlugin implements \Swift_Events_SendListener
 
     public function __construct(ObjectManager $manager, $filterNotPermanent)
     {
-        $this->bounceRepo = $manager->getRepository('ShivasBouncerBundle:Bounce');
+        $this->bounceRepo = $manager->getRepository('AwsSesMonitorBundle:Bounce');
         $this->filterNotPermanent = $filterNotPermanent;
     }
 

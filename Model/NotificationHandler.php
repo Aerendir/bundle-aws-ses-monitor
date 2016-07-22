@@ -1,5 +1,5 @@
 <?php
-namespace Shivas\BouncerBundle\Model;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 
 use Aws\Sns\MessageValidator\Message;
 use Aws\Sns\MessageValidator\MessageValidator;

@@ -5,18 +5,18 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="shivas_bouncer.request.factory.class">Shivas\BouncerBundle\Service\HandlerFactory</parameter>
-        <parameter key="shivas_bouncer.aws.client.factory.class">Shivas\BouncerBundle\Service\AwsClientFactory</parameter>
+        <parameter key="aws_ses_monitor.request.factory.class">SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\HandlerFactory</parameter>
+        <parameter key="aws_ses_monitor.aws.client.factory.class">SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory</parameter>
     </parameters>
 
     <services>
-        <service id="shivas_bouncer.handler.factory" class="%shivas_bouncer.request.factory.class%">
-            <argument type="service" id="shivas_bouncer.object_manager" />
-            <argument type="service" id="shivas_bouncer.aws.client.factory" />
+        <service id="aws_ses_monitor.handler.factory" class="%aws_ses_monitor.request.factory.class%">
+            <argument type="service" id="aws_ses_monitor.object_manager" />
+            <argument type="service" id="aws_ses_monitor.aws.client.factory" />
         </service>
 
-        <service id="shivas_bouncer.aws.client.factory" class="%shivas_bouncer.aws.client.factory.class%">
-            <argument type="string">%shivas_bouncer.aws_config%</argument>
+        <service id="aws_ses_monitor.aws.client.factory" class="%aws_ses_monitor.aws.client.factory.class%">
+            <argument type="string">%aws_ses_monitor.aws_config%</argument>
         </service>
     </services>
 

@@ -1,6 +1,8 @@
 Bouncer bundle
 ==============
 
+Forked from [BouncerBundle](https://github.com/shivas/bouncer-bundle).
+
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/56ca074b-524c-4ebe-84f4-f7d0772814b0/mini.png)](https://insight.sensiolabs.com/projects/56ca074b-524c-4ebe-84f4-f7d0772814b0)
 [![Build Status](https://travis-ci.org/shivas/bouncer-bundle.svg)](https://travis-ci.org/shivas/bouncer-bundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/shivas/bouncer-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/shivas/bouncer-bundle/?branch=master)
@@ -10,6 +12,12 @@ Symfony2 bundle to automate AWS SES users using swiftmailer to filter out bounci
 
 AWS SES users know, if you get big amount of Bouncing emails, AWS will send you into probation period.
 In some cases, there is no easy way to solve issue. This bundle solves problem transparently filtering recipients lists trough own database built by listening on AWS SNS Bounce topic that it creates and hooks to your identity.
+
+Useful Links:
+=============
+
+- [How to handle Bounces and Complaints](http://sesblog.amazon.com/post/TxJE1JNZ6T9JXK/-Handling-span-class-matches-Bounces-span-and-Complaints.pdf)
+- [Some sample code with PHP](https://forums.aws.amazon.com/message.jspa?messageID=202798#202798)
 
 Requirements:
 =============
@@ -53,7 +61,7 @@ class AppKernel extends Kernel
         $bundles = array(
             // ...
 
-             new Shivas\BouncerBundle\ShivasBouncerBundle(),
+             new SerendipityHQ\Bundle\AwsSesMonitorBundle\ShivasBouncerBundle(),
         );
 
         // ...
@@ -94,7 +102,7 @@ Then, use those parameters
 
 ```yaml
 # Default configuration for "ShivasBouncerBundle"
-shivas_bouncer:
+aws_ses_monitor:
     db_driver: orm # currently only ORM supported
     model_manager_name: null # if using custom ORM model manager, provide name, otherwise leave as null
     aws_config:

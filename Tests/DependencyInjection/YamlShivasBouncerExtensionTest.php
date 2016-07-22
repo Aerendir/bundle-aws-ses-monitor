@@ -1,11 +1,11 @@
 <?php
-namespace Shivas\BouncerBundle\Tests\DependencyInjection;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-class YamlShivasBouncerExtensionTest extends AbstractShivasBouncerExtensionTest
+class YamlSerendipityHQAwsSesBouncerExtensionTest extends AbstractSerendipityHQAwsSesBouncerExtensionTest
 {
     protected function loadConfiguration(ContainerBuilder $container, $resource)
     {

@@ -1,4 +1,4 @@
-shivas_bouncer:
+aws_ses_monitor:
     db_driver:            orm
     model_manager_name:   null
     aws_config:

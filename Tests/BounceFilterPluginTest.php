@@ -1,5 +1,5 @@
 <?php
-use Shivas\BouncerBundle\Plugin\BouncerFilterPlugin;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin\BouncerFilterPlugin;
 
 class BounceFilterPluginTest extends \PHPUnit_Framework_TestCase
 {
@@ -11,7 +11,7 @@ class BounceFilterPluginTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->bounced = $this->getMockBuilder('Shivas\BouncerBundle\Model\Bounce')->disableOriginalConstructor()->getMock();
+        $this->bounced = $this->getMockBuilder('SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce')->disableOriginalConstructor()->getMock();
 
         $map = array(
             array('bounced@example.com', $this->bounced),
@@ -23,7 +23,7 @@ class BounceFilterPluginTest extends \PHPUnit_Framework_TestCase
         $recipientsCc = array('valid@example.com' => null, 'bounced@example.com' => null, 'valid2@example.com' => null);
         $recipientsBcc = null;
 
-        $this->bounceRepo = $this->createMock('Shivas\BouncerBundle\Model\BounceRepositoryInterface');
+        $this->bounceRepo = $this->createMock('SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\BounceRepositoryInterface');
         $this->bounceRepo->expects($this->any())
             ->method('findBounceByEmail')
             ->will($this->returnValueMap($map));

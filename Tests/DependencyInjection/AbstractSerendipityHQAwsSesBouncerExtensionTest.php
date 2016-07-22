@@ -1,10 +1,10 @@
 <?php
-namespace Shivas\BouncerBundle\Tests\DependencyInjection;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\DependencyInjection;
 
-use Shivas\BouncerBundle\DependencyInjection\ShivasBouncerExtension;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection\AwsSesMonitorExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-abstract class AbstractShivasBouncerExtensionTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends \PHPUnit_Framework_TestCase
 {
     private $extension;
     /** @var ContainerBuilder */
@@ -12,7 +12,7 @@ abstract class AbstractShivasBouncerExtensionTest extends \PHPUnit_Framework_Tes
 
     protected function setUp()
     {
-        $this->extension = new ShivasBouncerExtension();
+        $this->extension = new AwsSesMonitorExtension();
 
         $this->container = new ContainerBuilder();
         $this->container->registerExtension($this->extension);
@@ -25,7 +25,7 @@ abstract class AbstractShivasBouncerExtensionTest extends \PHPUnit_Framework_Tes
         $this->loadConfiguration($this->container, 'filter_disabled');
         $this->container->compile();
 
-        $this->assertFalse($this->container->has('shivas_bouncer.swift_mailer.filter'));
+        $this->assertFalse($this->container->has('aws_ses_monitor.swift_mailer.filter'));
     }
 
     public function testFilterEnabledConfiguration()
@@ -33,7 +33,7 @@ abstract class AbstractShivasBouncerExtensionTest extends \PHPUnit_Framework_Tes
         $this->loadConfiguration($this->container, 'filter_enabled');
         $this->container->compile();
 
-        $this->assertTrue($this->container->has('shivas_bouncer.swift_mailer.filter'));
+        $this->assertTrue($this->container->has('aws_ses_monitor.swift_mailer.filter'));
     }
 
     public function testFilterHasPluginTagConfiguration()
@@ -41,10 +41,10 @@ abstract class AbstractShivasBouncerExtensionTest extends \PHPUnit_Framework_Tes
         $this->loadConfiguration($this->container, 'filter_enabled');
         $this->container->compile();
 
-        $this->assertTrue($this->container->has('shivas_bouncer.swift_mailer.filter'));
-        $this->assertTrue($this->container->hasDefinition('shivas_bouncer.swift_mailer.filter'));
+        $this->assertTrue($this->container->has('aws_ses_monitor.swift_mailer.filter'));
+        $this->assertTrue($this->container->hasDefinition('aws_ses_monitor.swift_mailer.filter'));
 
-        $definition = $this->container->getDefinition('shivas_bouncer.swift_mailer.filter');
+        $definition = $this->container->getDefinition('aws_ses_monitor.swift_mailer.filter');
         $this->assertArrayHasKey('swiftmailer.default.plugin', $definition->getTags());
     }
 
@@ -53,10 +53,10 @@ abstract class AbstractShivasBouncerExtensionTest extends \PHPUnit_Framework_Tes
         $this->loadConfiguration($this->container, 'filter_multiple_mailers');
         $this->container->compile();
 
-        $this->assertTrue($this->container->has('shivas_bouncer.swift_mailer.filter'));
-        $this->assertTrue($this->container->hasDefinition('shivas_bouncer.swift_mailer.filter'));
+        $this->assertTrue($this->container->has('aws_ses_monitor.swift_mailer.filter'));
+        $this->assertTrue($this->container->hasDefinition('aws_ses_monitor.swift_mailer.filter'));
 
-        $definition = $this->container->getDefinition('shivas_bouncer.swift_mailer.filter');
+        $definition = $this->container->getDefinition('aws_ses_monitor.swift_mailer.filter');
         $this->assertCount(3, $definition->getTags());
         $this->assertArrayHasKey('swiftmailer.default.plugin', $definition->getTags());
         $this->assertArrayHasKey('swiftmailer.second.plugin', $definition->getTags());

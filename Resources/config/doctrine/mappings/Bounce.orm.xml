@@ -3,7 +3,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="Shivas\BouncerBundle\Model\Bounce" table="shivas_bouncer_bounces" repository-class="Shivas\BouncerBundle\Repository\BounceRepository">
+    <entity name="SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce" table="aws_ses_monitor_bounces" repository-class="SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\BounceRepository">
 
         <id name="emailAddress" type="string" column="email_address" />
 

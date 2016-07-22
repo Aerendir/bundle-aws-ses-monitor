@@ -1,8 +1,8 @@
 <?php
-namespace Shivas\BouncerBundle\Repository;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository;
 
-use Shivas\BouncerBundle\Model\Bounce;
-use Shivas\BouncerBundle\Model\BounceRepositoryInterface;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\BounceRepositoryInterface;
 use Doctrine\ORM\EntityRepository;
 
 class BounceRepository extends EntityRepository implements BounceRepositoryInterface

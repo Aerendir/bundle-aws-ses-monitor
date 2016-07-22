@@ -1,6 +1,6 @@
 <?php
 
-namespace Shivas\BouncerBundle\DependencyInjection;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -13,7 +13,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('shivas_bouncer');
+        $rootNode = $treeBuilder->root('aws_ses_monitor');
 
         $supportedDrivers = array('orm');
         $supportedProtocols = array('HTTP', 'HTTPS', 'http', 'https');

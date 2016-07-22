@@ -1,7 +1,7 @@
 <?php
 
-use Shivas\BouncerBundle\Model\NotificationHandler;
-use Shivas\BouncerBundle\Model\SubscriptionConfirmationHandler;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\NotificationHandler;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\SubscriptionConfirmationHandler;
 
 class HandlerFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -15,7 +15,7 @@ class HandlerFactoryTest extends \PHPUnit_Framework_TestCase
             ->getMock();
         $this->request->headers = new \Symfony\Component\HttpFoundation\HeaderBag();
 
-        $this->aws = $this->getMockBuilder('\Shivas\BouncerBundle\Service\AwsClientFactory')
+        $this->aws = $this->getMockBuilder('\SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -33,31 +33,31 @@ class HandlerFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testNoopHandlerCreated()
     {
-        $factory = new \Shivas\BouncerBundle\Service\HandlerFactory($this->om, $this->aws);
+        $factory = new \SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\HandlerFactory($this->om, $this->aws);
 
         /** @var \Symfony\Component\HttpFoundation\Request $request */
         $this->request->headers->set('x-amz-sns-message-type', 'test-fake');
         $object = $factory->buildHandler($this->request);
-        $this->assertInstanceOf('Shivas\BouncerBundle\Model\NoopHandler', $object);
+        $this->assertInstanceOf('SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\NoopHandler', $object);
     }
 
     public function testNotificationHandlerCreated()
     {
-        $factory = new \Shivas\BouncerBundle\Service\HandlerFactory($this->om, $this->aws);
+        $factory = new \SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\HandlerFactory($this->om, $this->aws);
 
         /** @var \Symfony\Component\HttpFoundation\Request $request */
         $this->request->headers->set('x-amz-sns-message-type', NotificationHandler::HEADER_TYPE);
         $object = $factory->buildHandler($this->request);
-        $this->assertInstanceOf('Shivas\BouncerBundle\Model\NotificationHandler', $object);
+        $this->assertInstanceOf('SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\NotificationHandler', $object);
     }
 
     public function testSubscriptionConfirmationHandlerCreated()
     {
-        $factory = new \Shivas\BouncerBundle\Service\HandlerFactory($this->om, $this->aws);
+        $factory = new \SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\HandlerFactory($this->om, $this->aws);
 
         /** @var \Symfony\Component\HttpFoundation\Request $request */
         $this->request->headers->set('x-amz-sns-message-type', SubscriptionConfirmationHandler::HEADER_TYPE);
         $object = $factory->buildHandler($this->request);
-        $this->assertInstanceOf('Shivas\BouncerBundle\Model\SubscriptionConfirmationHandler', $object);
+        $this->assertInstanceOf('SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\SubscriptionConfirmationHandler', $object);
     }
 }
