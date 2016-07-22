@@ -5,8 +5,14 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+/**
+ * {@inheritdoc}
+ */
 class Configuration implements ConfigurationInterface
 {
+    const SUPPORTED_PROTOCOLS = ['HTTP', 'HTTPS', 'http', 'https'];
+    const SUPPORTED_DRIVERS   = ['orm'];
+
     /**
      * {@inheritdoc}
      */
@@ -15,15 +21,12 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('aws_ses_monitor');
 
-        $supportedDrivers = array('orm');
-        $supportedProtocols = array('HTTP', 'HTTPS', 'http', 'https');
-
         $rootNode
             ->children()
                 ->scalarNode('db_driver')
                     ->validate()
-                        ->ifNotInArray($supportedDrivers)
-                        ->thenInvalid('The driver %s is not supported. Please choose one of '.json_encode($supportedDrivers))
+                        ->ifNotInArray(self::SUPPORTED_DRIVERS)
+                        ->thenInvalid('The driver %s is not supported. Please choose one of '.json_encode(self::SUPPORTED_DRIVERS))
                     ->end()
                     ->cannotBeOverwritten()
                     ->isRequired()
@@ -46,8 +49,8 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('route_name')->defaultValue('_aws_monitor_bounces_endpoint')->cannotBeEmpty()->end()
                         ->scalarNode('protocol')
                             ->validate()
-                                ->ifNotInArray($supportedProtocols)
-                                ->thenInvalid('The protocol %s is not supported. Please choose one of '.json_encode($supportedProtocols))
+                                ->ifNotInArray(self::SUPPORTED_PROTOCOLS)
+                                ->thenInvalid('The protocol %s is not supported. Please choose one of '.json_encode(self::SUPPORTED_PROTOCOLS))
                             ->end()
                             ->defaultValue('http')
                             ->cannotBeEmpty()
@@ -63,7 +66,7 @@ class Configuration implements ConfigurationInterface
                         ->arrayNode('mailer_name')
                             ->isRequired()
                             ->prototype('scalar')->end()
-                            ->defaultValue(array('default'))
+                            ->defaultValue(['default'])
                         ->end()
                     ->end();
 
