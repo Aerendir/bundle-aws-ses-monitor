@@ -26,7 +26,7 @@ class HandlerFactoryTest extends \PHPUnit_Framework_TestCase
         $this->om
             ->expects($this->any())
             ->method('getRepository')
-            ->will($this->returnValue($this->getMock('Doctrine\Common\Persistence\ObjectRepository')));
+            ->will($this->returnValue($this->createMock('Doctrine\Common\Persistence\ObjectRepository')));
 
 
     }

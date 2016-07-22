@@ -24,18 +24,18 @@ class BounceFilterPluginPermanentTest extends \PHPUnit_Framework_TestCase
         $recipientsCc = array('valid@example.com' => null, 'bounced@example.com' => null, 'valid2@example.com' => null);
         $recipientsBcc = null;
 
-        $this->bounceRepo = $this->getMock('Shivas\BouncerBundle\Model\BounceRepositoryInterface');
+        $this->bounceRepo = $this->createMock('Shivas\BouncerBundle\Model\BounceRepositoryInterface');
         $this->bounceRepo->expects($this->any())
             ->method('findBounceByEmail')
             ->will($this->returnValueMap($map));
 
-        $this->om = $this->getMock('Doctrine\Common\Persistence\ObjectManager');
+        $this->om = $this->createMock('Doctrine\Common\Persistence\ObjectManager');
         $this->om
             ->expects($this->once())
             ->method('getRepository')
             ->willReturn($this->bounceRepo);
 
-        $this->message = $this->getMock('Swift_Mime_Message');
+        $this->message = $this->createMock('Swift_Mime_Message');
 
         $this->message
             ->expects($this->once())
