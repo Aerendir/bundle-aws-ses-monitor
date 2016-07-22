@@ -1,7 +1,7 @@
 {
-    "name": "serendipity/aws-ses-monitor-bundle",
+    "name": "serendipity_hq/aws-ses-monitor-bundle",
     "type": "symfony-bundle",
-    "description": "Symfony2.8 bundle to monitor AWS SES bounces and complaints. Includes SwiftMailer filters.",
+    "description": "Symfony 2.8 bundle to monitor AWS SES bounces and complaints. Includes SwiftMailer filters.",
     "keywords": ["aws", "ses", "sns", "bounce", "complaints", "blacklist", "swiftmailer"],
     "homepage": "https://github.com/Aerendir/aws-ses-bouncer-bundle",
     "license": "MIT",
