@@ -112,8 +112,8 @@ aws_ses_monitor:
         region: "%amazon.aws.eu_region%" # You can omit this. If omitted, the bundle sets this to us-east-1
         ses_version: "%amazon.ses.version%" # You can omit this. If omitted, the bundle sets this to 2010-12-01
         sns_version: "%amazon.sns.version%" # You can omit this. If omitted, the bundle sets this to 2010-03-31
-    bounce_endpoint:
-        route_name:           _shivasbouncerbundle_bounce_endpoint
+    bounces_endpoint:
+        route_name:           _aws_monitor_bounces_endpoint
         protocol:             HTTP # HTTP or HTTPS
         host:                 localhost.local # hostname of your project when in production
     filter:

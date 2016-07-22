@@ -8,6 +8,9 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\NotificationHandler;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\SubscriptionConfirmationHandler;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Creates the handlers.
+ */
 class HandlerFactory
 {
     /** @var ObjectManager */
@@ -28,7 +31,7 @@ class HandlerFactory
      * @param Request $request
      * @return BouncerHandlerInterface
      */
-    public function buildHandler(Request $request)
+    public function buildBouncesHandler(Request $request)
     {
         $headerType = $request->headers->get('x-amz-sns-message-type');
 

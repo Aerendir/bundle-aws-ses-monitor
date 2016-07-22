@@ -14,7 +14,7 @@ use Symfony\Component\Console\Question\ChoiceQuestion;
 /**
  * {@inheritdoc}
  */
-class SnsSetupBounceTopicCommand extends ContainerAwareCommand
+class SnsSetupBouncesTopicCommand extends ContainerAwareCommand
 {
     /**
      * {@inheritdoc}
@@ -41,8 +41,8 @@ class SnsSetupBounceTopicCommand extends ContainerAwareCommand
         $container = $this->getContainer();
         /** @var RequestContext $context */
         $context = $container->get('router')->getContext();
-        $context->setHost($container->getParameter('aws_ses_monitor.bounce_endpoint')['host']);
-        $context->setScheme($container->getParameter('aws_ses_monitor.bounce_endpoint')['protocol']);
+        $context->setHost($container->getParameter('aws_ses_monitor.bounces_endpoint')['host']);
+        $context->setScheme($container->getParameter('aws_ses_monitor.bounces_endpoint')['protocol']);
 
         $apiFactory = $container->get('aws_ses_monitor.aws.client.factory');
 
@@ -90,12 +90,12 @@ class SnsSetupBounceTopicCommand extends ContainerAwareCommand
 
         $subscribe = [
             'TopicArn' => $topicArn,
-            'Protocol' => $container->getParameter('aws_ses_monitor.bounce_endpoint')['protocol'],
+            'Protocol' => $container->getParameter('aws_ses_monitor.bounces_endpoint')['protocol'],
             'Endpoint' => $this->getContainer()
                 ->get('router')
                 ->generate(
                     $container->getParameter(
-                        'aws_ses_monitor.bounce_endpoint'
+                        'aws_ses_monitor.bounces_endpoint'
                     )['route_name'],
                     array(),
                     RouterInterface::ABSOLUTE_URL
