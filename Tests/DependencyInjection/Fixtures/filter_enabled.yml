@@ -1,6 +1,4 @@
 aws_ses_monitor:
-    db_driver:            orm
-    model_manager_name:   null
     aws_config:
         region:               us-east-1
     bounces_endpoint:
