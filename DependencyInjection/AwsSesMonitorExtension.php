@@ -41,7 +41,8 @@ class AwsSesMonitorExtension extends Extension
         $container->setParameter('aws_ses_monitor.manager_name', $config['model_manager_name']);
         $container->setParameter('aws_ses_monitor.bounces_endpoint', $config['bounces_endpoint']);
         $container->setParameter('aws_ses_monitor.filter', $config['filter']);
-        $container->setParameter('aws_ses_monitor.filter.filter_not_permanent', $config['filter']['filter_not_permanent']);
+        $container->setParameter('aws_ses_monitor.filter.filter_not_blacklists', $config['filter']['filter_not_blacklists']);
+        $container->setParameter('aws_ses_monitor.filter.number_of_bounces_for_blacklist', $config['filter']['number_of_bounces_for_blacklist']);
         $container->setParameter('aws_ses_monitor.aws_config', $config['aws_config']);
     }
 }

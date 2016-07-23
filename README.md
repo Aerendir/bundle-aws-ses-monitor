@@ -116,9 +116,14 @@ aws_ses_monitor:
         route_name:           _aws_monitor_bounces_endpoint
         protocol:             HTTP # HTTP or HTTPS
         host:                 localhost.local # hostname of your project when in production
+    complaints_endpoint:
+        route_name:           _aws_monitor_complaints_endpoint
+        protocol:             HTTP # HTTP or HTTPS
+        host:                 localhost.local # hostname of your project when in production
     filter:
         enabled:              true # if false, no filtering of bounced recipients will happen
-        filter_not_permanent: false # if false, all temporary bounces will not make that address to be filtered forever
+        filter_not_blacklists: false # if false, all temporary bounces will not make that address to be filtered forever
+        number_of_bounces_for_blacklist: 5 # The number of bounces required to permanently blacklist the address
         mailer_name:          # array of mailer names where to register filtering plugin
             - default
 ```

@@ -9,6 +9,6 @@ aws_ses_monitor:
         host:                 localhost.local
     filter:
         enabled:              true
-        filter_not_permanent: false
+        filter_not_blacklists: false
         mailer_name:
             - default
