@@ -16,12 +16,12 @@ Forked from [BouncerBundle](https://github.com/shivas/bouncer-bundle).
 
 AWS SES Monitor Bundle for Symfony 2 automates the filtering of [bounced and complined e-mails sent through AWS SES](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/best-practices-bounces-complaints.html).
 
-AWS SES can give you notifications about bounced or complained both [via e-mails](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications-via-email.html)
+AWS SES can give you notifications about bounced or complained e-mails both [via e-mail](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications-via-email.html)
  or [via the AWS SNS service](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications-via-sns.html).
 
-Managing these notifications it is possible to know to which e-mails we should not send e-mail.
+Managing these notifications it is possible to know to which e-mails we should not send other e-mails.
 
-This bundle helps you setting up the automatc handling of notifications via SNS.
+**This bundle helps you setting up the automatic handling of notifications via SNS.**
 
 How AWS SES Monitor Bundle integrates with AWS SNS
 --------------------------------------------------
@@ -34,12 +34,6 @@ The SwiftMailer plugin included reads these e-mails and automatically disable th
 
 The entire procedure is automated by the bundle in a really simple and easy way.
 
-Useful Links
-------------
-
-- [How to handle Bounces and Complaints](http://sesblog.amazon.com/post/TxJE1JNZ6T9JXK/-Handling-span-class-matches-Bounces-span-and-Complaints.pdf)
-- [Some sample code with PHP](https://forums.aws.amazon.com/message.jspa?messageID=202798#202798)
-
 Requirements
 ------------
 
@@ -48,4 +42,10 @@ Requirements
 DOCUMENTATION
 =============
 
-You can read how to install, configure and use AWS SES Monitor Bundle in the [documentation](Resources/docs/Index.md).
+You can read how to install, configure, test and use AWS SES Monitor Bundle in the [documentation](Resources/docs/Index.md).
+
+Useful Links
+------------
+
+- [How to handle Bounces and Complaints](http://sesblog.amazon.com/post/TxJE1JNZ6T9JXK/-Handling-span-class-matches-Bounces-span-and-Complaints.pdf)
+- [Some sample code with PHP](https://forums.aws.amazon.com/message.jspa?messageID=202798#202798)
