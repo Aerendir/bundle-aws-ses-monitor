@@ -1,4 +1,5 @@
 <?php
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 
 use Aws\Sns\Message;
@@ -29,6 +30,7 @@ class NotificationHandler implements MonitorHandlerInterface
 
     /**
      * @param Request $request
+     *
      * @return int
      */
     public function handleRequest(Request $request)
@@ -49,22 +51,20 @@ class NotificationHandler implements MonitorHandlerInterface
         if (isset($data['Message'])) {
             $message = json_decode($data['Message'], true);
             if (!is_null($message)) {
-
                 if (isset($message['notificationType']) && $message['notificationType'] == self::MESSAGE_TYPE_SUBSCRIPTION_SUCCESS) {
                     return 200;
                 }
 
-                if (isset($message['notificationType']) && $message['notificationType'] == self::MESSAGE_TYPE_BOUNCE)
-                {
+                if (isset($message['notificationType']) && $message['notificationType'] == self::MESSAGE_TYPE_BOUNCE) {
                     foreach ($message['bounce']['bouncedRecipients'] as $bounceRecipient) {
                         $email = $bounceRecipient['emailAddress'];
                         $bounce = $this->repo->findBounceByEmail($email);
                         if ($bounce instanceof Bounce) {
                             $bounce->incrementBounceCounter();
                             $bounce->setLastTimeBounce(new \DateTime());
-                            $bounce->setPermanent(($message['bounce']['bounceType']=='Permanent'));
+                            $bounce->setPermanent(($message['bounce']['bounceType'] == 'Permanent'));
                         } else {
-                            $bounce = new Bounce($email, new \DateTime(), 1, ($message['bounce']['bounceType']=='Permanent'));
+                            $bounce = new Bounce($email, new \DateTime(), 1, ($message['bounce']['bounceType'] == 'Permanent'));
                         }
 
                         $this->repo->save($bounce);

@@ -1,4 +1,5 @@
 <?php
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle;
 
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
@@ -11,7 +12,7 @@ class AwsSesMonitorBundle extends Bundle
     {
         parent::build($container);
 
-        $modelDir = realpath(__DIR__.'/Resources/config/doctrine/mappings');
+        $modelDir = realpath(__DIR__ . '/Resources/config/doctrine/mappings');
         $mappings = array(
             $modelDir => 'SerendipityHQ\Bundle\AwsSesMonitorBundle\Model',
         );

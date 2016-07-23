@@ -1,4 +1,5 @@
 <?php
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository;
 
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
@@ -12,6 +13,7 @@ class BounceRepository extends EntityRepository implements BounceRepositoryInter
 {
     /**
      * @param $email
+     *
      * @return object|Bounce|null
      */
     public function findBounceByEmail($email)
@@ -21,6 +23,7 @@ class BounceRepository extends EntityRepository implements BounceRepositoryInter
 
     /**
      * @param Bounce $bounce
+     *
      * @return mixed
      */
     public function save(Bounce $bounce)

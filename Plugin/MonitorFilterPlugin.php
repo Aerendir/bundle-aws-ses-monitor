@@ -1,4 +1,5 @@
 <?php
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin;
 
 use Doctrine\Common\Persistence\ObjectManager;
@@ -19,19 +20,19 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     /** @var ComplaintRepositoryInterface */
     private $complaintRepo;
 
-    /** @var  array */
+    /** @var array */
     private $blacklisted = [];
 
     /** @var bool $filterNotBlacklisted */
     private $filterNotBlacklisted;
 
-    /** @var  int $numberOfBouncesForBlacklist */
+    /** @var int $numberOfBouncesForBlacklist */
     private $numberOfBouncesForBlacklist;
 
     /**
      * @param ObjectManager $manager
-     * @param bool $filterNotBlacklisted
-     * @param int $numberOfBouncesForBlacklist
+     * @param bool          $filterNotBlacklisted
+     * @param int           $numberOfBouncesForBlacklist
      */
     public function __construct(ObjectManager $manager, $filterNotBlacklisted, $numberOfBouncesForBlacklist)
     {
@@ -67,6 +68,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
 
     /**
      * @param $recipients
+     *
      * @return mixed
      */
     private function filterForBlacklisted($recipients)
@@ -89,13 +91,14 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
 
     /**
      * @param $email
+     *
      * @return bool
      */
     private function isBounced($email)
     {
         $bounce = $this->bounceRepo->findBounceByEmail($email);
         if ($bounce instanceof Bounce) {
-            if ($bounce->isPermanent() || $this->filterNotBlacklisted ) {
+            if ($bounce->isPermanent() || $this->filterNotBlacklisted) {
                 return true;
             }
         }
@@ -105,13 +108,13 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
 
     /**
      * @param $email
+     *
      * @return bool
      */
     private function isCoplained($email)
     {
         $complaint = $this->complaintRepo->findComplaintByEmail($email);
         if ($complaint instanceof Complaint) {
-
             if ($complaint->isPermanent() || $this->filterNotBlacklisted) {
                 return true;
             }

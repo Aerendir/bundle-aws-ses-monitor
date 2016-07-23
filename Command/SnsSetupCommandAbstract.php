@@ -1,4 +1,5 @@
 <?php
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 
 use Aws\Ses\SesClient;
@@ -15,16 +16,16 @@ use Symfony\Component\Routing\RouterInterface;
  */
 class SnsSetupCommandAbstract extends ContainerAwareCommand
 {
-    /** @var  string $endpoint */
+    /** @var string $endpoint */
     private $endpoint;
 
-    /** @var  SesClient $sesClient */
+    /** @var SesClient $sesClient */
     private $sesClient;
 
-    /** @var  SnsClient $snsClient */
+    /** @var SnsClient $snsClient */
     private $snsClient;
 
-    /** @var  string $topicArn */
+    /** @var string $topicArn */
     private $topicArn;
 
     /**
@@ -78,7 +79,7 @@ class SnsSetupCommandAbstract extends ContainerAwareCommand
         $question = new ChoiceQuestion(
             'Please select identities to hook to: (comma separated numbers, default: all)',
             $identities,
-            implode(",", range(0, count($identities) - 1, 1))
+            implode(',', range(0, count($identities) - 1, 1))
         );
         $question->setMultiselect(true);
 
@@ -110,7 +111,8 @@ class SnsSetupCommandAbstract extends ContainerAwareCommand
      * Sets the chosen identity in the SesClient.
      *
      * @param string $identity
-     * @param string $type The type of notification.
+     * @param string $type     The type of notification
+     *
      *                     @see http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-email-2010-12-01.html#setidentitynotificationtopic
      */
     public function setIdentityInSesClient($identity, $type)

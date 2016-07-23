@@ -1,4 +1,5 @@
 <?php
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 
 use Symfony\Component\Console\Input\InputArgument;
@@ -25,7 +26,7 @@ class SnsSetupComplaintsTopicCommand extends SnsSetupCommandAbstract
     /**
      * Executes the command.
      *
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      *
      * @return null|int null or 0 if everything went fine, or an error code
@@ -55,6 +56,6 @@ class SnsSetupComplaintsTopicCommand extends SnsSetupCommandAbstract
         $response = $this->getSnsClient()->subscribe($subscribe);
 
         $output->writeln(sprintf("\nSubscription endpoint URI: <comment>%s</comment>\n", $subscribe['Endpoint']));
-        $output->writeln(sprintf("Subscription status: <comment>%s</comment>", $response->get('SubscriptionArn')));
+        $output->writeln(sprintf('Subscription status: <comment>%s</comment>', $response->get('SubscriptionArn')));
     }
 }

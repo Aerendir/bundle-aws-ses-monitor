@@ -1,4 +1,5 @@
 <?php
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
 
 use Doctrine\Common\Persistence\ObjectManager;
@@ -23,7 +24,8 @@ class HandlerFactory
 
     /**
      * HandlerFactory constructor.
-     * @param ObjectManager $entityManager
+     *
+     * @param ObjectManager    $entityManager
      * @param AwsClientFactory $awsFactory
      */
     public function __construct(ObjectManager $entityManager, AwsClientFactory $awsFactory)
@@ -34,6 +36,7 @@ class HandlerFactory
 
     /**
      * @param Request $request
+     *
      * @return MonitorHandlerInterface
      */
     public function buildBouncesHandler(Request $request)
@@ -43,6 +46,7 @@ class HandlerFactory
 
     /**
      * @param Request $request
+     *
      * @return MonitorHandlerInterface
      */
     public function buildComplaintsHandler(Request $request)
@@ -52,13 +56,14 @@ class HandlerFactory
 
     /**
      * @param Request $request
+     *
      * @return MonitorHandlerInterface
      */
     public function buildHandler(Request $request)
     {
         $headerType = $request->headers->get('x-amz-sns-message-type');
 
-        switch($headerType) {
+        switch ($headerType) {
             case NotificationHandler::HEADER_TYPE:
                 return new NotificationHandler(
                     $this->objectManager->getRepository('AwsSesMonitorBundle:Bounce')

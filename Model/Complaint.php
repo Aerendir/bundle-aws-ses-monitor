@@ -1,4 +1,5 @@
 <?php
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 
 /**
@@ -23,11 +24,12 @@ class Complaint
 
     /**
      * Complaint constructor.
+     *
      * @param $emailAddress
      * @param $complaintTime
      * @param bool $permanent
      */
-    public function __construct($emailAddress, $complaintTime , $permanent = false)
+    public function __construct($emailAddress, $complaintTime, $permanent = false)
     {
         $this->setEmailAddress($emailAddress);
         $this->complaintTime = $complaintTime;
@@ -44,11 +46,13 @@ class Complaint
 
     /**
      * @param string $emailAddress
+     *
      * @return $this
      */
     public function setEmailAddress($emailAddress)
     {
         $this->emailAddress = mb_strtolower($emailAddress);
+
         return $this;
     }
 
@@ -62,16 +66,18 @@ class Complaint
 
     /**
      * @param \DateTime $complaintTime
+     *
      * @return $this
      */
     public function setComplaintTime($complaintTime)
     {
         $this->complaintTime = $complaintTime;
+
         return $this;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isPermanent()
     {
@@ -79,12 +85,14 @@ class Complaint
     }
 
     /**
-     * @param boolean $permanent
+     * @param bool $permanent
+     *
      * @return $this
      */
     public function setPermanent($permanent)
     {
         $this->permanent = $permanent;
+
         return $this;
     }
 }

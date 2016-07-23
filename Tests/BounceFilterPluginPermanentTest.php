@@ -1,4 +1,5 @@
 <?php
+
 use Doctrine\Common\Persistence\ObjectManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\BounceRepositoryInterface;

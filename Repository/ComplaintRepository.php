@@ -1,4 +1,5 @@
 <?php
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
@@ -12,6 +13,7 @@ class ComplaintRepository extends EntityRepository implements ComplaintRepositor
 {
     /**
      * @param $email
+     *
      * @return object|Complaint|null
      */
     public function findComplaintByEmail($email)
@@ -21,6 +23,7 @@ class ComplaintRepository extends EntityRepository implements ComplaintRepositor
 
     /**
      * @param Complaint $bounce
+     *
      * @return mixed
      */
     public function save(Complaint $bounce)

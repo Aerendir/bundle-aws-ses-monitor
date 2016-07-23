@@ -1,9 +1,10 @@
 <?php
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 
 class Topic
 {
-    /** @var integer */
+    /** @var int */
     protected $id;
 
     /** @var string */
@@ -36,21 +37,25 @@ class Topic
 
     /**
      * @param null|string $token
+     *
      * @return $this
      */
     public function setToken($token)
     {
         $this->token = $token;
+
         return $this;
     }
 
     /**
      * @param string $topicArn
+     *
      * @return $this
      */
     public function setTopicArn($topicArn)
     {
         $this->topicArn = $topicArn;
+
         return $this;
     }
 

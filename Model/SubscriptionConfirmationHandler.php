@@ -1,4 +1,5 @@
 <?php
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 
 use Aws\Sns\MessageValidator\Message;
@@ -32,6 +33,7 @@ class SubscriptionConfirmationHandler implements MonitorHandlerInterface
 
     /**
      * @param Request $request
+     *
      * @return int
      */
     public function handleRequest(Request $request)
@@ -67,9 +69,11 @@ class SubscriptionConfirmationHandler implements MonitorHandlerInterface
                 );
 
                 $this->repo->remove($topicEntity);
+
                 return 200;
             }
         }
+
         return 404;
     }
 }

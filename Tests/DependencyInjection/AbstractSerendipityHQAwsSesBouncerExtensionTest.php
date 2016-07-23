@@ -1,4 +1,5 @@
 <?php
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\DependencyInjection;
 
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection\AwsSesMonitorExtension;
@@ -62,6 +63,4 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends \PHPUnit_
         $this->assertArrayHasKey('swiftmailer.second.plugin', $definition->getTags());
         $this->assertArrayHasKey('swiftmailer.third.plugin', $definition->getTags());
     }
-
-
 }

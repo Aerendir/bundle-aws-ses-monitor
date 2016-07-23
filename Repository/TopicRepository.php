@@ -1,4 +1,5 @@
 <?php
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository;
 
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Topic;
@@ -9,6 +10,7 @@ class TopicRepository extends EntityRepository implements TopicRepositoryInterfa
 {
     /**
      * @param $topicArn
+     *
      * @return Topic|null
      */
     public function getTopicByArn($topicArn)
@@ -18,6 +20,7 @@ class TopicRepository extends EntityRepository implements TopicRepositoryInterfa
 
     /**
      * @param Topic $topic
+     *
      * @return mixed
      */
     public function save(Topic $topic)
@@ -28,6 +31,7 @@ class TopicRepository extends EntityRepository implements TopicRepositoryInterfa
 
     /**
      * @param Topic $topic
+     *
      * @return mixed
      */
     public function remove(Topic $topic)

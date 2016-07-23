@@ -27,15 +27,13 @@ class HandlerFactoryTest extends \PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('getRepository')
             ->will($this->returnValue($this->createMock('Doctrine\Common\Persistence\ObjectRepository')));
-
-
     }
 
     public function testNoopHandlerCreated()
     {
         $factory = new \SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\HandlerFactory($this->om, $this->aws);
 
-        /** @var \Symfony\Component\HttpFoundation\Request $request */
+        /* @var \Symfony\Component\HttpFoundation\Request $request */
         $this->request->headers->set('x-amz-sns-message-type', 'test-fake');
         $object = $factory->buildBouncesHandler($this->request);
         $this->assertInstanceOf('SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\NoopHandler', $object);
@@ -45,7 +43,7 @@ class HandlerFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = new \SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\HandlerFactory($this->om, $this->aws);
 
-        /** @var \Symfony\Component\HttpFoundation\Request $request */
+        /* @var \Symfony\Component\HttpFoundation\Request $request */
         $this->request->headers->set('x-amz-sns-message-type', NotificationHandler::HEADER_TYPE);
         $object = $factory->buildBouncesHandler($this->request);
         $this->assertInstanceOf('SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\NotificationHandler', $object);
@@ -55,7 +53,7 @@ class HandlerFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = new \SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\HandlerFactory($this->om, $this->aws);
 
-        /** @var \Symfony\Component\HttpFoundation\Request $request */
+        /* @var \Symfony\Component\HttpFoundation\Request $request */
         $this->request->headers->set('x-amz-sns-message-type', SubscriptionConfirmationHandler::HEADER_TYPE);
         $object = $factory->buildBouncesHandler($this->request);
         $this->assertInstanceOf('SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\SubscriptionConfirmationHandler', $object);

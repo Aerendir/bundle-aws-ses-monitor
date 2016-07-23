@@ -1,8 +1,9 @@
 <?php
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 
 /**
- * Represents a Bounce
+ * Represents a Bounce.
  */
 class Bounce
 {
@@ -28,12 +29,13 @@ class Bounce
 
     /**
      * Bounce constructor.
+     *
      * @param $emailAddress
      * @param $lastTimeBounce
-     * @param int $bounceCount
+     * @param int  $bounceCount
      * @param bool $permanent
      */
-    public function __construct($emailAddress, $lastTimeBounce, $bounceCount = 1 , $permanent = false)
+    public function __construct($emailAddress, $lastTimeBounce, $bounceCount = 1, $permanent = false)
     {
         $this->setEmailAddress($emailAddress);
         $this->lastTimeBounce = $lastTimeBounce;
@@ -51,11 +53,13 @@ class Bounce
 
     /**
      * @param string $emailAddress
+     *
      * @return $this
      */
     public function setEmailAddress($emailAddress)
     {
         $this->emailAddress = mb_strtolower($emailAddress);
+
         return $this;
     }
 
@@ -69,11 +73,13 @@ class Bounce
 
     /**
      * @param \DateTime $lastTimeBounce
+     *
      * @return $this
      */
     public function setLastTimeBounce($lastTimeBounce)
     {
         $this->lastTimeBounce = $lastTimeBounce;
+
         return $this;
     }
 
@@ -87,16 +93,18 @@ class Bounce
 
     /**
      * @param int $bounceCount
+     *
      * @return $this
      */
     public function setBounceCount($bounceCount)
     {
         $this->bounceCount = $bounceCount;
+
         return $this;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isPermanent()
     {
@@ -104,12 +112,14 @@ class Bounce
     }
 
     /**
-     * @param boolean $permanent
+     * @param bool $permanent
+     *
      * @return $this
      */
     public function setPermanent($permanent)
     {
         $this->permanent = $permanent;
+
         return $this;
     }
 
@@ -118,7 +128,8 @@ class Bounce
      */
     public function incrementBounceCounter()
     {
-        $this->bounceCount++;
+        ++$this->bounceCount;
+
         return $this;
     }
 }
