@@ -15,8 +15,16 @@ use Symfony\Component\Routing\RouterInterface;
  */
 class SnsSetupCommandAbstract extends ContainerAwareCommand
 {
+    /** @var  string $endpoint */
+    private $endpoint;
+
+    /** @var  SesClient $sesClient */
     private $sesClient;
+
+    /** @var  SnsClient $snsClient */
     private $snsClient;
+
+    /** @var  string $topicArn */
     private $topicArn;
 
     /**
@@ -26,6 +34,8 @@ class SnsSetupCommandAbstract extends ContainerAwareCommand
      */
     public function configureCommand($endpoint)
     {
+        $this->endpoint = $endpoint;
+
         /** @var RequestContext $context */
         $context = $this->getContainer()->get('router')->getContext();
         $context->setHost($this->getContainer()->getParameter($endpoint)['host']);
@@ -121,12 +131,12 @@ class SnsSetupCommandAbstract extends ContainerAwareCommand
     {
         return [
             'TopicArn' => $this->topicArn,
-            'Protocol' => $this->getContainer()->getParameter('aws_ses_monitor.complaints_endpoint')['protocol'],
+            'Protocol' => $this->getContainer()->getParameter($this->endpoint)['protocol'],
             'Endpoint' => $this->getContainer()
                 ->get('router')
                 ->generate(
                     $this->getContainer()->getParameter(
-                        'aws_ses_monitor.complaints_endpoint'
+                        $this->endpoint
                     )['route_name'],
                     [],
                     RouterInterface::ABSOLUTE_URL
