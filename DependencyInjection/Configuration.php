@@ -10,8 +10,25 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
-    const SUPPORTED_PROTOCOLS = ['HTTP', 'HTTPS', 'http', 'https'];
-    const SUPPORTED_DRIVERS   = ['orm'];
+    /**
+     * The list of supported ORM drivers.
+     *
+     * @return array
+     */
+    public static function getSupportedDrivers()
+    {
+        return ['orm'];
+    }
+
+    /**
+     * The list of supported protocols.
+     *
+     * @return array
+     */
+    public static function getSupportedProtocols()
+    {
+        return ['HTTP', 'HTTPS', 'http', 'https'];
+    }
 
     /**
      * {@inheritdoc}
@@ -25,8 +42,8 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('db_driver')
                     ->validate()
-                        ->ifNotInArray(self::SUPPORTED_DRIVERS)
-                        ->thenInvalid('The driver %s is not supported. Please choose one of '.json_encode(self::SUPPORTED_DRIVERS))
+                        ->ifNotInArray(self::getSupportedDrivers())
+                        ->thenInvalid('The driver %s is not supported. Please choose one of '.json_encode(self::getSupportedDrivers()))
                     ->end()
                     ->cannotBeOverwritten()
                     ->isRequired()
@@ -49,8 +66,8 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('route_name')->defaultValue('_aws_monitor_bounces_endpoint')->cannotBeEmpty()->end()
                         ->scalarNode('protocol')
                             ->validate()
-                                ->ifNotInArray(self::SUPPORTED_PROTOCOLS)
-                                ->thenInvalid('The protocol %s is not supported. Please choose one of '.json_encode(self::SUPPORTED_PROTOCOLS))
+                                ->ifNotInArray(self::getSupportedProtocols())
+                                ->thenInvalid('The protocol %s is not supported. Please choose one of '.json_encode(self::getSupportedProtocols()))
                                 ->end()
                             ->defaultValue('http')
                             ->cannotBeEmpty()
@@ -64,8 +81,8 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('route_name')->defaultValue('_aws_monitor_complaints_endpoint')->cannotBeEmpty()->end()
                         ->scalarNode('protocol')
                             ->validate()
-                                ->ifNotInArray(self::SUPPORTED_PROTOCOLS)
-                                ->thenInvalid('The protocol %s is not supported. Please choose one of '.json_encode(self::SUPPORTED_PROTOCOLS))
+                                ->ifNotInArray(self::getSupportedProtocols())
+                                ->thenInvalid('The protocol %s is not supported. Please choose one of '.json_encode(self::getSupportedProtocols()))
                                 ->end()
                             ->defaultValue('http')
                             ->cannotBeEmpty()
