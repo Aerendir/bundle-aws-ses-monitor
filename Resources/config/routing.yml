@@ -1,6 +1,6 @@
 _aws_monitor_bounces_endpoint:
-  pattern: /sns/bounces
+  path: /sns/bounces
   defaults: { _controller: AwsSesMonitorBundle:Bounces:bounces }
 _aws_monitor_complaints_endpoint:
-  pattern: /sns/complaints
+  path: /sns/complaints
   defaults: { _controller: AwsSesMonitorBundle:Complaints:complaints }
