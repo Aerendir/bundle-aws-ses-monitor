@@ -37,7 +37,7 @@ class HandlerFactoryTest extends \PHPUnit_Framework_TestCase
 
         /** @var \Symfony\Component\HttpFoundation\Request $request */
         $this->request->headers->set('x-amz-sns-message-type', 'test-fake');
-        $object = $factory->buildHandler($this->request);
+        $object = $factory->buildBouncesHandler($this->request);
         $this->assertInstanceOf('SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\NoopHandler', $object);
     }
 
@@ -47,7 +47,7 @@ class HandlerFactoryTest extends \PHPUnit_Framework_TestCase
 
         /** @var \Symfony\Component\HttpFoundation\Request $request */
         $this->request->headers->set('x-amz-sns-message-type', NotificationHandler::HEADER_TYPE);
-        $object = $factory->buildHandler($this->request);
+        $object = $factory->buildBouncesHandler($this->request);
         $this->assertInstanceOf('SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\NotificationHandler', $object);
     }
 
@@ -57,7 +57,7 @@ class HandlerFactoryTest extends \PHPUnit_Framework_TestCase
 
         /** @var \Symfony\Component\HttpFoundation\Request $request */
         $this->request->headers->set('x-amz-sns-message-type', SubscriptionConfirmationHandler::HEADER_TYPE);
-        $object = $factory->buildHandler($this->request);
+        $object = $factory->buildBouncesHandler($this->request);
         $this->assertInstanceOf('SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\SubscriptionConfirmationHandler', $object);
     }
 }

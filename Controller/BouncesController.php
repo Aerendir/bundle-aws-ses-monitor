@@ -5,13 +5,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class BounceController extends Controller
+/**
+ * Handles the Bounces.
+ */
+class BouncesController extends Controller
 {
-    public function bounceAction(Request $request)
+    /**
+     * @param Request $request
+     * @return Response
+     */
+    public function bouncesAction(Request $request)
     {
         $factory = $this->get('aws_ses_monitor.handler.factory');
-        $bouncerHandler = $factory->buildHandler($request);
-        $responseCode  = $bouncerHandler->handleRequest($request);
+        $monitorHandler = $factory->buildHandler($request);
+        $responseCode  = $monitorHandler->handleRequest($request);
         return new Response('', $responseCode);
     }
 }

@@ -1,12 +1,15 @@
 <?php
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 
-use Aws\Sns\MessageValidator\Message;
-use Aws\Sns\MessageValidator\MessageValidator;
+use Aws\Sns\Message;
+use Aws\Sns\MessageValidator;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Symfony\Component\HttpFoundation\Request;
 
-class NotificationHandler implements BouncerHandlerInterface
+/**
+ * Handles notifications.
+ */
+class NotificationHandler implements MonitorHandlerInterface
 {
     const HEADER_TYPE = 'Notification';
     const MESSAGE_TYPE_SUBSCRIPTION_SUCCESS = 'AmazonSnsSubscriptionSucceeded';

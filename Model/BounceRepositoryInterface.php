@@ -1,6 +1,9 @@
 <?php
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 
+/**
+ * Repository to manage Bounces.
+ */
 interface BounceRepositoryInterface
 {
     /**

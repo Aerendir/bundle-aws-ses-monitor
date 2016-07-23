@@ -5,13 +5,14 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="aws_ses_monitor.filter.class">SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin\BouncerFilterPlugin</parameter>
+        <parameter key="aws_ses_monitor.filter.class">SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin\MonitorFilterPlugin</parameter>
     </parameters>
 
     <services>
         <service id="aws_ses_monitor.swift_mailer.filter" class="%aws_ses_monitor.filter.class%">
             <argument id="aws_ses_monitor.object_manager" type="service" />
-            <argument>%aws_ses_monitor.filter.filter_not_permanent%</argument>
+            <argument>%aws_ses_monitor.filter.filter_not_blacklists%</argument>
+            <argument>%aws_ses_monitor.filter.number_of_bounces_for_blacklist%</argument>
         </service>
     </services>
 </container>

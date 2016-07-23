@@ -1,3 +1,6 @@
-_shivasbouncerbundle_bounce_endpoint:
-  pattern: /sns/bounce
-  defaults: { _controller: AwsSesMonitorBundle:Bounce:bounce }
+_aws_monitor_bounces_endpoint:
+  path: /sns/bounces
+  defaults: { _controller: AwsSesMonitorBundle:Bounces:bounces }
+_aws_monitor_complaints_endpoint:
+  path: /sns/complaints
+  defaults: { _controller: AwsSesMonitorBundle:Complaints:complaints }

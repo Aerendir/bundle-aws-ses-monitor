@@ -3,12 +3,12 @@ aws_ses_monitor:
     model_manager_name:   null
     aws_config:
         region:               us-east-1
-    bounce_endpoint:
-        route_name:           _shivasbouncebundle_bounce_endpoint
+    bounces_endpoint:
+        route_name:           _shivasbouncebundle_bounces_endpoint
         protocol:             HTTP
         host:                 localhost.local
     filter:
         enabled:              false
-        filter_not_permanent: true
+        filter_not_blacklists: true
         mailer_name:
             - default

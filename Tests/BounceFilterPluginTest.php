@@ -1,38 +1,53 @@
 <?php
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin\BouncerFilterPlugin;
+use Doctrine\Common\Persistence\ObjectManager;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\BounceRepositoryInterface;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\ComplaintRepositoryInterface;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin\MonitorFilterPlugin;
 
 class BounceFilterPluginTest extends \PHPUnit_Framework_TestCase
 {
     private $bounced;
+    private $complained;
     private $om;
     private $bounceRepo;
+    private $complainedRepo;
     private $event;
     private $message;
 
     protected function setUp()
     {
-        $this->bounced = $this->getMockBuilder('SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce')->disableOriginalConstructor()->getMock();
+        $this->bounced = $this->getMockBuilder(Bounce::class)->disableOriginalConstructor()->getMock();
 
-        $map = array(
-            array('bounced@example.com', $this->bounced),
-            array('valid@example.com', null),
-            array('valid2@example.com', null)
-        );
+        $this->complained = $this->getMockBuilder(Complaint::class)->disableOriginalConstructor()->getMock();
 
-        $recipientsTo = array('bounced@example.com' => null, 'valid2@example.com' => null, 'valid@example.com' => null);
-        $recipientsCc = array('valid@example.com' => null, 'bounced@example.com' => null, 'valid2@example.com' => null);
+        $map = [
+            ['bounced@example.com', $this->bounced],
+            ['complained@example.com', $this->complained],
+            ['valid@example.com', null],
+            ['valid2@example.com', null]
+        ];
+
+        $recipientsTo = ['complained@example.com' => null, 'bounced@example.com' => null, 'valid2@example.com' => null, 'valid@example.com' => null];
+        $recipientsCc = ['valid@example.com' => null, 'complained@example.com' => null, 'bounced@example.com' => null, 'valid2@example.com' => null];
         $recipientsBcc = null;
 
-        $this->bounceRepo = $this->createMock('SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\BounceRepositoryInterface');
+        $this->bounceRepo = $this->createMock(BounceRepositoryInterface::class);
         $this->bounceRepo->expects($this->any())
             ->method('findBounceByEmail')
             ->will($this->returnValueMap($map));
 
-        $this->om = $this->createMock('Doctrine\Common\Persistence\ObjectManager');
+        $this->complainedRepo = $this->createMock(ComplaintRepositoryInterface::class);
+        $this->complainedRepo->expects($this->any())
+            ->method('findComplaintByEmail')
+            ->will($this->returnValueMap($map));
+
+        $this->om = $this->createMock(ObjectManager::class);
         $this->om
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('getRepository')
-            ->willReturn($this->bounceRepo);
+            ->willReturnOnConsecutiveCalls($this->bounceRepo, $this->complainedRepo);
 
         $this->message = $this->createMock('Swift_Mime_Message');
 
@@ -55,19 +70,19 @@ class BounceFilterPluginTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('setTo')
             ->withAnyParameters()
-            ->willReturnCallback(array($this, 'confirmBouncerRemoved'));
+            ->willReturnCallback([$this, 'confirmBouncerRemoved']);
 
         $this->message
             ->expects($this->once())
             ->method('setCc')
             ->withAnyParameters()
-            ->willReturnCallback(array($this, 'confirmBouncerRemoved'));
+            ->willReturnCallback([$this, 'confirmBouncerRemoved']);
 
         $this->message
             ->expects($this->once())
             ->method('setBcc')
             ->withAnyParameters()
-            ->willReturnCallback(array($this, 'confirmThatNull'));
+            ->willReturnCallback([$this, 'confirmThatNull']);
 
         $this->event = $this->getMockBuilder('Swift_Events_SendEvent')->disableOriginalConstructor()->getMock();
         $this->event->expects($this->once())
@@ -90,7 +105,7 @@ class BounceFilterPluginTest extends \PHPUnit_Framework_TestCase
 
     public function testRecipientsAreFilteredAll()
     {
-        $filter = new BouncerFilterPlugin($this->om, true);
+        $filter = new MonitorFilterPlugin($this->om, true, '5');
         $filter->beforeSendPerformed($this->event);
         $filter->sendPerformed($this->event);
     }
