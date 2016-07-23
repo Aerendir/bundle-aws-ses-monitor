@@ -47,7 +47,7 @@ class SnsSetupBouncesTopicCommand extends SnsSetupCommandAbstract
         $output->writeln(sprintf('Registering <comment>"%s"</comment> topic for identities:', $input->getArgument('name')));
         foreach ($selectedIdentities as $identity) {
             $output->write($identity . ' ... ');
-            $this->setIdentityInSesClient($identity);
+            $this->setIdentityInSesClient($identity, 'Bounce');
             $output->writeln('OK');
         }
 

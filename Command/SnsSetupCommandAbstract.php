@@ -99,19 +99,24 @@ class SnsSetupCommandAbstract extends ContainerAwareCommand
     /**
      * Sets the chosen identity in the SesClient.
      *
-     * @param mixed $identity
+     * @param string $identity
+     * @param string $type The type of notification.
+     *                     @see http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-email-2010-12-01.html#setidentitynotificationtopic
      */
-    public function setIdentityInSesClient($identity)
+    public function setIdentityInSesClient($identity, $type)
     {
         $this->getSesClient()->setIdentityNotificationTopic(
             [
                 'Identity' => $identity,
-                'NotificationType' => 'Bounce',
+                'NotificationType' => $type,
                 'SnsTopic' => $this->topicArn
             ]
         );
     }
 
+    /**
+     * @return array
+     */
     public function buildSubscribeArray()
     {
         return [
