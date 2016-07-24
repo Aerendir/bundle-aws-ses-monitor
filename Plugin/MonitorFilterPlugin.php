@@ -81,7 +81,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
         $emails = array_keys($recipients);
 
         foreach ($emails as $email) {
-            if ($this->isBounced($email) || $this->isCoplained($email)) {
+            if ($this->isBounced($email) || $this->isComplained($email)) {
                 $this->blacklisted[$email] = $recipients[$email];
                 unset($recipients[$email]);
             }
@@ -117,7 +117,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      *
      * @return bool
      */
-    private function isCoplained($email)
+    private function isComplained($email)
     {
         // Check if bounces have to be filtered
         if (false === $this->complaintsConfig['enabled'])
