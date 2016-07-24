@@ -1,5 +1,7 @@
 <?php
 
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests;
+
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\NotificationHandler;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\SubscriptionConfirmationHandler;
 

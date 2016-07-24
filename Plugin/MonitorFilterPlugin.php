@@ -10,24 +10,24 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\ComplaintRepositoryInterface;
 use Swift_Events_SendEvent;
 
 /**
- * The SwiftMailer filter.
+ * The SwiftMailer plugin.
  */
 class MonitorFilterPlugin implements \Swift_Events_SendListener
 {
-    /** @var BounceRepositoryInterface */
-    private $bounceRepo;
-
-    /** @var ComplaintRepositoryInterface */
-    private $complaintRepo;
-
     /** @var array */
     private $blacklisted = [];
 
     /** @var bool $bouncesConfig */
     private $bouncesConfig;
 
-    /** @var int $complaints */
-    private $complaints;
+    /** @var BounceRepositoryInterface */
+    private $bounceRepo;
+
+    /** @var int $complaintsConfig */
+    private $complaintsConfig;
+
+    /** @var ComplaintRepositoryInterface */
+    private $complaintRepo;
 
     /**
      * @param ObjectManager $manager
@@ -36,20 +36,21 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      */
     public function __construct(ObjectManager $manager, array $bouncesConfig, array $complaintsConfig)
     {
-        $this->bounceRepo    = $manager->getRepository('AwsSesMonitorBundle:Bounce');
-        $this->complaintRepo = $manager->getRepository('AwsSesMonitorBundle:Complaint');
-        $this->bouncesConfig = $bouncesConfig;
-        $this->complaints    = $complaintsConfig;
+        $this->bouncesConfig    = $bouncesConfig['filter'];
+        $this->bounceRepo       = $manager->getRepository('AwsSesMonitorBundle:Bounce');
+
+        $this->complaintsConfig = $complaintsConfig['filter'];
+        $this->complaintRepo    = $manager->getRepository('AwsSesMonitorBundle:Complaint');
     }
 
     /**
      * Invoked immediately before the Message is sent.
      *
-     * @param Swift_Events_SendEvent $evt
+     * @param Swift_Events_SendEvent $event
      */
-    public function beforeSendPerformed(Swift_Events_SendEvent $evt)
+    public function beforeSendPerformed(Swift_Events_SendEvent $event)
     {
-        $message = $evt->getMessage();
+        $message = $event->getMessage();
 
         $message->setTo($this->filterForBlacklisted($message->getTo()));
         $message->setCc($this->filterForBlacklisted($message->getCc()));
@@ -96,6 +97,11 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      */
     private function isBounced($email)
     {
+        // Check if bounces have to be filtered
+        if (false === $this->bouncesConfig['enabled'])
+            // No bounces filtering
+            return false;
+
         $bounce = $this->bounceRepo->findBounceByEmail($email);
         if ($bounce instanceof Bounce) {
             if ($bounce->isPermanent() || $this->bouncesConfig) {
@@ -113,6 +119,11 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      */
     private function isCoplained($email)
     {
+        // Check if bounces have to be filtered
+        if (false === $this->complaintsConfig['enabled'])
+            // No bounces filtering
+            return false;
+
         $complaint = $this->complaintRepo->findComplaintByEmail($email);
         if ($complaint instanceof Complaint) {
             if ($complaint->isPermanent() || $this->bouncesConfig) {
