@@ -52,9 +52,9 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     {
         $message = $event->getMessage();
 
-        $message->setTo($this->filterForBlacklisted($message->getTo()));
-        $message->setCc($this->filterForBlacklisted($message->getCc()));
-        $message->setBcc($this->filterForBlacklisted($message->getBcc()));
+        $message->setTo($this->filterBlacklisted($message->getTo()));
+        $message->setCc($this->filterBlacklisted($message->getCc()));
+        $message->setBcc($this->filterBlacklisted($message->getBcc()));
     }
 
     /**
@@ -72,7 +72,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      *
      * @return mixed
      */
-    private function filterForBlacklisted($recipients)
+    private function filterBlacklisted($recipients)
     {
         if (!is_array($recipients)) {
             return $recipients;
@@ -102,11 +102,18 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
             // No bounces filtering
             return false;
 
+        // Check if sending is forced
+        if (true === $this->bouncesConfig['force_send'])
+            // No bounces filtering
+            return false;
+
         $bounce = $this->bounceRepo->findBounceByEmail($email);
-        if ($bounce instanceof Bounce) {
-            if ($bounce->isPermanent() || $this->bouncesConfig) {
-                return true;
-            }
+
+        if (!$bounce instanceof Bounce)
+            return false;
+
+        if (true === $bounce->isPermanent()) {
+            return true;
         }
 
         return false;
@@ -124,11 +131,17 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
             // No bounces filtering
             return false;
 
+        // Check if sending is forced
+        if (true === $this->complaintsConfig['force_send'])
+            return false;
+
         $complaint = $this->complaintRepo->findComplaintByEmail($email);
-        if ($complaint instanceof Complaint) {
-            if ($complaint->isPermanent() || $this->bouncesConfig) {
-                return true;
-            }
+
+        if (!$complaint instanceof Complaint)
+            return false;
+
+        if (true === $complaint->isPermanent()) {
+            return true;
         }
 
         return false;

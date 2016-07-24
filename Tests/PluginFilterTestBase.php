@@ -41,14 +41,16 @@ class PluginFilterTestBase extends \PHPUnit_Framework_TestCase
     {
         $this->bouncesConfig = [
             'filter' => [
-                'enabled' => true
+                'enabled' => true,
+                'force_send' => false
             ]
         ];
         $this->bouncedMock = $this->getMockBuilder(Bounce::class)->disableOriginalConstructor()->getMock();
 
         $this->complaintsConfig = [
             'filter' => [
-                'enabled' => true
+                'enabled' => true,
+                'force_send' => false
             ]
         ];
         $this->complainedMock = $this->getMockBuilder(Complaint::class)->disableOriginalConstructor()->getMock();
@@ -103,13 +105,13 @@ class PluginFilterTestBase extends \PHPUnit_Framework_TestCase
         $this->assertNull(func_get_arg(0));
     }
 
-    public function confirmBothRemoved()
+    public function confirmNoOneRemoved()
     {
         $recipients = func_get_arg(0);
         $this->assertArrayHasKey('valid@example.com', $recipients);
         $this->assertArrayHasKey('valid2@example.com', $recipients);
-        $this->assertArrayNotHasKey('complained@example.com', $recipients);
-        $this->assertArrayNotHasKey('bounced@example.com', $recipients);
+        $this->assertArrayHasKey('complained@example.com', $recipients);
+        $this->assertArrayHasKey('bounced@example.com', $recipients);
     }
 
     public function confirmBouncedRemoved()
