@@ -41,60 +41,43 @@ Create the `Credentials` service needed by the `AWS\Client` to pass it your acce
 STEP 4: CONFIGURE AWS SES MONITOR BUNDLE
 ----------------------------------------
 
-The minimum configuration required is as follows:
+The full configuration is as follows. The set values are the default ones:
 
 ```yaml
-# Default configuration for "ShivasBouncerBundle"
+# Default configuration for "AwsSesMonitorBundle"
 aws_ses_monitor:
-    model_manager_name: null # if using custom ORM model manager, provide name, otherwise leave as null
+    db_driver: orm #OPTIONL. Currently only ORM supported.
+    model_manager_name: null # OPTIONAL. Set this if you are using a custom ORM model manager.
     aws_config:
-        # Here the NAME (not the service itself!) of the credentials service set in the previous step.
-        # If you omit this, the bundle looks for client.aws.credentials service.
-        credentials_service_name: 'client.amazon.credentials'
-        region: "%amazon.aws.eu_region%" # You can omit this. If omitted, the bundle sets this to us-east-1
-        ses_version: "%amazon.ses.version%" # You can omit this. If omitted, the bundle sets this to 2010-12-01
-        sns_version: "%amazon.sns.version%" # You can omit this. If omitted, the bundle sets this to 2010-03-31
-    bounces_endpoint:
-        route_name:           _aws_monitor_bounces_endpoint
-        protocol:             HTTP # HTTP or HTTPS
-        host:                 localhost.local # hostname of your project when in production
-    complaints_endpoint:
-        route_name:           _aws_monitor_complaints_endpoint
-        protocol:             HTTP # HTTP or HTTPS
-        host:                 localhost.local # hostname of your project when in production
-    filter:
-        enabled:              true # if false, no filtering of bounced recipients will happen
-        filter_not_blacklists: false # if false, all temporary bounces will not make that address to be filtered forever
-        number_of_bounces_for_blacklist: 5 # The number of bounces required to permanently blacklist the address
-        mailer_name:          # array of mailer names where to register filtering plugin
-            - default
-```
-
-```yaml
-# Default configuration for "ShivasBouncerBundle"
-aws_ses_monitor:
-    db_driver: orm # currently only ORM supported
-    model_manager_name: null # if using custom ORM model manager, provide name, otherwise leave as null
-    aws_config:
-        # Here the NAME (not the service itself!) of the credentials service set in the previous step.
-        # If you omit this, the bundle looks for client.aws.credentials service.
-        credentials_service_name: 'client.amazon.credentials'
-        region: "%amazon.aws.eu_region%" # You can omit this. If omitted, the bundle sets this to us-east-1
-        ses_version: "%amazon.ses.version%" # You can omit this. If omitted, the bundle sets this to 2010-12-01
-        sns_version: "%amazon.sns.version%" # You can omit this. If omitted, the bundle sets this to 2010-03-31
-    bounces_endpoint:
-        route_name:           _aws_monitor_bounces_endpoint
-        protocol:             HTTP # HTTP or HTTPS
-        host:                 localhost.local # hostname of your project when in production
-    complaints_endpoint:
-        route_name:           _aws_monitor_complaints_endpoint
-        protocol:             HTTP # HTTP or HTTPS
-        host:                 localhost.local # hostname of your project when in production
-    filter:
-        enabled:              true # if false, no filtering of bounced recipients will happen
-        filter_not_blacklists: false # if false, all temporary bounces will not make that address to be filtered forever
-        number_of_bounces_for_blacklist: 5 # The number of bounces required to permanently blacklist the address
-        mailer_name:          # array of mailer names where to register filtering plugin
+        credentials_service_name: 'client.amazon.credentials' # REQUIRED. Here the NAME (not the service itself!) of the credentials service set in the previous step.
+                                                              # If you omit this, the bundle looks for client.aws.credentials service.
+        region: "%amazon.aws.eu_region%" # OPTIONAL. If omitted, the bundle sets this to us-east-1.
+        ses_version: "%amazon.ses.version%" # OPTIONAL. The AWS SES API version to use. Defaults to 2010-12-01.
+        sns_version: "%amazon.sns.version%" # OPTIONAL. The AWS SNS API version to use. Defaults to 2010-03-31.
+    mailers:
+        - default
+    bounces:
+        endpoint:
+            route_name: _aws_ses_monitor_bounces_endpoint # OTIONAL. The endpoint AWS SNS calls when SES reports a bounce.
+            protocol: http # OPTIONAL. The protocol to use. Accepted values are: http, HTTP, https, HTTPS.
+            host: localhost.local # OPTIONAL. The hostname of your project when in production.
+        filter:
+            enabled: true # OPTIONAL. If false, no filtering of bounced recipients will happen. Complained are ever filtered.
+            temporary_as_hard: true # OPTIONAL. If true, the temporary bounces counts as hard bounces
+            max_bounces: 5 # OPTIONAL. The max number of bounces before the address is blacklisted
+            temporary_blacklist_time: forever # OPTIONAL. The amount of time for wich a temporary bounced address has to be blacklisted. If "forever" emails will never been sent in the future.
+            hard_blacklist_time: forever # OPTIONAL. The amount of time for wich an hard bounced address has to be blacklisted. If "forever" emails will never been sent in the future.
+            force_send: false # OPTIONAL. If you want to force the sending of e-maills to bounced e-mails. VERY RISKY!
+    complaints:
+        endpoint:
+            route_name: _aws_ses_monitor_complaints_endpoint # OTIONAL. The endpoint AWS SNS calls when SES reports a complaint.
+            protocol: http # OPTIONAL. The protocol to use. Accepted values are: http, HTTP, https, HTTPS.
+            host: localhost.local # OPTIONAL. The hostname of your project when in production.
+        filter:
+            enabled: true # OPTIONAL. If false, no filtering of complained recipients will happen. "false" IS VERY RISKY!
+            blacklist_time: forever # OPTIONAL. The amount of time for wich an address has to be blacklisted. If "forever" emails will never been sent in the future.
+            force_send: false # OPTIONAL. If you want to force the sending of e-maills to complained e-mails. VERY RISKY!
+        mailers:
             - default
 ```
 
@@ -103,7 +86,7 @@ Add routing file for bounce endpoint (feel free to edit prefix)
 ```yaml
 # app/config/routing.yml
 bouncer:
-    resource: '@ShivasBouncerBundle/Resources/config/routing.yml'
+    resource: '@AwsSesMonitorBundle/Resources/config/routing.yml'
     prefix: /aws/endpoints
 ```
 

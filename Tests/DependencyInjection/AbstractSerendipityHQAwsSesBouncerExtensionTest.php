@@ -5,6 +5,9 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\DependencyInjection;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection\AwsSesMonitorExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * Tests the configuration of the bundle.
+ */
 abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends \PHPUnit_Framework_TestCase
 {
     private $extension;
@@ -19,7 +22,62 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends \PHPUnit_
         $this->container->registerExtension($this->extension);
     }
 
+    /**
+     * @param ContainerBuilder $container
+     * @param $resource
+     */
     abstract protected function loadConfiguration(ContainerBuilder $container, $resource);
+
+    public function testDefaultConfig()
+    {
+        $this->loadConfiguration($this->container, 'default_config');
+        $this->container->compile();
+
+        $this->assertSame('orm', $this->container->getParameter('aws_ses_monitor.db_driver'));
+        $this->assertSame(null, $this->container->getParameter('aws_ses_monitor.manager_name'));
+
+        /*
+         *  Test AWS Config
+         */
+        $this->assertTrue(is_array($this->container->getParameter('aws_ses_monitor.aws_config')));
+
+        // Test Region
+        $this->assertSame('us-east-1', $this->container->getParameter('aws_ses_monitor.aws_config')['region']);
+
+        // Test SES version
+        $this->assertSame('2010-12-01', $this->container->getParameter('aws_ses_monitor.aws_config')['ses_version']);
+
+        // Test SNS version
+        $this->assertSame('2010-03-31', $this->container->getParameter('aws_ses_monitor.aws_config')['sns_version']);
+
+        /*
+         * Test mailers
+         */
+        $this->assertSame(['default'], $this->container->getParameter('aws_ses_monitor.mailers'));
+
+        /*
+         * Test bounces configuration
+         */
+        $this->assertSame('_aws_ses_monitor_bounces_endpoint', $this->container->getParameter('aws_ses_monitor.bounces')['endpoint']['route_name']);
+        $this->assertSame('http', $this->container->getParameter('aws_ses_monitor.bounces')['endpoint']['protocol']);
+        $this->assertSame('localhost.local', $this->container->getParameter('aws_ses_monitor.bounces')['endpoint']['host']);
+        $this->assertTrue($this->container->getParameter('aws_ses_monitor.bounces')['filter']['enabled']);
+        $this->assertTrue($this->container->getParameter('aws_ses_monitor.bounces')['filter']['temporary_as_hard']);
+        $this->assertSame(5, $this->container->getParameter('aws_ses_monitor.bounces')['filter']['max_bounces']);
+        $this->assertSame('forever', $this->container->getParameter('aws_ses_monitor.bounces')['filter']['temporary_blacklist_time']);
+        $this->assertSame('forever', $this->container->getParameter('aws_ses_monitor.bounces')['filter']['hard_blacklist_time']);
+        $this->assertFalse($this->container->getParameter('aws_ses_monitor.bounces')['filter']['force_send']);
+
+        /*
+         * Test complaints configuration
+         */
+        $this->assertSame('_aws_ses_monitor_complaints_endpoint', $this->container->getParameter('aws_ses_monitor.complaints')['endpoint']['route_name']);
+        $this->assertSame('http', $this->container->getParameter('aws_ses_monitor.complaints')['endpoint']['protocol']);
+        $this->assertSame('localhost.local', $this->container->getParameter('aws_ses_monitor.complaints')['endpoint']['host']);
+        $this->assertTrue($this->container->getParameter('aws_ses_monitor.complaints')['filter']['enabled']);
+        $this->assertSame('forever', $this->container->getParameter('aws_ses_monitor.complaints')['filter']['blacklist_time']);
+        $this->assertFalse($this->container->getParameter('aws_ses_monitor.complaints')['filter']['force_send']);
+    }
 
     public function testFilterDisabledConfiguration()
     {
@@ -29,6 +87,7 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends \PHPUnit_
         $this->assertFalse($this->container->has('aws_ses_monitor.swift_mailer.filter'));
     }
 
+    /*
     public function testFilterEnabledConfiguration()
     {
         $this->loadConfiguration($this->container, 'filter_enabled');
@@ -36,7 +95,9 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends \PHPUnit_
 
         $this->assertTrue($this->container->has('aws_ses_monitor.swift_mailer.filter'));
     }
+    */
 
+    /*
     public function testFilterHasPluginTagConfiguration()
     {
         $this->loadConfiguration($this->container, 'filter_enabled');
@@ -48,7 +109,9 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends \PHPUnit_
         $definition = $this->container->getDefinition('aws_ses_monitor.swift_mailer.filter');
         $this->assertArrayHasKey('swiftmailer.default.plugin', $definition->getTags());
     }
+    */
 
+    /*
     public function testFilterHasMultiplePluginTagConfiguration()
     {
         $this->loadConfiguration($this->container, 'filter_multiple_mailers');
@@ -63,4 +126,5 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends \PHPUnit_
         $this->assertArrayHasKey('swiftmailer.second.plugin', $definition->getTags());
         $this->assertArrayHasKey('swiftmailer.third.plugin', $definition->getTags());
     }
+    */
 }

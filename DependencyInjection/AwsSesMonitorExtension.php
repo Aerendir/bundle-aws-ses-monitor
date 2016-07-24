@@ -20,30 +20,42 @@ class AwsSesMonitorExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        // Set parameters in the container
+        $container->setParameter('aws_ses_monitor.db_driver', $config['db_driver']);
+        $container->setParameter('aws_ses_monitor.manager_name', $config['model_manager_name']);
+        $container->setParameter('aws_ses_monitor.aws_config', $config['aws_config']);
+        $container->setParameter('aws_ses_monitor.mailers', $config['mailers']);
+        $container->setParameter('aws_ses_monitor.bounces', $config['bounces']);
+        $container->setParameter('aws_ses_monitor.complaints', $config['complaints']);
+
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
 
         // load db_driver container configuration
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 
+        /** @todo Refact this to activate the filter in SwiftMailer
         if ($config['filter']['enabled']) { // if enabled - define filter
             $loader->load('filter.xml');
 
-            $mailers = $config['filter']['mailer_name'];
+            $mailers = $config['mailers'];
             $filter = $container->getDefinition('aws_ses_monitor.swift_mailer.filter');
             foreach ($mailers as $mailer) {
                 $filter->addTag(sprintf('swiftmailer.%s.plugin', $mailer));
             }
         }
+        */
 
-        $container->setParameter(sprintf('aws_ses_monitor.backend_%s', $config['db_driver']), true);
-        $container->setParameter('aws_ses_monitor.driver', $config['db_driver']);
-        $container->setParameter('aws_ses_monitor.manager_name', $config['model_manager_name']);
-        $container->setParameter('aws_ses_monitor.bounces_endpoint', $config['bounces_endpoint']);
-        $container->setParameter('aws_ses_monitor.complaints_endpoint', $config['complaints_endpoint']);
-        $container->setParameter('aws_ses_monitor.filter', $config['filter']);
-        $container->setParameter('aws_ses_monitor.filter.filter_not_blacklists', $config['filter']['filter_not_blacklists']);
-        $container->setParameter('aws_ses_monitor.filter.number_of_bounces_for_blacklist', $config['filter']['number_of_bounces_for_blacklist']);
-        $container->setParameter('aws_ses_monitor.aws_config', $config['aws_config']);
+//        $container->setParameter(sprintf('aws_ses_monitor.backend_%s', $config['db_driver']), true);
+//        $container->setParameter('aws_ses_monitor.driver', $config['db_driver']);
+//        $container->setParameter('aws_ses_monitor.complaints_endpoint', $config['complaints_endpoint']);
+//        $container->setParameter('aws_ses_monitor.filter', $config['filter']);
+//        $container->setParameter('aws_ses_monitor.filter.filter_not_blacklists', $config['filter']['filter_not_blacklists']);
+//        $container->setParameter('aws_ses_monitor.filter.number_of_bounces_for_blacklist', $config['filter']['number_of_bounces_for_blacklist']);
+    }
+
+    protected function configureBounces()
+    {
+
     }
 }

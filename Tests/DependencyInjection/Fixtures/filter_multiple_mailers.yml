@@ -1,13 +1,12 @@
 aws_ses_monitor:
     aws_config:
-        region:               us-east-1
-    bounces_endpoint:
-        route_name:           _shivasbouncebundle_bounces_endpoint
-        protocol:             HTTP
-        host:                 localhost.local
-    filter:
-        enabled:              true
-        mailer_name:
-            - default
-            - second
-            - third
+        region: us-east-1
+    mailers:
+        - default
+        - second
+        - third
+    bounces:
+        endpoint:
+            route_name: _shivasbouncebundle_bounces_endpoint
+            protocol: HTTP
+            host: localhost.local

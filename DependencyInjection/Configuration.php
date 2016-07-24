@@ -2,6 +2,8 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -51,57 +53,77 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->scalarNode('model_manager_name')->defaultNull()->end()
                 ->arrayNode('aws_config')
-                    ->addDefaultsIfNotSet()
+                    ->isRequired()
                     ->children()
                         ->scalarNode('credentials_service_name')->defaultValue('client.aws.credentials')->cannotBeEmpty()->end()
-                        ->scalarNode('region')->isRequired()->defaultValue('us-east-1')->cannotBeEmpty()->end()
+                        ->scalarNode('region')->defaultValue('us-east-1')->cannotBeEmpty()->end()
                         ->scalarNode('ses_version')->defaultValue('2010-12-01')->cannotBeEmpty()->end()
                         ->scalarNode('sns_version')->defaultValue('2010-03-31')->cannotBeEmpty()->end()
                     ->end()
                 ->end()
-                ->arrayNode('bounces_endpoint')
+                ->arrayNode('mailers')
+                    ->prototype('scalar')->end()
+                    ->defaultValue(['default'])
+                ->end()
+                ->arrayNode('bounces')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('route_name')->defaultValue('_aws_monitor_bounces_endpoint')->cannotBeEmpty()->end()
-                        ->scalarNode('protocol')
-                            ->validate()
-                                ->ifNotInArray(self::getSupportedProtocols())
-                                ->thenInvalid('The protocol %s is not supported. Please choose one of ' . json_encode(self::getSupportedProtocols()))
-                                ->end()
-                            ->defaultValue('http')
-                            ->cannotBeEmpty()
+                        ->append($this->addEndpointSection('_aws_ses_monitor_bounces_endpoint'))
+                        ->arrayNode('filter')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->booleanNode('enabled')->defaultTrue()->end()
+                                ->booleanNode('temporary_as_hard')->defaultTrue()->end()
+                                ->integerNode('max_bounces')->min(1)->defaultValue(5)->end()
+                                ->scalarNode('temporary_blacklist_time')->defaultValue('forever')->end()
+                                ->scalarNode('hard_blacklist_time')->defaultValue('forever')->end()
+                                ->booleanNode('force_send')->defaultFalse()->end()
+                            ->end()
                         ->end()
-                        ->scalarNode('host')->defaultValue('localhost.local')->cannotBeEmpty()->end()
                     ->end()
                 ->end()
-                ->arrayNode('complaints_endpoint')
+                ->arrayNode('complaints')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('route_name')->defaultValue('_aws_monitor_complaints_endpoint')->cannotBeEmpty()->end()
-                        ->scalarNode('protocol')
-                            ->validate()
-                                ->ifNotInArray(self::getSupportedProtocols())
-                                ->thenInvalid('The protocol %s is not supported. Please choose one of ' . json_encode(self::getSupportedProtocols()))
-                                ->end()
-                            ->defaultValue('http')
-                            ->cannotBeEmpty()
+                        ->append($this->addEndpointSection('_aws_ses_monitor_complaints_endpoint'))
+                        ->arrayNode('filter')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->booleanNode('enabled')->defaultTrue()->end()
+                                ->booleanNode('blacklist_time')->defaultValue('forever')->end()
+                                ->booleanNode('force_send')->defaultFalse()->end()
+                            ->end()
                         ->end()
-                        ->scalarNode('host')->defaultValue('localhost.local')->cannotBeEmpty()->end()
                     ->end()
-                ->end()
-                ->arrayNode('filter')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->booleanNode('enabled')->defaultTrue()->end()
-                        ->booleanNode('filter_not_blacklists')->defaultFalse()->end()
-                        ->integerNode('number_of_bounces_for_blacklist')->min(1)->defaultValue(5)->end()
-                        ->arrayNode('mailer_name')
-                            ->isRequired()
-                            ->prototype('scalar')->end()
-                            ->defaultValue(['default'])
-                        ->end()
-                    ->end();
+                ->end();
 
         return $treeBuilder;
+    }
+
+    /**
+     * Adds the section about endpoint configuration.
+     *
+     * @param string $endpoint_name The endpoint name to use
+     *
+     * @return ArrayNodeDefinition|NodeDefinition The root node (as an ArrayNodeDefinition when the type is 'array')
+     */
+    public function addEndpointSection($endpoint_name)
+    {
+        $builder = new TreeBuilder();
+        $node = $builder->root('endpoint')->addDefaultsIfNotSet();
+
+        $node
+            ->children()
+                ->scalarNode('route_name')->defaultValue($endpoint_name)->cannotBeEmpty()->end()
+                ->scalarNode('protocol')
+                    ->validate()
+                    ->ifNotInArray(self::getSupportedProtocols())
+                    ->thenInvalid('The protocol %s is not supported. Please choose one of ' . json_encode(self::getSupportedProtocols()))->end()
+                    ->defaultValue('http')->cannotBeEmpty()
+                ->end()
+                ->scalarNode('host')->defaultValue('localhost.local')->cannotBeEmpty()->end()
+            ->end();
+
+        return $node;
     }
 }

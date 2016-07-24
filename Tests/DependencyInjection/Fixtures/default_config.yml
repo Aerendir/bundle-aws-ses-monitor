@@ -1,0 +1,3 @@
+aws_ses_monitor:
+    aws_config:
+        credentials_service_name: 'test'
