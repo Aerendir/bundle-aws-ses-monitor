@@ -106,7 +106,7 @@ class BounceFilterPluginTest extends \PHPUnit_Framework_TestCase
 
     public function testRecipientsAreFilteredAll()
     {
-        $filter = new MonitorFilterPlugin($this->om, true, '5');
+        $filter = new MonitorFilterPlugin($this->om, [], []);
         $filter->beforeSendPerformed($this->event);
         $filter->sendPerformed($this->event);
     }

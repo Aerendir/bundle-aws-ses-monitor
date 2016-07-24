@@ -11,8 +11,8 @@
     <services>
         <service id="aws_ses_monitor.swift_mailer.filter" class="%aws_ses_monitor.filter.class%">
             <argument id="aws_ses_monitor.object_manager" type="service" />
-            <argument>%aws_ses_monitor.filter.filter_not_blacklists%</argument>
-            <argument>%aws_ses_monitor.filter.number_of_bounces_for_blacklist%</argument>
+            <argument>%aws_ses_monitor.bounces%</argument>
+            <argument>%aws_ses_monitor.complaints%</argument>
         </service>
     </services>
 </container>

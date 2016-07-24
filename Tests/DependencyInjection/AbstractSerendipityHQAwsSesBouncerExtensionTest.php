@@ -79,28 +79,41 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends \PHPUnit_
         $this->assertFalse($this->container->getParameter('aws_ses_monitor.complaints')['filter']['force_send']);
     }
 
-    public function testFilterDisabledConfiguration()
+    public function testFilterDisabledByBothConfiguration()
     {
-        $this->loadConfiguration($this->container, 'filter_disabled');
+        $this->loadConfiguration($this->container, 'filter_disabled_by_both');
         $this->container->compile();
 
         $this->assertFalse($this->container->has('aws_ses_monitor.swift_mailer.filter'));
     }
 
-    /*
-    public function testFilterEnabledConfiguration()
+    public function testFilterEnabledByBothConfiguration()
     {
-        $this->loadConfiguration($this->container, 'filter_enabled');
+        $this->loadConfiguration($this->container, 'filter_enabled_by_both');
         $this->container->compile();
 
         $this->assertTrue($this->container->has('aws_ses_monitor.swift_mailer.filter'));
     }
-    */
 
-    /*
+    public function testFilterEnabledByBouncesConfiguration()
+    {
+        $this->loadConfiguration($this->container, 'filter_enabled_by_bounces');
+        $this->container->compile();
+
+        $this->assertTrue($this->container->has('aws_ses_monitor.swift_mailer.filter'));
+    }
+
+    public function testFilterEnabledByComplaintsConfiguration()
+    {
+        $this->loadConfiguration($this->container, 'filter_enabled_by_complaints');
+        $this->container->compile();
+
+        $this->assertTrue($this->container->has('aws_ses_monitor.swift_mailer.filter'));
+    }
+
     public function testFilterHasPluginTagConfiguration()
     {
-        $this->loadConfiguration($this->container, 'filter_enabled');
+        $this->loadConfiguration($this->container, 'filter_enabled_by_both');
         $this->container->compile();
 
         $this->assertTrue($this->container->has('aws_ses_monitor.swift_mailer.filter'));
@@ -109,9 +122,7 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends \PHPUnit_
         $definition = $this->container->getDefinition('aws_ses_monitor.swift_mailer.filter');
         $this->assertArrayHasKey('swiftmailer.default.plugin', $definition->getTags());
     }
-    */
 
-    /*
     public function testFilterHasMultiplePluginTagConfiguration()
     {
         $this->loadConfiguration($this->container, 'filter_multiple_mailers');
@@ -126,5 +137,4 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends \PHPUnit_
         $this->assertArrayHasKey('swiftmailer.second.plugin', $definition->getTags());
         $this->assertArrayHasKey('swiftmailer.third.plugin', $definition->getTags());
     }
-    */
 }

@@ -34,8 +34,8 @@ class AwsSesMonitorExtension extends Extension
         // load db_driver container configuration
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 
-        /** @todo Refact this to activate the filter in SwiftMailer
-        if ($config['filter']['enabled']) { // if enabled - define filter
+        // Enable the plugin if required
+        if ($config['bounces']['filter']['enabled'] || $config['complaints']['filter']['enabled']) {
             $loader->load('filter.xml');
 
             $mailers = $config['mailers'];
@@ -44,7 +44,6 @@ class AwsSesMonitorExtension extends Extension
                 $filter->addTag(sprintf('swiftmailer.%s.plugin', $mailer));
             }
         }
-        */
 
 //        $container->setParameter(sprintf('aws_ses_monitor.backend_%s', $config['db_driver']), true);
 //        $container->setParameter('aws_ses_monitor.driver', $config['db_driver']);
@@ -52,10 +51,5 @@ class AwsSesMonitorExtension extends Extension
 //        $container->setParameter('aws_ses_monitor.filter', $config['filter']);
 //        $container->setParameter('aws_ses_monitor.filter.filter_not_blacklists', $config['filter']['filter_not_blacklists']);
 //        $container->setParameter('aws_ses_monitor.filter.number_of_bounces_for_blacklist', $config['filter']['number_of_bounces_for_blacklist']);
-    }
-
-    protected function configureBounces()
-    {
-
     }
 }

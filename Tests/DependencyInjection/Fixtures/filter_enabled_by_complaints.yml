@@ -1,0 +1,11 @@
+aws_ses_monitor:
+    aws_config:
+        region: us-east-1
+    mailers:
+        - default
+    bounces:
+        filter:
+            enabled: false
+    complaints:
+        filter:
+            enabled: true

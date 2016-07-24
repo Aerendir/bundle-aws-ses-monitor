@@ -23,23 +23,23 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     /** @var array */
     private $blacklisted = [];
 
-    /** @var bool $filterNotBlacklisted */
-    private $filterNotBlacklisted;
+    /** @var bool $bouncesConfig */
+    private $bouncesConfig;
 
-    /** @var int $numberOfBouncesForBlacklist */
-    private $numberOfBouncesForBlacklist;
+    /** @var int $complaints */
+    private $complaints;
 
     /**
      * @param ObjectManager $manager
-     * @param bool          $filterNotBlacklisted
-     * @param int           $numberOfBouncesForBlacklist
+     * @param array         $bouncesConfig The configuration of bounces
+     * @param array         $complaintsConfig The configuration of complaints
      */
-    public function __construct(ObjectManager $manager, $filterNotBlacklisted, $numberOfBouncesForBlacklist)
+    public function __construct(ObjectManager $manager, array $bouncesConfig, array $complaintsConfig)
     {
-        $this->bounceRepo = $manager->getRepository('AwsSesMonitorBundle:Bounce');
+        $this->bounceRepo    = $manager->getRepository('AwsSesMonitorBundle:Bounce');
         $this->complaintRepo = $manager->getRepository('AwsSesMonitorBundle:Complaint');
-        $this->filterNotBlacklisted = $filterNotBlacklisted;
-        $this->numberOfBouncesForBlacklist = $numberOfBouncesForBlacklist;
+        $this->bouncesConfig = $bouncesConfig;
+        $this->complaints    = $complaintsConfig;
     }
 
     /**
@@ -98,7 +98,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     {
         $bounce = $this->bounceRepo->findBounceByEmail($email);
         if ($bounce instanceof Bounce) {
-            if ($bounce->isPermanent() || $this->filterNotBlacklisted) {
+            if ($bounce->isPermanent() || $this->bouncesConfig) {
                 return true;
             }
         }
@@ -115,7 +115,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     {
         $complaint = $this->complaintRepo->findComplaintByEmail($email);
         if ($complaint instanceof Complaint) {
-            if ($complaint->isPermanent() || $this->filterNotBlacklisted) {
+            if ($complaint->isPermanent() || $this->bouncesConfig) {
                 return true;
             }
         }

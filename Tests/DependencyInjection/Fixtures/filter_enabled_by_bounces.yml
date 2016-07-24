@@ -4,9 +4,8 @@ aws_ses_monitor:
     mailers:
         - default
     bounces:
-        endpoint:
-            route_name: _shivasbouncebundle_bounces_endpoint
-            protocol: HTTP
-            host: localhost.local
+        filter:
+            enabled: true
+    complaints:
         filter:
             enabled: false
