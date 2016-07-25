@@ -3,6 +3,7 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\BounceRepositoryInterface;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
@@ -30,11 +31,11 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     private $complaintRepo;
 
     /**
-     * @param ObjectManager $manager
+     * @param EntityManager $manager
      * @param array         $bouncesConfig The configuration of bounces
      * @param array         $complaintsConfig The configuration of complaints
      */
-    public function __construct(ObjectManager $manager, array $bouncesConfig, array $complaintsConfig)
+    public function __construct(EntityManager $manager, array $bouncesConfig, array $complaintsConfig)
     {
         $this->bouncesConfig    = $bouncesConfig['filter'];
         $this->bounceRepo       = $manager->getRepository('AwsSesMonitorBundle:Bounce');

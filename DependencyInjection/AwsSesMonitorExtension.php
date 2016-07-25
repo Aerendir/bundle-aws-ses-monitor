@@ -44,12 +44,5 @@ class AwsSesMonitorExtension extends Extension
                 $filter->addTag(sprintf('swiftmailer.%s.plugin', $mailer));
             }
         }
-
-//        $container->setParameter(sprintf('aws_ses_monitor.backend_%s', $config['db_driver']), true);
-//        $container->setParameter('aws_ses_monitor.driver', $config['db_driver']);
-//        $container->setParameter('aws_ses_monitor.complaints_endpoint', $config['complaints_endpoint']);
-//        $container->setParameter('aws_ses_monitor.filter', $config['filter']);
-//        $container->setParameter('aws_ses_monitor.filter.filter_not_blacklists', $config['filter']['filter_not_blacklists']);
-//        $container->setParameter('aws_ses_monitor.filter.number_of_bounces_for_blacklist', $config['filter']['number_of_bounces_for_blacklist']);
     }
 }

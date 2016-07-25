@@ -2,12 +2,11 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Plugin;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\BounceRepositoryInterface;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\ComplaintRepositoryInterface;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin\MonitorFilterPlugin;
 
 /**
  * Base class to test bounced and complained address filtering.
@@ -79,7 +78,7 @@ class PluginFilterTestBase extends \PHPUnit_Framework_TestCase
             ->method('findComplaintByEmail')
             ->will($this->returnValueMap($map));
 
-        $this->orm = $this->createMock(ObjectManager::class);
+        $this->orm = $this->createMock(EntityManager::class);
         $this->orm
             ->expects($this->exactly(2))
             ->method('getRepository')

@@ -3,6 +3,7 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MonitorHandlerInterface;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\NoopHandler;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\NotificationHandler;
@@ -14,8 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class HandlerFactory
 {
-    /** @var ObjectManager */
-    private $objectManager;
+    /** @var EntityManager */
+    private $_em;
 
     /**
      * @var AwsClientFactory
@@ -25,12 +26,12 @@ class HandlerFactory
     /**
      * HandlerFactory constructor.
      *
-     * @param ObjectManager    $entityManager
+     * @param EntityManager    $entityManager
      * @param AwsClientFactory $awsFactory
      */
-    public function __construct(ObjectManager $entityManager, AwsClientFactory $awsFactory)
+    public function __construct(EntityManager $entityManager, AwsClientFactory $awsFactory)
     {
-        $this->objectManager = $entityManager;
+        $this->_em = $entityManager;
         $this->awsFactory = $awsFactory;
     }
 
@@ -66,12 +67,12 @@ class HandlerFactory
         switch ($headerType) {
             case NotificationHandler::HEADER_TYPE:
                 return new NotificationHandler(
-                    $this->objectManager->getRepository('AwsSesMonitorBundle:Bounce')
+                    $this->_em->getRepository('AwsSesMonitorBundle:Bounce')
                 );
 
             case SubscriptionConfirmationHandler::HEADER_TYPE:
                 return new SubscriptionConfirmationHandler(
-                    $this->objectManager->getRepository('AwsSesMonitorBundle:Topic'),
+                    $this->_em->getRepository('AwsSesMonitorBundle:Topic'),
                     $this->awsFactory
                 );
 

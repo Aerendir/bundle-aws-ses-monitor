@@ -11,7 +11,7 @@
 
     <services>
         <service id="aws_ses_monitor.handler.factory" class="%aws_ses_monitor.request.factory.class%">
-            <argument type="service" id="aws_ses_monitor.object_manager" />
+            <argument type="service" id="aws_ses_monitor.entity_manager" />
             <argument type="service" id="aws_ses_monitor.aws.client.factory" />
         </service>
 
