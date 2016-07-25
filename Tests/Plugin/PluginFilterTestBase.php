@@ -28,7 +28,7 @@ class PluginFilterTestBase extends \PHPUnit_Framework_TestCase
     protected $complaintsConfig;
     protected $complaintsRepo;
 
-    protected $om;
+    protected $orm;
     protected $event;
 
     /** @var  \PHPUnit_Framework_MockObject_MockObject $message */
@@ -76,8 +76,8 @@ class PluginFilterTestBase extends \PHPUnit_Framework_TestCase
             ->method('findComplaintByEmail')
             ->will($this->returnValueMap($map));
 
-        $this->om = $this->createMock(ObjectManager::class);
-        $this->om
+        $this->orm = $this->createMock(ObjectManager::class);
+        $this->orm
             ->expects($this->exactly(2))
             ->method('getRepository')
             ->willReturnOnConsecutiveCalls($this->bouncesRepo, $this->complaintsRepo);
