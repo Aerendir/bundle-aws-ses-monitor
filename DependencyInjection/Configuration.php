@@ -68,8 +68,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('bounces')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('topic_name')->defaultValue('not_set')->cannotBeEmpty()->end()
-                        ->append($this->addEndpointSection('_aws_ses_monitor_bounces_endpoint'))
+                        ->append($this->addTopicSection('_aws_ses_monitor_bounces_endpoint'))
                         ->arrayNode('filter')
                             ->addDefaultsIfNotSet()
                             ->children()
@@ -87,7 +86,7 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('topic_name')->defaultValue('not_set')->cannotBeEmpty()->end()
-                        ->append($this->addEndpointSection('_aws_ses_monitor_complaints_endpoint'))
+                        ->append($this->addTopicSection('_aws_ses_monitor_complaints_endpoint'))
                         ->arrayNode('filter')
                             ->addDefaultsIfNotSet()
                             ->children()
@@ -109,21 +108,26 @@ class Configuration implements ConfigurationInterface
      *
      * @return ArrayNodeDefinition|NodeDefinition The root node (as an ArrayNodeDefinition when the type is 'array')
      */
-    public function addEndpointSection($endpoint_name)
+    public function addTopicSection($endpoint_name)
     {
         $builder = new TreeBuilder();
-        $node = $builder->root('endpoint')->addDefaultsIfNotSet();
+        $node = $builder->root('topic')->addDefaultsIfNotSet();
 
         $node
             ->children()
-                ->scalarNode('route_name')->defaultValue($endpoint_name)->cannotBeEmpty()->end()
-                ->scalarNode('protocol')
-                    ->validate()
-                    ->ifNotInArray(self::getSupportedProtocols())
-                    ->thenInvalid('The protocol %s is not supported. Please choose one of ' . json_encode(self::getSupportedProtocols()))->end()
-                    ->defaultValue('http')->cannotBeEmpty()
+                ->scalarNode('name')->defaultValue('not_set')->cannotBeEmpty()->end()
+                ->arrayNode('endpoint')
+                    ->children()
+                        ->scalarNode('route_name')->defaultValue($endpoint_name)->cannotBeEmpty()->end()
+                        ->scalarNode('protocol')
+                            ->validate()
+                            ->ifNotInArray(self::getSupportedProtocols())
+                            ->thenInvalid('The protocol %s is not supported. Please choose one of ' . json_encode(self::getSupportedProtocols()))->end()
+                            ->defaultValue('http')->cannotBeEmpty()
+                        ->end()
+                        ->scalarNode('host')->isRequired()->cannotBeEmpty()->end()
+                    ->end()
                 ->end()
-                ->scalarNode('host')->isRequired()->cannotBeEmpty()->end()
             ->end();
 
         return $node;

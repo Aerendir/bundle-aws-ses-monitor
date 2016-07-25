@@ -6,16 +6,19 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Topic;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\TopicRepositoryInterface;
 use Doctrine\ORM\EntityRepository;
 
+/**
+ * {@inheritdoc}
+ */
 class TopicRepository extends EntityRepository implements TopicRepositoryInterface
 {
     /**
      * @param $topicArn
      *
-     * @return Topic|null
+     * @return Topic|null|object
      */
     public function getTopicByArn($topicArn)
     {
-        return $this->findOneBy(array('topicArn' => $topicArn));
+        return $this->findOneBy(['topicArn' => $topicArn]);
     }
 
     /**

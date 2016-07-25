@@ -58,9 +58,9 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends \PHPUnit_
         /*
          * Test bounces configuration
          */
-        $this->assertSame('_aws_ses_monitor_bounces_endpoint', $this->container->getParameter('aws_ses_monitor.bounces')['endpoint']['route_name']);
-        $this->assertSame('http', $this->container->getParameter('aws_ses_monitor.bounces')['endpoint']['protocol']);
-        $this->assertSame('localhost.local', $this->container->getParameter('aws_ses_monitor.bounces')['endpoint']['host']);
+        $this->assertSame('_aws_ses_monitor_bounces_endpoint', $this->container->getParameter('aws_ses_monitor.bounces')['topic']['endpoint']['route_name']);
+        $this->assertSame('http', $this->container->getParameter('aws_ses_monitor.bounces')['topic']['endpoint']['protocol']);
+        $this->assertSame('localhost.local', $this->container->getParameter('aws_ses_monitor.bounces')['topic']['endpoint']['host']);
         $this->assertTrue($this->container->getParameter('aws_ses_monitor.bounces')['filter']['enabled']);
         $this->assertFalse($this->container->getParameter('aws_ses_monitor.bounces')['filter']['soft_as_hard']);
         $this->assertSame(5, $this->container->getParameter('aws_ses_monitor.bounces')['filter']['max_bounces']);
@@ -71,9 +71,9 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends \PHPUnit_
         /*
          * Test complaints configuration
          */
-        $this->assertSame('_aws_ses_monitor_complaints_endpoint', $this->container->getParameter('aws_ses_monitor.complaints')['endpoint']['route_name']);
-        $this->assertSame('http', $this->container->getParameter('aws_ses_monitor.complaints')['endpoint']['protocol']);
-        $this->assertSame('localhost.local', $this->container->getParameter('aws_ses_monitor.complaints')['endpoint']['host']);
+        $this->assertSame('_aws_ses_monitor_complaints_endpoint', $this->container->getParameter('aws_ses_monitor.complaints')['topic']['endpoint']['route_name']);
+        $this->assertSame('http', $this->container->getParameter('aws_ses_monitor.complaints')['topic']['endpoint']['protocol']);
+        $this->assertSame('localhost.local', $this->container->getParameter('aws_ses_monitor.complaints')['topic']['endpoint']['host']);
         $this->assertTrue($this->container->getParameter('aws_ses_monitor.complaints')['filter']['enabled']);
         $this->assertSame('forever', $this->container->getParameter('aws_ses_monitor.complaints')['filter']['blacklist_time']);
         $this->assertFalse($this->container->getParameter('aws_ses_monitor.complaints')['filter']['force_send']);

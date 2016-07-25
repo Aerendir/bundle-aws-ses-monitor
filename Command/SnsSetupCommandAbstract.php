@@ -40,8 +40,8 @@ class SnsSetupCommandAbstract extends ContainerAwareCommand
 
         /** @var RequestContext $context */
         $context = $this->getContainer()->get('router')->getContext();
-        $context->setHost($this->getContainer()->getParameter($kind)['endpoint']['host']);
-        $context->setScheme($this->getContainer()->getParameter($kind)['endpoint']['protocol']);
+        $context->setHost($this->getContainer()->getParameter($kind)['topic']['endpoint']['host']);
+        $context->setScheme($this->getContainer()->getParameter($kind)['topic']['endpoint']['protocol']);
 
         $apiFactory = $this->getContainer()->get('aws_ses_monitor.aws.client.factory');
 
@@ -97,7 +97,7 @@ class SnsSetupCommandAbstract extends ContainerAwareCommand
      */
     public function createSnsTopic($kind, OutputInterface $output)
     {
-        $name = $this->getContainer()->getParameter($kind)['topic_name'];
+        $name = $this->getContainer()->getParameter($kind)['topic']['name'];
 
         if ('not_set' === $name) {
             $output->writeln('<error>You have to set a name for the creating topic. Specify it in aws_ses_monitor.[bounces|complaints].topic_name.</error>');
@@ -105,7 +105,7 @@ class SnsSetupCommandAbstract extends ContainerAwareCommand
         }
 
         // create SNS topic
-        $topic = ['Name' => $kind];
+        $topic = ['Name' => $name];
         $response = $this->getSnsClient()->createTopic($topic);
         $this->topicArn = $response->get('TopicArn');
 

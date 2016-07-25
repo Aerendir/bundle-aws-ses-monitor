@@ -4,12 +4,14 @@ aws_ses_monitor:
     mailers:
         - default
     bounces:
-        endpoint:
-            host: localhost.local
+        topic:
+            endpoint:
+                host: localhost.local
         filter:
             enabled: false
     complaints:
-        endpoint:
-            host: localhost.local
+        topic:
+            endpoint:
+                host: localhost.local
         filter:
             enabled: true

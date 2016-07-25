@@ -57,11 +57,12 @@ aws_ses_monitor:
     mailers:
         - default
     bounces:
-        topic_name: ses-your_app-bounces-topic # OPTIONAL. Required only to use the configuration commands. 
-        endpoint:
-            route_name: _aws_ses_monitor_bounces_endpoint # OTIONAL. The endpoint AWS SNS calls when SES reports a bounce.
-            protocol: http # OPTIONAL. The protocol to use. Accepted values are: http, HTTP, https, HTTPS.
-            host: your_domain.com # REQUIRED. The hostname of your project when in production.
+        topic:
+            name: ses-your_app-bounces-topic # OPTIONAL. Required only to use the configuration commands. 
+            endpoint:
+                route_name: _aws_ses_monitor_bounces_endpoint # OTIONAL. The endpoint AWS SNS calls when SES reports a bounce.
+                protocol: http # OPTIONAL. The protocol to use. Accepted values are: http, HTTP, https, HTTPS.
+                host: your_domain.com # REQUIRED. The hostname of your project when in production.
         filter:
             enabled: true # OPTIONAL. If false, no filtering of bounced recipients will happen. Complained are ever filtered.
             soft_as_hard: false # OPTIONAL. If true, the temporary bounces counts as hard bounces
@@ -70,11 +71,12 @@ aws_ses_monitor:
             hard_blacklist_time: forever # OPTIONAL. The amount of time for wich an hard bounced address has to be blacklisted. If "forever" emails will never been sent in the future.
             force_send: false # OPTIONAL. If you want to force the sending of e-maills to bounced e-mails. VERY RISKY!
     complaints:
-        topic_name: ses-your_app-complaints-topic # OPTIONAL. Required only to use the configuration commands.
-        endpoint:
-            route_name: _aws_ses_monitor_complaints_endpoint # OTIONAL. The endpoint AWS SNS calls when SES reports a complaint.
-            protocol: http # OPTIONAL. The protocol to use. Accepted values are: http, HTTP, https, HTTPS.
-            host: your_domain.com # REQUIRED. The hostname of your project when in production.
+        topic:
+            name: ses-your_app-complaints-topic # OPTIONAL. Required only to use the configuration commands.
+            endpoint:
+                route_name: _aws_ses_monitor_complaints_endpoint # OTIONAL. The endpoint AWS SNS calls when SES reports a complaint.
+                protocol: http # OPTIONAL. The protocol to use. Accepted values are: http, HTTP, https, HTTPS.
+                host: your_domain.com # REQUIRED. The hostname of your project when in production.
         filter:
             enabled: true # OPTIONAL. If false, no filtering of complained recipients will happen. "false" IS VERY RISKY!
             blacklist_time: forever # OPTIONAL. The amount of time for wich an address has to be blacklisted. If "forever" emails will never been sent in the future.

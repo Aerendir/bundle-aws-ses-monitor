@@ -6,8 +6,10 @@ aws_ses_monitor:
         - second
         - third
     bounces:
-        endpoint:
-            host: localhost.local
+        topic:
+            endpoint:
+                host: localhost.local
     complaints:
-        endpoint:
-            host: localhost.local
+        topic:
+            endpoint:
+                host: localhost.local
