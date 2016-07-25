@@ -13,13 +13,13 @@ Something like `ses-your_app-bounces-topic` may be better to avoid conflicts wit
 
 So, run in console:
 ```
-app/console awssesmonitor:sns:setup-bounces-topic ses-your_app-bounces-topic
+app/console aws:ses:monitor:setup:bounces-topic
 ```
 
 and then
 
 ```
-app/console awssesmonitor:sns:setup-complaints-topic ses-your_app-complaints-topic
+app/console aws:ses:monitor:setup:complaints-topic
 ```
 
 This will use your AWS Credentials to fetch available identities and will provide you the option to choose what identities to subscribe to.

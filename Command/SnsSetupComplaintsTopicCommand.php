@@ -11,6 +11,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class SnsSetupComplaintsTopicCommand extends SnsSetupCommandAbstract
 {
+    const KIND = 'aws_ses_monitor.complaints';
+
     /**
      * {@inheritdoc}
      */
@@ -19,8 +21,7 @@ class SnsSetupComplaintsTopicCommand extends SnsSetupCommandAbstract
         $this->setDescription(
             'Registers SNS Topic, attaches it to chosen identities as bounce topic and subscribes endpoint to receive bounce notifications'
         );
-        $this->setName('awssesmonitor:sns:setup-complaints-topic');
-        $this->addArgument('name', InputArgument::REQUIRED, 'Topic name to create, follows AWS naming rules');
+        $this->setName('aws:ses:monitor:setup:complaints-topic');
     }
 
     /**
@@ -34,13 +35,16 @@ class SnsSetupComplaintsTopicCommand extends SnsSetupCommandAbstract
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         // Make the common configurations
-        $this->configureCommand('aws_ses_monitor.complaints_endpoint');
+        $this->configureCommand(self::KIND);
 
         // Show to developer the selction of identities
         $selectedIdentities = $this->getHelper('question')->ask($input, $output, $this->createIdentitiesQuestion());
 
         // Create and persist the topic
-        $topicArn = $this->createSnsTopic($input->getArgument('name'));
+        $topicArn = $this->createSnsTopic(self::KIND, $output);
+
+        if (false === $topicArn)
+            return false;
 
         $output->writeln("\nTopic created: " . $topicArn . "\n");
 

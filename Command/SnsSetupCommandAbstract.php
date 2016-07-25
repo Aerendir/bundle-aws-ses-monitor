@@ -7,6 +7,7 @@ use Aws\Sns\SnsClient;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Topic;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\TopicRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouterInterface;
@@ -31,16 +32,16 @@ class SnsSetupCommandAbstract extends ContainerAwareCommand
     /**
      * Performs common tasks for setup commands.
      *
-     * @param string $endpoint
+     * @param string $kind The kind of email handling (bounces, complaints, ecc.)
      */
-    public function configureCommand($endpoint)
+    public function configureCommand($kind)
     {
-        $this->endpoint = $endpoint;
+        $this->endpoint = $kind;
 
         /** @var RequestContext $context */
         $context = $this->getContainer()->get('router')->getContext();
-        $context->setHost($this->getContainer()->getParameter($endpoint)['host']);
-        $context->setScheme($this->getContainer()->getParameter($endpoint)['protocol']);
+        $context->setHost($this->getContainer()->getParameter($kind)['endpoint']['host']);
+        $context->setScheme($this->getContainer()->getParameter($kind)['endpoint']['protocol']);
 
         $apiFactory = $this->getContainer()->get('aws_ses_monitor.aws.client.factory');
 
@@ -89,14 +90,22 @@ class SnsSetupCommandAbstract extends ContainerAwareCommand
     /**
      * Creates and persists a topic.
      *
-     * @param string $name
+     * @param string $kind The kind of email handling (bounces, complaints, ecc.)
+     * @param OutputInterface $output
      *
      * @return string The created topic's ARN
      */
-    public function createSnsTopic($name)
+    public function createSnsTopic($kind, OutputInterface $output)
     {
+        $name = $this->getContainer()->getParameter($kind)['topic_name'];
+
+        if ('not_set' === $name) {
+            $output->writeln('<error>You have to set a name for the creating topic. Specify it in aws_ses_monitor.[bounces|complaints].topic_name.</error>');
+            return false;
+        }
+
         // create SNS topic
-        $topic = ['Name' => $name];
+        $topic = ['Name' => $kind];
         $response = $this->getSnsClient()->createTopic($topic);
         $this->topicArn = $response->get('TopicArn');
 
