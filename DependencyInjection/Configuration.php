@@ -75,7 +75,7 @@ class Configuration implements ConfigurationInterface
                                 ->booleanNode('enabled')->defaultTrue()->end()
                                 ->booleanNode('soft_as_hard')->defaultFalse()->end()
                                 ->integerNode('max_bounces')->min(1)->defaultValue(5)->end()
-                                ->scalarNode('temporary_blacklist_time')->defaultValue('forever')->end()
+                                ->scalarNode('soft_blacklist_time')->defaultValue('forever')->end()
                                 ->scalarNode('hard_blacklist_time')->defaultValue('forever')->end()
                                 ->booleanNode('force_send')->defaultFalse()->end()
                             ->end()
