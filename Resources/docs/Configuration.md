@@ -63,7 +63,7 @@ aws_ses_monitor:
             host: localhost.local # OPTIONAL. The hostname of your project when in production.
         filter:
             enabled: true # OPTIONAL. If false, no filtering of bounced recipients will happen. Complained are ever filtered.
-            temporary_as_hard: true # OPTIONAL. If true, the temporary bounces counts as hard bounces
+            soft_as_hard: false # OPTIONAL. If true, the temporary bounces counts as hard bounces
             max_bounces: 5 # OPTIONAL. The max number of bounces before the address is blacklisted
             temporary_blacklist_time: forever # OPTIONAL. The amount of time for wich a temporary bounced address has to be blacklisted. If "forever" emails will never been sent in the future.
             hard_blacklist_time: forever # OPTIONAL. The amount of time for wich an hard bounced address has to be blacklisted. If "forever" emails will never been sent in the future.

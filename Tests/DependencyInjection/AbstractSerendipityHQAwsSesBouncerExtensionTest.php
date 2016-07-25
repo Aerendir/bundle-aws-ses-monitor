@@ -62,7 +62,7 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends \PHPUnit_
         $this->assertSame('http', $this->container->getParameter('aws_ses_monitor.bounces')['endpoint']['protocol']);
         $this->assertSame('localhost.local', $this->container->getParameter('aws_ses_monitor.bounces')['endpoint']['host']);
         $this->assertTrue($this->container->getParameter('aws_ses_monitor.bounces')['filter']['enabled']);
-        $this->assertTrue($this->container->getParameter('aws_ses_monitor.bounces')['filter']['temporary_as_hard']);
+        $this->assertFalse($this->container->getParameter('aws_ses_monitor.bounces')['filter']['soft_as_hard']);
         $this->assertSame(5, $this->container->getParameter('aws_ses_monitor.bounces')['filter']['max_bounces']);
         $this->assertSame('forever', $this->container->getParameter('aws_ses_monitor.bounces')['filter']['temporary_blacklist_time']);
         $this->assertSame('forever', $this->container->getParameter('aws_ses_monitor.bounces')['filter']['hard_blacklist_time']);
