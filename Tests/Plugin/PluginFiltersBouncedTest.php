@@ -1,13 +1,13 @@
 <?php
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Plugin;
 
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin\MonitorFilterPlugin;
 
 /**
- * Tests the filtering of complained addresses.
+ * Tests the filtering of bounced addresses.
  */
-class PluginFiltersComplainedTest extends PluginFilterTestBase
+class PluginFiltersBouncedTest extends PluginFilterTestBase
 {
     /**
      * {@inheritdoc}
@@ -16,13 +16,13 @@ class PluginFiltersComplainedTest extends PluginFilterTestBase
     {
         parent::setUp();
 
-        // Deactivate bounces filtering
-        $this->bouncesConfig['filter']['enabled'] = false;
+        // Deactivate complaints filtering
+        $this->complaintsConfig['filter']['enabled'] = false;
     }
 
-    public function testComplainedFilterDisabled()
+    public function testBouncedFilterDisabled()
     {
-        $this->complaintsConfig['filter']['enabled'] = false;
+        $this->bouncesConfig['filter']['enabled'] = false;
 
         $this->message
             ->expects($this->once())
@@ -52,9 +52,37 @@ class PluginFiltersComplainedTest extends PluginFilterTestBase
         $filter->sendPerformed($this->event);
     }
 
+    public function testTemporaryAsHard()
+    {
+        $this->markTestIncomplete(
+            'Move this to controller test'
+        );
+    }
+
+    public function testFiltersMaxBounced()
+    {
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+    }
+
+    public function testTemporaryBlacklistTime()
+    {
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+    }
+
+    public function testHardBlacklistTime()
+    {
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+    }
+
     public function testForcedSending()
     {
-        $this->complaintsConfig['filter']['force_send'] = true;
+        $this->bouncesConfig['filter']['force_send'] = true;
 
         $this->message
             ->expects($this->once())

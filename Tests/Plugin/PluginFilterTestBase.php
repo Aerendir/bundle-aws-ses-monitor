@@ -1,6 +1,6 @@
 <?php
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Plugin;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
