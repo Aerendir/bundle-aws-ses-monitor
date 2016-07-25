@@ -34,7 +34,7 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends \PHPUnit_
         $this->container->compile();
 
         $this->assertSame('orm', $this->container->getParameter('aws_ses_monitor.db_driver'));
-        $this->assertSame(null, $this->container->getParameter('aws_ses_monitor.manager_name'));
+        $this->assertSame(null, $this->container->getParameter('aws_ses_monitor.model_manager_name'));
 
         /*
          *  Test AWS Config

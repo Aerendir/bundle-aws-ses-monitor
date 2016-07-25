@@ -110,7 +110,7 @@ class SnsSetupCommandAbstract extends ContainerAwareCommand
         $this->topicArn = $response->get('TopicArn');
 
         /** @var TopicRepositoryInterface $topicRepo */
-        $topicRepo = $this->getContainer()->get('aws_ses_monitor.entity_manager')->getRepository('Topic');
+        $topicRepo = $this->getContainer()->get('aws_ses_monitor.entity_manager')->getRepository('AwsSesMonitorBundle:Topic');
         $topicRepo->save(new Topic($this->topicArn));
 
         return $this->topicArn;

@@ -1,6 +1,6 @@
 aws_ses_monitor:
     aws_config:
-        region: us-east-1
+        credentials_service_name: 'test'
     mailers:
         - default
     bounces:

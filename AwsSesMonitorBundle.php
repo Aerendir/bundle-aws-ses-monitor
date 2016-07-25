@@ -13,18 +13,18 @@ class AwsSesMonitorBundle extends Bundle
         parent::build($container);
 
         $modelDir = realpath(__DIR__ . '/Resources/config/doctrine/mappings');
-        $mappings = array(
+        $mappings = [
             $modelDir => 'SerendipityHQ\Bundle\AwsSesMonitorBundle\Model',
-        );
+        ];
 
         $ormCompilerClass = 'Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass';
         if (class_exists($ormCompilerClass)) {
             $container->addCompilerPass(
                 DoctrineOrmMappingsPass::createXmlMappingDriver(
                     $mappings,
-                    array('aws_ses_monitor.model_manager_name'),
+                    ['aws_ses_monitor.model_manager_name'],
                     'aws_ses_monitor.backend_orm',
-                    array('AwsSesMonitorBundle' => 'SerendipityHQ\Bundle\AwsSesMonitorBundle\Model')
+                    ['AwsSesMonitorBundle' => 'SerendipityHQ\Bundle\AwsSesMonitorBundle\Model']
                 ));
         }
     }

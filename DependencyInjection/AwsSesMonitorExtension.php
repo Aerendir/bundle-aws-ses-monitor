@@ -22,7 +22,8 @@ class AwsSesMonitorExtension extends Extension
 
         // Set parameters in the container
         $container->setParameter('aws_ses_monitor.db_driver', $config['db_driver']);
-        $container->setParameter('aws_ses_monitor.manager_name', $config['model_manager_name']);
+        $container->setParameter(sprintf('aws_ses_monitor.backend_%s', $config['db_driver']), true);
+        $container->setParameter('aws_ses_monitor.model_manager_name', $config['model_manager_name']);
         $container->setParameter('aws_ses_monitor.aws_config', $config['aws_config']);
         $container->setParameter('aws_ses_monitor.mailers', $config['mailers']);
         $container->setParameter('aws_ses_monitor.bounces', $config['bounces']);

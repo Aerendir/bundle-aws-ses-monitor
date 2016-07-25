@@ -6,7 +6,7 @@
 
     <services>
         <service id="aws_ses_monitor.entity_manager" factory-service="doctrine" factory-method="getManager" class="Doctrine\ORM\EntityManager">
-            <argument>%aws_ses_monitor.manager_name%</argument>
+            <argument>%aws_ses_monitor.model_manager_name%</argument>
         </service>
     </services>
 </container>
