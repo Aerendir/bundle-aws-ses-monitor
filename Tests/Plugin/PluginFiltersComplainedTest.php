@@ -47,7 +47,7 @@ class PluginFiltersComplainedTest extends PluginFilterTestBase
             ->method('getMessage')
             ->willReturn($this->message);
 
-        $filter = new MonitorFilterPlugin($this->om, $this->bouncesConfig, $this->complaintsConfig);
+        $filter = new MonitorFilterPlugin($this->orm, $this->bouncesConfig, $this->complaintsConfig);
         $filter->beforeSendPerformed($this->event);
         $filter->sendPerformed($this->event);
     }
@@ -79,7 +79,7 @@ class PluginFiltersComplainedTest extends PluginFilterTestBase
             ->method('getMessage')
             ->willReturn($this->message);
 
-        $filter = new MonitorFilterPlugin($this->om, $this->bouncesConfig, $this->complaintsConfig);
+        $filter = new MonitorFilterPlugin($this->orm, $this->bouncesConfig, $this->complaintsConfig);
         $filter->beforeSendPerformed($this->event);
         $filter->sendPerformed($this->event);
     }

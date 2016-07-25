@@ -112,6 +112,9 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
         if (!$bounce instanceof Bounce)
             return false;
 
+        if ($bounce->getBounceCount() >= $this->bouncesConfig['max_bounces'])
+            return true;
+
         if (true === $bounce->isPermanent()) {
             return true;
         }

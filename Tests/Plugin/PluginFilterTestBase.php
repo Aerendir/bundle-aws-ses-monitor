@@ -42,6 +42,7 @@ class PluginFilterTestBase extends \PHPUnit_Framework_TestCase
         $this->bouncesConfig = [
             'filter' => [
                 'enabled' => true,
+                'max_bounces' => 5,
                 'force_send' => false
             ]
         ];
