@@ -8,11 +8,6 @@
         <id name="emailAddress" type="string" column="email_address" />
 
         <field name="complaintTime" type="datetime" column="complaint_time" />
-        <field name="permanent" type="boolean" column="permanent">
-            <options>
-                <option name="default">1</option>
-            </options>
-        </field>
 
     </entity>
 </doctrine-mapping>

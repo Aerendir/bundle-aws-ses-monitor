@@ -18,22 +18,15 @@ class Complaint
     protected $complaintTime;
 
     /**
-     * @var bool
-     */
-    protected $permanent;
-
-    /**
      * Complaint constructor.
      *
      * @param $emailAddress
      * @param $complaintTime
-     * @param bool $permanent
      */
-    public function __construct($emailAddress, $complaintTime, $permanent = false)
+    public function __construct($emailAddress, $complaintTime)
     {
         $this->setEmailAddress($emailAddress);
         $this->complaintTime = $complaintTime;
-        $this->permanent = $permanent;
     }
 
     /**
@@ -72,26 +65,6 @@ class Complaint
     public function setComplaintTime($complaintTime)
     {
         $this->complaintTime = $complaintTime;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isPermanent()
-    {
-        return $this->permanent;
-    }
-
-    /**
-     * @param bool $permanent
-     *
-     * @return $this
-     */
-    public function setPermanent($permanent)
-    {
-        $this->permanent = $permanent;
 
         return $this;
     }
