@@ -1,3 +1,9 @@
 aws_ses_monitor:
     aws_config:
         credentials_service_name: 'test'
+    bounces:
+        endpoint:
+            host: localhost.local
+    complaints:
+        endpoint:
+            host: localhost.local

@@ -121,7 +121,7 @@ class Configuration implements ConfigurationInterface
                     ->thenInvalid('The protocol %s is not supported. Please choose one of ' . json_encode(self::getSupportedProtocols()))->end()
                     ->defaultValue('http')->cannotBeEmpty()
                 ->end()
-                ->scalarNode('host')->defaultValue('localhost.local')->cannotBeEmpty()->end()
+                ->scalarNode('host')->isRequired()->cannotBeEmpty()->end()
             ->end();
 
         return $node;
