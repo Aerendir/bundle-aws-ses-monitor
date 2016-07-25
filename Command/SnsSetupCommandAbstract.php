@@ -142,13 +142,11 @@ class SnsSetupCommandAbstract extends ContainerAwareCommand
     {
         return [
             'TopicArn' => $this->topicArn,
-            'Protocol' => $this->getContainer()->getParameter($this->endpoint)['protocol'],
+            'Protocol' => $this->getContainer()->getParameter($this->endpoint)['topic']['endpoint']['protocol'],
             'Endpoint' => $this->getContainer()
                 ->get('router')
                 ->generate(
-                    $this->getContainer()->getParameter(
-                        $this->endpoint
-                    )['route_name'],
+                    $this->getContainer()->getParameter($this->endpoint)['topic']['endpoint']['route_name'],
                     [],
                     RouterInterface::ABSOLUTE_URL
                 )

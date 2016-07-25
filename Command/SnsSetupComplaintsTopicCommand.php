@@ -49,7 +49,7 @@ class SnsSetupComplaintsTopicCommand extends SnsSetupCommandAbstract
         $output->writeln("\nTopic created: " . $topicArn . "\n");
 
         // subscribe selected SES identities to SNS topic
-        $output->writeln(sprintf('Registering <comment>"%s"</comment> topic for identities:', $input->getArgument('name')));
+        $output->writeln(sprintf('Registering <comment>"%s"</comment> topic for identities:', $this->getContainer()->getParameter(self::KIND)['topic']['name']));
         foreach ($selectedIdentities as $identity) {
             $output->write($identity . ' ... ');
             $this->setIdentityInSesClient($identity, 'Complaint');
