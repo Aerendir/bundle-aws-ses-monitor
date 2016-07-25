@@ -43,6 +43,8 @@ class PluginFilterTestBase extends \PHPUnit_Framework_TestCase
             'filter' => [
                 'enabled' => true,
                 'max_bounces' => 5,
+                'soft_blacklist_time' => 'forever',
+                'hard_blacklist_time' => 'forever',
                 'force_send' => false
             ]
         ];

@@ -91,14 +91,28 @@ class PluginFiltersBouncedTest extends PluginFilterTestBase
         $filter->sendPerformed($this->event);
     }
 
-    public function testTemporaryBlacklistTime()
+    public function testSoftBlacklistTimeForever()
     {
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
     }
 
-    public function testHardBlacklistTime()
+    public function testSoftBlacklistTimeCustom()
+    {
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+    }
+
+    public function testHardBlacklistTimeForever()
+    {
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
+    }
+
+    public function testHardBlacklistTimeCustom()
     {
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
