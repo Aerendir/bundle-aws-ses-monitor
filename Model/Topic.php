@@ -2,6 +2,9 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 
+/**
+ * A Topic entity.
+ */
 class Topic
 {
     /** @var int */
@@ -13,6 +16,10 @@ class Topic
     /** @var null|string */
     protected $token;
 
+    /**
+     * @param $topicArn
+     * @param null $token
+     */
     public function __construct($topicArn, $token = null)
     {
         $this->topicArn = $topicArn;

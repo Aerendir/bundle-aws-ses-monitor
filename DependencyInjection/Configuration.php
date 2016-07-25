@@ -104,11 +104,11 @@ class Configuration implements ConfigurationInterface
     /**
      * Adds the section about endpoint configuration.
      *
-     * @param string $endpoint_name The endpoint name to use
+     * @param string $endpointName The endpoint name to use
      *
      * @return ArrayNodeDefinition|NodeDefinition The root node (as an ArrayNodeDefinition when the type is 'array')
      */
-    public function addTopicSection($endpoint_name)
+    public function addTopicSection($endpointName)
     {
         $builder = new TreeBuilder();
         $node = $builder->root('topic')->addDefaultsIfNotSet();
@@ -118,7 +118,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('name')->defaultValue('not_set')->cannotBeEmpty()->end()
                 ->arrayNode('endpoint')
                     ->children()
-                        ->scalarNode('route_name')->defaultValue($endpoint_name)->cannotBeEmpty()->end()
+                        ->scalarNode('route_name')->defaultValue($endpointName)->cannotBeEmpty()->end()
                         ->scalarNode('protocol')
                             ->validate()
                             ->ifNotInArray(self::getSupportedProtocols())

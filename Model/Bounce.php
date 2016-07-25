@@ -3,7 +3,7 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 
 /**
- * Represents a Bounce.
+ * A Bounce Entity.
  */
 class Bounce
 {
@@ -28,8 +28,6 @@ class Bounce
     protected $permanent;
 
     /**
-     * Bounce constructor.
-     *
      * @param $emailAddress
      * @param $lastTimeBounce
      * @param int  $bounceCount

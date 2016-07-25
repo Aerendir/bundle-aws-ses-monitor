@@ -16,7 +16,7 @@ class TopicRepository extends EntityRepository implements TopicRepositoryInterfa
      *
      * @return Topic|null|object
      */
-    public function getTopicByArn($topicArn)
+    public function findOneByTopicArn($topicArn)
     {
         return $this->findOneBy(['topicArn' => $topicArn]);
     }

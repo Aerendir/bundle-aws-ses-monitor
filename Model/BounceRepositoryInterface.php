@@ -12,7 +12,7 @@ interface BounceRepositoryInterface
      *
      * @return Bounce|null
      */
-    public function findBounceByEmail($email);
+    public function findOneByEmail($email);
 
     /**
      * @param Bounce $bounce

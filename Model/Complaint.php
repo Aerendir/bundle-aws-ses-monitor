@@ -18,8 +18,6 @@ class Complaint
     protected $complaintTime;
 
     /**
-     * Complaint constructor.
-     *
      * @param $emailAddress
      * @param $complaintTime
      */

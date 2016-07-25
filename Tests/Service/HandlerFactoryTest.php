@@ -4,9 +4,9 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Service;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManager;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\NoopHandler;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\NotificationHandler;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\SubscriptionConfirmationHandler;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NoopHandler;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationHandler;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\SubscriptionConfirmationHandler;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\HandlerFactory;
 use Symfony\Component\HttpFoundation\HeaderBag;
@@ -21,6 +21,9 @@ class HandlerFactoryTest extends \PHPUnit_Framework_TestCase
     private $_em;
     private $aws;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp()
     {
         $this->request = $this->getMockBuilder(Request::class)

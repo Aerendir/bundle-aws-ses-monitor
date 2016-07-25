@@ -58,11 +58,11 @@ class AwsClientFactory
      */
     private function buildSesConfig(Credentials $credentials)
     {
-        return array(
+        return [
             'credentials' => $credentials,
             'region' => $this->config['region'],
             'version' => $this->config['ses_version']
-        );
+        ];
     }
 
     /**
@@ -72,10 +72,10 @@ class AwsClientFactory
      */
     private function buildSnsConfig(Credentials $credentials)
     {
-        return array(
+        return [
             'credentials' => $credentials,
             'region' => $this->config['region'],
             'version' => $this->config['sns_version']
-        );
+        ];
     }
 }

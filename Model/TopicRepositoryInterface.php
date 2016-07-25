@@ -2,6 +2,9 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 
+/**
+ * Repository to manage a Topic.
+ */
 interface TopicRepositoryInterface
 {
     /**
@@ -9,7 +12,7 @@ interface TopicRepositoryInterface
      *
      * @return Topic|null
      */
-    public function getTopicByArn($topicArn);
+    public function findOneByTopicArn($topicArn);
 
     /**
      * @param Topic $topic

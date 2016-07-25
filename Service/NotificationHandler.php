@@ -1,16 +1,19 @@
 <?php
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
 
+use Aws\Credentials\Credentials;
 use Aws\Sns\Message;
 use Aws\Sns\MessageValidator;
 use Doctrine\Common\Persistence\ObjectRepository;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\BounceRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Handles notifications.
  */
-class NotificationHandler implements MonitorHandlerInterface
+class NotificationHandler implements HandlerInterface
 {
     const HEADER_TYPE = 'Notification';
     const MESSAGE_TYPE_SUBSCRIPTION_SUCCESS = 'AmazonSnsSubscriptionSucceeded';
@@ -29,11 +32,9 @@ class NotificationHandler implements MonitorHandlerInterface
     }
 
     /**
-     * @param Request $request
-     *
-     * @return int
+     * {@inheritdoc}
      */
-    public function handleRequest(Request $request)
+    public function handleRequest(Request $request, Credentials $credentials)
     {
         if (!$request->isMethod('POST')) {
             return 405;
@@ -41,7 +42,7 @@ class NotificationHandler implements MonitorHandlerInterface
 
         try {
             $data = json_decode($request->getContent(), true);
-            $message = Message::fromArray($data);
+            $message = new Message($data);
             $validator = new MessageValidator();
             $validator->validate($message);
         } catch (\Exception $e) {
@@ -58,7 +59,7 @@ class NotificationHandler implements MonitorHandlerInterface
                 if (isset($message['notificationType']) && $message['notificationType'] == self::MESSAGE_TYPE_BOUNCE) {
                     foreach ($message['bounce']['bouncedRecipients'] as $bounceRecipient) {
                         $email = $bounceRecipient['emailAddress'];
-                        $bounce = $this->repo->findBounceByEmail($email);
+                        $bounce = $this->repo->findOneByEmail($email);
                         if ($bounce instanceof Bounce) {
                             $bounce->incrementBounceCounter();
                             $bounce->setLastTimeBounce(new \DateTime());

@@ -13,24 +13,24 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\ComplaintRepositoryInterface;
  */
 class PluginFilterTestBase extends \PHPUnit_Framework_TestCase
 {
-    /** @var  \PHPUnit_Framework_MockObject_MockObject $bouncedMock */
+    /** @var \PHPUnit_Framework_MockObject_MockObject $bouncedMock */
     protected $bouncedMock;
 
-    /** @var  array $bouncesConfig */
+    /** @var array $bouncesConfig */
     protected $bouncesConfig;
     protected $bouncesRepo;
 
-    /** @var  \PHPUnit_Framework_MockObject_MockObject $complainedMock */
+    /** @var \PHPUnit_Framework_MockObject_MockObject $complainedMock */
     protected $complainedMock;
 
-    /** @var  array $complaintsConfig */
+    /** @var array $complaintsConfig */
     protected $complaintsConfig;
     protected $complaintsRepo;
 
     protected $orm;
     protected $event;
 
-    /** @var  \PHPUnit_Framework_MockObject_MockObject $message */
+    /** @var \PHPUnit_Framework_MockObject_MockObject $message */
     protected $message;
 
     /**
@@ -70,12 +70,12 @@ class PluginFilterTestBase extends \PHPUnit_Framework_TestCase
 
         $this->bouncesRepo = $this->createMock(BounceRepositoryInterface::class);
         $this->bouncesRepo->expects($this->any())
-            ->method('findBounceByEmail')
+            ->method('findOneByEmail')
             ->will($this->returnValueMap($map));
 
         $this->complaintsRepo = $this->createMock(ComplaintRepositoryInterface::class);
         $this->complaintsRepo->expects($this->any())
-            ->method('findComplaintByEmail')
+            ->method('findOneByEmail')
             ->will($this->returnValueMap($map));
 
         $this->orm = $this->createMock(EntityManager::class);

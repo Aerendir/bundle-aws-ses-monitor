@@ -12,7 +12,7 @@ interface ComplaintRepositoryInterface
      *
      * @return Bounce|null
      */
-    public function findComplaintByEmail($email);
+    public function findOneByEmail($email);
 
     /**
      * @param Complaint $bounce

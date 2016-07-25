@@ -36,7 +36,5 @@
     },
     "autoload": {
         "psr-4": { "SerendipityHQ\\Bundle\\AwsSesMonitorBundle\\": "" }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }

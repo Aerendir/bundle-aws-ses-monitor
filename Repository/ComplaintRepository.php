@@ -16,7 +16,7 @@ class ComplaintRepository extends EntityRepository implements ComplaintRepositor
      *
      * @return object|Complaint|null
      */
-    public function findComplaintByEmail($email)
+    public function findOneByEmail($email)
     {
         return $this->findOneBy(['emailAddress' => mb_strtolower($email)]);
     }

@@ -16,7 +16,7 @@ class BounceRepository extends EntityRepository implements BounceRepositoryInter
      *
      * @return object|Bounce|null
      */
-    public function findBounceByEmail($email)
+    public function findOneByEmail($email)
     {
         return $this->findOneBy(['emailAddress' => mb_strtolower($email)]);
     }

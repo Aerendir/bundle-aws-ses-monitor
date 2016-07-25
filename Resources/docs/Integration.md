@@ -30,9 +30,6 @@ aws_ses_monitor:
 Aws Ses Monitor Bundle will create the topics on Amazon SNS. During creation it will also set the topic to call an endpoint on your application each time a new notification is created.
 This way yuo don't need to use also the AWS SQS service as you will never lose the notifications that are immediately persisted directly into the application.
 
-To test the working of this mechanism on your local machine you have to set the host of your endpoint to your IP.
-Discover your IP going to http://www.whatsmyip.org/ and then set it into the configuration:
-
 ```yaml
 # Default configuration for "AwsSesMonitorBundle"
 aws_ses_monitor:
@@ -42,14 +39,14 @@ aws_ses_monitor:
             name: ses-your_app-bounces-topic # OPTIONAL. Required only to use the configuration commands. 
             endpoint:
                 ...
-                host: xxx.xxx.xxx.xxx # REQUIRED. The hostname of your project when in production.
+                host: yourapp.com # REQUIRED. The hostname of your project when in production.
         ...
     complaints:
         topic:
             name: ses-your_app-complaints-topic # OPTIONAL. Required only to use the configuration commands.
             endpoint:
                 ...
-                host: xxx.xxx.xxx.xxx # REQUIRED. The hostname of your project when in production.
+                host: yourapp.com # REQUIRED. The hostname of your project when in production.
         ...
 ```
 

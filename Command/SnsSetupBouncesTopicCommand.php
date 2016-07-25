@@ -2,17 +2,11 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-
 /**
  * {@inheritdoc}
  */
 class SnsSetupBouncesTopicCommand extends SnsSetupCommandAbstract
 {
-    const KIND = 'aws_ses_monitor.bounces';
-
     /**
      * {@inheritdoc}
      */
@@ -25,41 +19,18 @@ class SnsSetupBouncesTopicCommand extends SnsSetupCommandAbstract
     }
 
     /**
-     * Executes the command.
-     *
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
-     * @return null|int null or 0 if everything went fine, or an error code
+     * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    public function getTopicName()
     {
-        // Make the common configurations
-        $this->configureCommand(self::KIND);
+        return 'aws_ses_monitor.bounces';
+    }
 
-        // Show to developer the selction of identities
-        $selectedIdentities = $this->getHelper('question')->ask($input, $output, $this->createIdentitiesQuestion());
-
-        // Create and persist the topic
-        $topicArn = $this->createSnsTopic(self::KIND, $output);
-
-        if (false === $topicArn)
-            return false;
-
-        $output->writeln("\nTopic created: " . $topicArn . "\n");
-
-        // subscribe selected SES identities to SNS topic
-        $output->writeln(sprintf('Registering <comment>"%s"</comment> topic for identities:', $this->getContainer()->getParameter(self::KIND)['topic']['name']));
-        foreach ($selectedIdentities as $identity) {
-            $output->write($identity . ' ... ');
-            $this->setIdentityInSesClient($identity, 'Bounce');
-            $output->writeln('OK');
-        }
-
-        $subscribe = $this->buildSubscribeArray();
-        $response = $this->getSnsClient()->subscribe($subscribe);
-
-        $output->writeln(sprintf("\nSubscription endpoint URI: <comment>%s</comment>\n", $subscribe['Endpoint']));
-        $output->writeln(sprintf('Subscription status: <comment>%s</comment>', $response->get('SubscriptionArn')));
+    /**
+     * {@inheritdoc}
+     */
+    public function getTopicKind()
+    {
+        return 'Bounce';
     }
 }
