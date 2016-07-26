@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 class HandlerFactory
 {
     /** @var EntityManager */
-    private $_em;
+    private $entityManager;
 
     /**
      * @var AwsClientFactory
@@ -26,7 +26,7 @@ class HandlerFactory
      */
     public function __construct(EntityManager $entityManager, AwsClientFactory $awsFactory)
     {
-        $this->_em = $entityManager;
+        $this->entityManager = $entityManager;
         $this->awsFactory = $awsFactory;
     }
 
@@ -63,12 +63,12 @@ class HandlerFactory
         switch ($headerType) {
             case NotificationHandler::HEADER_TYPE:
                 return new NotificationHandler(
-                    $this->_em->getRepository('AwsSesMonitorBundle:' . $notificationType)
+                    $this->entityManager->getRepository('AwsSesMonitorBundle:' . $notificationType)
                 );
 
             case SubscriptionConfirmationHandler::HEADER_TYPE:
                 return new SubscriptionConfirmationHandler(
-                    $this->_em->getRepository('AwsSesMonitorBundle:Topic'),
+                    $this->entityManager->getRepository('AwsSesMonitorBundle:Topic'),
                     $this->awsFactory
                 );
 
