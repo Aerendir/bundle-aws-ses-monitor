@@ -1,6 +1,7 @@
 <?php
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
+
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationHandler;
 
 /**
