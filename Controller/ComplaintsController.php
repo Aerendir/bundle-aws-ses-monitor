@@ -21,8 +21,8 @@ class ComplaintsController extends Controller
     {
         /** @var HandlerFactory $factory */
         $factory = $this->get('aws_ses_monitor.handler.factory');
-        $credentialsServiceName = $this->getParameter('aws_ses_monitor.aws_config')['credentials_service_name'];
-        $credentials = $this->get($credentialsServiceName);
+        $credentials = $this->getParameter('aws_ses_monitor.aws_config')['credentials_service_name'];
+        $credentials = $this->get($credentials);
 
 
         $monitorHandler = $factory->buildComplaintsHandler($request);
