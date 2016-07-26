@@ -25,6 +25,11 @@ aws_ses_monitor:
         topic:
             name: ses-your_app-complaints-topic # OPTIONAL. Required only to use the configuration commands.
             ...
+    deliveries:
+        enabled: true # OPTIONAL. By default also the deliveries are tracked.
+        topic:
+            name: ses-your_app-deliveries-topic # OPTIONAL. Required only to use the configuration commands.
+            ...
 ```
 
 Aws Ses Monitor Bundle will create the topics on Amazon SNS. During creation it will also set the topic to call an endpoint on your application each time a new notification is created.
@@ -48,6 +53,13 @@ aws_ses_monitor:
                 ...
                 host: yourapp.com # REQUIRED. The hostname of your project when in production.
         ...
+    deliveries:
+        enabled: true # OPTIONAL. By default also the deliveries are tracked.
+        topic:
+            name: ses-your_app-deliveries-topic # OPTIONAL. Required only to use the configuration commands.
+            endpoint:
+                ...
+                host: yourapp.com # REQUIRED. The hostname of your project when in production.
 ```
 
 Now you are ready to launch the console commands to create the topics on AWS SNS.
@@ -61,6 +73,12 @@ and then
 
 ```
 app/console aws:ses:monitor:setup:complaints-topic
+```
+
+and then
+
+```
+app/console aws:ses:monitor:setup:deliveries-topic
 ```
 
 This will use your AWS Credentials to fetch available identities and will provide you the option to choose what identities to subscribe to.
