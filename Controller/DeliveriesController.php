@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Handles the Deliveries.
  */
-class DeliveryController extends Controller
+class DeliveriesController extends Controller
 {
     /**
      * @param Request $request
