@@ -51,7 +51,7 @@ class SesSendTestEmailsCommand extends ContainerAwareCommand
 
         foreach ($emailAddresses as $toAddress) {
             $message = $this->createMessage($fromAddress, $toAddress);
-            $output->writeln(sprintf('We are sending an email from <comment>%s</comment> to <comment>%s</comment>', $fromAddress, $toAddress));
+            $output->writeln(sprintf('Sending an email from <comment>%s</comment> to <comment>%s</comment>', $fromAddress, $toAddress));
             $this->getContainer()->get('mailer')->send($message);
         }
     }
