@@ -52,7 +52,7 @@ class HandlerFactory
 
     /**
      * @param Request $request
-     * @param string $notificationType
+     * @param string  $notificationType
      *
      * @return HandlerInterface
      */
