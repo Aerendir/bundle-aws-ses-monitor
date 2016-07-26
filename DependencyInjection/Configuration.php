@@ -96,6 +96,15 @@ class Configuration implements ConfigurationInterface
                             ->end()
                         ->end()
                     ->end()
+                ->end()
+                ->arrayNode('deliveries')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('topic_name')->defaultValue('not_set')->cannotBeEmpty()->end()
+                            ->append($this->addTopicSection('_aws_ses_monitor_deliveries_endpoint'))
+                        ->booleanNode('enabled')->defaultTrue()->end()
+                        ->end()
+                    ->end()
                 ->end();
 
         return $treeBuilder;

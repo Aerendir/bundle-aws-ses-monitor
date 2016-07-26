@@ -52,6 +52,16 @@ class HandlerFactory
 
     /**
      * @param Request $request
+     *
+     * @return HandlerInterface
+     */
+    public function buildDeliveriesHandler(Request $request)
+    {
+        return $this->buildHandler($request, NotificationHandler::MESSAGE_TYPE_DELIVERY);
+    }
+
+    /**
+     * @param Request $request
      * @param string  $notificationType
      *
      * @return HandlerInterface

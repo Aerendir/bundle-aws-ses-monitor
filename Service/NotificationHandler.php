@@ -9,6 +9,7 @@ use Doctrine\Common\Persistence\ObjectRepository;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\BounceRepositoryInterface;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -20,6 +21,7 @@ class NotificationHandler implements HandlerInterface
     const MESSAGE_TYPE_SUBSCRIPTION_SUCCESS = 'AmazonSnsSubscriptionSucceeded';
     const MESSAGE_TYPE_BOUNCE = 'Bounce';
     const MESSAGE_TYPE_COMPLAINT = 'Complaint';
+    const MESSAGE_TYPE_DELIVERY = 'Delivery';
 
     /**
      * @var BounceRepositoryInterface
@@ -66,6 +68,10 @@ class NotificationHandler implements HandlerInterface
 
                     case self::MESSAGE_TYPE_COMPLAINT:
                         return $this->handleComplaintNotification($message);
+                        break;
+
+                    case self::MESSAGE_TYPE_DELIVERY:
+                        return $this->handleDeliveryNotification($message);
                         break;
                 }
             }
@@ -117,6 +123,28 @@ class NotificationHandler implements HandlerInterface
             $complaint->setComplaintTime(new \DateTime());
 
             $this->repo->save($complaint);
+        }
+
+        return 200;
+    }
+
+    /**
+     * @param array $message
+     *
+     * @return int
+     */
+    private function handleDeliveryNotification(array $message)
+    {
+        foreach ($message['delivery']['recipients'] as $recipient) {
+            $delivery = $this->repo->findOneByEmail($recipient);
+
+            if (null === $delivery) {
+                $delivery = new Delivery($recipient);
+            }
+
+            $delivery->setDeliveryTime(new \DateTime());
+
+            $this->repo->save($delivery);
         }
 
         return 200;

@@ -4,3 +4,6 @@ _aws_ses_monitor_bounces_endpoint:
 _aws_ses_monitor_complaints_endpoint:
   path: /sns/complaints
   defaults: { _controller: AwsSesMonitorBundle:Complaints:complaints }
+_aws_ses_monitor_deliveries_endpoint:
+  path: /sns/deliveries
+  defaults: { _controller: AwsSesMonitorBundle:Deliveries:deliveries }

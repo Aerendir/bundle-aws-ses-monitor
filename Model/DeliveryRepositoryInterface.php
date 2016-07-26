@@ -5,12 +5,12 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 /**
  * Repository to manage Complaints.
  */
-interface ComplaintRepositoryInterface
+interface DeliveryRepositoryInterface
 {
     /**
      * @param $email
      *
-     * @return Complaint|null
+     * @return Bounce|null
      */
     public function findOneByEmail($email);
 
