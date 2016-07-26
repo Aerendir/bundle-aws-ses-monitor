@@ -150,10 +150,6 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
             return false;
         }
 
-        if (true === $complaint->isPermanent()) {
-            return true;
-        }
-
         return false;
     }
 }
