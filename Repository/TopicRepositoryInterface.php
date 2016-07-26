@@ -1,6 +1,7 @@
 <?php
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Topic;
 
 /**
  * Repository to manage a Topic.

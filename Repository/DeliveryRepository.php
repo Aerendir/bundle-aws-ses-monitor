@@ -3,7 +3,6 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\DeliveryRepositoryInterface;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery;
 
 /**

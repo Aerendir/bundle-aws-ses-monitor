@@ -3,7 +3,6 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository;
 
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\BounceRepositoryInterface;
 use Doctrine\ORM\EntityRepository;
 
 /**
