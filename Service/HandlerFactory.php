@@ -37,7 +37,7 @@ class HandlerFactory
      */
     public function buildBouncesHandler(Request $request)
     {
-        return $this->buildHandler($request, 'Bounce');
+        return $this->buildHandler($request, NotificationHandler::MESSAGE_TYPE_BOUNCE);
     }
 
     /**
@@ -47,7 +47,7 @@ class HandlerFactory
      */
     public function buildComplaintsHandler(Request $request)
     {
-        return $this->buildHandler($request, 'Complaint');
+        return $this->buildHandler($request, NotificationHandler::MESSAGE_TYPE_COMPLAINT);
     }
 
     /**

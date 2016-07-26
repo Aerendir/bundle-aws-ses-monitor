@@ -8,6 +8,7 @@ use Aws\Sns\MessageValidator;
 use Doctrine\Common\Persistence\ObjectRepository;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\BounceRepositoryInterface;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -18,6 +19,8 @@ class NotificationHandler implements HandlerInterface
     const HEADER_TYPE = 'Notification';
     const MESSAGE_TYPE_SUBSCRIPTION_SUCCESS = 'AmazonSnsSubscriptionSucceeded';
     const MESSAGE_TYPE_BOUNCE = 'Bounce';
+    const MESSAGE_TYPE_COMPLAINT = 'Complaint';
+
     /**
      * @var BounceRepositoryInterface
      */
@@ -46,36 +49,77 @@ class NotificationHandler implements HandlerInterface
             $validator = new MessageValidator();
             $validator->validate($message);
         } catch (\Exception $e) {
-            return 404; // not valid message, we return 404
+            return 403; // not valid message, we return 404
         }
 
         if (isset($data['Message'])) {
             $message = json_decode($data['Message'], true);
-            if (!is_null($message)) {
-                if (isset($message['notificationType']) && $message['notificationType'] == self::MESSAGE_TYPE_SUBSCRIPTION_SUCCESS) {
-                    return 200;
-                }
+            if (isset($message['notificationType'])) {
+                switch ($message['notificationType']) {
+                    case self::MESSAGE_TYPE_SUBSCRIPTION_SUCCESS:
+                        return 200;
+                        break;
 
-                if (isset($message['notificationType']) && $message['notificationType'] == self::MESSAGE_TYPE_BOUNCE) {
-                    foreach ($message['bounce']['bouncedRecipients'] as $bounceRecipient) {
-                        $email = $bounceRecipient['emailAddress'];
-                        $bounce = $this->repo->findOneByEmail($email);
-                        if ($bounce instanceof Bounce) {
-                            $bounce->incrementBounceCounter();
-                            $bounce->setLastTimeBounce(new \DateTime());
-                            $bounce->setPermanent(($message['bounce']['bounceType'] == 'Permanent'));
-                        } else {
-                            $bounce = new Bounce($email, new \DateTime(), 1, ($message['bounce']['bounceType'] == 'Permanent'));
-                        }
+                    case self::MESSAGE_TYPE_BOUNCE:
+                        return $this->handleBounceNotification($message);
+                        break;
 
-                        $this->repo->save($bounce);
-                    }
-
-                    return 200;
+                    case self::MESSAGE_TYPE_COMPLAINT:
+                        return $this->handleComplaintNotification($message);
+                        break;
                 }
             }
         }
 
         return 404;
+    }
+
+    /**
+     * @param array $message
+     *
+     * @return int
+     */
+    private function handleBounceNotification(array $message)
+    {
+        foreach ($message['bounce']['bouncedRecipients'] as $bouncedRecipient) {
+            $email = $bouncedRecipient['emailAddress'];
+            $bounce = $this->repo->findOneByEmail($email);
+
+            if (null === $bounce) {
+                $bounce = new Bounce($email);
+            }
+
+            $bounce->incrementBounceCounter()
+                ->setLastTimeBounce(new \DateTime())
+                ->setPermanent(($message['bounce']['bounceType'] === 'Permanent'));
+
+            $this->repo->save($bounce);
+        }
+
+        return 200;
+    }
+
+    /**
+     * @param array $message
+     *
+     * @return int
+     */
+    private function handleComplaintNotification(array $message)
+    {
+
+        foreach ($message['complaint']['complainedRecipients'] as $complainedRecipient) {
+            $email = $complainedRecipient['emailAddress'];
+            $complaint = $this->repo->findOneByEmail($email);
+
+            if (null === $complaint) {
+                $complaint = new Complaint($email);
+            }
+
+            $complaint->setComplaintTime(new \DateTime());
+
+            $this->repo->save($complaint);
+        }
+
+        return 200;
     }
 }

@@ -19,12 +19,10 @@ class Complaint
 
     /**
      * @param $emailAddress
-     * @param $complaintTime
      */
-    public function __construct($emailAddress, $complaintTime)
+    public function __construct($emailAddress)
     {
-        $this->setEmailAddress($emailAddress);
-        $this->complaintTime = $complaintTime;
+        $this->emailAddress = mb_strtolower($emailAddress);
     }
 
     /**
@@ -33,18 +31,6 @@ class Complaint
     public function getEmailAddress()
     {
         return $this->emailAddress;
-    }
-
-    /**
-     * @param string $emailAddress
-     *
-     * @return $this
-     */
-    public function setEmailAddress($emailAddress)
-    {
-        $this->emailAddress = mb_strtolower($emailAddress);
-
-        return $this;
     }
 
     /**

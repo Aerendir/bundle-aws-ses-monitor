@@ -29,16 +29,10 @@ class Bounce
 
     /**
      * @param $emailAddress
-     * @param $lastTimeBounce
-     * @param int  $bounceCount
-     * @param bool $permanent
      */
-    public function __construct($emailAddress, $lastTimeBounce, $bounceCount = 1, $permanent = false)
+    public function __construct($emailAddress)
     {
-        $this->setEmailAddress($emailAddress);
-        $this->lastTimeBounce = $lastTimeBounce;
-        $this->bounceCount = $bounceCount;
-        $this->permanent = $permanent;
+        $this->emailAddress = mb_strtolower($emailAddress);
     }
 
     /**
@@ -47,18 +41,6 @@ class Bounce
     public function getEmailAddress()
     {
         return $this->emailAddress;
-    }
-
-    /**
-     * @param string $emailAddress
-     *
-     * @return $this
-     */
-    public function setEmailAddress($emailAddress)
-    {
-        $this->emailAddress = mb_strtolower($emailAddress);
-
-        return $this;
     }
 
     /**
