@@ -1,6 +1,7 @@
 <?php
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationHandler;
 
 /**
  * {@inheritdoc}
@@ -13,7 +14,7 @@ class SnsSetupComplaintsTopicCommand extends SnsSetupCommandAbstract
     protected function configure()
     {
         $this->setDescription(
-            'Registers SNS Topic, attaches it to chosen identities as bounce topic and subscribes endpoint to receive bounce notifications'
+            'Registers SNS Topic, attaches it to chosen identities as complaint topic and subscribes endpoint to receive complaint notifications'
         );
         $this->setName('aws:ses:monitor:setup:complaints-topic');
     }
@@ -31,6 +32,6 @@ class SnsSetupComplaintsTopicCommand extends SnsSetupCommandAbstract
      */
     public function getTopicKind()
     {
-        return 'Complaint';
+        return NotificationHandler::MESSAGE_TYPE_COMPLAINT;
     }
 }

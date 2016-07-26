@@ -81,8 +81,15 @@ aws_ses_monitor:
             enabled: true # OPTIONAL. If false, no filtering of complained recipients will happen. "false" IS VERY RISKY!
             blacklist_time: forever # OPTIONAL. The amount of time for wich an address has to be blacklisted. If "forever" emails will never been sent in the future.
             force_send: false # OPTIONAL. If you want to force the sending of e-maills to complained e-mails. VERY RISKY!
-        mailers:
-            - default
+    deliveries:
+        enabled: true # OPTIONAL. By default also the deliveries are tracked.
+        topic:
+            name: ses-your_app-deliveries-topic # OPTIONAL. Required only to use the configuration commands.
+            endpoint:
+                route_name: _aws_ses_monitor_deliveries_endpoint # OTIONAL. The endpoint AWS SNS calls when SES reports a delivery.
+                protocol: http # OPTIONAL. The protocol to use. Accepted values are: http, HTTP, https, HTTPS.
+                host: your_domain.com # REQUIRED. The hostname of your project when in production.
+        # Has no filter options
 ```
 
 Add routing file for bounce endpoint (feel free to edit prefix)

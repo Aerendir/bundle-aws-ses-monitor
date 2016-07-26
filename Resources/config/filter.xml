@@ -13,6 +13,7 @@
             <argument id="aws_ses_monitor.entity_manager" type="service" />
             <argument>%aws_ses_monitor.bounces%</argument>
             <argument>%aws_ses_monitor.complaints%</argument>
+            <argument>%aws_ses_monitor.deliveries%</argument>
         </service>
     </services>
 </container>

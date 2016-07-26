@@ -28,6 +28,7 @@ class AwsSesMonitorExtension extends Extension
         $container->setParameter('aws_ses_monitor.mailers', $config['mailers']);
         $container->setParameter('aws_ses_monitor.bounces', $config['bounces']);
         $container->setParameter('aws_ses_monitor.complaints', $config['complaints']);
+        $container->setParameter('aws_ses_monitor.deliveries', $config['deliveries']);
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');

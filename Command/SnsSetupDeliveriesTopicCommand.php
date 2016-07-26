@@ -6,7 +6,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationHandler;
 /**
  * {@inheritdoc}
  */
-class SnsSetupBouncesTopicCommand extends SnsSetupCommandAbstract
+class SnsSetupDeliveriesTopicCommand extends SnsSetupCommandAbstract
 {
     /**
      * {@inheritdoc}
@@ -14,9 +14,9 @@ class SnsSetupBouncesTopicCommand extends SnsSetupCommandAbstract
     protected function configure()
     {
         $this->setDescription(
-            'Registers SNS Topic, attaches it to chosen identities as bounce topic and subscribes endpoint to receive bounce notifications'
+            'Registers SNS Topic, attaches it to chosen identities as delivery topic and subscribes endpoint to receive delivery notifications'
         );
-        $this->setName('aws:ses:monitor:setup:bounces-topic');
+        $this->setName('aws:ses:monitor:setup:deliveries-topic');
     }
 
     /**
@@ -24,7 +24,7 @@ class SnsSetupBouncesTopicCommand extends SnsSetupCommandAbstract
      */
     public function getTopicName()
     {
-        return 'aws_ses_monitor.bounces';
+        return 'aws_ses_monitor.deliveries';
     }
 
     /**
@@ -32,6 +32,6 @@ class SnsSetupBouncesTopicCommand extends SnsSetupCommandAbstract
      */
     public function getTopicKind()
     {
-        return NotificationHandler::MESSAGE_TYPE_BOUNCE;
+        return NotificationHandler::MESSAGE_TYPE_DELIVERY;
     }
 }

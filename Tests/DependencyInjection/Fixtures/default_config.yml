@@ -9,3 +9,7 @@ aws_ses_monitor:
         topic:
             endpoint:
                 host: localhost.local
+    deliveries:
+        topic:
+            endpoint:
+                host: localhost.local

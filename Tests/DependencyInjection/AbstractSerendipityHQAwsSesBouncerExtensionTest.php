@@ -77,6 +77,14 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends \PHPUnit_
         $this->assertTrue($this->container->getParameter('aws_ses_monitor.complaints')['filter']['enabled']);
         $this->assertSame('forever', $this->container->getParameter('aws_ses_monitor.complaints')['filter']['blacklist_time']);
         $this->assertFalse($this->container->getParameter('aws_ses_monitor.complaints')['filter']['force_send']);
+
+        /*
+         * Test deliveries configuration
+         */
+        $this->assertTrue($this->container->getParameter('aws_ses_monitor.deliveries')['enabled']);
+        $this->assertSame('_aws_ses_monitor_deliveries_endpoint', $this->container->getParameter('aws_ses_monitor.deliveries')['topic']['endpoint']['route_name']);
+        $this->assertSame('http', $this->container->getParameter('aws_ses_monitor.deliveries')['topic']['endpoint']['protocol']);
+        $this->assertSame('localhost.local', $this->container->getParameter('aws_ses_monitor.deliveries')['topic']['endpoint']['host']);
     }
 
     public function testFilterDisabledByBothConfiguration()

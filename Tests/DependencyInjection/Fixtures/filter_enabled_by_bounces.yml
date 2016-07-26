@@ -15,3 +15,7 @@ aws_ses_monitor:
                 host: localhost.local
         filter:
             enabled: false
+    deliveries:
+        topic:
+            endpoint:
+                host: localhost.local
