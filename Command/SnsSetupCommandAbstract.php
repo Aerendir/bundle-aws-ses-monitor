@@ -33,12 +33,12 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
     /**
      * @return string
      */
-    abstract public function getTopicName();
+    abstract public function getNotificationConfig();
 
     /**
      * @return string
      */
-    abstract public function getTopicKind();
+    abstract public function getNotificationKind();
 
     /**
      * Executes the command.
@@ -51,13 +51,13 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         // Make the common configurations
-        $this->configureCommand($this->getTopicName());
+        $this->configureCommand($this->getNotificationConfig());
 
         // Show to developer the selction of identities
         $selectedIdentities = $this->getHelper('question')->ask($input, $output, $this->createIdentitiesQuestion());
 
         // Create and persist the topic
-        $topicArn = $this->createSnsTopic($this->getTopicName(), $output);
+        $topicArn = $this->createSnsTopic($this->getNotificationConfig(), $output);
 
         if (false === $topicArn) {
             return false;
@@ -66,10 +66,10 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
         $output->writeln("\nTopic created: " . $topicArn . "\n");
 
         // subscribe selected SES identities to SNS topic
-        $output->writeln(sprintf('Registering <comment>"%s"</comment> topic for identities:', $this->getContainer()->getParameter($this->getTopicName())['topic']['name']));
+        $output->writeln(sprintf('Registering <comment>"%s"</comment> topic for identities:', $this->getContainer()->getParameter($this->getNotificationConfig())['topic']['name']));
         foreach ($selectedIdentities as $identity) {
             $output->write($identity . ' ... ');
-            $this->setIdentityInSesClient($identity, $this->getTopicKind());
+            $this->setIdentityInSesClient($identity, $this->getNotificationKind());
             $output->writeln('OK');
         }
 

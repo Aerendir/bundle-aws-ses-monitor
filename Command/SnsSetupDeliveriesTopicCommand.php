@@ -22,7 +22,7 @@ class SnsSetupDeliveriesTopicCommand extends SnsSetupCommandAbstract
     /**
      * {@inheritdoc}
      */
-    public function getTopicName()
+    public function getNotificationConfig()
     {
         return 'aws_ses_monitor.deliveries';
     }
@@ -30,7 +30,7 @@ class SnsSetupDeliveriesTopicCommand extends SnsSetupCommandAbstract
     /**
      * {@inheritdoc}
      */
-    public function getTopicKind()
+    public function getNotificationKind()
     {
         return NotificationHandler::MESSAGE_TYPE_DELIVERY;
     }
