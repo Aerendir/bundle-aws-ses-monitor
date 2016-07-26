@@ -6,8 +6,14 @@ use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappi
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
+/**
+ * {@inheritdoc}
+ */
 class AwsSesMonitorBundle extends Bundle
 {
+    /**
+     * {@inheritdoc}
+     */
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
@@ -20,12 +26,23 @@ class AwsSesMonitorBundle extends Bundle
         $ormCompilerClass = 'Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass';
         if (class_exists($ormCompilerClass)) {
             $container->addCompilerPass(
-                DoctrineOrmMappingsPass::createXmlMappingDriver(
-                    $mappings,
-                    ['aws_ses_monitor.model_manager_name'],
-                    'aws_ses_monitor.backend_orm',
-                    ['AwsSesMonitorBundle' => 'SerendipityHQ\Bundle\AwsSesMonitorBundle\Model']
-                ));
+                $this->getXmlMappingDriver($mappings)
+            );
         }
+    }
+
+    /**
+     * @param array $mappings
+     *
+     * @return DoctrineOrmMappingsPass
+     */
+    private function getXmlMappingDriver(array $mappings)
+    {
+        return DoctrineOrmMappingsPass::createXmlMappingDriver(
+            $mappings,
+            ['aws_ses_monitor.model_manager_name'],
+            'aws_ses_monitor.backend_orm',
+            ['AwsSesMonitorBundle' => 'SerendipityHQ\Bundle\AwsSesMonitorBundle\Model']
+        );
     }
 }
