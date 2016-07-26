@@ -106,7 +106,6 @@ class NotificationHandler implements HandlerInterface
      */
     private function handleComplaintNotification(array $message)
     {
-
         foreach ($message['complaint']['complainedRecipients'] as $complainedRecipient) {
             $email = $complainedRecipient['emailAddress'];
             $complaint = $this->repo->findOneByEmail($email);
