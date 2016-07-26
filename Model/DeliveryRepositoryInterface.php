@@ -15,9 +15,9 @@ interface DeliveryRepositoryInterface
     public function findOneByEmail($email);
 
     /**
-     * @param Complaint $bounce
+     * @param Delivery $delivery
      *
      * @return mixed
      */
-    public function save(Complaint $bounce);
+    public function save(Delivery $delivery);
 }

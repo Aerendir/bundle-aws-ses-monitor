@@ -3,18 +3,18 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\ComplaintRepositoryInterface;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\DeliveryRepositoryInterface;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery;
 
 /**
  * {@inheritdoc}
  */
-class ComplaintRepository extends EntityRepository implements ComplaintRepositoryInterface
+class DeliveryRepository extends EntityRepository implements DeliveryRepositoryInterface
 {
     /**
      * @param $email
      *
-     * @return object|Complaint|null
+     * @return object|Delivery|null
      */
     public function findOneByEmail($email)
     {
@@ -22,13 +22,13 @@ class ComplaintRepository extends EntityRepository implements ComplaintRepositor
     }
 
     /**
-     * @param Complaint $complaint
+     * @param Delivery $delivery
      *
      * @return mixed
      */
-    public function save(Complaint $complaint)
+    public function save(Delivery $delivery)
     {
-        $this->_em->persist($complaint);
+        $this->_em->persist($delivery);
         $this->_em->flush();
     }
 }

@@ -15,9 +15,9 @@ interface ComplaintRepositoryInterface
     public function findOneByEmail($email);
 
     /**
-     * @param Complaint $bounce
+     * @param Complaint $complaint
      *
      * @return mixed
      */
-    public function save(Complaint $bounce);
+    public function save(Complaint $complaint);
 }
