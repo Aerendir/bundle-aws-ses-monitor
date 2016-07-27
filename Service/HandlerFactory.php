@@ -32,27 +32,19 @@ class HandlerFactory
 
     /**
      * @param Request $request
-     * @param string  $notificationType
      *
      * @return HandlerInterface
      */
-    public function buildHandler(Request $request, $notificationType)
+    public function buildHandler(Request $request)
     {
         $headerType = $request->headers->get('x-amz-sns-message-type');
 
         switch ($headerType) {
             case NotificationHandler::HEADER_TYPE:
-                return new NotificationHandler(
-                    $this->entityManager,
-                    $this->entityManager->getRepository('AwsSesMonitorBundle:' . $notificationType)
-                );
+                return new NotificationHandler($this->entityManager);
 
             case SubscriptionConfirmationHandler::HEADER_TYPE:
-                return new SubscriptionConfirmationHandler(
-                    $this->entityManager,
-                    $this->entityManager->getRepository('AwsSesMonitorBundle:Topic'),
-                    $this->awsFactory
-                );
+                return new SubscriptionConfirmationHandler($this->entityManager, $this->awsFactory);
 
             default:
                 return new NoopHandler(); // ignore all other types of messages for now

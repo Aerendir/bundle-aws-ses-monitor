@@ -3,10 +3,12 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Mail" table="aws_ses_monitor_mails" repository-class="SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\MailRepository">
+    <entity name="SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Mail" table="aws_ses_monitor_mails">
 
-        <id name="messageId" type="string" column="message_id" />
-
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO" />
+        </id>
+        <field name="messageId" type="string" column="message_id" />
         <field name="sentOn" type="datetime" column="sent_on" nullable="false" />
         <field name="sentFrom" type="string" column="sent_from" nullable="false" />
         <field name="sourceArn" type="string" column="source_arn" nullable="false" />

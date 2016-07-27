@@ -8,14 +8,19 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 class Delivery
 {
     /**
+     * @var int $id
+     */
+    private $id;
+
+    /**
      * @var string
      */
-    protected $emailAddress;
+    private $emailAddress;
 
     /**
      * @var \DateTime
      */
-    protected $deliveryTime;
+    private $deliveryTime;
 
     /**
      * @param $emailAddress
@@ -23,6 +28,14 @@ class Delivery
     public function __construct($emailAddress)
     {
         $this->emailAddress = mb_strtolower($emailAddress);
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**

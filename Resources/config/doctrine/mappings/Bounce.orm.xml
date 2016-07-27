@@ -3,10 +3,12 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce" table="aws_ses_monitor_bounces" repository-class="SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\BounceRepository">
+    <entity name="SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce" table="aws_ses_monitor_bounces">
 
-        <id name="email" type="string" column="email" />
-
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO" />
+        </id>
+        <field name="email" type="string" column="email" />
         <field name="lastTimeBounce" type="datetime" column="last_time_bounce" />
         <field name="bounceCount" type="integer" column="bounce_count">
             <options>

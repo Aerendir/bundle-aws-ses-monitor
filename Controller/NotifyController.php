@@ -9,22 +9,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Base controller to handle the various other controllers.
+ * Controller to handle notifications.
  */
-class BaseController extends Controller
+class NotifyController extends Controller
 {
     /**
      * @param Request $request
-     * @param string  $notificationType The type of notification to handle (Delivery, Bounce or Complaint)
      *
      * @return Response
      */
-    protected function handleRequest(Request $request, $notificationType)
+    public function notifyAction(Request $request)
     {
         /** @var HandlerFactory $factory */
         $factory = $this->get('aws_ses_monitor.handler.factory');
 
-        $monitorHandler = $factory->buildHandler($request, $notificationType);
+        $monitorHandler = $factory->buildHandler($request);
         $responseCode = $monitorHandler->handleRequest($request, $this->getCredentials());
 
         return new Response('', $responseCode);

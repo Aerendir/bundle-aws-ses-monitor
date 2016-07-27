@@ -8,29 +8,42 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 class Complaint
 {
     /**
+     * @var int $id
+     */
+    private $id;
+
+    /**
      * @var string
      */
-    protected $emailAddress;
+    private $email;
 
     /**
      * @var \DateTime
      */
-    protected $complaintTime;
+    private $complaintTime;
 
     /**
-     * @param $emailAddress
+     * @param $email
      */
-    public function __construct($emailAddress)
+    public function __construct($email)
     {
-        $this->emailAddress = mb_strtolower($emailAddress);
+        $this->email = mb_strtolower($email);
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
      * @return string
      */
-    public function getEmailAddress()
+    public function getEmail()
     {
-        return $this->emailAddress;
+        return $this->email;
     }
 
     /**

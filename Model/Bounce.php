@@ -27,29 +27,34 @@ class Bounce
     const TYPE_UNDETERMINED         = 'Undetermined';
 
     /**
-     * @var string
+     * @var int $id
      */
-    protected $email;
+    private $id;
+
+    /**
+     * @var string $email
+     */
+    private $email;
 
     /**
      * @var \DateTime
      */
-    protected $lastTimeBounce;
+    private $lastTimeBounce;
 
     /**
      * @var int
      */
-    protected $bounceCount;
+    private $bounceCount;
 
     /**
      * @var string
      */
-    protected $type;
+    private $type;
 
     /**
      * @var string
      */
-    protected $subType;
+    private $subType;
 
     /**
      * @param string $email
@@ -57,6 +62,14 @@ class Bounce
     public function __construct($email)
     {
         $this->email = mb_strtolower($email);
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -133,6 +146,18 @@ class Bounce
     public function setType($type)
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @param bool $subType
+     *
+     * @return $this
+     */
+    public function setSubType($subType)
+    {
+        $this->subType = $subType;
 
         return $this;
     }
