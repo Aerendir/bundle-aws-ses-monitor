@@ -3,10 +3,12 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery" table="aws_ses_monitor_deliveries" repository-class="SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\DeliveryRepository">
+    <entity name="SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery" table="aws_ses_monitor_deliveries">
 
-        <id name="emailAddress" type="string" column="email_address" />
-
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO" />
+        </id>
+        <field name="emailAddress" type="string" column="email_address" />
         <field name="deliveryTime" type="datetime" column="delivery_time" />
 
     </entity>

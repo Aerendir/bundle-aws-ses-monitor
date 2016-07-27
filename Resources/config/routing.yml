@@ -1,9 +1,9 @@
 _aws_ses_monitor_bounces_endpoint:
-  path: /sns/bounces
-  defaults: { _controller: AwsSesMonitorBundle:Bounces:bounces }
+  path: /endpoint/aws/ses/notify_bounce
+  defaults: { _controller: AwsSesMonitorBundle:Notify:notify }
 _aws_ses_monitor_complaints_endpoint:
-  path: /sns/complaints
-  defaults: { _controller: AwsSesMonitorBundle:Complaints:complaints }
+  path: /endpoint/aws/ses/notify_complaint
+  defaults: { _controller: AwsSesMonitorBundle:Notify:notify }
 _aws_ses_monitor_deliveries_endpoint:
-  path: /sns/deliveries
-  defaults: { _controller: AwsSesMonitorBundle:Deliveries:deliveries }
+  path: /endpoint/aws/ses/notify_delivery
+  defaults: { _controller: AwsSesMonitorBundle:Notify:notify }

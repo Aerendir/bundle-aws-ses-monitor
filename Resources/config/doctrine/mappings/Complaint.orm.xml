@@ -3,10 +3,12 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint" table="aws_ses_monitor_complaints" repository-class="SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\ComplaintRepository">
+    <entity name="SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint" table="aws_ses_monitor_complaints">
 
-        <id name="emailAddress" type="string" column="email_address" />
-
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO" />
+        </id>
+        <field name="email" type="string" column="email" />
         <field name="complaintTime" type="datetime" column="complaint_time" />
 
     </entity>

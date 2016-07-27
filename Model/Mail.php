@@ -10,6 +10,11 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 class Mail
 {
     /**
+     * @var int $id
+     */
+    private $id;
+
+    /**
      * A unique ID that Amazon SES assigned to the message.
      *
      * Amazon SES returned this value to you when you sent the message.
@@ -82,6 +87,14 @@ class Mail
      * @var string
      */
     private $commonHeaders;
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * @return string

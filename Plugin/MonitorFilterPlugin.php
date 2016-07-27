@@ -20,13 +20,11 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     /** @var bool $bouncesConfig */
     private $bouncesConfig;
 
-    /** @var BounceRepositoryInterface */
     private $bounceRepo;
 
     /** @var int $complaintsConfig */
     private $complaintsConfig;
 
-    /** @var ComplaintRepositoryInterface */
     private $complaintRepo;
 
     /**

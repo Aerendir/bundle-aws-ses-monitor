@@ -22,21 +22,16 @@ class SubscriptionConfirmationHandler implements HandlerInterface
     /** @var  EntityManager $entityManager */
     private $entityManager;
 
-    /** @var TopicRepositoryInterface */
-    private $repo;
-
     /** @var AwsClientFactory $clientFactory*/
     private $clientFactory;
 
     /**
      * @param EntityManager $entityManager
-     * @param ObjectRepository $repo
      * @param AwsClientFactory $clientFactory
      */
-    public function __construct(EntityManager $entityManager, ObjectRepository $repo, AwsClientFactory $clientFactory)
+    public function __construct(EntityManager $entityManager, AwsClientFactory $clientFactory)
     {
         $this->entityManager = $entityManager;
-        $this->repo = $repo;
         $this->clientFactory = $clientFactory;
     }
 
@@ -62,10 +57,10 @@ class SubscriptionConfirmationHandler implements HandlerInterface
             $topicArn = $data['TopicArn'];
             $token = $data['Token'];
 
-            $topicEntity = $this->repo->findOneByTopicArn($topicArn);
+            $topicEntity = $this->entityManager->getRepository('AwsSesMonitorBundle:Topic')->findOneByTopicArn($topicArn);
             if ($topicEntity instanceof Topic) {
                 $topicEntity->setToken($token);
-                $this->repo->save($topicEntity);
+                $this->entityManager->persist($topicEntity);
 
                 $client = $this->clientFactory->getSnsClient($credentials);
                 $client->confirmSubscription(
@@ -75,7 +70,7 @@ class SubscriptionConfirmationHandler implements HandlerInterface
                     ]
                 );
 
-                $this->repo->remove($topicEntity);
+                $this->entityManager->flush();
 
                 return 200;
             }
