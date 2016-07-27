@@ -2,15 +2,14 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Controller;
 
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\HandlerFactory;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationHandler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Handles the Deliveries.
  */
-class DeliveriesController extends Controller
+class DeliveriesController extends BaseController
 {
     /**
      * @param Request $request
@@ -19,15 +18,6 @@ class DeliveriesController extends Controller
      */
     public function deliveriesAction(Request $request)
     {
-        /** @var HandlerFactory $factory */
-        $factory = $this->get('aws_ses_monitor.handler.factory');
-        $credentials = $this->getParameter('aws_ses_monitor.aws_config')['credentials_service_name'];
-        $credentials = $this->get($credentials);
-
-
-        $monitorHandler = $factory->buildDeliveriesHandler($request);
-        $responseCode = $monitorHandler->handleRequest($request, $credentials);
-
-        return new Response('', $responseCode);
+        return $this->handleRequest($request, NotificationHandler::MESSAGE_TYPE_DELIVERY);
     }
 }

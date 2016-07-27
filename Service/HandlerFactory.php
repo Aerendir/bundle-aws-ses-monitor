@@ -32,36 +32,6 @@ class HandlerFactory
 
     /**
      * @param Request $request
-     *
-     * @return HandlerInterface
-     */
-    public function buildBouncesHandler(Request $request)
-    {
-        return $this->buildHandler($request, NotificationHandler::MESSAGE_TYPE_BOUNCE);
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return HandlerInterface
-     */
-    public function buildComplaintsHandler(Request $request)
-    {
-        return $this->buildHandler($request, NotificationHandler::MESSAGE_TYPE_COMPLAINT);
-    }
-
-    /**
-     * @param Request $request
-     *
-     * @return HandlerInterface
-     */
-    public function buildDeliveriesHandler(Request $request)
-    {
-        return $this->buildHandler($request, NotificationHandler::MESSAGE_TYPE_DELIVERY);
-    }
-
-    /**
-     * @param Request $request
      * @param string  $notificationType
      *
      * @return HandlerInterface

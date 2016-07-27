@@ -50,7 +50,7 @@ class HandlerFactoryTest extends \PHPUnit_Framework_TestCase
 
         /* @var \Symfony\Component\HttpFoundation\Request $request */
         $this->request->headers->set('x-amz-sns-message-type', 'test-fake');
-        $object = $factory->buildBouncesHandler($this->request);
+        $object = $factory->buildHandler($this->request, 'not_relevant');
         $this->assertInstanceOf(NoopHandler::class, $object);
     }
 
@@ -60,7 +60,7 @@ class HandlerFactoryTest extends \PHPUnit_Framework_TestCase
 
         /* @var \Symfony\Component\HttpFoundation\Request $request */
         $this->request->headers->set('x-amz-sns-message-type', NotificationHandler::HEADER_TYPE);
-        $object = $factory->buildBouncesHandler($this->request);
+        $object = $factory->buildHandler($this->request, 'not_relevant');
         $this->assertInstanceOf(NotificationHandler::class, $object);
     }
 
@@ -70,7 +70,7 @@ class HandlerFactoryTest extends \PHPUnit_Framework_TestCase
 
         /* @var \Symfony\Component\HttpFoundation\Request $request */
         $this->request->headers->set('x-amz-sns-message-type', SubscriptionConfirmationHandler::HEADER_TYPE);
-        $object = $factory->buildBouncesHandler($this->request);
+        $object = $factory->buildHandler($this->request, 'not_relevant');
         $this->assertInstanceOf(SubscriptionConfirmationHandler::class, $object);
     }
 }
