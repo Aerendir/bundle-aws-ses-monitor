@@ -4,13 +4,32 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 
 /**
  * A Bounce Entity.
+ *
+ * @see http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notification-contents.html#bounce-object
  */
 class Bounce
 {
+    /** Hard bounces and subtypes */
+    const TYPE_PERMANENT            = 'Permanent';
+    const TYPE_PERM_GENERAL         = 'General';
+    const TYPE_PERM_NOEMAIL         = 'NoEmail';
+    const TYPE_PERM_SUPPRESSED      = 'Suppressed';
+
+    /** Soft bunces and subtypes */
+    const TYPE_TRANSIENT            = 'Transient';
+    const TYPE_TRANS_GENERAL        = 'General';
+    const TYPE_TRANS_BOXFULL        = 'MailboxFull';
+    const TYPE_TRANS_TOOLARGE       = 'MessageTooLarge';
+    const TYPE_TRANS_CONTREJECTED   = 'ContentRejected';
+    const TYPE_TRANS_ATTACHREJECTED = 'AttachmentRejected';
+
+    /** Undetermined bounces */
+    const TYPE_UNDETERMINED         = 'Undetermined';
+
     /**
      * @var string
      */
-    protected $emailAddress;
+    protected $email;
 
     /**
      * @var \DateTime
@@ -23,24 +42,37 @@ class Bounce
     protected $bounceCount;
 
     /**
-     * @var bool
+     * @var string
      */
-    protected $permanent;
+    protected $type;
 
     /**
-     * @param $emailAddress
+     * @var string
      */
-    public function __construct($emailAddress)
+    protected $subType;
+
+    /**
+     * @param string $email
+     */
+    public function __construct($email)
     {
-        $this->emailAddress = mb_strtolower($emailAddress);
+        $this->email = mb_strtolower($email);
+    }
+
+    /**
+     * @return int
+     */
+    public function getBounceCount()
+    {
+        return $this->bounceCount;
     }
 
     /**
      * @return string
      */
-    public function getEmailAddress()
+    public function getEmail()
     {
-        return $this->emailAddress;
+        return $this->email;
     }
 
     /**
@@ -52,23 +84,21 @@ class Bounce
     }
 
     /**
-     * @param \DateTime $lastTimeBounce
-     *
      * @return $this
      */
-    public function setLastTimeBounce($lastTimeBounce)
+    public function incrementBounceCounter()
     {
-        $this->lastTimeBounce = $lastTimeBounce;
+        ++$this->bounceCount;
 
         return $this;
     }
 
     /**
-     * @return int
+     * @return bool
      */
-    public function getBounceCount()
+    public function isPermanent()
     {
-        return $this->bounceCount;
+        return self::TYPE_PERMANENT === $this->type;
     }
 
     /**
@@ -84,31 +114,25 @@ class Bounce
     }
 
     /**
-     * @return bool
-     */
-    public function isPermanent()
-    {
-        return $this->permanent;
-    }
-
-    /**
-     * @param bool $permanent
+     * @param \DateTime $lastTimeBounce
      *
      * @return $this
      */
-    public function setPermanent($permanent)
+    public function setLastTimeBounce($lastTimeBounce)
     {
-        $this->permanent = $permanent;
+        $this->lastTimeBounce = $lastTimeBounce;
 
         return $this;
     }
 
     /**
+     * @param bool $type
+     *
      * @return $this
      */
-    public function incrementBounceCounter()
+    public function setType($type)
     {
-        ++$this->bounceCount;
+        $this->type = $type;
 
         return $this;
     }
