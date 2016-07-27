@@ -6,10 +6,14 @@ use Aws\Credentials\Credentials;
 use Aws\Sns\Message;
 use Aws\Sns\MessageValidator;
 use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\ORM\EntityManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\BounceRepositoryInterface;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Mail;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\BounceRepositoryInterface;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\ComplaintRepositoryInterface;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\DeliveryRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -24,15 +28,23 @@ class NotificationHandler implements HandlerInterface
     const MESSAGE_TYPE_DELIVERY = 'Delivery';
 
     /**
-     * @var BounceRepositoryInterface
+     * @var EntityManager $entityManager
+     */
+    private $entityManager;
+
+    /**
+     * @var BounceRepositoryInterface|ComplaintRepositoryInterface|DeliveryRepositoryInterface $repo
      */
     private $repo;
 
     /**
+     * @todo Remove ObjectRepository as it isn't needed anymore
+     * @param EntityManager $entityManager
      * @param ObjectRepository $repo
      */
-    public function __construct(ObjectRepository $repo)
+    public function __construct(EntityManager $entityManager, ObjectRepository $repo)
     {
+        $this->entityManager = $entityManager;
         $this->repo = $repo;
     }
 
@@ -56,6 +68,10 @@ class NotificationHandler implements HandlerInterface
 
         if (isset($data['Message'])) {
             $message = json_decode($data['Message'], true);
+
+            // Persist the Mail object
+            $mail = $this->handleMail($message['mail']);
+
             if (isset($message['notificationType'])) {
                 switch ($message['notificationType']) {
                     case self::MESSAGE_TYPE_SUBSCRIPTION_SUCCESS:
@@ -63,18 +79,21 @@ class NotificationHandler implements HandlerInterface
                         break;
 
                     case self::MESSAGE_TYPE_BOUNCE:
-                        return $this->handleBounceNotification($message);
+                        return $this->handleBounceNotification($message, $mail);
                         break;
 
                     case self::MESSAGE_TYPE_COMPLAINT:
-                        return $this->handleComplaintNotification($message);
+                        return $this->handleComplaintNotification($message, $mail);
                         break;
 
                     case self::MESSAGE_TYPE_DELIVERY:
-                        return $this->handleDeliveryNotification($message);
+                        return $this->handleDeliveryNotification($message, $mail);
                         break;
                 }
             }
+
+            // Flush all entities
+            $this->entityManager->flush();
         }
 
         return 404;
@@ -85,21 +104,10 @@ class NotificationHandler implements HandlerInterface
      *
      * @return int
      */
-    private function handleBounceNotification(array $message)
+    private function handleBounceNotification(array $message, Mail $mail)
     {
         foreach ($message['bounce']['bouncedRecipients'] as $bouncedRecipient) {
-            $email = $bouncedRecipient['emailAddress'];
-            $bounce = $this->repo->findOneByEmail($email);
-
-            if (null === $bounce) {
-                $bounce = new Bounce($email);
-            }
-
-            $bounce->incrementBounceCounter()
-                ->setLastTimeBounce(new \DateTime())
-                ->setPermanent(($message['bounce']['bounceType'] === 'Permanent'));
-
-            $this->repo->save($bounce);
+            $this->handleBouncedRecipients($bouncedRecipient, $message);
         }
 
         return 200;
@@ -110,7 +118,7 @@ class NotificationHandler implements HandlerInterface
      *
      * @return int
      */
-    private function handleComplaintNotification(array $message)
+    private function handleComplaintNotification(array $message, Mail $mail)
     {
         foreach ($message['complaint']['complainedRecipients'] as $complainedRecipient) {
             $email = $complainedRecipient['emailAddress'];
@@ -133,7 +141,7 @@ class NotificationHandler implements HandlerInterface
      *
      * @return int
      */
-    private function handleDeliveryNotification(array $message)
+    private function handleDeliveryNotification(array $message, Mail $mail)
     {
         foreach ($message['delivery']['recipients'] as $recipient) {
             $delivery = $this->repo->findOneByEmail($recipient);
@@ -148,5 +156,55 @@ class NotificationHandler implements HandlerInterface
         }
 
         return 200;
+    }
+
+    /**
+     * @param $mail
+     *
+     * @return Mail
+     */
+    private function handleMail($mail)
+    {
+        $object = $this->entityManager->getRepository('AwsSesMonitorBundle:Mail')->findOneByMessageId($mail['messageId']);
+
+        // If a Mail object already exists return it
+        if (null !== $object)
+            return $object;
+
+        $object = new Mail();
+        $object->setMessageId($mail['messageId'])
+            ->setSentOn(new \DateTime($mail['timestamp']))
+            ->setSentFrom($mail['source'])
+            ->setSourceArn($mail['sourceArn'])
+            ->setSendingAccountId($mail['sendingAccountId']);
+
+        if (isset($mail['headers']))
+            $object->setHeaders($mail['headers']);
+
+        if (isset($mail['commonHeaders']))
+            $object->setCommonHeaders($mail['commonHeaders']);
+
+        $this->entityManager->persist($object);
+
+        return $object;
+    }
+
+    /**
+     * @param array $recipient
+     * @param array $message
+     */
+    private function handleBouncedRecipients(array $recipient, array $message)
+    {
+        $bounce = $this->repo->findOneByEmail($recipient['emailAddress']);
+
+        if (null === $bounce) {
+            $bounce = new Bounce($recipient['emailAddress']);
+        }
+
+        $bounce->incrementBounceCounter()
+            ->setLastTimeBounce(new \DateTime())
+            ->setType(($message['bounce']['bounceType'] === 'Permanent'));
+
+        $this->repo->save($bounce);
     }
 }

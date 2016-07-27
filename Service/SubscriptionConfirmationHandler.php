@@ -6,32 +6,36 @@ use Aws\Credentials\Credentials;
 use Aws\Sns\Message;
 use Aws\Sns\MessageValidator;
 use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\ORM\EntityManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Topic;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\TopicRepositoryInterface;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\TopicRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Handles the confirmation of the subscription.
+ *
  */
 class SubscriptionConfirmationHandler implements HandlerInterface
 {
     const HEADER_TYPE = 'SubscriptionConfirmation';
 
-    /**
-     * @var TopicRepositoryInterface
-     */
+    /** @var  EntityManager $entityManager */
+    private $entityManager;
+
+    /** @var TopicRepositoryInterface */
     private $repo;
-    /**
-     * @var AwsClientFactory
-     */
+
+    /** @var AwsClientFactory $clientFactory*/
     private $clientFactory;
 
     /**
+     * @param EntityManager $entityManager
      * @param ObjectRepository $repo
      * @param AwsClientFactory $clientFactory
      */
-    public function __construct(ObjectRepository $repo, AwsClientFactory $clientFactory)
+    public function __construct(EntityManager $entityManager, ObjectRepository $repo, AwsClientFactory $clientFactory)
     {
+        $this->entityManager = $entityManager;
         $this->repo = $repo;
         $this->clientFactory = $clientFactory;
     }

@@ -4,9 +4,9 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin;
 
 use Doctrine\ORM\EntityManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\BounceRepositoryInterface;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\BounceRepositoryInterface;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\ComplaintRepositoryInterface;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\ComplaintRepositoryInterface;
 use Swift_Events_SendEvent;
 
 /**
@@ -116,10 +116,6 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
         }
 
         if ($bounce->getBounceCount() >= $this->bouncesConfig['max_bounces']) {
-            return true;
-        }
-
-        if (true === $bounce->isPermanent()) {
             return true;
         }
 

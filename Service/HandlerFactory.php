@@ -43,11 +43,13 @@ class HandlerFactory
         switch ($headerType) {
             case NotificationHandler::HEADER_TYPE:
                 return new NotificationHandler(
+                    $this->entityManager,
                     $this->entityManager->getRepository('AwsSesMonitorBundle:' . $notificationType)
                 );
 
             case SubscriptionConfirmationHandler::HEADER_TYPE:
                 return new SubscriptionConfirmationHandler(
+                    $this->entityManager,
                     $this->entityManager->getRepository('AwsSesMonitorBundle:Topic'),
                     $this->awsFactory
                 );
