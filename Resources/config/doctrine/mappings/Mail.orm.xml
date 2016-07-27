@@ -1,0 +1,17 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                   https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\EmailMessage" table="aws_ses_monitor_email_messages" repository-class="SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\EmailMessageRepository">
+
+        <id name="messageId" type="string" column="message_id" />
+
+        <field name="sentOn" type="datetime" column="sent_on" nullable="false" />
+        <field name="sentFrom" type="string" column="sent_from" nullable="false" />
+        <field name="sourceArn" type="string" column="source_arn" nullable="false" />
+        <field name="sendingAccountId" type="string" column="sending_account_id" nullable="false" />
+        <field name="headers" type="string" column="headers" nullable="true" />
+        <field name="commonHeaders" type="string" column="common_headers" nullable="true" />
+    </entity>
+</doctrine-mapping>

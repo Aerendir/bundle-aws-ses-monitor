@@ -119,7 +119,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
             return true;
         }
 
-        if (true === $bounce->isPermanent()) {
+        if (true === $bounce->isType()) {
             return true;
         }
 
