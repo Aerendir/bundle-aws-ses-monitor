@@ -18,6 +18,9 @@
         </many-to-one>
         <field name="emailAddress" type="string" column="email_address" />
         <field name="deliveryTime" type="datetime" column="delivery_time" />
+        <field name="processingTimeMillis" type="string" column="processing_time_millis" />
+        <field name="smtpResponse" type="string" column="smtp_response" />
+        <field name="reportingMta" type="string" column="reporting_mta" nullable="true" />
 
     </entity>
 </doctrine-mapping>

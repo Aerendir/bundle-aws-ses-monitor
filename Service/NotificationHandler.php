@@ -168,7 +168,12 @@ class NotificationHandler implements HandlerInterface
             $delivery = new Delivery($recipient);
 
             $delivery->setMailMessage($mail)
-                ->setDeliveryTime(new \DateTime());
+                ->setDeliveryTime(new \DateTime($message['delivery']['timestamp']))
+                ->setProcessingTimeMillis($message['delivery']['processingTimeMillis'])
+                ->setSmtpResponse($message['delivery']['smtpResponse']);
+
+            if (isset($message['delivery']['reportingMta']))
+                $delivery->setReportingMta($message['delivery']['reportingMta']);
 
             $this->entityManager->persist($delivery);
         }
