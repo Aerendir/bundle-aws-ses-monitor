@@ -12,7 +12,7 @@ class Complaint
     /** Indicates unsolicited email or some other kind of email abuse. */
     const TYPE_ABUSE = 'abuse';
 
-    /** Email authentication failure report. */
+    /** EmailStatus authentication failure report. */
     const TYPE_AUTH_FAILURE = 'auth-failure';
 
     /** Indicates some kind of fraud or phishing activity. */
@@ -91,13 +91,11 @@ class Complaint
      */
     private $arrivalDate;
 
+
     /**
-     * @param $email
+     * @var EmailStatus $emailStatus
      */
-    public function __construct($email)
-    {
-        $this->emailAddress = mb_strtolower($email);
-    }
+    private $emailStatus;
 
     /**
      * @return int
@@ -161,6 +159,22 @@ class Complaint
     public function getArrivalDate()
     {
         return $this->arrivalDate;
+    }
+
+    /**
+     * @return EmailStatus
+     */
+    public function getEmailStatus()
+    {
+        return $this->emailStatus;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmailAddress($email)
+    {
+        $this->emailAddress = $email;
     }
 
     /**

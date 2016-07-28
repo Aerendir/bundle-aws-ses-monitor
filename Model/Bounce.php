@@ -91,7 +91,7 @@ class Bounce
     private $action;
 
     /**
-     * The value of the Status field from the DSN.
+     * The value of the EmailStatus field from the DSN.
      *
      * This is the per-recipient transport-independent status code that indicates the delivery status of the message.
      *
@@ -110,12 +110,9 @@ class Bounce
     private $diagnosticCode;
 
     /**
-     * @param string $email
+     * @var EmailStatus $emailStatus
      */
-    public function __construct($email)
-    {
-        $this->emailAddress = mb_strtolower($email);
-    }
+    private $emailStatus;
 
     /**
      * @return int
@@ -190,11 +187,35 @@ class Bounce
     }
 
     /**
+     * @return EmailStatus
+     */
+    public function getEmailStatus()
+    {
+        return $this->emailStatus;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
      * @return bool
      */
     public function isPermanent()
     {
         return self::TYPE_PERMANENT === $this->type;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmailAddress($email)
+    {
+        $this->emailAddress = $email;
     }
 
     /**
