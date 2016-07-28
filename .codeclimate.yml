@@ -9,6 +9,11 @@ engines:
     enabled: true
   phpmd:
     enabled: true
+    checks:
+      Naming/ShortVariable:
+        enabled: false
+      Naming/LongVariable:
+        enabled: false
 ratings:
   paths:
   - "**.php"
