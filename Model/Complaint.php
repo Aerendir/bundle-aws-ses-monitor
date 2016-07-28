@@ -40,14 +40,14 @@ class Complaint
     const TYPE_VIRUS = 'virus';
 
     /**
-     * @var int
+     * @var int $id
      */
     private $id;
 
     /**
      * The MessageObject that reported this complaint.
      *
-     * @var MailMessage
+     * @var MailMessage $mailMessage
      */
     private $mailMessage;
 
@@ -69,7 +69,7 @@ class Complaint
     /**
      * A unique ID for the bounce.
      *
-     * @var string
+     * @var string $feedbackId
      */
     private $feedbackId;
 
@@ -78,7 +78,7 @@ class Complaint
      *
      * This indicates the name and version of the system that generated the report.
      *
-     * @var string
+     * @var string $userAgent
      */
     private $userAgent;
 
@@ -87,7 +87,7 @@ class Complaint
      *
      * This contains the type of feedback.
      *
-     * @var string
+     * @var string $complaintFeedbackType
      */
     private $complaintFeedbackType;
 
@@ -96,12 +96,12 @@ class Complaint
      *
      * This field may be absent in the report (and therefore also absent in the JSON).
      *
-     * @var string
+     * @var string $arrivalDate
      */
     private $arrivalDate;
 
     /**
-     * @var EmailStatus
+     * @var EmailStatus $emailStatus
      */
     private $emailStatus;
 

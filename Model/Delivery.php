@@ -17,19 +17,19 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 class Delivery
 {
     /**
-     * @var int
+     * @var int $id
      */
     private $id;
 
     /**
      * The MessageObject that reported this complaint.
      *
-     * @var MailMessage
+     * @var MailMessage $mailMessage
      */
     private $mailMessage;
 
     /**
-     * @var string
+     * @var string $emailAddress
      */
     private $emailAddress;
 
@@ -44,7 +44,7 @@ class Delivery
      * The time in milliseconds between when Amazon SES accepted the request from the sender to passing the message to
      * the recipient's mail server.
      *
-     * @var string
+     * @var string $processingTimeMillis
      */
     private $processingTimeMillis;
 
@@ -53,19 +53,19 @@ class Delivery
      *
      * This message will vary by email, by receiving mail server, and by receiving ISP.
      *
-     * @var string
+     * @var string $smtpResponse
      */
     private $smtpResponse;
 
     /**
      * The host name of the Amazon SES mail server that sent the mail.
      *
-     * @var string
+     * @var string $reportingMta
      */
     private $reportingMta;
 
     /**
-     * @var EmailStatus
+     * @var EmailStatus $emailStatus
      */
     private $emailStatus;
 
