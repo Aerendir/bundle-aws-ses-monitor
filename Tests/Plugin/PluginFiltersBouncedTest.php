@@ -59,7 +59,7 @@ class PluginFiltersBouncedTest extends PluginFilterTestBase
         );
     }
 
-    public function testFiltersMaxBounced()
+    public function _testFiltersMaxBounced()
     {
         $this->bouncedMock->method('getBounceCount')->willReturn(5);
 
