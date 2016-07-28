@@ -13,7 +13,9 @@ class Delivery
     private $id;
 
     /**
-     * @var
+     * The MessageObject that reported this complaint.
+     *
+     * @var MailMessage $mailMessage
      */
     private $mailMessage;
 
