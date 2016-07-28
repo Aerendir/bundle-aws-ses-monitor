@@ -13,6 +13,11 @@ class Complaint
     private $id;
 
     /**
+     * @var
+     */
+    private $mail;
+
+    /**
      * @var string
      */
     private $email;
@@ -39,6 +44,14 @@ class Complaint
     }
 
     /**
+     * @return Mail
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
      * @return string
      */
     public function getEmail()
@@ -52,6 +65,18 @@ class Complaint
     public function getComplaintTime()
     {
         return $this->complaintTime;
+    }
+
+    /**
+     * @param Mail $mail
+     *
+     * @return $this
+     */
+    public function setMail(Mail $mail)
+    {
+        $this->mail = $mail;
+
+        return $this;
     }
 
     /**

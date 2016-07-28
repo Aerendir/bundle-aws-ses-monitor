@@ -15,5 +15,8 @@
         <field name="sendingAccountId" type="string" column="sending_account_id" nullable="false" />
         <field name="headers" type="string" column="headers" nullable="true" />
         <field name="commonHeaders" type="string" column="common_headers" nullable="true" />
+        <one-to-many field="bounces" target-entity="Bounce" mapped-by="mail" />
+        <one-to-many field="complaints" target-entity="Complaint" mapped-by="mail" />
+        <one-to-many field="deliveries" target-entity="Delivery" mapped-by="mail" />
     </entity>
 </doctrine-mapping>

@@ -32,6 +32,11 @@ class Bounce
     private $id;
 
     /**
+     * @var
+     */
+    private $mail;
+
+    /**
      * @var string $email
      */
     private $email;
@@ -70,6 +75,14 @@ class Bounce
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return Mail
+     */
+    public function getMail()
+    {
+        return $this->mail;
     }
 
     /**
@@ -112,6 +125,18 @@ class Bounce
     public function isPermanent()
     {
         return self::TYPE_PERMANENT === $this->type;
+    }
+
+    /**
+     * @param Mail $mail
+     *
+     * @return $this
+     */
+    public function setMail(Mail $mail)
+    {
+        $this->mail = $mail;
+
+        return $this;
     }
 
     /**

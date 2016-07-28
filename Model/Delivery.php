@@ -13,6 +13,11 @@ class Delivery
     private $id;
 
     /**
+     * @var
+     */
+    private $mail;
+
+    /**
      * @var string
      */
     private $emailAddress;
@@ -39,6 +44,14 @@ class Delivery
     }
 
     /**
+     * @return Mail
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
      * @return string
      */
     public function getEmailAddress()
@@ -52,6 +65,18 @@ class Delivery
     public function getDeliveryTime()
     {
         return $this->deliveryTime;
+    }
+
+    /**
+     * @param Mail $mail
+     *
+     * @return $this
+     */
+    public function setMail(Mail $mail)
+    {
+        $this->mail = $mail;
+
+        return $this;
     }
 
     /**

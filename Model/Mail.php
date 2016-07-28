@@ -1,6 +1,7 @@
 <?php
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * A mail Entity.
@@ -87,6 +88,31 @@ class Mail
      * @var string
      */
     private $commonHeaders;
+
+    /**
+     * @var ArrayCollection
+     */
+    private $bounces;
+
+    /**
+     * @var ArrayCollection
+     */
+    private $complaints;
+
+    /**
+     * @var ArrayCollection
+     */
+    private $deliveries;
+
+    /**
+     * Mail constructor.
+     */
+    public function __construct()
+    {
+        $this->bounces    = new ArrayCollection();
+        $this->complaints = new ArrayCollection();
+        $this->deliveries = new ArrayCollection();
+    }
 
     /**
      * @return int
