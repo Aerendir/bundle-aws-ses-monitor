@@ -103,7 +103,7 @@ class NotificationHandler implements HandlerInterface
             $bounce = new Bounce($bouncedRecipient['emailAddress']);
 
             $bounce->setMailMessage($mail)
-                ->setBouncedOn(new \DateTime())
+                ->setBouncedOn(new \DateTime($message['bounce']['timestamp']))
                 ->setType(($message['bounce']['bounceType']))
                 ->setSubType(($message['bounce']['bounceSubType']))
                 ->setFeedbackId($message['bounce']['feedbackId']);
@@ -138,7 +138,17 @@ class NotificationHandler implements HandlerInterface
             $complaint = new Complaint($complainedRecipient['emailAddress']);
 
             $complaint->setMailMessage($mail)
-                ->setComplaintTime(new \DateTime());
+                ->setComplainedOn(new \DateTime($message['complaint']['timestamp']))
+                ->setFeedbackId($message['complaint']['feedbackId']);
+
+            if (isset($message['complaint']['userAgent']))
+                $complaint->setUserAgent($message['complaint']['userAgent']);
+
+            if (isset($message['complaint']['complaintFeedbackType']))
+                $complaint->setComplaintFeedbackType($message['complaint']['complaintFeedbackType']);
+
+            if (isset($message['complaint']['arrivalDate']))
+                $complaint->setArrivalDate($message['complaint']['arrivalDate']);
 
             $this->entityManager->persist($complaint);
         }
