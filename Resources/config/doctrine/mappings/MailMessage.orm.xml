@@ -3,7 +3,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Mail" table="aws_ses_monitor_mails">
+    <entity name="SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage" table="aws_ses_monitor_messages">
 
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />
@@ -15,8 +15,8 @@
         <field name="sendingAccountId" type="string" column="sending_account_id" nullable="false" />
         <field name="headers" type="string" column="headers" nullable="true" />
         <field name="commonHeaders" type="string" column="common_headers" nullable="true" />
-        <one-to-many field="bounces" target-entity="Bounce" mapped-by="mail" />
-        <one-to-many field="complaints" target-entity="Complaint" mapped-by="mail" />
-        <one-to-many field="deliveries" target-entity="Delivery" mapped-by="mail" />
+        <one-to-many field="bounces" target-entity="Bounce" mapped-by="mailMessage" />
+        <one-to-many field="complaints" target-entity="Complaint" mapped-by="mailMessage" />
+        <one-to-many field="deliveries" target-entity="Delivery" mapped-by="mailMessage" />
     </entity>
 </doctrine-mapping>

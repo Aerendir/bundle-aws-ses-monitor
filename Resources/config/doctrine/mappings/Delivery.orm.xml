@@ -9,11 +9,11 @@
             <generator strategy="AUTO" />
         </id>
         <many-to-one
-                field="mail"
-                target-entity="Mail"
+                field="mail_message"
+                target-entity="MailMessage"
                 inversed-by="deliveries">
 
-            <join-column name="mail" referenced-column-name="id" />
+            <join-column name="mail_message" referenced-column-name="id" />
         </many-to-one>
         <field name="emailAddress" type="string" column="email_address" />
         <field name="deliveryTime" type="datetime" column="delivery_time" />

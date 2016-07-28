@@ -9,13 +9,13 @@
             <generator strategy="AUTO" />
         </id>
         <many-to-one
-                field="mail"
-                target-entity="Mail"
+                field="mail_message"
+                target-entity="MailMessage"
                 inversed-by="bounces">
 
-            <join-column name="mail" referenced-column-name="id" />
+            <join-column name="mail_message" referenced-column-name="id" />
         </many-to-one>
-        <field name="email" type="string" column="email" />
+        <field name="emailAddress" type="string" column="email_address" />
         <field name="lastTimeBounce" type="datetime" column="last_time_bounce" />
         <field name="bounceCount" type="integer" column="bounce_count">
             <options>

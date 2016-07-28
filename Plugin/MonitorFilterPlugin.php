@@ -42,7 +42,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     }
 
     /**
-     * Invoked immediately before the Message is sent.
+     * Invoked immediately before the MailMessage is sent.
      *
      * @param Swift_Events_SendEvent $event
      */
@@ -56,7 +56,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     }
 
     /**
-     * Invoked immediately after the Message is sent.
+     * Invoked immediately after the MailMessage is sent.
      *
      * @param Swift_Events_SendEvent $evt
      */

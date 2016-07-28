@@ -34,12 +34,12 @@ class Bounce
     /**
      * @var
      */
-    private $mail;
+    private $mailMessage;
 
     /**
-     * @var string $email
+     * @var string $emailAddress
      */
-    private $email;
+    private $emailAddress;
 
     /**
      * @var \DateTime
@@ -66,7 +66,7 @@ class Bounce
      */
     public function __construct($email)
     {
-        $this->email = mb_strtolower($email);
+        $this->emailAddress = mb_strtolower($email);
     }
 
     /**
@@ -78,11 +78,11 @@ class Bounce
     }
 
     /**
-     * @return Mail
+     * @return MailMessage
      */
-    public function getMail()
+    public function getMailMessage()
     {
-        return $this->mail;
+        return $this->mailMessage;
     }
 
     /**
@@ -96,9 +96,9 @@ class Bounce
     /**
      * @return string
      */
-    public function getEmail()
+    public function getEmailAddress()
     {
-        return $this->email;
+        return $this->emailAddress;
     }
 
     /**
@@ -128,13 +128,13 @@ class Bounce
     }
 
     /**
-     * @param Mail $mail
+     * @param MailMessage $mailMessage
      *
      * @return $this
      */
-    public function setMail(Mail $mail)
+    public function setMailMessage(MailMessage $mailMessage)
     {
-        $this->mail = $mail;
+        $this->mailMessage = $mailMessage;
 
         return $this;
     }

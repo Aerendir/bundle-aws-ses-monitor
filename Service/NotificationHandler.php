@@ -9,7 +9,7 @@ use Doctrine\ORM\EntityManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Mail;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -57,8 +57,8 @@ class NotificationHandler implements HandlerInterface
         if (isset($data['Message'])) {
             $message = json_decode($data['Message'], true);
 
-            // Persist the Mail object
-            $mail = $this->handleMail($message['mail']);
+            // Create and Persist the MailMessage object
+            $mail = $this->handleMailMessage($message['mail']);
 
             if (isset($message['notificationType'])) {
                 $return = 500;
@@ -93,13 +93,21 @@ class NotificationHandler implements HandlerInterface
 
     /**
      * @param array $message
+     * @param MailMessage  $mail
      *
      * @return int
      */
-    private function handleBounceNotification(array $message, Mail $mail)
+    private function handleBounceNotification(array $message, MailMessage $mail)
     {
         foreach ($message['bounce']['bouncedRecipients'] as $bouncedRecipient) {
-            $this->handleBouncedRecipients($bouncedRecipient, $message);
+            $bounce = new Bounce($bouncedRecipient['emailAddress']);
+
+            $bounce->setMailMessage($mail)
+                ->setLastTimeBounce(new \DateTime())
+                ->setType(($message['bounce']['bounceType']))
+                ->setSubType(($message['bounce']['bounceSubType']));
+
+            $this->entityManager->persist($bounce);
         }
 
         return 200;
@@ -107,20 +115,17 @@ class NotificationHandler implements HandlerInterface
 
     /**
      * @param array $message
+     * @param MailMessage  $mail
      *
      * @return int
      */
-    private function handleComplaintNotification(array $message, Mail $mail)
+    private function handleComplaintNotification(array $message, MailMessage $mail)
     {
         foreach ($message['complaint']['complainedRecipients'] as $complainedRecipient) {
-            $email = $complainedRecipient['emailAddress'];
-            $complaint = $this->entityManager->getRepository('AwsSesMonitorBundle:Complaint')->findOneByEmail($email);
+            $complaint = new Complaint($complainedRecipient['emailAddress']);
 
-            if (null === $complaint) {
-                $complaint = new Complaint($email);
-            }
-
-            $complaint->setComplaintTime(new \DateTime());
+            $complaint->setMailMessage($mail)
+                ->setComplaintTime(new \DateTime());
 
             $this->entityManager->persist($complaint);
         }
@@ -130,19 +135,17 @@ class NotificationHandler implements HandlerInterface
 
     /**
      * @param array $message
+     * @param MailMessage  $mail
      *
      * @return int
      */
-    private function handleDeliveryNotification(array $message, Mail $mail)
+    private function handleDeliveryNotification(array $message, MailMessage $mail)
     {
         foreach ($message['delivery']['recipients'] as $recipient) {
-            $delivery = $this->entityManager->getRepository('AwsSesMonitorBundle:Complaint')->findOneByEmail($recipient);
+            $delivery = new Delivery($recipient);
 
-            if (null === $delivery) {
-                $delivery = new Delivery($recipient);
-            }
-
-            $delivery->setDeliveryTime(new \DateTime());
+            $delivery->setMailMessage($mail)
+                ->setDeliveryTime(new \DateTime());
 
             $this->entityManager->persist($delivery);
         }
@@ -153,17 +156,17 @@ class NotificationHandler implements HandlerInterface
     /**
      * @param $mail
      *
-     * @return Mail
+     * @return MailMessage
      */
-    private function handleMail($mail)
+    private function handleMailMessage($mail)
     {
-        $object = $this->entityManager->getRepository('AwsSesMonitorBundle:Mail')->findOneByMessageId($mail['messageId']);
+        $object = $this->entityManager->getRepository('AwsSesMonitorBundle:MailMessage')->findOneByMessageId($mail['messageId']);
 
-        // If a Mail object already exists return it
+        // If a MailMessage object already exists return it
         if (null !== $object)
             return $object;
 
-        $object = new Mail();
+        $object = new MailMessage();
         $object->setMessageId($mail['messageId'])
             ->setSentOn(new \DateTime($mail['timestamp']))
             ->setSentFrom($mail['source'])
@@ -179,25 +182,5 @@ class NotificationHandler implements HandlerInterface
         $this->entityManager->persist($object);
 
         return $object;
-    }
-
-    /**
-     * @param array $recipient
-     * @param array $message
-     */
-    private function handleBouncedRecipients(array $recipient, array $message)
-    {
-        $bounce = $this->entityManager->getRepository('AwsSesMonitorBundle:Complaint')->findOneByEmail($recipient['emailAddress']);
-
-        if (null === $bounce) {
-            $bounce = new Bounce($recipient['emailAddress']);
-        }
-
-        $bounce->incrementBounceCounter()
-            ->setLastTimeBounce(new \DateTime())
-            ->setType(($message['bounce']['bounceType']))
-            ->setSubType(($message['bounce']['bounceSubType']));
-
-        $this->entityManager->persist($bounce);
     }
 }

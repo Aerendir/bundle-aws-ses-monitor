@@ -9,13 +9,13 @@
             <generator strategy="AUTO" />
         </id>
         <many-to-one
-                field="mail"
-                target-entity="Mail"
+                field="mail_message"
+                target-entity="MailMessage"
                 inversed-by="complaints">
 
-            <join-column name="mail" referenced-column-name="id" />
+            <join-column name="mail_message" referenced-column-name="id" />
         </many-to-one>
-        <field name="email" type="string" column="email" />
+        <field name="email_address" type="string" column="email_address" />
         <field name="complaintTime" type="datetime" column="complaint_time" />
 
     </entity>
