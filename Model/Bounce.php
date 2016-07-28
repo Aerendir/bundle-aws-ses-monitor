@@ -51,7 +51,7 @@ class Bounce
      *
      * @var \DateTime
      */
-    private $sentOn;
+    private $bouncedOn;
 
     /**
      * @var string
@@ -144,9 +144,9 @@ class Bounce
     /**
      * @return \DateTime
      */
-    public function getSentOn()
+    public function getBouncedOn()
     {
-        return $this->sentOn;
+        return $this->bouncedOn;
     }
 
     /**
@@ -210,13 +210,13 @@ class Bounce
     }
 
     /**
-     * @param \DateTime $sentOn
+     * @param \DateTime $bouncedOn
      *
      * @return $this
      */
-    public function setSentOn($sentOn)
+    public function setBouncedOn($bouncedOn)
     {
-        $this->sentOn = $sentOn;
+        $this->bouncedOn = $bouncedOn;
 
         return $this;
     }
