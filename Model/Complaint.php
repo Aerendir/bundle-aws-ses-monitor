@@ -38,7 +38,7 @@ class Complaint
     /**
      * The MessageObject that reported this complaint.
      *
-     * @var
+     * @var MailMessage $mailMessage
      */
     private $mailMessage;
 

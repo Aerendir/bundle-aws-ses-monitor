@@ -13,19 +13,47 @@ class Delivery
     private $id;
 
     /**
-     * @var
+     * The MessageObject that reported this complaint.
+     *
+     * @var MailMessage $mailMessage
      */
     private $mailMessage;
 
     /**
-     * @var string
+     * @var string $emailAddress
      */
     private $emailAddress;
 
     /**
+     * The time Amazon SES delivered the email to the recipient's mail server (in ISO8601 format).
+     *
      * @var \DateTime
      */
     private $deliveryTime;
+
+    /**
+     * The time in milliseconds between when Amazon SES accepted the request from the sender to passing the message to
+     * the recipient's mail server.
+     *
+     * @var string $processingTimeMillis
+     */
+    private $processingTimeMillis;
+
+    /**
+     * The SMTP response message of the remote ISP that accepted the email from Amazon SES.
+     *
+     * This message will vary by email, by receiving mail server, and by receiving ISP.
+     *
+     * @var string $smtpResponse
+     */
+    private $smtpResponse;
+
+    /**
+     * The host name of the Amazon SES mail server that sent the mail.
+     *
+     * @var string $reportingMta
+     */
+    private $reportingMta;
 
     /**
      * @param $emailAddress
@@ -68,6 +96,30 @@ class Delivery
     }
 
     /**
+     * @return string
+     */
+    public function getProcessingTimeMillis()
+    {
+        return $this->processingTimeMillis;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSmtpResponse()
+    {
+        return $this->smtpResponse;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReportingMta()
+    {
+        return $this->reportingMta;
+    }
+
+    /**
      * @param MailMessage $mailMessage
      *
      * @return $this
@@ -87,6 +139,42 @@ class Delivery
     public function setDeliveryTime($deliveryTime)
     {
         $this->deliveryTime = $deliveryTime;
+
+        return $this;
+    }
+
+    /**
+     * @param string $processingTimeMillis
+     *
+     * @return $this
+     */
+    public function setProcessingTimeMillis($processingTimeMillis)
+    {
+        $this->processingTimeMillis = $processingTimeMillis;
+
+        return $this;
+    }
+
+    /**
+     * @param string $smtpResponse
+     *
+     * @return $this
+     */
+    public function setSmtpResponse($smtpResponse)
+    {
+        $this->smtpResponse = $smtpResponse;
+
+        return $this;
+    }
+
+    /**
+     * @param string $reportingMta
+     *
+     * @return $this
+     */
+    public function setReportingMta($reportingMta)
+    {
+        $this->reportingMta = $reportingMta;
 
         return $this;
     }

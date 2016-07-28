@@ -22,7 +22,7 @@
         <field name="subType" type="string" column="sub_type" />
         <field name="feedbackId" type="string" column="feedback_id" />
         <field name="reportingMta" type="string" column="reporting_mta" nullable="true" />
-        <field name="action" type="string" column="action" nullable="true" />
+        <field name="action" type="text" column="action" nullable="true" />
         <field name="status" type="string" column="status" nullable="true" />
         <field name="diagnosticCode" type="string" column="diagnostic_code" nullable="true" />
     </entity>
