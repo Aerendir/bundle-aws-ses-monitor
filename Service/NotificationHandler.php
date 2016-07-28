@@ -103,7 +103,7 @@ class NotificationHandler implements HandlerInterface
             $bounce = new Bounce($bouncedRecipient['emailAddress']);
 
             $bounce->setMailMessage($mail)
-                ->setSentOn(new \DateTime())
+                ->setBouncedOn(new \DateTime())
                 ->setType(($message['bounce']['bounceType']))
                 ->setSubType(($message['bounce']['bounceSubType']))
                 ->setFeedbackId($message['bounce']['feedbackId']);

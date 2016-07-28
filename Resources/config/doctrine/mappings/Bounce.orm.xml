@@ -17,6 +17,7 @@
             <join-column name="mail_message" referenced-column-name="id" />
         </many-to-one>
         <field name="emailAddress" type="string" column="email_address" />
+        <field name="bouncedOn" type="datetime" column="bounced_on" />
         <field name="type" type="string" column="type" />
         <field name="subType" type="string" column="sub_type" />
         <field name="feedbackId" type="string" column="feedback_id" />
