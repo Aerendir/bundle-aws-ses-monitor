@@ -103,9 +103,22 @@ class NotificationHandler implements HandlerInterface
             $bounce = new Bounce($bouncedRecipient['emailAddress']);
 
             $bounce->setMailMessage($mail)
-                ->setLastTimeBounce(new \DateTime())
+                ->setSentOn(new \DateTime())
                 ->setType(($message['bounce']['bounceType']))
-                ->setSubType(($message['bounce']['bounceSubType']));
+                ->setSubType(($message['bounce']['bounceSubType']))
+                ->setFeedbackId($message['bounce']['feedbackId']);
+
+            if (isset($message['bounce']['reportingMta']))
+                $bounce->setReportingMta($message['bounce']['reportingMta']);
+
+            if (isset($bouncedRecipient['action']))
+                $bounce->setAction($bouncedRecipient['action']);
+
+            if (isset($bouncedRecipient['status']))
+                $bounce->setAction($bouncedRecipient['status']);
+
+            if (isset($bouncedRecipient['diagnosticCode']))
+                $bounce->setAction($bouncedRecipient['diagnosticCode']);
 
             $this->entityManager->persist($bounce);
         }
