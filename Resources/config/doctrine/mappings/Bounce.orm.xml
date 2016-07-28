@@ -3,13 +3,14 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce" table="aws_ses_monitor_bounces">
+    <entity name="SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce" table="aws_ses_monitor_bounces"
+            repository-class="SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\BounceRepository">
 
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />
         </id>
         <many-to-one
-                field="mail_message"
+                field="mailMessage"
                 target-entity="MailMessage"
                 inversed-by="bounces">
 
@@ -17,7 +18,7 @@
         </many-to-one>
         <field name="emailAddress" type="string" column="email_address" />
         <field name="lastTimeBounce" type="datetime" column="last_time_bounce" />
-        <field name="bounceCount" type="integer" column="bounce_count">
+        <field name="bounceCount" type="integer" column="bounce_count" nullable="true">
             <options>
                 <option name="default">0</option>
             </options>
