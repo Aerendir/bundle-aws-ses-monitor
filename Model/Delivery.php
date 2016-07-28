@@ -56,12 +56,9 @@ class Delivery
     private $reportingMta;
 
     /**
-     * @param $emailAddress
+     * @var EmailStatus $emailStatus
      */
-    public function __construct($emailAddress)
-    {
-        $this->emailAddress = mb_strtolower($emailAddress);
-    }
+    private $emailStatus;
 
     /**
      * @return int
@@ -117,6 +114,22 @@ class Delivery
     public function getReportingMta()
     {
         return $this->reportingMta;
+    }
+
+    /**
+     * @return EmailStatus
+     */
+    public function getEmailStatus()
+    {
+        return $this->emailStatus;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmailAddress($email)
+    {
+        $this->emailAddress = $email;
     }
 
     /**

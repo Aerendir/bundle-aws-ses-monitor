@@ -10,6 +10,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\EmailStatus;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -58,7 +59,7 @@ class NotificationHandler implements HandlerInterface
             $message = json_decode($data['Message'], true);
 
             // Create and Persist the MailMessage object
-            $mail = $this->handleMailMessage($message['mail']);
+            $mailMessage = $this->handleMailMessage($message['mail']);
 
             if (isset($message['notificationType'])) {
                 $return = 500;
@@ -69,15 +70,15 @@ class NotificationHandler implements HandlerInterface
                         break;
 
                     case self::MESSAGE_TYPE_BOUNCE:
-                        $return = $this->handleBounceNotification($message, $mail);
+                        $return = $this->handleBounceNotification($message, $mailMessage);
                         break;
 
                     case self::MESSAGE_TYPE_COMPLAINT:
-                        $return = $this->handleComplaintNotification($message, $mail);
+                        $return = $this->handleComplaintNotification($message, $mailMessage);
                         break;
 
                     case self::MESSAGE_TYPE_DELIVERY:
-                        $return = $this->handleDeliveryNotification($message, $mail);
+                        $return = $this->handleDeliveryNotification($message, $mailMessage);
                         break;
                 }
 
@@ -93,16 +94,17 @@ class NotificationHandler implements HandlerInterface
 
     /**
      * @param array $message
-     * @param MailMessage  $mail
+     * @param MailMessage  $mailMessage
      *
      * @return int
      */
-    private function handleBounceNotification(array $message, MailMessage $mail)
+    private function handleBounceNotification(array $message, MailMessage $mailMessage)
     {
         foreach ($message['bounce']['bouncedRecipients'] as $bouncedRecipient) {
-            $bounce = new Bounce($bouncedRecipient['emailAddress']);
+            $status = $this->getEmailStatus($bouncedRecipient['emailAddress']);
 
-            $bounce->setMailMessage($mail)
+            $bounce = new Bounce();
+            $bounce->setMailMessage($mailMessage)
                 ->setBouncedOn(new \DateTime($message['bounce']['timestamp']))
                 ->setType(($message['bounce']['bounceType']))
                 ->setSubType(($message['bounce']['bounceSubType']))
@@ -121,6 +123,8 @@ class NotificationHandler implements HandlerInterface
                 $bounce->setAction($bouncedRecipient['diagnosticCode']);
 
             $this->entityManager->persist($bounce);
+
+            $status->addBounce($bounce);
         }
 
         return 200;
@@ -128,16 +132,17 @@ class NotificationHandler implements HandlerInterface
 
     /**
      * @param array $message
-     * @param MailMessage  $mail
+     * @param MailMessage  $mailMessage
      *
      * @return int
      */
-    private function handleComplaintNotification(array $message, MailMessage $mail)
+    private function handleComplaintNotification(array $message, MailMessage $mailMessage)
     {
         foreach ($message['complaint']['complainedRecipients'] as $complainedRecipient) {
-            $complaint = new Complaint($complainedRecipient['emailAddress']);
+            $status = $this->getEmailStatus($complainedRecipient['emailAddress']);
 
-            $complaint->setMailMessage($mail)
+            $complaint = new Complaint();
+            $complaint->setMailMessage($mailMessage)
                 ->setComplainedOn(new \DateTime($message['complaint']['timestamp']))
                 ->setFeedbackId($message['complaint']['feedbackId']);
 
@@ -150,6 +155,7 @@ class NotificationHandler implements HandlerInterface
             if (isset($message['complaint']['arrivalDate']))
                 $complaint->setArrivalDate($message['complaint']['arrivalDate']);
 
+            $status->addComplaint($complaint);
             $this->entityManager->persist($complaint);
         }
 
@@ -158,16 +164,17 @@ class NotificationHandler implements HandlerInterface
 
     /**
      * @param array $message
-     * @param MailMessage  $mail
+     * @param MailMessage  $mailMessage
      *
      * @return int
      */
-    private function handleDeliveryNotification(array $message, MailMessage $mail)
+    private function handleDeliveryNotification(array $message, MailMessage $mailMessage)
     {
         foreach ($message['delivery']['recipients'] as $recipient) {
-            $delivery = new Delivery($recipient);
+            $status = $this->getEmailStatus($recipient);
 
-            $delivery->setMailMessage($mail)
+            $delivery = new Delivery();
+            $delivery->setMailMessage($mailMessage)
                 ->setDeliveryTime(new \DateTime($message['delivery']['timestamp']))
                 ->setProcessingTimeMillis($message['delivery']['processingTimeMillis'])
                 ->setSmtpResponse($message['delivery']['smtpResponse']);
@@ -175,6 +182,7 @@ class NotificationHandler implements HandlerInterface
             if (isset($message['delivery']['reportingMta']))
                 $delivery->setReportingMta($message['delivery']['reportingMta']);
 
+            $status->addDelivery($delivery);
             $this->entityManager->persist($delivery);
         }
 
@@ -210,5 +218,24 @@ class NotificationHandler implements HandlerInterface
         $this->entityManager->persist($object);
 
         return $object;
+    }
+
+    /**
+     * @param string $email
+     *
+     * @return EmailStatus
+     */
+    private function getEmailStatus($email)
+    {
+        $status = $this->entityManager->getRepository('AwsSesMonitorBundle:EmailStatus')->findOneByEmailAddress($email);
+
+        if (null === $status) {
+            $status = new EmailStatus($email);
+            $this->entityManager->persist($status);
+
+            return $status;
+        }
+
+        return $status;
     }
 }
