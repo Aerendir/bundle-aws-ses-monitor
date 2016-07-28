@@ -10,21 +10,21 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 class Bounce
 {
     /** Hard bounces and subtypes */
-    const TYPE_PERMANENT            = 'Permanent';
-    const TYPE_PERM_GENERAL         = 'General';
-    const TYPE_PERM_NOEMAIL         = 'NoEmail';
-    const TYPE_PERM_SUPPRESSED      = 'Suppressed';
+    const TYPE_PERMANENT = 'Permanent';
+    const TYPE_PERM_GENERAL = 'General';
+    const TYPE_PERM_NOEMAIL = 'NoEmail';
+    const TYPE_PERM_SUPPRESSED = 'Suppressed';
 
     /** Soft bunces and subtypes */
-    const TYPE_TRANSIENT            = 'Transient';
-    const TYPE_TRANS_GENERAL        = 'General';
-    const TYPE_TRANS_BOXFULL        = 'MailboxFull';
-    const TYPE_TRANS_TOOLARGE       = 'MessageTooLarge';
-    const TYPE_TRANS_CONTREJECTED   = 'ContentRejected';
+    const TYPE_TRANSIENT = 'Transient';
+    const TYPE_TRANS_GENERAL = 'General';
+    const TYPE_TRANS_BOXFULL = 'MailboxFull';
+    const TYPE_TRANS_TOOLARGE = 'MessageTooLarge';
+    const TYPE_TRANS_CONTREJECTED = 'ContentRejected';
     const TYPE_TRANS_ATTACHREJECTED = 'AttachmentRejected';
 
     /** Undetermined bounces */
-    const TYPE_UNDETERMINED         = 'Undetermined';
+    const TYPE_UNDETERMINED = 'Undetermined';
 
     /**
      * @var int $id
@@ -32,24 +32,26 @@ class Bounce
     private $id;
 
     /**
-     * @var
+     * The MessageObject that reported this bounce.
+     *
+     * @var MailMessage $mailMessage
      */
-    private $mail;
+    private $mailMessage;
 
     /**
-     * @var string $email
+     * @var string $emailAddress
      */
-    private $email;
+    private $emailAddress;
 
     /**
+     * The date and time at which the bounce was sent (in ISO8601 format).
+     *
+     * Note that this is the time at which the notification was sent by the ISP, and not the time at which it was
+     * received by Amazon SES.
+     *
      * @var \DateTime
      */
-    private $lastTimeBounce;
-
-    /**
-     * @var int
-     */
-    private $bounceCount;
+    private $sentOn;
 
     /**
      * @var string
@@ -62,11 +64,57 @@ class Bounce
     private $subType;
 
     /**
+     * A unique ID for the bounce.
+     *
+     * @var string $feedbackId
+     */
+    private $feedbackId;
+
+    /**
+     * The value of the Reporting-MTA field from the DSN.
+     *
+     * This is the value of the Message Transfer Authority (MTA) that attempted to perform the delivery, relay, or
+     * gateway operation described in the DSN.
+     *
+     * @var string $reportingMta
+     */
+    private $reportingMta;
+
+    /**
+     * The value of the Action field from the DSN.
+     *
+     * This indicates the action performed by the Reporting-MTA as a result of its attempt to deliver the message to
+     * this recipient.
+     *
+     * @var string $action
+     */
+    private $action;
+
+    /**
+     * The value of the Status field from the DSN.
+     *
+     * This is the per-recipient transport-independent status code that indicates the delivery status of the message.
+     *
+     * @var string $status
+     */
+    private $status;
+
+    /**
+     * The status code issued by the reporting MTA.
+     *
+     * This is the value of the Diagnostic-Code field from the DSN. This field may be absent in the DSN (and therefore
+     * also absent in the JSON).
+     *
+     * @var string $diagnosticCode
+     */
+    private $diagnosticCode;
+
+    /**
      * @param string $email
      */
     public function __construct($email)
     {
-        $this->email = mb_strtolower($email);
+        $this->emailAddress = mb_strtolower($email);
     }
 
     /**
@@ -78,45 +126,67 @@ class Bounce
     }
 
     /**
-     * @return Mail
+     * @return MailMessage
      */
-    public function getMail()
+    public function getMailMessage()
     {
-        return $this->mail;
-    }
-
-    /**
-     * @return int
-     */
-    public function getBounceCount()
-    {
-        return $this->bounceCount;
+        return $this->mailMessage;
     }
 
     /**
      * @return string
      */
-    public function getEmail()
+    public function getEmailAddress()
     {
-        return $this->email;
+        return $this->emailAddress;
     }
 
     /**
      * @return \DateTime
      */
-    public function getLastTimeBounce()
+    public function getSentOn()
     {
-        return $this->lastTimeBounce;
+        return $this->sentOn;
     }
 
     /**
-     * @return $this
+     * @return string
      */
-    public function incrementBounceCounter()
+    public function getFeedbackId()
     {
-        ++$this->bounceCount;
+        return $this->feedbackId;
+    }
 
-        return $this;
+    /**
+     * @return string
+     */
+    public function getReportingMta()
+    {
+        return $this->reportingMta;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAction()
+    {
+        return $this->action;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDiagnosticCode()
+    {
+        return $this->diagnosticCode;
     }
 
     /**
@@ -128,37 +198,25 @@ class Bounce
     }
 
     /**
-     * @param Mail $mail
+     * @param MailMessage $mailMessage
      *
      * @return $this
      */
-    public function setMail(Mail $mail)
+    public function setMailMessage(MailMessage $mailMessage)
     {
-        $this->mail = $mail;
+        $this->mailMessage = $mailMessage;
 
         return $this;
     }
 
     /**
-     * @param int $bounceCount
+     * @param \DateTime $sentOn
      *
      * @return $this
      */
-    public function setBounceCount($bounceCount)
+    public function setSentOn($sentOn)
     {
-        $this->bounceCount = $bounceCount;
-
-        return $this;
-    }
-
-    /**
-     * @param \DateTime $lastTimeBounce
-     *
-     * @return $this
-     */
-    public function setLastTimeBounce($lastTimeBounce)
-    {
-        $this->lastTimeBounce = $lastTimeBounce;
+        $this->sentOn = $sentOn;
 
         return $this;
     }
@@ -186,4 +244,65 @@ class Bounce
 
         return $this;
     }
+
+    /**
+     * @param string $feedbackId
+     *
+     * @return $this
+     */
+    public function setFeedbackId($feedbackId)
+    {
+        $this->feedbackId = $feedbackId;
+
+        return $this;
+    }
+
+    /**
+     * @param string $reportingMta
+     *
+     * @return $this
+     */
+    public function setReportingMta($reportingMta)
+    {
+        $this->reportingMta = $reportingMta;
+
+        return $this;
+    }
+
+    /**
+     * @param string $action
+     *
+     * @return $this
+     */
+    public function setAction($action)
+    {
+        $this->action = $action;
+
+        return $this;
+    }
+
+    /**
+     * @param string $status
+     *
+     * @return $this
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @param string $diagnosticCode
+     *
+     * @return $this
+     */
+    public function setDiagnosticCode($diagnosticCode)
+    {
+        $this->diagnosticCode = $diagnosticCode;
+
+        return $this;
+    }
+
 }

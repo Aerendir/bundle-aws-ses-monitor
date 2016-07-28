@@ -15,12 +15,12 @@ class Complaint
     /**
      * @var
      */
-    private $mail;
+    private $mailMessage;
 
     /**
      * @var string
      */
-    private $email;
+    private $emailAddress;
 
     /**
      * @var \DateTime
@@ -32,7 +32,7 @@ class Complaint
      */
     public function __construct($email)
     {
-        $this->email = mb_strtolower($email);
+        $this->emailAddress = mb_strtolower($email);
     }
 
     /**
@@ -44,19 +44,19 @@ class Complaint
     }
 
     /**
-     * @return Mail
+     * @return MailMessage
      */
-    public function getMail()
+    public function getMailMessage()
     {
-        return $this->mail;
+        return $this->mailMessage;
     }
 
     /**
      * @return string
      */
-    public function getEmail()
+    public function getEmailAddress()
     {
-        return $this->email;
+        return $this->emailAddress;
     }
 
     /**
@@ -68,13 +68,13 @@ class Complaint
     }
 
     /**
-     * @param Mail $mail
+     * @param MailMessage $mailMessage
      *
      * @return $this
      */
-    public function setMail(Mail $mail)
+    public function setMailMessage(MailMessage $mailMessage)
     {
-        $this->mail = $mail;
+        $this->mailMessage = $mailMessage;
 
         return $this;
     }

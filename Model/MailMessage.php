@@ -4,11 +4,13 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * A mail Entity.
+ * A MailMessage Entity.
+ *
+ * This is called MailObject by Amazon.
  *
  * @see http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notification-contents.html#mail-object
  */
-class Mail
+class MailMessage
 {
     /**
      * @var int $id
@@ -105,7 +107,7 @@ class Mail
     private $deliveries;
 
     /**
-     * Mail constructor.
+     * MailMessage constructor.
      */
     public function __construct()
     {

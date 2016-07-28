@@ -15,7 +15,7 @@ class Delivery
     /**
      * @var
      */
-    private $mail;
+    private $mailMessage;
 
     /**
      * @var string
@@ -44,11 +44,11 @@ class Delivery
     }
 
     /**
-     * @return Mail
+     * @return MailMessage
      */
-    public function getMail()
+    public function getMailMessage()
     {
-        return $this->mail;
+        return $this->mailMessage;
     }
 
     /**
@@ -68,13 +68,13 @@ class Delivery
     }
 
     /**
-     * @param Mail $mail
+     * @param MailMessage $mailMessage
      *
      * @return $this
      */
-    public function setMail(Mail $mail)
+    public function setMailMessage(MailMessage $mailMessage)
     {
-        $this->mail = $mail;
+        $this->mailMessage = $mailMessage;
 
         return $this;
     }
