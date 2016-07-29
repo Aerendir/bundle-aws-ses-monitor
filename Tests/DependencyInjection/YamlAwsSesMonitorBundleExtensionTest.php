@@ -19,7 +19,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  *
  * {@inheritdoc}
  *
- * Loads the Yaml configuration.
+ * Loads the Yaml configuration
  */
 class YamlAwsSesMonitorBundleExtensionTest extends AbstractSerendipityHQAwsSesBouncerExtensionTest
 {
