@@ -3,8 +3,6 @@
 /*
  * This file is part of the AWS SES Monitor Bundle.
  *
- * (c) Adamo Aerendir Crespi.
- *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  */
@@ -18,6 +16,9 @@ use Swift_Events_SendEvent;
 
 /**
  * The SwiftMailer plugin.
+ *
+ * @author Audrius Karabanovas <audrius@karabanovas.net>
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
 class MonitorFilterPlugin implements \Swift_Events_SendListener
 {

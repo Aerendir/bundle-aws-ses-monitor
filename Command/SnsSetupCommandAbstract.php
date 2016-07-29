@@ -3,8 +3,6 @@
 /*
  * This file is part of the AWS SES Monitor Bundle.
  *
- * (c) Adamo Aerendir Crespi.
- *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  */
@@ -22,6 +20,11 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
+ * Abstract class to perform common command tasks.
+ *
+ * @author Audrius Karabanovas <audrius@karabanovas.net>
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ *
  * {@inheritdoc}
  */
 abstract class SnsSetupCommandAbstract extends ContainerAwareCommand

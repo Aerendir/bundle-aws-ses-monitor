@@ -3,8 +3,6 @@
 /*
  * This file is part of the AWS SES Monitor Bundle.
  *
- * (c) Adamo Aerendir Crespi.
- *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  */
@@ -17,6 +15,9 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
+ * @author Audrius Karabanovas <audrius@karabanovas.net>
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ *
  * {@inheritdoc}
  */
 class Configuration implements ConfigurationInterface

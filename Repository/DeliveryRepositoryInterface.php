@@ -3,18 +3,19 @@
 /*
  * This file is part of the AWS SES Monitor Bundle.
  *
- * (c) Adamo Aerendir Crespi.
- *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository;
 
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery;
 
 /**
  * Repository to manage Complaints.
+ *
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
 interface DeliveryRepositoryInterface
 {

@@ -3,8 +3,6 @@
 /*
  * This file is part of the AWS SES Monitor Bundle.
  *
- * (c) Adamo Aerendir Crespi.
- *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  */
@@ -15,6 +13,8 @@ use Doctrine\ORM\EntityRepository;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery;
 
 /**
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ *
  * {@inheritdoc}
  */
 class DeliveryRepository extends EntityRepository implements DeliveryRepositoryInterface

@@ -3,8 +3,6 @@
 /*
  * This file is part of the AWS SES Monitor Bundle.
  *
- * (c) Adamo Aerendir Crespi.
- *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  */
@@ -16,6 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Defines the minimum requirements of a MonitorHandler.
+ *
+ * @author Audrius Karabanovas <audrius@karabanovas.net>
  */
 interface HandlerInterface
 {

@@ -3,8 +3,6 @@
 /*
  * This file is part of the AWS SES Monitor Bundle.
  *
- * (c) Adamo Aerendir Crespi.
- *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  */
@@ -15,6 +13,8 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
  * Represents a Complaint.
  *
  * @see http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notification-contents.html#complaint-object
+ *
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
 class Complaint
 {

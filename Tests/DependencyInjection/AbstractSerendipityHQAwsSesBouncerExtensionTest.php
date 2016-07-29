@@ -3,8 +3,6 @@
 /*
  * This file is part of the AWS SES Monitor Bundle.
  *
- * (c) Adamo Aerendir Crespi.
- *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  */
@@ -16,6 +14,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Tests the configuration of the bundle.
+ *
+ * @author Audrius Karabanovas <audrius@karabanovas.net>
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
 abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends \PHPUnit_Framework_TestCase
 {

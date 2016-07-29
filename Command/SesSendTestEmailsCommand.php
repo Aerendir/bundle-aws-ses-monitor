@@ -3,8 +3,6 @@
 /*
  * This file is part of the AWS SES Monitor Bundle.
  *
- * (c) Adamo Aerendir Crespi.
- *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  */
@@ -20,6 +18,8 @@ use Symfony\Component\Console\Question\Question;
  * Sends test emails to the addresses provided by AWS SES.
  *
  * @see: http://docs.aws.amazon.com/ses/latest/DeveloperGuide/mailbox-simulator.html
+ *
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
  *
  * {@inheritdoc}
  */

@@ -3,8 +3,6 @@
 /*
  * This file is part of the AWS SES Monitor Bundle.
  *
- * (c) Adamo Aerendir Crespi.
- *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  */
@@ -19,6 +17,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  * This is called MailObject by Amazon.
  *
  * @see http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notification-contents.html#mail-object
+ *
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
 class MailMessage
 {

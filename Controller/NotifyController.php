@@ -3,8 +3,6 @@
 /*
  * This file is part of the AWS SES Monitor Bundle.
  *
- * (c) Adamo Aerendir Crespi.
- *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  */
@@ -19,6 +17,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Controller to handle notifications.
+ *
+ * @author Audrius Karabanovas <audrius@karabanovas.net>
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ *
+ * {@inheritdoc}
  */
 class NotifyController extends Controller
 {

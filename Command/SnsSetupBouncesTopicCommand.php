@@ -3,8 +3,6 @@
 /*
  * This file is part of the AWS SES Monitor Bundle.
  *
- * (c) Adamo Aerendir Crespi.
- *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  */
@@ -14,6 +12,11 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationHandler;
 
 /**
+ * Setups a topic to receive bounces notifications from SNS.
+ *
+ * @author Audrius Karabanovas <audrius@karabanovas.net>
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ *
  * {@inheritdoc}
  */
 class SnsSetupBouncesTopicCommand extends SnsSetupCommandAbstract
