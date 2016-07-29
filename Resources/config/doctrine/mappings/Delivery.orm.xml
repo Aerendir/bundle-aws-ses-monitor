@@ -17,7 +17,7 @@
             <join-column name="mail_message" referenced-column-name="id" />
         </many-to-one>
         <field name="emailAddress" type="string" column="email_address" />
-        <field name="deliveryTime" type="datetime" column="delivery_time" />
+        <field name="deliveredOn" type="datetime" column="delivered_on" />
         <field name="processingTimeMillis" type="integer" column="processing_time_millis" />
         <field name="smtpResponse" type="string" column="smtp_response" />
         <field name="reportingMta" type="string" column="reporting_mta" nullable="true" />
