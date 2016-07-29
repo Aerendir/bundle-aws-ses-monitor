@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the AWS SES Monitor Bundle.
+ *
+ * (c) Adamo Aerendir Crespi.
+ *
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ * @author Audrius Karabanovas <audrius@karabanovas.net>
+ */
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 
 /**
@@ -10,17 +19,17 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 class Bounce
 {
     /** Hard bounces and subtypes */
-    const TYPE_PERMANENT = 'Permanent';
-    const TYPE_PERM_GENERAL = 'General';
-    const TYPE_PERM_NOEMAIL = 'NoEmail';
+    const TYPE_PERMANENT       = 'Permanent';
+    const TYPE_PERM_GENERAL    = 'General';
+    const TYPE_PERM_NOEMAIL    = 'NoEmail';
     const TYPE_PERM_SUPPRESSED = 'Suppressed';
 
     /** Soft bunces and subtypes */
-    const TYPE_TRANSIENT = 'Transient';
-    const TYPE_TRANS_GENERAL = 'General';
-    const TYPE_TRANS_BOXFULL = 'MailboxFull';
-    const TYPE_TRANS_TOOLARGE = 'MessageTooLarge';
-    const TYPE_TRANS_CONTREJECTED = 'ContentRejected';
+    const TYPE_TRANSIENT            = 'Transient';
+    const TYPE_TRANS_GENERAL        = 'General';
+    const TYPE_TRANS_BOXFULL        = 'MailboxFull';
+    const TYPE_TRANS_TOOLARGE       = 'MessageTooLarge';
+    const TYPE_TRANS_CONTREJECTED   = 'ContentRejected';
     const TYPE_TRANS_ATTACHREJECTED = 'AttachmentRejected';
 
     /** Undetermined bounces */

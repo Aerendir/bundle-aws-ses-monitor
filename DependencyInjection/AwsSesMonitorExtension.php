@@ -1,11 +1,20 @@
 <?php
 
+/*
+ * This file is part of the AWS SES Monitor Bundle.
+ *
+ * (c) Adamo Aerendir Crespi.
+ *
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ * @author Audrius Karabanovas <audrius@karabanovas.net>
+ */
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * {@inheritdoc}
@@ -18,7 +27,7 @@ class AwsSesMonitorExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
+        $config        = $this->processConfiguration($configuration, $configs);
 
         // Set parameters in the container
         $container->setParameter('aws_ses_monitor.db_driver', $config['db_driver']);
@@ -41,7 +50,7 @@ class AwsSesMonitorExtension extends Extension
             $loader->load('filter.xml');
 
             $mailers = $config['mailers'];
-            $filter = $container->getDefinition('aws_ses_monitor.swift_mailer.filter');
+            $filter  = $container->getDefinition('aws_ses_monitor.swift_mailer.filter');
             foreach ($mailers as $mailer) {
                 $filter->addTag(sprintf('swiftmailer.%s.plugin', $mailer));
             }

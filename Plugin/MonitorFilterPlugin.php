@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the AWS SES Monitor Bundle.
+ *
+ * (c) Adamo Aerendir Crespi.
+ *
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ * @author Audrius Karabanovas <audrius@karabanovas.net>
+ */
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin;
 
 use Doctrine\ORM\EntityManager;
@@ -33,10 +42,10 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     public function __construct(EntityManager $manager, array $bouncesConfig, array $complaintsConfig)
     {
         $this->bouncesConfig = $bouncesConfig['filter'];
-        $this->bounceRepo = $manager->getRepository('AwsSesMonitorBundle:Bounce');
+        $this->bounceRepo    = $manager->getRepository('AwsSesMonitorBundle:Bounce');
 
         $this->complaintsConfig = $complaintsConfig['filter'];
-        $this->complaintRepo = $manager->getRepository('AwsSesMonitorBundle:Complaint');
+        $this->complaintRepo    = $manager->getRepository('AwsSesMonitorBundle:Complaint');
     }
 
     /**

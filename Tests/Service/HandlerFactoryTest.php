@@ -1,14 +1,23 @@
 <?php
 
+/*
+ * This file is part of the AWS SES Monitor Bundle.
+ *
+ * (c) Adamo Aerendir Crespi.
+ *
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ * @author Audrius Karabanovas <audrius@karabanovas.net>
+ */
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Service;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManager;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\HandlerFactory;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NoopHandler;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationHandler;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\SubscriptionConfirmationHandler;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\HandlerFactory;
 use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\HttpFoundation\Request;
 

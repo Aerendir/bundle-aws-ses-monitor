@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the AWS SES Monitor Bundle.
+ *
+ * (c) Adamo Aerendir Crespi.
+ *
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ * @author Audrius Karabanovas <audrius@karabanovas.net>
+ */
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
@@ -38,7 +47,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('aws_ses_monitor');
+        $rootNode    = $treeBuilder->root('aws_ses_monitor');
 
         $rootNode
             ->children()
@@ -120,7 +129,7 @@ class Configuration implements ConfigurationInterface
     public function addTopicSection($endpointName)
     {
         $builder = new TreeBuilder();
-        $node = $builder->root('topic')->addDefaultsIfNotSet();
+        $node    = $builder->root('topic')->addDefaultsIfNotSet();
 
         $node
             ->children()

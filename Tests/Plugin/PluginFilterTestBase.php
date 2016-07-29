@@ -1,11 +1,20 @@
 <?php
 
+/*
+ * This file is part of the AWS SES Monitor Bundle.
+ *
+ * (c) Adamo Aerendir Crespi.
+ *
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ * @author Audrius Karabanovas <audrius@karabanovas.net>
+ */
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Plugin;
 
 use Doctrine\ORM\EntityManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\BounceRepositoryInterface;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\BounceRepositoryInterface;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\ComplaintRepositoryInterface;
 
 /**
@@ -40,18 +49,18 @@ class PluginFilterTestBase extends \PHPUnit_Framework_TestCase
     {
         $this->bouncesConfig = [
             'filter' => [
-                'enabled' => true,
-                'max_bounces' => 5,
+                'enabled'             => true,
+                'max_bounces'         => 5,
                 'soft_blacklist_time' => 'forever',
                 'hard_blacklist_time' => 'forever',
-                'force_send' => false
+                'force_send'          => false
             ]
         ];
         $this->bouncedMock = $this->getMockBuilder(Bounce::class)->disableOriginalConstructor()->getMock();
 
         $this->complaintsConfig = [
             'filter' => [
-                'enabled' => true,
+                'enabled'    => true,
                 'force_send' => false
             ]
         ];
@@ -64,8 +73,8 @@ class PluginFilterTestBase extends \PHPUnit_Framework_TestCase
             ['valid2@example.com', null]
         ];
 
-        $recipientsTo = ['complained@example.com' => null, 'bounced@example.com' => null, 'valid2@example.com' => null, 'valid@example.com' => null];
-        $recipientsCc = ['valid@example.com' => null, 'complained@example.com' => null, 'bounced@example.com' => null, 'valid2@example.com' => null];
+        $recipientsTo  = ['complained@example.com' => null, 'bounced@example.com' => null, 'valid2@example.com' => null, 'valid@example.com' => null];
+        $recipientsCc  = ['valid@example.com' => null, 'complained@example.com' => null, 'bounced@example.com' => null, 'valid2@example.com' => null];
         $recipientsBcc = null;
 
         $this->bouncesRepo = $this->createMock(BounceRepositoryInterface::class);

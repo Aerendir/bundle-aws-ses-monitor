@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the AWS SES Monitor Bundle.
+ *
+ * (c) Adamo Aerendir Crespi.
+ *
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ * @author Audrius Karabanovas <audrius@karabanovas.net>
+ */
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -112,7 +121,7 @@ class MailMessage
      */
     public function __construct()
     {
-        $this->bounces = new ArrayCollection();
+        $this->bounces    = new ArrayCollection();
         $this->complaints = new ArrayCollection();
         $this->deliveries = new ArrayCollection();
     }

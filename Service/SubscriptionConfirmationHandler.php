@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the AWS SES Monitor Bundle.
+ *
+ * (c) Adamo Aerendir Crespi.
+ *
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ * @author Audrius Karabanovas <audrius@karabanovas.net>
+ */
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
 
 use Aws\Credentials\Credentials;
@@ -42,8 +51,8 @@ class SubscriptionConfirmationHandler implements HandlerInterface
         }
 
         try {
-            $data = json_decode($request->getContent(), true);
-            $message = new Message($data);
+            $data      = json_decode($request->getContent(), true);
+            $message   = new Message($data);
             $validator = new MessageValidator();
             $validator->isValid($message);
         } catch (\Exception $e) {
@@ -52,7 +61,7 @@ class SubscriptionConfirmationHandler implements HandlerInterface
 
         if (isset($data['Token']) && isset($data['TopicArn'])) {
             $topicArn = $data['TopicArn'];
-            $token = $data['Token'];
+            $token    = $data['Token'];
 
             $topicEntity = $this->entityManager->getRepository('AwsSesMonitorBundle:Topic')->findOneByTopicArn($topicArn);
             if ($topicEntity instanceof Topic) {
@@ -63,7 +72,7 @@ class SubscriptionConfirmationHandler implements HandlerInterface
                 $client->confirmSubscription(
                     [
                         'TopicArn' => $topicEntity->getTopicArn(),
-                        'Token' => $topicEntity->getToken()
+                        'Token'    => $topicEntity->getToken()
                     ]
                 );
 

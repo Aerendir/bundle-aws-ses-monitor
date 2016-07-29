@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the AWS SES Monitor Bundle.
+ *
+ * (c) Adamo Aerendir Crespi.
+ *
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ * @author Audrius Karabanovas <audrius@karabanovas.net>
+ */
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
 
 use Doctrine\ORM\EntityManager;
@@ -27,7 +36,7 @@ class HandlerFactory
     public function __construct(EntityManager $entityManager, AwsClientFactory $awsFactory)
     {
         $this->entityManager = $entityManager;
-        $this->awsFactory = $awsFactory;
+        $this->awsFactory    = $awsFactory;
     }
 
     /**

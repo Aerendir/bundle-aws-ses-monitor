@@ -9,6 +9,16 @@ $finder = Symfony\CS\Finder\DefaultFinder::create()
     ->in(__DIR__)
     ->name('*.php');
 
+$header = <<<EOF
+This file is part of the AWS SES Monitor Bundle.
+
+(c) Adamo Aerendir Crespi.
+
+@author Adamo Aerendir Crespi <hello@aerendir.me>
+@author Audrius Karabanovas <audrius@karabanovas.net>
+EOF;
+Symfony\CS\Fixer\Contrib\HeaderCommentFixer::setHeader($header);
+
 return Symfony\CS\Config\Config::create()
     ->level(Symfony\CS\FixerInterface::NONE_LEVEL)
     ->setUsingCache(false)
@@ -19,7 +29,7 @@ return Symfony\CS\Config\Config::create()
         'concat_with_spaces',
         //'echo_to_print',
         //'ereg_to_preg'
-        /**'header_comment', To configure*/
+        'header_comment',
         //'logical_not_operators_with_spaces',
         //'logical_not_operators_with_successor_space',
         //'long_array_syntax',

@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the AWS SES Monitor Bundle.
+ *
+ * (c) Adamo Aerendir Crespi.
+ *
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ * @author Audrius Karabanovas <audrius@karabanovas.net>
+ */
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
 
 use Aws\Credentials\Credentials;
@@ -9,8 +18,8 @@ use Doctrine\ORM\EntityManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\EmailStatus;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -18,11 +27,11 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class NotificationHandler implements HandlerInterface
 {
-    const HEADER_TYPE = 'Notification';
+    const HEADER_TYPE                       = 'Notification';
     const MESSAGE_TYPE_SUBSCRIPTION_SUCCESS = 'AmazonSnsSubscriptionSucceeded';
-    const MESSAGE_TYPE_BOUNCE = 'Bounce';
-    const MESSAGE_TYPE_COMPLAINT = 'Complaint';
-    const MESSAGE_TYPE_DELIVERY = 'Delivery';
+    const MESSAGE_TYPE_BOUNCE               = 'Bounce';
+    const MESSAGE_TYPE_COMPLAINT            = 'Complaint';
+    const MESSAGE_TYPE_DELIVERY             = 'Delivery';
 
     /**
      * @var EntityManager
@@ -47,8 +56,8 @@ class NotificationHandler implements HandlerInterface
         }
 
         try {
-            $data = json_decode($request->getContent(), true);
-            $message = new Message($data);
+            $data      = json_decode($request->getContent(), true);
+            $message   = new Message($data);
             $validator = new MessageValidator();
             $validator->validate($message);
         } catch (\Exception $e) {

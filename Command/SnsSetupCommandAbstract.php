@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the AWS SES Monitor Bundle.
+ *
+ * (c) Adamo Aerendir Crespi.
+ *
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ * @author Audrius Karabanovas <audrius@karabanovas.net>
+ */
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 
 use Aws\Ses\SesClient;
@@ -73,7 +82,7 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
         }
 
         $subscribe = $this->buildSubscribeArray();
-        $response = $this->getSnsClient()->subscribe($subscribe);
+        $response  = $this->getSnsClient()->subscribe($subscribe);
 
         $this->getContainer()->get('doctrine.orm.default_entity_manager')->flush();
 
@@ -99,7 +108,7 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
 
         $apiFactory = $this->getContainer()->get('aws_ses_monitor.aws.client.factory');
 
-        $credentials = $this->getContainer()->getParameter('aws_ses_monitor.aws_config')['credentials_service_name'];
+        $credentials     = $this->getContainer()->getParameter('aws_ses_monitor.aws_config')['credentials_service_name'];
         $this->sesClient = $apiFactory->getSesClient($this->getContainer()->get($credentials));
         $this->snsClient = $apiFactory->getSnsClient($this->getContainer()->get($credentials));
     }
@@ -129,9 +138,9 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
      */
     public function createIdentitiesQuestion()
     {
-        $response = $this->getSesClient()->listIdentities();
+        $response   = $this->getSesClient()->listIdentities();
         $identities = $response->get('Identities');
-        $question = new ChoiceQuestion(
+        $question   = new ChoiceQuestion(
             'Please select identities to hook to: (comma separated numbers, default: all)',
             $identities,
             implode(',', range(0, count($identities) - 1, 1))
@@ -160,8 +169,8 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
         }
 
         // create SNS topic
-        $topic = ['Name' => $name];
-        $response = $this->getSnsClient()->createTopic($topic);
+        $topic          = ['Name' => $name];
+        $response       = $this->getSnsClient()->createTopic($topic);
         $this->topicArn = $response->get('TopicArn');
 
         $topic = new Topic($this->topicArn);
@@ -183,9 +192,9 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
     {
         $this->getSesClient()->setIdentityNotificationTopic(
             [
-                'Identity' => $identity,
+                'Identity'         => $identity,
                 'NotificationType' => $type,
-                'SnsTopic' => $this->topicArn
+                'SnsTopic'         => $this->topicArn
             ]
         );
     }

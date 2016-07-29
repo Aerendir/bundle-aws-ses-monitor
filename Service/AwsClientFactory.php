@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the AWS SES Monitor Bundle.
+ *
+ * (c) Adamo Aerendir Crespi.
+ *
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ * @author Audrius Karabanovas <audrius@karabanovas.net>
+ */
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
 
 use Aws\Credentials\Credentials;
@@ -60,8 +69,8 @@ class AwsClientFactory
     {
         return [
             'credentials' => $credentials,
-            'region' => $this->config['region'],
-            'version' => $this->config['ses_version']
+            'region'      => $this->config['region'],
+            'version'     => $this->config['ses_version']
         ];
     }
 
@@ -74,8 +83,8 @@ class AwsClientFactory
     {
         return [
             'credentials' => $credentials,
-            'region' => $this->config['region'],
-            'version' => $this->config['sns_version']
+            'region'      => $this->config['region'],
+            'version'     => $this->config['sns_version']
         ];
     }
 }
