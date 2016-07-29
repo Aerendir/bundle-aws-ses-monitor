@@ -124,7 +124,7 @@ class EmailStatus
     {
         $delivery->setEmailAddress($this->getEmailAddress());
         ++$this->deliveriesCount;
-        $this->lastDeliveryTime = $delivery->getDeliveryTime();
+        $this->lastDeliveryTime = $delivery->getDeliveredOn();
 
         return $this;
     }

@@ -38,7 +38,7 @@ class Delivery
      *
      * @var \DateTime
      */
-    private $deliveryTime;
+    private $deliveredOn;
 
     /**
      * The time in milliseconds between when Amazon SES accepted the request from the sender to passing the message to
@@ -96,9 +96,9 @@ class Delivery
     /**
      * @return \DateTime
      */
-    public function getDeliveryTime()
+    public function getDeliveredOn()
     {
-        return $this->deliveryTime;
+        return $this->deliveredOn;
     }
 
     /**
@@ -154,13 +154,13 @@ class Delivery
     }
 
     /**
-     * @param \DateTime $deliveryTime
+     * @param \DateTime $deliveredOn
      *
      * @return $this
      */
-    public function setDeliveryTime($deliveryTime)
+    public function setDeliveredOn($deliveredOn)
     {
-        $this->deliveryTime = $deliveryTime;
+        $this->deliveredOn = $deliveredOn;
 
         return $this;
     }

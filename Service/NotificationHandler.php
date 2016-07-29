@@ -192,7 +192,7 @@ class NotificationHandler implements HandlerInterface
 
             $delivery = new Delivery();
             $delivery->setMailMessage($mailMessage)
-                ->setDeliveryTime(new \DateTime($message['delivery']['timestamp']))
+                ->setDeliveredOn(new \DateTime($message['delivery']['timestamp']))
                 ->setProcessingTimeMillis($message['delivery']['processingTimeMillis'])
                 ->setSmtpResponse($message['delivery']['smtpResponse']);
 
