@@ -1,6 +1,7 @@
 <?php
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
+
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -8,53 +9,53 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class EmailStatus
 {
-    /** @var  string $emailAddress */
+    /** @var string $emailAddress */
     private $emailAddress;
 
     /**
-     * @var ArrayCollection $bounces
+     * @var ArrayCollection
      */
     private $bounces;
 
-    /** @var  int $hardBouncesCount */
+    /** @var int $hardBouncesCount */
     private $hardBouncesCount = 0;
 
-    /** @var  int $hardBouncesCount */
+    /** @var int $hardBouncesCount */
     private $softBouncesCount = 0;
 
     /**
-     * @var string $lastBounceType
+     * @var string
      */
     private $lastBounceType;
 
     /**
-     * @var \DateTime $lastBounceTime
+     * @var \DateTime
      */
     private $lastBounceTime;
 
     /**
-     * @var ArrayCollection $complaints
+     * @var ArrayCollection
      */
     private $complaints;
 
-    /** @var  int $complaintsCount */
+    /** @var int $complaintsCount */
     private $complaintsCount = 0;
 
     /**
-     * @var \DateTime $lastComplaintTime
+     * @var \DateTime
      */
     private $lastComplaintTime;
 
     /**
-     * @var ArrayCollection $deliveries
+     * @var ArrayCollection
      */
     private $deliveries;
 
-    /** @var  int $deliveriesCount */
+    /** @var int $deliveriesCount */
     private $deliveriesCount = 0;
 
     /**
-     * @var \DateTime $lastDeliveryTime
+     * @var \DateTime
      */
     private $lastDeliveryTime;
 
@@ -63,8 +64,8 @@ class EmailStatus
      */
     public function __construct($email)
     {
-        $this->emailAddress = mb_strtolower($email);;
-        $this->bounces    = new ArrayCollection();
+        $this->emailAddress = mb_strtolower($email);
+        $this->bounces = new ArrayCollection();
         $this->complaints = new ArrayCollection();
         $this->deliveries = new ArrayCollection();
     }
@@ -80,11 +81,13 @@ class EmailStatus
         $this->lastBounceType = $bounce->getType();
         $this->lastBounceTime = $bounce->getBouncedOn();
 
-        if ($this->getLastBounceType() === Bounce::TYPE_PERMANENT)
+        if ($this->getLastBounceType() === Bounce::TYPE_PERMANENT) {
             $this->hardBouncesCount++;
+        }
 
-        if ($this->getLastBounceType() === Bounce::TYPE_TRANSIENT)
+        if ($this->getLastBounceType() === Bounce::TYPE_TRANSIENT) {
             $this->softBouncesCount++;
+        }
 
         return $this;
     }
@@ -97,7 +100,7 @@ class EmailStatus
     public function addComplaint(Complaint $complaint)
     {
         $complaint->setEmailAddress($this->getEmailAddress());
-        $this->complaintsCount++;
+        ++$this->complaintsCount;
         $this->lastComplaintTime = $complaint->getComplainedOn();
 
         return $this;
@@ -111,7 +114,7 @@ class EmailStatus
     public function addDelivery(Delivery $delivery)
     {
         $delivery->setEmailAddress($this->getEmailAddress());
-        $this->deliveriesCount++;
+        ++$this->deliveriesCount;
         $this->lastDeliveryTime = $delivery->getDeliveryTime();
 
         return $this;

@@ -27,19 +27,19 @@ class Bounce
     const TYPE_UNDETERMINED = 'Undetermined';
 
     /**
-     * @var int $id
+     * @var int
      */
     private $id;
 
     /**
      * The MessageObject that reported this bounce.
      *
-     * @var MailMessage $mailMessage
+     * @var MailMessage
      */
     private $mailMessage;
 
     /**
-     * @var string $emailAddress
+     * @var string
      */
     private $emailAddress;
 
@@ -66,7 +66,7 @@ class Bounce
     /**
      * A unique ID for the bounce.
      *
-     * @var string $feedbackId
+     * @var string
      */
     private $feedbackId;
 
@@ -76,7 +76,7 @@ class Bounce
      * This is the value of the Message Transfer Authority (MTA) that attempted to perform the delivery, relay, or
      * gateway operation described in the DSN.
      *
-     * @var string $reportingMta
+     * @var string
      */
     private $reportingMta;
 
@@ -86,7 +86,7 @@ class Bounce
      * This indicates the action performed by the Reporting-MTA as a result of its attempt to deliver the message to
      * this recipient.
      *
-     * @var string $action
+     * @var string
      */
     private $action;
 
@@ -95,7 +95,7 @@ class Bounce
      *
      * This is the per-recipient transport-independent status code that indicates the delivery status of the message.
      *
-     * @var string $status
+     * @var string
      */
     private $status;
 
@@ -105,12 +105,12 @@ class Bounce
      * This is the value of the Diagnostic-Code field from the DSN. This field may be absent in the DSN (and therefore
      * also absent in the JSON).
      *
-     * @var string $diagnosticCode
+     * @var string
      */
     private $diagnosticCode;
 
     /**
-     * @var EmailStatus $emailStatus
+     * @var EmailStatus
      */
     private $emailStatus;
 
@@ -325,5 +325,4 @@ class Bounce
 
         return $this;
     }
-
 }

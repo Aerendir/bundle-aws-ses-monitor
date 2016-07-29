@@ -5,7 +5,6 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 use Aws\Ses\SesClient;
 use Aws\Sns\SnsClient;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Topic;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\TopicRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
