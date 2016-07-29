@@ -23,7 +23,7 @@ class TopicTest extends \PHPUnit_Framework_TestCase
     {
         $test = [
             'topicArn' => 'test@example.com',
-            'token' => $this->createMock(MailMessage::class)
+            'token'    => $this->createMock(MailMessage::class)
         ];
 
         $resource = new Topic($test['topicArn'], $test['token']);

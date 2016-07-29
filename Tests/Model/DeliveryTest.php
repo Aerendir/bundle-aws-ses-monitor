@@ -22,13 +22,13 @@ class DeliveryTest extends \PHPUnit_Framework_TestCase
     public function testDelivery()
     {
         $resource = new Delivery();
-        $test = [
-            'email' => 'test@example.com',
-            'mailMessage' => $this->createMock(MailMessage::class),
-            'deliveredOn'    => $this->createMock(\DateTime::class),
+        $test     = [
+            'email'                => 'test@example.com',
+            'mailMessage'          => $this->createMock(MailMessage::class),
+            'deliveredOn'          => $this->createMock(\DateTime::class),
             'processingTimeMillis' => 1000,
-            'smtpResponse' => 'test-user-agent',
-            'reportingMta' => 'test-type',
+            'smtpResponse'         => 'test-user-agent',
+            'reportingMta'         => 'test-type',
         ];
 
         $resource->setEmailAddress($test['email'])

@@ -9,12 +9,8 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Plugin;
 
-use Doctrine\ORM\EntityManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\BounceRepositoryInterface;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\ComplaintRepositoryInterface;
 
 /**
  * Tests the Bounce entity.
@@ -26,16 +22,16 @@ class BounceTest extends \PHPUnit_Framework_TestCase
     public function testBounce()
     {
         $resource = new Bounce();
-        $test = [
-            'email' => 'test@example.com',
-            'mailMessage' => $this->createMock(MailMessage::class),
-            'bouncedOn'    => $this->createMock(\DateTime::class),
-            'type' => 'Permanent',
-            'subType' => 'General',
-            'feedbackId' => 'feedback-id-from-amazon-ses',
-            'reportingMta' => 'test',
-            'action' => 'test-action',
-            'status' => 'test-status',
+        $test     = [
+            'email'          => 'test@example.com',
+            'mailMessage'    => $this->createMock(MailMessage::class),
+            'bouncedOn'      => $this->createMock(\DateTime::class),
+            'type'           => 'Permanent',
+            'subType'        => 'General',
+            'feedbackId'     => 'feedback-id-from-amazon-ses',
+            'reportingMta'   => 'test',
+            'action'         => 'test-action',
+            'status'         => 'test-status',
             'diagnosticCode' => 'test-diagnostic-code'
         ];
 

@@ -92,7 +92,6 @@ class EmailStatusTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(1, $resource->getComplaintsCount());
     }
 
-
     public function testDeliveries()
     {
         $testEmail = 'test@example.com';

@@ -9,12 +9,8 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Plugin;
 
-use Doctrine\ORM\EntityManager;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\BounceRepositoryInterface;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\ComplaintRepositoryInterface;
 
 /**
  * Tests the Complaint entity.
@@ -26,14 +22,14 @@ class ComplaintTest extends \PHPUnit_Framework_TestCase
     public function testComplaint()
     {
         $resource = new Complaint();
-        $test = [
-            'email' => 'test@example.com',
-            'mailMessage' => $this->createMock(MailMessage::class),
-            'complainedOn'    => $this->createMock(\DateTime::class),
-            'feedbackId' => 'feedback-id-from-amazon-ses',
-            'userAgent' => 'test-user-agent',
+        $test     = [
+            'email'                 => 'test@example.com',
+            'mailMessage'           => $this->createMock(MailMessage::class),
+            'complainedOn'          => $this->createMock(\DateTime::class),
+            'feedbackId'            => 'feedback-id-from-amazon-ses',
+            'userAgent'             => 'test-user-agent',
             'complaintFeedbackType' => 'test-type',
-            'arrivalDate' => $this->createMock(\DateTime::class),
+            'arrivalDate'           => $this->createMock(\DateTime::class),
         ];
 
         $resource->setEmailAddress($test['email'])

@@ -88,7 +88,7 @@ class EmailStatus
     {
         $bounce->setEmailAddress($this->getEmailAddress());
         $this->bounces->add($bounce);
-        $this->lastBounceType = $bounce->getType();
+        $this->lastBounceType  = $bounce->getType();
         $this->lastTimeBounced = $bounce->getBouncedOn();
 
         if ($this->getLastBounceType() === Bounce::TYPE_PERMANENT) {

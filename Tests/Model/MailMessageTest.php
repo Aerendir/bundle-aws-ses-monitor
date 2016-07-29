@@ -9,7 +9,6 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Plugin;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
 
 /**
@@ -22,13 +21,13 @@ class MailMessageTest extends \PHPUnit_Framework_TestCase
     public function testTopic()
     {
         $test = [
-            'messageId' => 'test-message-id',
-            'sentOn' => $this->createMock(\DateTime::class),
-            'sentFrom' => 'test@example.com',
-            'sourceArn' => 'test-source-arn',
+            'messageId'        => 'test-message-id',
+            'sentOn'           => $this->createMock(\DateTime::class),
+            'sentFrom'         => 'test@example.com',
+            'sourceArn'        => 'test-source-arn',
             'sendingAccountId' => 'test-sending-account-id',
-            'headers' => 'test-headers',
-            'commonHeaders' => 'test-common-headers'
+            'headers'          => 'test-headers',
+            'commonHeaders'    => 'test-common-headers'
         ];
 
         $resource = new MailMessage();
