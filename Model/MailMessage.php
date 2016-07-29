@@ -1,6 +1,7 @@
 <?php
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
+
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -13,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class MailMessage
 {
     /**
-     * @var int $id
+     * @var int
      */
     private $id;
 
@@ -24,7 +25,7 @@ class MailMessage
      * This message ID was assigned by Amazon SES. You can find the message ID of the original
      * email in the headers and commonHeaders fields of the mail object.
      *
-     * @var string $messageId
+     * @var string
      */
     private $messageId;
 
@@ -53,7 +54,7 @@ class MailMessage
      * the delegate sender to use to send the email. For more information about sending authorization, see Using Sending
      * Authorization.
      *
-     * @var string $sourceArn
+     * @var string
      */
     private $sourceArn;
 
@@ -62,7 +63,7 @@ class MailMessage
      *
      * In the case of sending authorization, the sendingAccountId is the delegate sender's account ID.
      *
-     * @var string $sendingAccountId
+     * @var string
      */
     private $sendingAccountId;
 
@@ -111,7 +112,7 @@ class MailMessage
      */
     public function __construct()
     {
-        $this->bounces    = new ArrayCollection();
+        $this->bounces = new ArrayCollection();
         $this->complaints = new ArrayCollection();
         $this->deliveries = new ArrayCollection();
     }

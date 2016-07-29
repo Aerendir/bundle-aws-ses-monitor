@@ -25,7 +25,7 @@ class NotificationHandler implements HandlerInterface
     const MESSAGE_TYPE_DELIVERY = 'Delivery';
 
     /**
-     * @var EntityManager $entityManager
+     * @var EntityManager
      */
     private $entityManager;
 
@@ -93,8 +93,8 @@ class NotificationHandler implements HandlerInterface
     }
 
     /**
-     * @param array $message
-     * @param MailMessage  $mailMessage
+     * @param array       $message
+     * @param MailMessage $mailMessage
      *
      * @return int
      */
@@ -110,17 +110,21 @@ class NotificationHandler implements HandlerInterface
                 ->setSubType(($message['bounce']['bounceSubType']))
                 ->setFeedbackId($message['bounce']['feedbackId']);
 
-            if (isset($message['bounce']['reportingMta']))
+            if (isset($message['bounce']['reportingMta'])) {
                 $bounce->setReportingMta($message['bounce']['reportingMta']);
+            }
 
-            if (isset($bouncedRecipient['action']))
+            if (isset($bouncedRecipient['action'])) {
                 $bounce->setAction($bouncedRecipient['action']);
+            }
 
-            if (isset($bouncedRecipient['status']))
+            if (isset($bouncedRecipient['status'])) {
                 $bounce->setAction($bouncedRecipient['status']);
+            }
 
-            if (isset($bouncedRecipient['diagnosticCode']))
+            if (isset($bouncedRecipient['diagnosticCode'])) {
                 $bounce->setAction($bouncedRecipient['diagnosticCode']);
+            }
 
             $this->entityManager->persist($bounce);
 
@@ -131,8 +135,8 @@ class NotificationHandler implements HandlerInterface
     }
 
     /**
-     * @param array $message
-     * @param MailMessage  $mailMessage
+     * @param array       $message
+     * @param MailMessage $mailMessage
      *
      * @return int
      */
@@ -146,14 +150,17 @@ class NotificationHandler implements HandlerInterface
                 ->setComplainedOn(new \DateTime($message['complaint']['timestamp']))
                 ->setFeedbackId($message['complaint']['feedbackId']);
 
-            if (isset($message['complaint']['userAgent']))
+            if (isset($message['complaint']['userAgent'])) {
                 $complaint->setUserAgent($message['complaint']['userAgent']);
+            }
 
-            if (isset($message['complaint']['complaintFeedbackType']))
+            if (isset($message['complaint']['complaintFeedbackType'])) {
                 $complaint->setComplaintFeedbackType($message['complaint']['complaintFeedbackType']);
+            }
 
-            if (isset($message['complaint']['arrivalDate']))
+            if (isset($message['complaint']['arrivalDate'])) {
                 $complaint->setArrivalDate($message['complaint']['arrivalDate']);
+            }
 
             $status->addComplaint($complaint);
             $this->entityManager->persist($complaint);
@@ -163,8 +170,8 @@ class NotificationHandler implements HandlerInterface
     }
 
     /**
-     * @param array $message
-     * @param MailMessage  $mailMessage
+     * @param array       $message
+     * @param MailMessage $mailMessage
      *
      * @return int
      */
@@ -179,8 +186,9 @@ class NotificationHandler implements HandlerInterface
                 ->setProcessingTimeMillis($message['delivery']['processingTimeMillis'])
                 ->setSmtpResponse($message['delivery']['smtpResponse']);
 
-            if (isset($message['delivery']['reportingMta']))
+            if (isset($message['delivery']['reportingMta'])) {
                 $delivery->setReportingMta($message['delivery']['reportingMta']);
+            }
 
             $status->addDelivery($delivery);
             $this->entityManager->persist($delivery);
@@ -199,8 +207,9 @@ class NotificationHandler implements HandlerInterface
         $object = $this->entityManager->getRepository('AwsSesMonitorBundle:MailMessage')->findOneByMessageId($mail['messageId']);
 
         // If a MailMessage object already exists return it
-        if (null !== $object)
+        if (null !== $object) {
             return $object;
+        }
 
         $object = new MailMessage();
         $object->setMessageId($mail['messageId'])
@@ -209,11 +218,13 @@ class NotificationHandler implements HandlerInterface
             ->setSourceArn($mail['sourceArn'])
             ->setSendingAccountId($mail['sendingAccountId']);
 
-        if (isset($mail['headers']))
+        if (isset($mail['headers'])) {
             $object->setHeaders($mail['headers']);
+        }
 
-        if (isset($mail['commonHeaders']))
+        if (isset($mail['commonHeaders'])) {
             $object->setCommonHeaders($mail['commonHeaders']);
+        }
 
         $this->entityManager->persist($object);
 
