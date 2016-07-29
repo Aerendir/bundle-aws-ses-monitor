@@ -30,8 +30,9 @@
         "codeclimate/php-test-reporter": "dev-master",
         "doctrine/doctrine-bundle": "*",
         "doctrine/common": "~2.4",
+        "symfony/console": "~2.5",
         "symfony/yaml": "~2.5",
-	    "symfony/console": "~2.5",
+        "symfony/var-dumper": "*",
         "phpunit/phpunit": "~5"
     },
     "autoload": {

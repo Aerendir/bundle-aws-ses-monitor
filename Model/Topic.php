@@ -32,8 +32,8 @@ class Topic
      */
     public function __construct($topicArn, $token = null)
     {
-        $this->topicArn = $topicArn;
-        $this->token    = $token;
+        $this->setTopicArn($topicArn);
+        $this->setToken($token);
     }
 
     /**

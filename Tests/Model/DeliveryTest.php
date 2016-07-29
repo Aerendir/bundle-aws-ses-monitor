@@ -19,7 +19,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
  */
 class DeliveryTest extends \PHPUnit_Framework_TestCase
 {
-    public function testBounce()
+    public function testDelivery()
     {
         $resource = new Delivery();
         $test = [

@@ -12,11 +12,11 @@
         <field name="hardBouncesCount" type="integer" column="hard_bounces_count" />
         <field name="softBouncesCount" type="integer" column="soft_bounces_count" />
         <field name="lastBounceType" type="string" column="last_bounce_type" nullable="true" />
-        <field name="lastBounceTime" type="datetime" column="last_bounce_time" nullable="true" />
+        <field name="lastTimeBounced" type="datetime" column="last_time_bounced" nullable="true" />
         <field name="complaintsCount" type="integer" column="complaints_count" />
-        <field name="lastComplaintTime" type="datetime" column="last_complaint_time" nullable="true" />
+        <field name="lastTimeComplained" type="datetime" column="last_time_complained" nullable="true" />
         <field name="deliveriesCount" type="integer" column="deliveries_count" />
-        <field name="lastDeliveryTime" type="datetime" column="last_delivery_time" nullable="true" />
+        <field name="lastTimeDelivered" type="datetime" column="last_time_delivered" nullable="true" />
 
     </entity>
 </doctrine-mapping>

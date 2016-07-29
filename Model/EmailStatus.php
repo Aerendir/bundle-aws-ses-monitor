@@ -40,7 +40,7 @@ class EmailStatus
     /**
      * @var \DateTime
      */
-    private $lastBounceTime;
+    private $lastTimeBounced;
 
     /**
      * @var ArrayCollection
@@ -53,7 +53,7 @@ class EmailStatus
     /**
      * @var \DateTime
      */
-    private $lastComplaintTime;
+    private $lastTimeComplained;
 
     /**
      * @var ArrayCollection
@@ -66,7 +66,7 @@ class EmailStatus
     /**
      * @var \DateTime
      */
-    private $lastDeliveryTime;
+    private $lastTimeDelivered;
 
     /**
      * @param string $email
@@ -87,8 +87,9 @@ class EmailStatus
     public function addBounce(Bounce $bounce)
     {
         $bounce->setEmailAddress($this->getEmailAddress());
+        $this->bounces->add($bounce);
         $this->lastBounceType = $bounce->getType();
-        $this->lastBounceTime = $bounce->getBouncedOn();
+        $this->lastTimeBounced = $bounce->getBouncedOn();
 
         if ($this->getLastBounceType() === Bounce::TYPE_PERMANENT) {
             ++$this->hardBouncesCount;
@@ -109,8 +110,9 @@ class EmailStatus
     public function addComplaint(Complaint $complaint)
     {
         $complaint->setEmailAddress($this->getEmailAddress());
+        $this->complaints->add($complaint);
         ++$this->complaintsCount;
-        $this->lastComplaintTime = $complaint->getComplainedOn();
+        $this->lastTimeComplained = $complaint->getComplainedOn();
 
         return $this;
     }
@@ -123,8 +125,9 @@ class EmailStatus
     public function addDelivery(Delivery $delivery)
     {
         $delivery->setEmailAddress($this->getEmailAddress());
+        $this->deliveries->add($delivery);
         ++$this->deliveriesCount;
-        $this->lastDeliveryTime = $delivery->getDeliveredOn();
+        $this->lastTimeDelivered = $delivery->getDeliveredOn();
 
         return $this;
     }
@@ -172,9 +175,9 @@ class EmailStatus
     /**
      * @return \DateTime
      */
-    public function getLastBounceTime()
+    public function getLastTimeBounced()
     {
-        return $this->lastBounceTime;
+        return $this->lastTimeBounced;
     }
 
     /**
@@ -196,9 +199,9 @@ class EmailStatus
     /**
      * @return \DateTime
      */
-    public function getLastComplaintTime()
+    public function getLastTimeComplained()
     {
-        return $this->lastComplaintTime;
+        return $this->lastTimeComplained;
     }
 
     /**
@@ -220,8 +223,8 @@ class EmailStatus
     /**
      * @return \DateTime
      */
-    public function getLastDeliveryTime()
+    public function getLastTimeDelivered()
     {
-        return $this->lastDeliveryTime;
+        return $this->lastTimeDelivered;
     }
 }

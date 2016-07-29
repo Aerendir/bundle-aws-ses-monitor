@@ -23,7 +23,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\ComplaintRepositoryInter
  */
 class ComplaintTest extends \PHPUnit_Framework_TestCase
 {
-    public function testBounce()
+    public function testComplaint()
     {
         $resource = new Complaint();
         $test = [
