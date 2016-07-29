@@ -179,10 +179,14 @@ class Complaint
 
     /**
      * @param string $email
+     *
+     * @return $this
      */
     public function setEmailAddress($email)
     {
         $this->emailAddress = $email;
+
+        return $this;
     }
 
     /**

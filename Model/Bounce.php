@@ -213,6 +213,14 @@ class Bounce
     }
 
     /**
+     * @return string
+     */
+    public function getSubType()
+    {
+        return $this->subType;
+    }
+
+    /**
      * @return bool
      */
     public function isPermanent()
@@ -222,10 +230,14 @@ class Bounce
 
     /**
      * @param string $email
+     *
+     * @return $this
      */
     public function setEmailAddress($email)
     {
         $this->emailAddress = $email;
+
+        return $this;
     }
 
     /**
