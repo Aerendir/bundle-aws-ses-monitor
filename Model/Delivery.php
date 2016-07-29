@@ -44,7 +44,7 @@ class Delivery
      * The time in milliseconds between when Amazon SES accepted the request from the sender to passing the message to
      * the recipient's mail server.
      *
-     * @var string
+     * @var int
      */
     private $processingTimeMillis;
 
