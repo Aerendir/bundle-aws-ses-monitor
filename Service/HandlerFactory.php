@@ -52,7 +52,7 @@ class HandlerFactory
 
         switch ($headerType) {
             case NotificationHandler::HEADER_TYPE:
-                return new NotificationHandler($this->entityManager);
+                return new NotificationHandler($this->entityManager, new MessageValidator());
 
             case SubscriptionConfirmationHandler::HEADER_TYPE:
                 return new SubscriptionConfirmationHandler($this->entityManager, $this->awsFactory, new MessageValidator());

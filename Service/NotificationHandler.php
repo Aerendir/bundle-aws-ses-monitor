@@ -61,41 +61,41 @@ class NotificationHandler extends HandlerAbstract
         if (false === is_array($data))
             return $data;
 
-        if (isset($data['Message'])) {
-            $message = json_decode($data['Message'], true);
+        if (false === isset($data['Message']))
+            return 403;
 
-            // Create and Persist the MailMessage object
-            $mailMessage = $this->handleMailMessage($message['mail']);
+        $message = json_decode($data['Message'], true);
 
-            if (isset($message['notificationType'])) {
-                $return = 500;
+        // Create and Persist the MailMessage object
+        $mailMessage = $this->handleMailMessage($message['mail']);
 
-                switch ($message['notificationType']) {
-                    case self::MESSAGE_TYPE_SUBSCRIPTION_SUCCESS:
-                        $return = 200;
-                        break;
+        if (false === isset($message['notificationType']))
+            return 403;
 
-                    case self::MESSAGE_TYPE_BOUNCE:
-                        $return = $this->handleBounceNotification($message, $mailMessage);
-                        break;
+        $return = 500;
 
-                    case self::MESSAGE_TYPE_COMPLAINT:
-                        $return = $this->handleComplaintNotification($message, $mailMessage);
-                        break;
+        switch ($message['notificationType']) {
+            case self::MESSAGE_TYPE_SUBSCRIPTION_SUCCESS:
+                $return = 200;
+                break;
 
-                    case self::MESSAGE_TYPE_DELIVERY:
-                        $return = $this->handleDeliveryNotification($message, $mailMessage);
-                        break;
-                }
+            case self::MESSAGE_TYPE_BOUNCE:
+                $return = $this->handleBounceNotification($message, $mailMessage);
+                break;
 
-                if (200 === $return)
-                    $this->entityManager->flush();
+            case self::MESSAGE_TYPE_COMPLAINT:
+                $return = $this->handleComplaintNotification($message, $mailMessage);
+                break;
 
-                return $return;
-            }
+            case self::MESSAGE_TYPE_DELIVERY:
+                $return = $this->handleDeliveryNotification($message, $mailMessage);
+                break;
         }
 
-        return 403;
+        if (200 === $return)
+            $this->entityManager->flush();
+
+        return $return;
     }
 
     /**
@@ -125,11 +125,11 @@ class NotificationHandler extends HandlerAbstract
             }
 
             if (isset($bouncedRecipient['status'])) {
-                $bounce->setAction($bouncedRecipient['status']);
+                $bounce->setStatus($bouncedRecipient['status']);
             }
 
             if (isset($bouncedRecipient['diagnosticCode'])) {
-                $bounce->setAction($bouncedRecipient['diagnosticCode']);
+                $bounce->setDiagnosticCode($bouncedRecipient['diagnosticCode']);
             }
 
             $this->entityManager->persist($bounce);
@@ -165,7 +165,7 @@ class NotificationHandler extends HandlerAbstract
             }
 
             if (isset($message['complaint']['arrivalDate'])) {
-                $complaint->setArrivalDate($message['complaint']['arrivalDate']);
+                $complaint->setArrivalDate(new \DateTime($message['complaint']['arrivalDate']));
             }
 
             $status->addComplaint($complaint);

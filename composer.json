@@ -30,6 +30,7 @@
         "codeclimate/php-test-reporter": "dev-master",
         "doctrine/doctrine-bundle": "*",
         "doctrine/common": "~2.4",
+        "serendipity_hq/phpunit_helper": "*",
         "symfony/console": "~2.5",
         "symfony/yaml": "~2.5",
         "symfony/var-dumper": "*",
