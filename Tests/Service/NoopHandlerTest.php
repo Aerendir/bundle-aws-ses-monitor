@@ -10,7 +10,6 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Service;
 
 use Aws\Credentials\Credentials;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\HandlerFactory;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NoopHandler;
 use Symfony\Component\HttpFoundation\Request;
 
