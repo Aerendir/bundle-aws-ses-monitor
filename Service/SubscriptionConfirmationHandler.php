@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-class SubscriptionConfirmationHandler implements HandlerInterface
+class SubscriptionConfirmationHandler extends HandlerAbstract
 {
     const HEADER_TYPE = 'SubscriptionConfirmation';
 
@@ -32,9 +32,6 @@ class SubscriptionConfirmationHandler implements HandlerInterface
     /** @var AwsClientFactory $clientFactory */
     private $clientFactory;
 
-    /** @var  MessageValidator */
-    private $messageValidator;
-
     /**
      * @param EntityManager    $entityManager
      * @param AwsClientFactory $clientFactory
@@ -42,9 +39,9 @@ class SubscriptionConfirmationHandler implements HandlerInterface
      */
     public function __construct(EntityManager $entityManager, AwsClientFactory $clientFactory, MessageValidator $messageValidator)
     {
+        parent::__construct($messageValidator);
         $this->entityManager    = $entityManager;
         $this->clientFactory    = $clientFactory;
-        $this->messageValidator = $messageValidator;
     }
 
     /**
@@ -52,20 +49,11 @@ class SubscriptionConfirmationHandler implements HandlerInterface
      */
     public function handleRequest(Request $request, Credentials $credentials)
     {
-        if (!$request->isMethod('POST')) {
-            return 405;
-        }
+        $data = $this->extractDataFromRequest($request);
 
-        try {
-            $data    = json_decode($request->getContent(), true);
-            $message = new Message($data);
-
-            if (false === $this->messageValidator->isValid($message))
-                return 403;
-
-        } catch (\Exception $e) {
-            return 403;
-        }
+        // If is not an array is an integer representing an HTTP status code
+        if (false === is_array($data))
+            return $data;
 
         if (false === isset($data['Token']) || false === isset($data['TopicArn']))
             return 403;

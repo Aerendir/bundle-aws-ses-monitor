@@ -26,7 +26,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-class NotificationHandler implements HandlerInterface
+class NotificationHandler extends HandlerAbstract
 {
     const HEADER_TYPE                       = 'Notification';
     const MESSAGE_TYPE_SUBSCRIPTION_SUCCESS = 'AmazonSnsSubscriptionSucceeded';
@@ -34,17 +34,20 @@ class NotificationHandler implements HandlerInterface
     const MESSAGE_TYPE_COMPLAINT            = 'Complaint';
     const MESSAGE_TYPE_DELIVERY             = 'Delivery';
 
-    /**
-     * @var EntityManager
-     */
+    /** @var EntityManager */
     private $entityManager;
 
+    /** @var  MessageValidator */
+    private $messageValidator;
+
     /**
-     * @param EntityManager $entityManager
+     * @param EntityManager    $entityManager
+     * @param MessageValidator $messageValidator
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager, MessageValidator $messageValidator)
     {
-        $this->entityManager = $entityManager;
+        parent::__construct($messageValidator);
+        $this->entityManager    = $entityManager;
     }
 
     /**
@@ -52,18 +55,11 @@ class NotificationHandler implements HandlerInterface
      */
     public function handleRequest(Request $request, Credentials $credentials)
     {
-        if (!$request->isMethod('POST')) {
-            return 405;
-        }
+        $data = $this->extractDataFromRequest($request);
 
-        try {
-            $data      = json_decode($request->getContent(), true);
-            $message   = new Message($data);
-            $validator = new MessageValidator();
-            $validator->validate($message);
-        } catch (\Exception $e) {
-            return 403; // not valid message, we return 404
-        }
+        // If is not an array is an integer representing an HTTP status code
+        if (false === is_array($data))
+            return $data;
 
         if (isset($data['Message'])) {
             $message = json_decode($data['Message'], true);
@@ -92,14 +88,14 @@ class NotificationHandler implements HandlerInterface
                         break;
                 }
 
-                // Flush all entities
-                $this->entityManager->flush();
+                if (200 === $return)
+                    $this->entityManager->flush();
 
                 return $return;
             }
         }
 
-        return 404;
+        return 403;
     }
 
     /**
