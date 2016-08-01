@@ -9,6 +9,7 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
 
+use Aws\Sns\MessageValidator;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -54,7 +55,7 @@ class HandlerFactory
                 return new NotificationHandler($this->entityManager);
 
             case SubscriptionConfirmationHandler::HEADER_TYPE:
-                return new SubscriptionConfirmationHandler($this->entityManager, $this->awsFactory);
+                return new SubscriptionConfirmationHandler($this->entityManager, $this->awsFactory, new MessageValidator());
 
             default:
                 return new NoopHandler(); // ignore all other types of messages for now

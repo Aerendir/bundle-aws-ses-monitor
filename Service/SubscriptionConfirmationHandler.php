@@ -32,14 +32,19 @@ class SubscriptionConfirmationHandler implements HandlerInterface
     /** @var AwsClientFactory $clientFactory */
     private $clientFactory;
 
+    /** @var  MessageValidator */
+    private $messageValidator;
+
     /**
      * @param EntityManager    $entityManager
      * @param AwsClientFactory $clientFactory
+     * @param MessageValidator $messageValidator
      */
-    public function __construct(EntityManager $entityManager, AwsClientFactory $clientFactory)
+    public function __construct(EntityManager $entityManager, AwsClientFactory $clientFactory, MessageValidator $messageValidator)
     {
-        $this->entityManager = $entityManager;
-        $this->clientFactory = $clientFactory;
+        $this->entityManager    = $entityManager;
+        $this->clientFactory    = $clientFactory;
+        $this->messageValidator = $messageValidator;
     }
 
     /**
@@ -52,37 +57,40 @@ class SubscriptionConfirmationHandler implements HandlerInterface
         }
 
         try {
-            $data      = json_decode($request->getContent(), true);
-            $message   = new Message($data);
-            $validator = new MessageValidator();
-            $validator->isValid($message);
+            $data    = json_decode($request->getContent(), true);
+            $message = new Message($data);
+
+            if (false === $this->messageValidator->isValid($message))
+                return 403;
+
         } catch (\Exception $e) {
-            return 404;
+            return 403;
         }
 
-        if (isset($data['Token']) && isset($data['TopicArn'])) {
-            $topicArn = $data['TopicArn'];
-            $token    = $data['Token'];
+        if (false === isset($data['Token']) || false === isset($data['TopicArn']))
+            return 403;
 
-            $topicEntity = $this->entityManager->getRepository('AwsSesMonitorBundle:Topic')->findOneByTopicArn($topicArn);
-            if ($topicEntity instanceof Topic) {
-                $topicEntity->setToken($token);
-                $this->entityManager->persist($topicEntity);
+        $topicArn = $data['TopicArn'];
+        $token    = $data['Token'];
 
-                $client = $this->clientFactory->getSnsClient($credentials);
-                $client->confirmSubscription(
-                    [
-                        'TopicArn' => $topicEntity->getTopicArn(),
-                        'Token'    => $topicEntity->getToken()
-                    ]
-                );
+        /** @var Topic $topicEntity */
+        $topicEntity = $this->entityManager->getRepository('AwsSesMonitorBundle:Topic')->findOneByTopicArn($topicArn);
+        if (null === $topicEntity)
+            return 403;
 
-                $this->entityManager->flush();
+        $topicEntity->setToken($token);
+        $this->entityManager->persist($topicEntity);
 
-                return 200;
-            }
-        }
+        $client = $this->clientFactory->getSnsClient($credentials);
+        $client->confirmSubscription(
+            [
+                'TopicArn' => $topicEntity->getTopicArn(),
+                'Token'    => $topicEntity->getToken()
+            ]
+        );
 
-        return 404;
+        $this->entityManager->flush();
+
+        return 200;
     }
 }
