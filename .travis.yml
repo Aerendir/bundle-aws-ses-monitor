@@ -19,12 +19,18 @@ script:
     - phpenv config-rm xdebug.ini || return 0
 
 after_script:
-  - CODECLIMATE_REPO_TOKEN="e2e9d435955a38f76c397686cadd6b99f37b2dd595b066878db3240448e010aa" vendor/bin/test-reporter --stdout > codeclimate.json
-  - "curl -X POST -d @codeclimate.json -H 'Content-Type: application/json' -H 'User-Agent: Code Climate (PHP Test Reporter v0.1.1)' https://codeclimate.com/test_reports"
+    - CODECLIMATE_REPO_TOKEN="e2e9d435955a38f76c397686cadd6b99f37b2dd595b066878db3240448e010aa" vendor/bin/test-reporter --stdout > codeclimate.json
+    - "curl -X POST -d @codeclimate.json -H 'Content-Type: application/json' -H 'User-Agent: Code Climate (PHP Test Reporter v0.1.1)' https://codeclimate.com/test_reports"
 
 addons:
-  code_climate:
-    repo_token: e2e9d435955a38f76c397686cadd6b99f37b2dd595b066878db3240448e010aa
+    code_climate:
+        repo_token: e2e9d435955a38f76c397686cadd6b99f37b2dd595b066878db3240448e010aa
+    artifacts:
+        s3_region: "eu-west-1"
+        paths:
+            - $(git ls-files -o | tr "\n" ":")
+            - $(ls /var/log/*.log | tr "\n" ":")
+        debug: true
 
 after_success:
     - php vendor/bin/coveralls -v
