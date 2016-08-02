@@ -18,11 +18,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\EmailStatus;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Topic;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\TopicRepository;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationHandler;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\SubscriptionConfirmationHandler;
 use SerendipityHQ\Library\PHPUnit_Helper\PHPUnitHelper;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -36,19 +32,19 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
 {
     use PHPUnitHelper;
 
-    /** @var  Request */
+    /** @var Request */
     private $mockRequest;
 
-    /** @var  Credentials */
+    /** @var Credentials */
     private $mockCredentials;
 
-    /** @var  EntityManager */
+    /** @var EntityManager */
     private $mockEntityManager;
 
-    /** @var  MessageValidator */
+    /** @var MessageValidator */
     private $mockMessageValidator;
 
-    /** @var  SnsClient */
+    /** @var SnsClient */
     private $mockSnsClient;
 
     /**
@@ -56,16 +52,16 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->mockRequest = $this->createMock(Request::class);
-        $this->mockCredentials = $this->createMock(Credentials::class);
-        $this->mockEntityManager = $this->createMock(EntityManager::class);
+        $this->mockRequest          = $this->createMock(Request::class);
+        $this->mockCredentials      = $this->createMock(Credentials::class);
+        $this->mockEntityManager    = $this->createMock(EntityManager::class);
         $this->mockMessageValidator = $this->createMock(MessageValidator::class);
     }
 
     public function testReturn405IfMethodIsNotPost()
     {
         $this->mockRequest->method('isMethod')->willReturn(false);
-        $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
+        $handler  = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
         $this->assertSame(405, $response['code'], $response['content']);
     }
@@ -73,13 +69,13 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
     public function testReturn403IfMessageIsNotValid()
     {
         $data = [
-            'MailMessage' => '',
-            'MessageId' => '',
-            'Timestamp' => '',
-            'TopicArn' => '',
-            'Type' => 'test',
-            'Signature' => '',
-            'SigningCertURL' => '',
+            'MailMessage'      => '',
+            'MessageId'        => '',
+            'Timestamp'        => '',
+            'TopicArn'         => '',
+            'Type'             => 'test',
+            'Signature'        => '',
+            'SigningCertURL'   => '',
             'SignatureVersion' => '',
         ];
         $encodedData = json_encode($data);
@@ -88,7 +84,7 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
         $this->mockRequest->method('getContent')->willReturn($encodedData);
         $this->mockMessageValidator->method('isValid')->willReturn(false);
 
-        $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
+        $handler  = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
         $this->assertSame(403, $response['code'], $response['content']);
     }
@@ -96,13 +92,13 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
     public function testReturn403IfMessageValidationTrhowsAnException()
     {
         $data = [
-            'MailMessage' => '',
-            'MessageId' => '',
-            'Timestamp' => '',
-            'TopicArn' => '',
-            'Type' => 'test',
-            'Signature' => '',
-            'SigningCertURL' => '',
+            'MailMessage'      => '',
+            'MessageId'        => '',
+            'Timestamp'        => '',
+            'TopicArn'         => '',
+            'Type'             => 'test',
+            'Signature'        => '',
+            'SigningCertURL'   => '',
             'SignatureVersion' => '',
         ];
         $encodedData = json_encode($data);
@@ -111,7 +107,7 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
         $this->mockRequest->method('getContent')->willReturn($encodedData);
         $this->mockMessageValidator->method('isValid')->willThrowException(new InvalidSnsMessageException('An error message'));
 
-        $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
+        $handler  = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
         $this->assertSame(403, $response['code'], $response['content']);
     }
@@ -119,13 +115,13 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
     public function testReturn403IfTokenOrTopicArnAreNotSet()
     {
         $data = [
-            'MailMessage' => '',
-            'MessageId'   => '',
-            'Timestamp' => '',
-            'TopicArn' => '',
-            'Type' => 'test',
-            'Signature' => '',
-            'SigningCertURL' => '',
+            'MailMessage'      => '',
+            'MessageId'        => '',
+            'Timestamp'        => '',
+            'TopicArn'         => '',
+            'Type'             => 'test',
+            'Signature'        => '',
+            'SigningCertURL'   => '',
             'SignatureVersion' => '',
         ];
         $encodedData = json_encode($data);
@@ -134,18 +130,18 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
         $this->mockRequest->method('getContent')->willReturn($encodedData);
         $this->mockMessageValidator->method('isValid')->willReturn(true);
 
-        $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
+        $handler  = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
         $this->assertSame(403, $response['code'], $response['content']);
     }
 
     public function testReturn403IfMessageIsNotSet()
     {
-        $data = $this->configureAWorkingResponse();
+        $data        = $this->configureAWorkingResponse();
         $encodedData = json_encode($data);
         $this->mockRequest->method('getContent')->willReturn($encodedData);
 
-        $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
+        $handler  = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
         $this->assertSame(403, $response['code'], $response['content']);
     }
@@ -200,7 +196,7 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
         $data = $this->configureAWorkingResponse();
 
         $message = [
-            'mail' => $this->getMailArray(),
+            'mail'             => $this->getMailArray(),
             'notificationType' => NotificationHandler::MESSAGE_TYPE_SUBSCRIPTION_SUCCESS
         ];
 
@@ -211,7 +207,7 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
 
         $this->mockNullMailMessage();
 
-        $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
+        $handler  = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
         $this->assertSame(200, $response['code'], $response['content']);
     }
@@ -256,7 +252,7 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->willReturnOnConsecutiveCalls($mockMailMessageRepository, $mockEmailStatusRepository);
 
-        $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
+        $handler  = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
         $this->assertSame(200, $response['code'], $response['content']);
     }
@@ -301,7 +297,7 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->willReturnOnConsecutiveCalls($mockMailMessageRepository, $mockEmailStatusRepository);
 
-        $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
+        $handler  = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
         $this->assertSame(200, $response['code'], $response['content']);
     }
@@ -346,7 +342,7 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
             ->method('getRepository')
             ->willReturnOnConsecutiveCalls($mockMailMessageRepository, $mockEmailStatusRepository);
 
-        $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
+        $handler  = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
         $this->assertSame(200, $response['code'], $response['content']);
     }
@@ -357,14 +353,14 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
     private function configureAWorkingResponse()
     {
         $data = [
-            'MailMessage' => '',
-            'MessageId' => '',
-            'Timestamp' => '',
-            'TopicArn' => 'fhhfjfj',
-            'Token' => 'token',
-            'Type' => 'test',
-            'Signature' => '',
-            'SigningCertURL' => '',
+            'MailMessage'      => '',
+            'MessageId'        => '',
+            'Timestamp'        => '',
+            'TopicArn'         => 'fhhfjfj',
+            'Token'            => 'token',
+            'Type'             => 'test',
+            'Signature'        => '',
+            'SigningCertURL'   => '',
             'SignatureVersion' => ''
         ];
         $this->mockRequest->method('isMethod')->willReturn(true);
@@ -382,13 +378,13 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
     private function getMailArray()
     {
         return [
-            'messageId' => 'message-id',
-            'timestamp' => '2016-08-01 00:00:00',
-            'source' => 'test@example.com',
-            'sourceArn' => 'new source arn',
+            'messageId'        => 'message-id',
+            'timestamp'        => '2016-08-01 00:00:00',
+            'source'           => 'test@example.com',
+            'sourceArn'        => 'new source arn',
             'sendingAccountId' => 'sending account id',
-            'headers' => 'new headers',
-            'commonHeaders' => 'New common headers'
+            'headers'          => 'new headers',
+            'commonHeaders'    => 'New common headers'
         ];
     }
 
@@ -398,21 +394,21 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
     private function getBouncedNotificationMessage()
     {
         return [
-            'mail' => $this->getMailArray(),
+            'mail'   => $this->getMailArray(),
             'bounce' => [
                 'bouncedRecipients' => [
                     [
-                        'emailAddress' => 'test_recipient@example.com',
-                        'status' => 'status',
+                        'emailAddress'   => 'test_recipient@example.com',
+                        'status'         => 'status',
                         'diagnosticCode' => 'diagnostic code',
-                        'action' => 'the action to take'
+                        'action'         => 'the action to take'
                     ]
                 ],
-                'timestamp' => '2016-08-01 00:00:00',
-                'bounceType' => 'type of bounce',
+                'timestamp'     => '2016-08-01 00:00:00',
+                'bounceType'    => 'type of bounce',
                 'bounceSubType' => 'sub type of bounce',
-                'feedbackId' => 'the id of the feedback',
-                'reportingMta' => 'the MTA that reported the bounce'
+                'feedbackId'    => 'the id of the feedback',
+                'reportingMta'  => 'the MTA that reported the bounce'
             ],
             'notificationType' => NotificationHandler::MESSAGE_TYPE_BOUNCE
         ];
@@ -424,21 +420,21 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
     private function getComplainedNotificationMessage()
     {
         return [
-            'mail' => $this->getMailArray(),
+            'mail'      => $this->getMailArray(),
             'complaint' => [
                 'complainedRecipients' => [
                     [
-                        'emailAddress' => 'test_recipient@example.com',
-                        'status' => 'status',
+                        'emailAddress'   => 'test_recipient@example.com',
+                        'status'         => 'status',
                         'diagnosticCode' => 'diagnostic code',
-                        'action' => 'the action to take'
+                        'action'         => 'the action to take'
                     ]
                 ],
-                'timestamp' => '2016-08-01 00:00:00',
-                'userAgent' => 'the user agent',
+                'timestamp'             => '2016-08-01 00:00:00',
+                'userAgent'             => 'the user agent',
                 'complaintFeedbackType' => 'complaint feedback type',
-                'feedbackId' => 'the id of the feedback',
-                'arrivalDate' => '2016-08-01 00:00:00'
+                'feedbackId'            => 'the id of the feedback',
+                'arrivalDate'           => '2016-08-01 00:00:00'
             ],
             'notificationType' => NotificationHandler::MESSAGE_TYPE_COMPLAINT
         ];
@@ -450,15 +446,15 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
     private function getDeliveredNotificationMessage()
     {
         return [
-            'mail' => $this->getMailArray(),
+            'mail'     => $this->getMailArray(),
             'delivery' => [
                 'recipients' => [
                     'test_recipient@example.com'
                 ],
-                'timestamp' => '2016-08-01 00:00:00',
+                'timestamp'            => '2016-08-01 00:00:00',
                 'processingTimeMillis' => 1234,
-                'smtpResponse' => 'smtp response',
-                'reportingMta' => 'reporting MTA'
+                'smtpResponse'         => 'smtp response',
+                'reportingMta'         => 'reporting MTA'
             ],
             'notificationType' => NotificationHandler::MESSAGE_TYPE_DELIVERY
         ];

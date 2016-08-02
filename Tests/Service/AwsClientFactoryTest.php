@@ -24,14 +24,14 @@ class AwsClientFactoryTest extends \PHPUnit_Framework_TestCase
     public function testGetSesClient()
     {
         $config = [
-            'region' => 'eu-west-1',
+            'region'      => 'eu-west-1',
             'ses_version' => '2010-12-01'
         ];
 
         $mockCredentials = $this->createMock(Credentials::class);
 
         $factory = new AwsClientFactory($config);
-        $result = $factory->getSesClient($mockCredentials);
+        $result  = $factory->getSesClient($mockCredentials);
 
         $this->assertInstanceOf(SesClient::class, $result);
         $this->assertSame($config['region'], $result->getRegion());
@@ -41,14 +41,14 @@ class AwsClientFactoryTest extends \PHPUnit_Framework_TestCase
     public function testGetSnsClient()
     {
         $config = [
-            'region' => 'eu-west-1',
+            'region'      => 'eu-west-1',
             'sns_version' => '2010-03-31'
         ];
 
         $mockCredentials = $this->createMock(Credentials::class);
 
         $factory = new AwsClientFactory($config);
-        $result = $factory->getSnsClient($mockCredentials);
+        $result  = $factory->getSnsClient($mockCredentials);
 
         $this->assertInstanceOf(SnsClient::class, $result);
         $this->assertSame($config['region'], $result->getRegion());

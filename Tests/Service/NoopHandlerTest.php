@@ -18,11 +18,11 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * {@inheritdoc}
  */
-class NoopHanlderTest extends \PHPUnit_Framework_TestCase
+class NoopHandlerTest extends \PHPUnit_Framework_TestCase
 {
     public function testHandlerTest()
     {
-        $mockRequest = $this->createMock(Request::class);
+        $mockRequest     = $this->createMock(Request::class);
         $mockCredentials = $this->createMock(Credentials::class);
 
         $handler = new NoopHandler();

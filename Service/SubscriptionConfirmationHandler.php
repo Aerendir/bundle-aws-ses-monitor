@@ -10,7 +10,6 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
 
 use Aws\Credentials\Credentials;
-use Aws\Sns\Message;
 use Aws\Sns\MessageValidator;
 use Doctrine\ORM\EntityManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Topic;
@@ -52,19 +51,22 @@ class SubscriptionConfirmationHandler extends HandlerAbstract
         $data = $this->extractDataFromRequest($request);
 
         // If 'code' exists this is an HTTP status code
-        if (isset($data['code']))
+        if (isset($data['code'])) {
             return $data;
+        }
 
-        if (false === isset($data['Token']) || false === isset($data['TopicArn']))
+        if (false === isset($data['Token']) || false === isset($data['TopicArn'])) {
             return ['code' => 403, 'content' => 'Token or TopicArn is missed.'];
+        }
 
         $topicArn = $data['TopicArn'];
         $token    = $data['Token'];
 
         /** @var Topic $topicEntity */
         $topicEntity = $this->entityManager->getRepository('AwsSesMonitorBundle:Topic')->findOneByTopicArn($topicArn);
-        if (null === $topicEntity)
+        if (null === $topicEntity) {
             return ['code' => 404, 'content' => 'Topic not found'];
+        }
 
         $topicEntity->setToken($token);
         $this->entityManager->persist($topicEntity);
