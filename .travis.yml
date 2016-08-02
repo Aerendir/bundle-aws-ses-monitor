@@ -25,12 +25,3 @@ after_script:
 addons:
     code_climate:
         repo_token: e2e9d435955a38f76c397686cadd6b99f37b2dd595b066878db3240448e010aa
-    artifacts:
-        s3_region: "eu-west-1"
-        paths:
-            - $(git ls-files -o | tr "\n" ":")
-            - $(ls /var/log/*.log | tr "\n" ":")
-        debug: true
-
-after_success:
-    - php vendor/bin/coveralls -v
