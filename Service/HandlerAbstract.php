@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 abstract class HandlerAbstract implements HandlerInterface
 {
-    /** @var  MessageValidator */
+    /** @var MessageValidator */
     private $messageValidator;
 
     /**
@@ -46,11 +46,11 @@ abstract class HandlerAbstract implements HandlerInterface
             $data      = json_decode($request->getContent(), true);
             $message   = new Message($data);
 
-            if (false === $this->messageValidator->isValid($message))
+            if (false === $this->messageValidator->isValid($message)) {
                 return ['code' => 403, 'content' => 'The message is invalid.'];
+            }
 
             return $data;
-
         } catch (\Exception $e) {
             return ['code' => 403, 'content' => 'Exception: ' . $e->getMessage()];
         }

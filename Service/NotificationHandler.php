@@ -55,19 +55,22 @@ class NotificationHandler extends HandlerAbstract
         $data = $this->extractDataFromRequest($request);
 
         // If 'code' exists this is an HTTP status code
-        if (isset($data['code']))
+        if (isset($data['code'])) {
             return $data;
+        }
 
-        if (false === isset($data['Message']))
+        if (false === isset($data['Message'])) {
             return ['code' => 403, 'content' => 'The message doesn\'t exist.'];
+        }
 
         $message = json_decode($data['Message'], true);
 
         // Create and Persist the MailMessage object
         $mailMessage = $this->handleMailMessage($message['mail']);
 
-        if (false === isset($message['notificationType']))
+        if (false === isset($message['notificationType'])) {
             return ['code' => 403, 'content' => 'Missed NotificationType.'];
+        }
 
         $return = ['code' => 500, 'content' => 'An internal error occurred.'];
 
@@ -92,7 +95,7 @@ class NotificationHandler extends HandlerAbstract
         if (200 === $return) {
             $this->entityManager->flush();
             $return = [
-                'code' => $return,
+                'code'    => $return,
                 'content' => 'OK.'
             ];
         }
