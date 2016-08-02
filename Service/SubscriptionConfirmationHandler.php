@@ -51,12 +51,12 @@ class SubscriptionConfirmationHandler extends HandlerAbstract
     {
         $data = $this->extractDataFromRequest($request);
 
-        // If is not an array is an integer representing an HTTP status code
-        if (false === is_array($data))
+        // If 'code' exists this is an HTTP status code
+        if (isset($data['code']))
             return $data;
 
         if (false === isset($data['Token']) || false === isset($data['TopicArn']))
-            return 403;
+            return ['code' => 403, 'content' => 'Token or TopicArn is missed.'];
 
         $topicArn = $data['TopicArn'];
         $token    = $data['Token'];
@@ -64,7 +64,7 @@ class SubscriptionConfirmationHandler extends HandlerAbstract
         /** @var Topic $topicEntity */
         $topicEntity = $this->entityManager->getRepository('AwsSesMonitorBundle:Topic')->findOneByTopicArn($topicArn);
         if (null === $topicEntity)
-            return 403;
+            return ['code' => 404, 'content' => 'Topic not found'];
 
         $topicEntity->setToken($token);
         $this->entityManager->persist($topicEntity);
@@ -79,6 +79,6 @@ class SubscriptionConfirmationHandler extends HandlerAbstract
 
         $this->entityManager->flush();
 
-        return 200;
+        return ['code' => 200, 'content' => 'OK'];
     }
 }

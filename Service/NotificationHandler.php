@@ -37,9 +37,6 @@ class NotificationHandler extends HandlerAbstract
     /** @var EntityManager */
     private $entityManager;
 
-    /** @var  MessageValidator */
-    private $messageValidator;
-
     /**
      * @param EntityManager    $entityManager
      * @param MessageValidator $messageValidator
@@ -57,12 +54,12 @@ class NotificationHandler extends HandlerAbstract
     {
         $data = $this->extractDataFromRequest($request);
 
-        // If is not an array is an integer representing an HTTP status code
-        if (false === is_array($data))
+        // If 'code' exists this is an HTTP status code
+        if (isset($data['code']))
             return $data;
 
         if (false === isset($data['Message']))
-            return 403;
+            return ['code' => 403, 'content' => 'The message doesn\'t exist.'];
 
         $message = json_decode($data['Message'], true);
 
@@ -70,9 +67,9 @@ class NotificationHandler extends HandlerAbstract
         $mailMessage = $this->handleMailMessage($message['mail']);
 
         if (false === isset($message['notificationType']))
-            return 403;
+            return ['code' => 403, 'content' => 'Missed NotificationType.'];
 
-        $return = 500;
+        $return = ['code' => 500, 'content' => 'An internal error occurred.'];
 
         switch ($message['notificationType']) {
             case self::MESSAGE_TYPE_SUBSCRIPTION_SUCCESS:
@@ -92,8 +89,13 @@ class NotificationHandler extends HandlerAbstract
                 break;
         }
 
-        if (200 === $return)
+        if (200 === $return) {
             $this->entityManager->flush();
+            $return = [
+                'code' => $return,
+                'content' => 'OK.'
+            ];
+        }
 
         return $return;
     }

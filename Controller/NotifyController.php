@@ -36,9 +36,15 @@ class NotifyController extends Controller
         $factory = $this->get('aws_ses_monitor.handler.factory');
 
         $monitorHandler = $factory->buildHandler($request);
-        $responseCode   = $monitorHandler->handleRequest($request, $this->getCredentials());
+        $response   = $monitorHandler->handleRequest($request, $this->getCredentials());
 
-        return new Response('', $responseCode);
+        if (false === is_array($response))
+            $response = [
+                'content' => '',
+                'code' => $response
+            ];
+
+        return new Response($response['content'], $response['code']);
     }
 
     /**

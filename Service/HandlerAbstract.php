@@ -39,7 +39,7 @@ abstract class HandlerAbstract implements HandlerInterface
     public function extractDataFromRequest(Request $request)
     {
         if (!$request->isMethod('POST')) {
-            return 405;
+            return ['code' => 405, 'content' => 'Only POST requests are accepted.'];
         }
 
         try {
@@ -47,12 +47,12 @@ abstract class HandlerAbstract implements HandlerInterface
             $message   = new Message($data);
 
             if (false === $this->messageValidator->isValid($message))
-                return 403;
+                return ['code' => 403, 'content' => 'The message is invalid.'];
 
             return $data;
 
         } catch (\Exception $e) {
-            return 403;
+            return ['code' => 403, 'content' => 'Exception: ' . $e->getMessage()];
         }
     }
 }

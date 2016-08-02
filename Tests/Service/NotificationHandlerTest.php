@@ -66,7 +66,8 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
     {
         $this->mockRequest->method('isMethod')->willReturn(false);
         $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
-        $this->assertSame(405, $handler->handleRequest($this->mockRequest, $this->mockCredentials));
+        $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
+        $this->assertSame(405, $response['code'], $response['content']);
     }
 
     public function testReturn403IfMessageIsNotValid()
@@ -88,19 +89,11 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
         $this->mockMessageValidator->method('isValid')->willReturn(false);
 
         $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
-        $this->assertSame(403, $handler->handleRequest($this->mockRequest, $this->mockCredentials));
+        $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
+        $this->assertSame(403, $response['code'], $response['content']);
     }
 
     public function testReturn403IfMessageValidationTrhowsAnException()
-    {
-        $this->mockRequest->method('isMethod')->willReturn(true);
-        $this->mockMessageValidator->method('isValid')->willThrowException(new InvalidSnsMessageException('An error message'));
-
-        $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
-        $this->assertSame(403, $handler->handleRequest($this->mockRequest, $this->mockCredentials));
-    }
-
-    public function _testReturn403IfTokenOrTopicArnAreNotSet()
     {
         $data = [
             'MailMessage' => '',
@@ -116,18 +109,45 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
 
         $this->mockRequest->method('isMethod')->willReturn(true);
         $this->mockRequest->method('getContent')->willReturn($encodedData);
+        $this->mockMessageValidator->method('isValid')->willThrowException(new InvalidSnsMessageException('An error message'));
+
+        $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
+        $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
+        $this->assertSame(403, $response['code'], $response['content']);
+    }
+
+    public function testReturn403IfTokenOrTopicArnAreNotSet()
+    {
+        $data = [
+            'MailMessage' => '',
+            'MessageId'   => '',
+            'Timestamp' => '',
+            'TopicArn' => '',
+            'Type' => 'test',
+            'Signature' => '',
+            'SigningCertURL' => '',
+            'SignatureVersion' => '',
+        ];
+        $encodedData = json_encode($data);
+
+        $this->mockRequest->method('isMethod')->willReturn(true);
+        $this->mockRequest->method('getContent')->willReturn($encodedData);
         $this->mockMessageValidator->method('isValid')->willReturn(true);
 
         $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
-        $this->assertSame(403, $handler->handleRequest($this->mockRequest, $this->mockCredentials));
+        $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
+        $this->assertSame(403, $response['code'], $response['content']);
     }
 
     public function testReturn403IfMessageIsNotSet()
     {
-        $this->configureAWorkingResponse();
+        $data = $this->configureAWorkingResponse();
+        $encodedData = json_encode($data);
+        $this->mockRequest->method('getContent')->willReturn($encodedData);
 
         $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
-        $this->assertSame(403, $handler->handleRequest($this->mockRequest, $this->mockCredentials));
+        $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
+        $this->assertSame(403, $response['code'], $response['content']);
     }
 
     public function testHandleMailMessageReturnsANewMailMessageObject()
@@ -192,7 +212,8 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
         $this->mockNullMailMessage();
 
         $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
-        $this->assertSame(200, $handler->handleRequest($this->mockRequest, $this->mockCredentials));
+        $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
+        $this->assertSame(200, $response['code'], $response['content']);
     }
 
     public function testHandleBounceNotification()
@@ -236,7 +257,8 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
             ->willReturnOnConsecutiveCalls($mockMailMessageRepository, $mockEmailStatusRepository);
 
         $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
-        $this->assertSame(200, $handler->handleRequest($this->mockRequest, $this->mockCredentials));
+        $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
+        $this->assertSame(200, $response['code'], $response['content']);
     }
 
     public function testHandleComplaintNotification()
@@ -280,13 +302,9 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
             ->willReturnOnConsecutiveCalls($mockMailMessageRepository, $mockEmailStatusRepository);
 
         $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
-        $this->assertSame(200, $handler->handleRequest($this->mockRequest, $this->mockCredentials));
+        $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
+        $this->assertSame(200, $response['code'], $response['content']);
     }
-
-
-
-
-
 
     public function testHandleDeliveryNotification()
     {
@@ -329,15 +347,9 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
             ->willReturnOnConsecutiveCalls($mockMailMessageRepository, $mockEmailStatusRepository);
 
         $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
-        $this->assertSame(200, $handler->handleRequest($this->mockRequest, $this->mockCredentials));
+        $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
+        $this->assertSame(200, $response['code'], $response['content']);
     }
-
-
-
-
-
-
-
 
     /**
      * @return array
