@@ -45,9 +45,3 @@ DOCUMENTATION
 =============
 
 You can read how to install, configure, test and use AWS SES Monitor Bundle in the [documentation](Resources/docs/Index.md).
-
-Useful Links
-------------
-
-- [How to handle Bounces and Complaints](http://sesblog.amazon.com/post/TxJE1JNZ6T9JXK/-Handling-span-class-matches-Bounces-span-and-Complaints.pdf)
-- [Some sample code with PHP](https://forums.aws.amazon.com/message.jspa?messageID=202798#202798)

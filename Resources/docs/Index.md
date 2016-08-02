@@ -30,3 +30,8 @@ Other useful resources about AWS SNS
 * [AWS Simple Notification Service Developer guide](http://docs.aws.amazon.com/sns/latest/dg/welcome.html)
 * [AWS Simple Notification Service Blog](https://aws.amazon.com/it/blogs/aws/category/amazon-sns/)
 * [AWS Simple Notification Service Forum](https://forums.aws.amazon.com/forum.jspa?forumID=72)
+
+Miscellaneous
+-------------
+
+- [Some sample code with PHP](https://forums.aws.amazon.com/message.jspa?messageID=202798#202798)
