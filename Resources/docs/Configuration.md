@@ -67,8 +67,8 @@ aws_ses_monitor:
             enabled: true # OPTIONAL. If false, no filtering of bounced recipients will happen. Complained are ever filtered.
             soft_as_hard: false # OPTIONAL. If true, the temporary bounces counts as hard bounces
             max_bounces: 5 # OPTIONAL. The max number of bounces before the address is blacklisted
-            soft_blacklist_time: forever # OPTIONAL. The amount of time for wich a temporary bounced address has to be blacklisted. If "forever" emails will never been sent in the future.
-            hard_blacklist_time: forever # OPTIONAL. The amount of time for wich an hard bounced address has to be blacklisted. If "forever" emails will never been sent in the future.
+            soft_blacklist_time: forever # OPTIONAL. NOT YET IMPLEMENTED. The amount of time for wich a temporary bounced address has to be blacklisted. If "forever" emails will never been sent in the future.
+            hard_blacklist_time: forever # OPTIONAL. NOT YET IMPLEMENTED. The amount of time for wich an hard bounced address has to be blacklisted. If "forever" emails will never been sent in the future.
             force_send: false # OPTIONAL. If you want to force the sending of e-maills to bounced e-mails. VERY RISKY!
     complaints:
         topic:
@@ -79,7 +79,7 @@ aws_ses_monitor:
                 host: your_domain.com # REQUIRED. The hostname of your project when in production.
         filter:
             enabled: true # OPTIONAL. If false, no filtering of complained recipients will happen. "false" IS VERY RISKY!
-            blacklist_time: forever # OPTIONAL. The amount of time for wich an address has to be blacklisted. If "forever" emails will never been sent in the future.
+            blacklist_time: forever # OPTIONAL. NOT YET IMPLEMENTED. The amount of time for wich an address has to be blacklisted. If "forever" emails will never been sent in the future.
             force_send: false # OPTIONAL. If you want to force the sending of e-maills to complained e-mails. VERY RISKY!
     deliveries:
         enabled: true # OPTIONAL. By default also the deliveries are tracked.
