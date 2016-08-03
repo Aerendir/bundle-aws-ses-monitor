@@ -45,5 +45,6 @@ class DeliveryTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($test['processingTimeMillis'], $resource->getProcessingTimeMillis());
         $this->assertSame($test['smtpResponse'], $resource->getSmtpResponse());
         $this->assertSame($test['reportingMta'], $resource->getReportingMta());
+        $this->assertSame(null, $resource->getEmailStatus());
     }
 }

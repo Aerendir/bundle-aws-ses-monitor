@@ -58,5 +58,6 @@ class BounceTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($test['status'], $resource->getStatus());
         $this->assertSame($test['diagnosticCode'], $resource->getDiagnosticCode());
         $this->assertTrue($resource->isPermanent());
+        $this->assertSame(null, $resource->getEmailStatus());
     }
 }

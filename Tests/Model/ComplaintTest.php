@@ -48,5 +48,6 @@ class ComplaintTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($test['userAgent'], $resource->getUserAgent());
         $this->assertSame($test['complaintFeedbackType'], $resource->getComplaintFeedbackType());
         $this->assertSame($test['arrivalDate'], $resource->getArrivalDate());
+        $this->assertSame(null, $resource->getEmailStatus());
     }
 }
