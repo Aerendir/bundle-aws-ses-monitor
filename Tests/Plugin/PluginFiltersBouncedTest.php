@@ -69,10 +69,13 @@ class PluginFiltersBouncedTest extends PluginFilterTestBase
         );
     }
 
-    public function _testFiltersMaxBounced()
+    /**
+     * Tests the max num of bounces allowed.
+     *
+     * Uses soft_as_hard = true.
+     */
+    public function testFiltersMaxBounced()
     {
-        $this->bouncedMock->method('getBounceCount')->willReturn(5);
-
         $this->message
             ->expects($this->once())
             ->method('setTo')

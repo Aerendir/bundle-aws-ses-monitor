@@ -17,7 +17,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-interface NotificationInterface
+interface ByEmailInterface
 {
     /**
      * @param $email

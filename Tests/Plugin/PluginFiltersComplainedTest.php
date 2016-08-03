@@ -93,4 +93,36 @@ class PluginFiltersComplainedTest extends PluginFilterTestBase
         $filter->beforeSendPerformed($this->event);
         $filter->sendPerformed($this->event);
     }
+
+    public function testComplainedAreFiltered()
+    {
+        $this->bouncesConfig['filter']['enabled'] = false;
+
+        $this->message
+            ->expects($this->once())
+            ->method('setTo')
+            ->withAnyParameters()
+            ->willReturnCallback([$this, 'confirmComplainedRemoved']);
+
+        $this->message
+            ->expects($this->once())
+            ->method('setCc')
+            ->withAnyParameters()
+            ->willReturnCallback([$this, 'confirmComplainedRemoved']);
+
+        $this->message
+            ->expects($this->once())
+            ->method('setBcc')
+            ->withAnyParameters()
+            ->willReturnCallback([$this, 'confirmThatNull']);
+
+        $this->event = $this->getMockBuilder(\Swift_Events_SendEvent::class)->disableOriginalConstructor()->getMock();
+        $this->event->expects($this->once())
+            ->method('getMessage')
+            ->willReturn($this->message);
+
+        $filter = new MonitorFilterPlugin($this->orm, $this->bouncesConfig, $this->complaintsConfig);
+        $filter->beforeSendPerformed($this->event);
+        $filter->sendPerformed($this->event);
+    }
 }

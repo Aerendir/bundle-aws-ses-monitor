@@ -17,7 +17,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery;
  *
  * {@inheritdoc}
  */
-class DeliveryRepository extends EntityRepository implements NotificationInterface
+class DeliveryRepository extends EntityRepository implements ByEmailInterface
 {
     /**
      * @param $email
