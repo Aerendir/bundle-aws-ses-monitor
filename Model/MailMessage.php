@@ -4,12 +4,9 @@
  * This file is part of the AWS SES Monitor Bundle.
  *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
- * @author Audrius Karabanovas <audrius@karabanovas.net>
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
-
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * A MailMessage Entity.
@@ -100,31 +97,6 @@ class MailMessage
      * @var string
      */
     private $commonHeaders;
-
-    /**
-     * @var ArrayCollection
-     */
-    private $bounces;
-
-    /**
-     * @var ArrayCollection
-     */
-    private $complaints;
-
-    /**
-     * @var ArrayCollection
-     */
-    private $deliveries;
-
-    /**
-     * MailMessage constructor.
-     */
-    public function __construct()
-    {
-        $this->bounces    = new ArrayCollection();
-        $this->complaints = new ArrayCollection();
-        $this->deliveries = new ArrayCollection();
-    }
 
     /**
      * @return int

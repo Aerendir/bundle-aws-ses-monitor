@@ -4,7 +4,6 @@
  * This file is part of the AWS SES Monitor Bundle.
  *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
- * @author Audrius Karabanovas <audrius@karabanovas.net>
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
