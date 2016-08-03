@@ -12,8 +12,8 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Plugin;
 use Doctrine\ORM\EntityManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\BounceRepositoryInterface;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\ComplaintRepositoryInterface;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\BounceRepository;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\ComplaintRepository;
 
 /**
  * Base class to test bounced and complained address filtering.
@@ -78,12 +78,12 @@ class PluginFilterTestBase extends \PHPUnit_Framework_TestCase
         $recipientsCc  = ['valid@example.com' => null, 'complained@example.com' => null, 'bounced@example.com' => null, 'valid2@example.com' => null];
         $recipientsBcc = null;
 
-        $this->bouncesRepo = $this->createMock(BounceRepositoryInterface::class);
+        $this->bouncesRepo = $this->createMock(BounceRepository::class);
         $this->bouncesRepo->expects($this->any())
             ->method('findOneByEmail')
             ->will($this->returnValueMap($map));
 
-        $this->complaintsRepo = $this->createMock(ComplaintRepositoryInterface::class);
+        $this->complaintsRepo = $this->createMock(ComplaintRepository::class);
         $this->complaintsRepo->expects($this->any())
             ->method('findOneByEmail')
             ->will($this->returnValueMap($map));

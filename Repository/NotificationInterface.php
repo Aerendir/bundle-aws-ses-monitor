@@ -15,8 +15,9 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
  * Repository to manage Bounces.
  *
  * @author Audrius Karabanovas <audrius@karabanovas.net>
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-interface BounceRepositoryInterface
+interface NotificationInterface
 {
     /**
      * @param $email
@@ -24,11 +25,4 @@ interface BounceRepositoryInterface
      * @return Bounce|null
      */
     public function findOneByEmail($email);
-
-    /**
-     * @param Bounce $bounce
-     *
-     * @return mixed
-     */
-    public function save(Bounce $bounce);
 }

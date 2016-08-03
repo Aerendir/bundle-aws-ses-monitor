@@ -17,7 +17,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery;
  *
  * {@inheritdoc}
  */
-class DeliveryRepository extends EntityRepository implements DeliveryRepositoryInterface
+class DeliveryRepository extends EntityRepository implements NotificationInterface
 {
     /**
      * @param $email
@@ -27,16 +27,5 @@ class DeliveryRepository extends EntityRepository implements DeliveryRepositoryI
     public function findOneByEmail($email)
     {
         return $this->findOneBy(['emailAddress' => mb_strtolower($email)]);
-    }
-
-    /**
-     * @param Delivery $delivery
-     *
-     * @return mixed
-     */
-    public function save(Delivery $delivery)
-    {
-        $this->_em->persist($delivery);
-        $this->_em->flush();
     }
 }

@@ -28,30 +28,4 @@ class TopicRepository extends EntityRepository implements TopicRepositoryInterfa
     {
         return $this->findOneBy(['topicArn' => $topicArn]);
     }
-
-    /**
-     * @param Topic $topic
-     *
-     * @return mixed
-     */
-    public function save(Topic $topic)
-    {
-        $this->_em->persist($topic);
-        $this->_em->flush();
-    }
-
-    /**
-     * @param Topic $topic
-     *
-     * @return mixed
-     */
-    public function remove(Topic $topic)
-    {
-        $this->createQueryBuilder('topic')
-            ->delete()
-            ->where('topic.topicArn = :arn')
-            ->setParameter('arn', $topic->getTopicArn())
-            ->getQuery()
-            ->execute();
-    }
 }
