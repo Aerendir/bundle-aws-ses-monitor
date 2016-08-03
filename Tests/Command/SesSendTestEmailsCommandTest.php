@@ -1,4 +1,5 @@
 <?php
+
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Command;
 
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Command\SesSendTestEmailsCommand;
@@ -37,12 +38,13 @@ class SesSendTestEmailsCommandTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param $input
+     *
      * @return resource
      */
     protected function getInputStream($input)
     {
         $stream = fopen('php://memory', 'r+', false);
-        fputs($stream, $input);
+        fwrite($stream, $input);
         rewind($stream);
 
         return $stream;
@@ -51,7 +53,8 @@ class SesSendTestEmailsCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
-    protected function getMockContainer() {
+    protected function getMockContainer()
+    {
         // Mock the container and everything you'll need here
         $mockSwiftMailer = $this->createMock(\Swift_Mailer::class);
 

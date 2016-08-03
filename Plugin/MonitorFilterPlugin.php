@@ -10,11 +10,7 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin;
 
 use Doctrine\ORM\EntityManager;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\EmailStatus;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\BounceRepository;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\ComplaintRepository;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\EmailStatusRepository;
 use Swift_Events_SendEvent;
 
@@ -106,16 +102,19 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      */
     private function isBounced(EmailStatus $email)
     {
-        if (false === $this->areBouncesChecksEnabled())
+        if (false === $this->areBouncesChecksEnabled()) {
             return false;
+        }
 
-        if (true === $this->areBouncesForced())
+        if (true === $this->areBouncesForced()) {
             return false;
+        }
 
         $bouncesCount = $email->getHardBouncesCount();
 
-        if ($this->bouncesConfig['soft_as_hard'])
+        if ($this->bouncesConfig['soft_as_hard']) {
             $bouncesCount += $email->getSoftBouncesCount();
+        }
 
         if ($bouncesCount >= $this->bouncesConfig['max_bounces']) {
             return true;
@@ -131,14 +130,17 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      */
     private function isComplained(EmailStatus $email)
     {
-        if (false === $this->areComplaintsChecksEnabled())
+        if (false === $this->areComplaintsChecksEnabled()) {
             return false;
+        }
 
-        if (true === $this->areComplaintsForced())
+        if (true === $this->areComplaintsForced()) {
             return false;
+        }
 
-        if ($email->getComplaintsCount() >= 1)
+        if ($email->getComplaintsCount() >= 1) {
             return true;
+        }
 
         return false;
     }
