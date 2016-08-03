@@ -12,6 +12,10 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin;
 use Doctrine\ORM\EntityManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\EmailStatus;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\BounceRepository;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\ComplaintRepository;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\EmailStatusRepository;
 use Swift_Events_SendEvent;
 
 /**
@@ -25,15 +29,14 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     /** @var array */
     private $blacklisted = [];
 
-    /** @var bool $bouncesConfig */
+    /** @var array $bouncesConfig */
     private $bouncesConfig;
 
-    private $bounceRepo;
-
-    /** @var int $complaintsConfig */
+    /** @var array $complaintsConfig */
     private $complaintsConfig;
 
-    private $complaintRepo;
+    /** @var EmailStatusRepository */
+    private $emailStatusRepo;
 
     /**
      * @param EntityManager $manager
@@ -42,11 +45,9 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      */
     public function __construct(EntityManager $manager, array $bouncesConfig, array $complaintsConfig)
     {
-        $this->bouncesConfig = $bouncesConfig['filter'];
-        $this->bounceRepo    = $manager->getRepository('AwsSesMonitorBundle:Bounce');
-
+        $this->bouncesConfig    = $bouncesConfig['filter'];
         $this->complaintsConfig = $complaintsConfig['filter'];
-        $this->complaintRepo    = $manager->getRepository('AwsSesMonitorBundle:Complaint');
+        $this->emailStatusRepo  = $manager->getRepository('AwsSesMonitorBundle:EmailStatus');
     }
 
     /**
@@ -87,9 +88,11 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
         $emails = array_keys($recipients);
 
         foreach ($emails as $email) {
+            $email = $this->emailStatusRepo->findOneByEmail($email);
+
             if ($this->isBounced($email) || $this->isComplained($email)) {
-                $this->blacklisted[$email] = $recipients[$email];
-                unset($recipients[$email]);
+                $this->blacklisted[$email->getEmailAddress()] = $recipients[$email->getEmailAddress()];
+                unset($recipients[$email->getEmailAddress()]);
             }
         }
 
@@ -97,62 +100,78 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     }
 
     /**
-     * @param $email
+     * @param EmailStatus $email
      *
      * @return bool
      */
-    private function isBounced($email)
+    private function isBounced(EmailStatus $email)
     {
-        // Check if bounces have to be filtered
-        if (false === $this->bouncesConfig['enabled']) {
-            // No bounces filtering
+        if (false === $this->areBouncesChecksEnabled())
             return false;
-        }
 
-        // Check if sending is forced
-        if (true === $this->bouncesConfig['force_send']) {
-            // No bounces filtering
+        if (true === $this->areBouncesForced())
             return false;
+
+        $bouncesCount = $email->getHardBouncesCount();
+
+        if ($this->bouncesConfig['soft_as_hard'])
+            $bouncesCount += $email->getSoftBouncesCount();
+
+        if ($bouncesCount >= $this->bouncesConfig['max_bounces']) {
+            return true;
         }
-
-        $bounce = $this->bounceRepo->findOneByEmail($email);
-
-        if (!$bounce instanceof Bounce) {
-            return false;
-        }
-
-        // @todo To reactivate
-//        if ($bounce->getBounceCount() >= $this->bouncesConfig['max_bounces']) {
-//            return true;
-//        }
 
         return false;
     }
 
     /**
-     * @param $email
+     * @param EmailStatus $email
      *
      * @return bool
      */
-    private function isComplained($email)
+    private function isComplained(EmailStatus $email)
     {
-        // Check if bounces have to be filtered
-        if (false === $this->complaintsConfig['enabled']) {
-            // No bounces filtering
+        if (false === $this->areComplaintsChecksEnabled())
             return false;
-        }
 
-        // Check if sending is forced
-        if (true === $this->complaintsConfig['force_send']) {
+        if (true === $this->areComplaintsForced())
             return false;
-        }
 
-        $complaint = $this->complaintRepo->findOneByEmail($email);
-
-        if (!$complaint instanceof Complaint) {
-            return false;
-        }
+        if ($email->getComplaintsCount() >= 1)
+            return true;
 
         return false;
+    }
+
+    /**
+     * @return bool
+     */
+    private function areBouncesChecksEnabled()
+    {
+        return $this->bouncesConfig['enabled'];
+    }
+
+    /**
+     * @return bool
+     */
+    private function areBouncesForced()
+    {
+        return $this->bouncesConfig['force_send'];
+    }
+
+    /**
+     * @return bool
+     */
+    private function areComplaintsChecksEnabled()
+    {
+        return $this->complaintsConfig['enabled'];
+    }
+
+    /**
+     * @return bool
+     */
+    private function areComplaintsForced()
+    {
+        return $this->complaintsConfig['force_send'];
     }
 }

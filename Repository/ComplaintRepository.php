@@ -17,7 +17,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
  *
  * {@inheritdoc}
  */
-class ComplaintRepository extends EntityRepository implements NotificationInterface
+class ComplaintRepository extends EntityRepository implements ByEmailInterface
 {
     /**
      * @param $email

@@ -18,7 +18,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
  *
  * {@inheritdoc}
  */
-class BounceRepository extends EntityRepository implements NotificationInterface
+class BounceRepository extends EntityRepository implements ByEmailInterface
 {
     /**
      * @param $email

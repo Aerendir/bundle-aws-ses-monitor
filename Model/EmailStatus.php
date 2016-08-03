@@ -20,9 +20,7 @@ class EmailStatus
     /** @var string $emailAddress */
     private $emailAddress;
 
-    /**
-     * @var ArrayCollection
-     */
+    /** @var ArrayCollection */
     private $bounces;
 
     /** @var int $hardBouncesCount */
@@ -31,40 +29,28 @@ class EmailStatus
     /** @var int $hardBouncesCount */
     private $softBouncesCount = 0;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $lastBounceType;
 
-    /**
-     * @var \DateTime
-     */
+    /** @var \DateTime */
     private $lastTimeBounced;
 
-    /**
-     * @var ArrayCollection
-     */
+    /** @var ArrayCollection */
     private $complaints;
 
     /** @var int $complaintsCount */
     private $complaintsCount = 0;
 
-    /**
-     * @var \DateTime
-     */
+    /** @var \DateTime */
     private $lastTimeComplained;
 
-    /**
-     * @var ArrayCollection
-     */
+    /** @var ArrayCollection */
     private $deliveries;
 
     /** @var int $deliveriesCount */
     private $deliveriesCount = 0;
 
-    /**
-     * @var \DateTime
-     */
+    /** @var \DateTime */
     private $lastTimeDelivered;
 
     /**

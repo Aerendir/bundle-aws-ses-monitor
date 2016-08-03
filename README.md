@@ -14,8 +14,6 @@ AWS SES MONITOR BUNDLE
 
 Forked from [BouncerBundle](https://github.com/shivas/bouncer-bundle).
 
-** THE PLUGIN FOR SWIFT MAILER IS CURRENTLY NOT WORKING **
-
 AWS SES Monitor Bundle for Symfony 2 automates the filtering of [bounced and complined e-mails sent through AWS SES](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/best-practices-bounces-complaints.html).
 
 AWS SES can give you notifications about bounced or complained e-mails both [via e-mail](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications-via-email.html)
