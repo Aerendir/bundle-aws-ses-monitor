@@ -7,6 +7,7 @@
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
+
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -99,13 +100,13 @@ class MailMessage
      */
     private $commonHeaders;
 
-    /** @var ArrayCollection  */
+    /** @var ArrayCollection */
     private $bounces;
 
-    /** @var ArrayCollection  */
+    /** @var ArrayCollection */
     private $complaints;
 
-    /** @var ArrayCollection  */
+    /** @var ArrayCollection */
     private $deliveries;
 
     /**
@@ -120,42 +121,48 @@ class MailMessage
 
     /**
      * @param Bounce $bounce
+     *
      * @return $this
      */
     public function addBounce(Bounce $bounce)
     {
         $this->bounces->add($bounce);
 
-        if ($bounce->getMailMessage() !== $this)
+        if ($bounce->getMailMessage() !== $this) {
             $bounce->setMailMessage($this);
+        }
 
         return $this;
     }
 
     /**
      * @param Complaint $complaint
+     *
      * @return $this
      */
     public function addComplaint(Complaint $complaint)
     {
         $this->complaints->add($complaint);
 
-        if ($complaint->getMailMessage() !== $this)
+        if ($complaint->getMailMessage() !== $this) {
             $complaint->setMailMessage($this);
+        }
 
         return $this;
     }
 
     /**
      * @param Delivery $delivery
+     *
      * @return $this
      */
     public function addDelivery(Delivery $delivery)
     {
         $this->deliveries->add($delivery);
 
-        if ($delivery->getMailMessage() !== $this)
+        if ($delivery->getMailMessage() !== $this) {
             $delivery->setMailMessage($this);
+        }
 
         return $this;
     }
