@@ -3,10 +3,11 @@
 /*
  * This file is part of the AWS SES Monitor Bundle.
  *
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ * @author Adamo Aerendir Crespi <hello@aerendir.me>3
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * A MailMessage Entity.
@@ -97,6 +98,91 @@ class MailMessage
      * @var string
      */
     private $commonHeaders;
+
+    /** @var ArrayCollection  */
+    private $bounces;
+
+    /** @var ArrayCollection  */
+    private $complaints;
+
+    /** @var ArrayCollection  */
+    private $deliveries;
+
+    /**
+     * MailMessage constructor.
+     */
+    public function __construct()
+    {
+        $this->bounces      = new ArrayCollection();
+        $this->complaints   = new ArrayCollection();
+        $this->deliveries   = new ArrayCollection();
+    }
+
+    /**
+     * @param Bounce $bounce
+     * @return $this
+     */
+    public function addBounce(Bounce $bounce)
+    {
+        $this->bounces->add($bounce);
+
+        if ($bounce->getMailMessage() !== $this)
+            $bounce->setMailMessage($this);
+
+        return $this;
+    }
+
+    /**
+     * @param Complaint $complaint
+     * @return $this
+     */
+    public function addComplaint(Complaint $complaint)
+    {
+        $this->complaints->add($complaint);
+
+        if ($complaint->getMailMessage() !== $this)
+            $complaint->setMailMessage($this);
+
+        return $this;
+    }
+
+    /**
+     * @param Delivery $delivery
+     * @return $this
+     */
+    public function addDelivery(Delivery $delivery)
+    {
+        $this->deliveries->add($delivery);
+
+        if ($delivery->getMailMessage() !== $this)
+            $delivery->setMailMessage($this);
+
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getBounces()
+    {
+        return $this->bounces;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getComplaints()
+    {
+        return $this->complaints;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getDeliveries()
+    {
+        return $this->deliveries;
+    }
 
     /**
      * @return int

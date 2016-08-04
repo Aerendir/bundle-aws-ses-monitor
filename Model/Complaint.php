@@ -196,6 +196,7 @@ class Complaint
     public function setMailMessage(MailMessage $mailMessage)
     {
         $this->mailMessage = $mailMessage;
+        $this->mailMessage->addComplaint($this);
 
         return $this;
     }

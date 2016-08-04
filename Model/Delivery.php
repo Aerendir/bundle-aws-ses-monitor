@@ -152,6 +152,7 @@ class Delivery
     public function setMailMessage(MailMessage $mailMessage)
     {
         $this->mailMessage = $mailMessage;
+        $this->mailMessage->addDelivery($this);
 
         return $this;
     }

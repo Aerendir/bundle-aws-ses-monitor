@@ -248,6 +248,7 @@ class Bounce
     public function setMailMessage(MailMessage $mailMessage)
     {
         $this->mailMessage = $mailMessage;
+        $this->mailMessage->addBounce($this);
 
         return $this;
     }

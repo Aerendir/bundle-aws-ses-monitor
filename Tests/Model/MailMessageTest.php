@@ -9,6 +9,9 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Plugin;
 
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
 
 /**
@@ -30,8 +33,15 @@ class MailMessageTest extends \PHPUnit_Framework_TestCase
             'commonHeaders'    => 'test-common-headers'
         ];
 
+        $mockBounce    = $this->createMock(Bounce::class);
+        $mockComplaint = $this->createMock(Complaint::class);
+        $mockDelivery  = $this->createMock(Delivery::class);
+
         $resource = new MailMessage();
-        $resource->setMessageId($test['messageId'])
+        $resource->addBounce($mockBounce)
+            ->addComplaint($mockComplaint)
+            ->addDelivery($mockDelivery)
+            ->setMessageId($test['messageId'])
             ->setSentOn($test['sentOn'])
             ->setSentFrom($test['sentFrom'])
             ->setSourceArn($test['sourceArn'])
@@ -47,5 +57,11 @@ class MailMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($test['sendingAccountId'], $resource->getSendingAccountId());
         $this->assertSame($test['headers'], $resource->getHeaders());
         $this->assertSame($test['commonHeaders'], $resource->getCommonHeaders());
+        $this->assertSame(1, $resource->getBounces()->count());
+        $this->assertSame(1, $resource->getComplaints()->count());
+        $this->assertSame(1, $resource->getDeliveries()->count());
+        $this->assertSame($mockBounce, $resource->getBounces()->first());
+        $this->assertSame($mockComplaint, $resource->getComplaints()->first());
+        $this->assertSame($mockDelivery, $resource->getDeliveries()->first());
     }
 }
