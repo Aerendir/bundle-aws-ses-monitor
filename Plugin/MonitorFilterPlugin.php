@@ -86,7 +86,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
         foreach ($emails as $email) {
             $email = $this->emailStatusRepo->findOneByEmailAddress($email);
 
-            if ($this->isBounced($email) || $this->isComplained($email)) {
+            if (null !== $email && ($this->isBounced($email) || $this->isComplained($email))) {
                 $this->blacklisted[$email->getEmailAddress()] = $recipients[$email->getEmailAddress()];
                 unset($recipients[$email->getEmailAddress()]);
             }
