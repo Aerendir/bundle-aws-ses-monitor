@@ -17,12 +17,12 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-interface ByEmailInterface
+interface ByEmailAddressInterface
 {
     /**
      * @param $email
      *
      * @return Bounce|null
      */
-    public function findOneByEmail($email);
+    public function findOneByEmailAddress($email);
 }

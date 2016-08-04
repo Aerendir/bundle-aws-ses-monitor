@@ -96,7 +96,7 @@ class PluginFilterTestBase extends \PHPUnit_Framework_TestCase
 
         $this->emailStatusRepo = $this->createMock(EmailStatusRepository::class);
         $this->emailStatusRepo->expects($this->any())
-            ->method('findOneByEmail')
+            ->method('findOneByEmailAddress')
             ->will($this->returnValueMap($map));
 
         $this->orm = $this->createMock(EntityManager::class);

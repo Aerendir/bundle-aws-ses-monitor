@@ -18,14 +18,14 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
  *
  * {@inheritdoc}
  */
-class BounceRepository extends EntityRepository implements ByEmailInterface
+class BounceRepository extends EntityRepository implements ByEmailAddressInterface
 {
     /**
      * @param $email
      *
      * @return object|Bounce|null
      */
-    public function findOneByEmail($email)
+    public function findOneByEmailAddress($email)
     {
         return $this->findOneBy(['emailAddress' => mb_strtolower($email)]);
     }

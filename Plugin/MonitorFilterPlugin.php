@@ -11,7 +11,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin;
 
 use Doctrine\ORM\EntityManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\EmailStatus;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\EmailStatusRepository;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\EmailAddressStatusRepository;
 use Swift_Events_SendEvent;
 
 /**
@@ -31,7 +31,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     /** @var array $complaintsConfig */
     private $complaintsConfig;
 
-    /** @var EmailStatusRepository */
+    /** @var EmailAddressStatusRepository */
     private $emailStatusRepo;
 
     /**
@@ -84,7 +84,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
         $emails = array_keys($recipients);
 
         foreach ($emails as $email) {
-            $email = $this->emailStatusRepo->findOneByEmail($email);
+            $email = $this->emailStatusRepo->findOneByEmailAddress($email);
 
             if ($this->isBounced($email) || $this->isComplained($email)) {
                 $this->blacklisted[$email->getEmailAddress()] = $recipients[$email->getEmailAddress()];

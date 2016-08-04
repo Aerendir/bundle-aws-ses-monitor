@@ -17,14 +17,14 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery;
  *
  * {@inheritdoc}
  */
-class DeliveryRepository extends EntityRepository implements ByEmailInterface
+class DeliveryRepository extends EntityRepository implements ByEmailAddressInterface
 {
     /**
      * @param $email
      *
      * @return object|Delivery|null
      */
-    public function findOneByEmail($email)
+    public function findOneByEmailAddress($email)
     {
         return $this->findOneBy(['emailAddress' => mb_strtolower($email)]);
     }

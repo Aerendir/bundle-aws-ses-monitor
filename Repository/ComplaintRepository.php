@@ -17,14 +17,14 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
  *
  * {@inheritdoc}
  */
-class ComplaintRepository extends EntityRepository implements ByEmailInterface
+class ComplaintRepository extends EntityRepository implements ByEmailAddressInterface
 {
     /**
      * @param $email
      *
      * @return object|Complaint|null
      */
-    public function findOneByEmail($email)
+    public function findOneByEmailAddress($email)
     {
         return $this->findOneBy(['emailAddress' => mb_strtolower($email)]);
     }
