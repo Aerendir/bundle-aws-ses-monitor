@@ -13,8 +13,8 @@
         <field name="sentFrom" type="string" column="sent_from" nullable="false" />
         <field name="sourceArn" type="string" column="source_arn" nullable="false" />
         <field name="sendingAccountId" type="string" column="sending_account_id" nullable="false" />
-        <field name="headers" type="string" column="headers" nullable="true" />
-        <field name="commonHeaders" type="string" column="common_headers" nullable="true" />
+        <field name="headers" type="text" column="headers" nullable="true" />
+        <field name="commonHeaders" type="text" column="common_headers" nullable="true" />
         <one-to-many field="bounces" target-entity="Bounce" mapped-by="mailMessage" />
         <one-to-many field="complaints" target-entity="Complaint" mapped-by="mailMessage" />
         <one-to-many field="deliveries" target-entity="Delivery" mapped-by="mailMessage" />

@@ -21,7 +21,7 @@
         <field name="feedbackId" type="string" column="feedback_id" />
         <field name="userAgent" type="string" column="user_agent" nullable="true" />
         <field name="complaintFeedbackType" type="string" column="complaint_feedback_type" nullable="true" />
-        <field name="arrivalDate" type="string" column="arrival_date" nullable="true" />
+        <field name="arrivalDate" type="datetime" column="arrival_date" nullable="true" />
 
     </entity>
 </doctrine-mapping>
