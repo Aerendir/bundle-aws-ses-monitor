@@ -54,14 +54,27 @@ class SesSendTestEmailsCommand extends ContainerAwareCommand
             'suppressionlist@simulator.amazonses.com'
         ];
 
-        $question = new Question('Please enter the from email address to use:');
+        $question = new Question('<question>Please, enter the from email address to use:</question>');
 
         $fromAddress = $this->getHelper('question')->ask($input, $output, $question);
 
+        $sent = [];
         foreach ($emailAddresses as $toAddress) {
             $message = $this->createMessage($fromAddress, $toAddress);
-            $output->writeln(sprintf('Sending an email from <comment>%s</comment> to <comment>%s</comment>', $fromAddress, $toAddress));
-            $this->getContainer()->get('mailer')->send($message);
+            $output->writeln(sprintf('<info>Sending an email from mammt <comment>%s</comment> to <comment>%s</comment></info>', $fromAddress, $toAddress));
+            $result = $this->getContainer()->get('mailer')->send($message);
+
+            $tag = 'fg=green';
+            $outputMessage = 'Email to ' . $toAddress . ' ';
+
+            if (0 === $result) {
+                $tag = 'fg=red;';
+                $outputMessage .= '<options=bold>NOT</> ';
+            }
+
+            $outputMessage .= 'sent.';
+
+            $output->writeln('<' . $tag . '>' . $outputMessage . '</>');
         }
     }
 
