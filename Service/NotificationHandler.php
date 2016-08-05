@@ -254,8 +254,6 @@ class NotificationHandler extends HandlerAbstract
         if (null === $status) {
             $status = new EmailStatus($email);
             $this->entityManager->persist($status);
-
-            return $status;
         }
 
         return $status;

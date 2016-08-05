@@ -72,7 +72,6 @@ class EmailStatus
     public function addBounce(Bounce $bounce)
     {
         $bounce->setEmailAddress($this->getEmailAddress());
-        $this->bounces->add($bounce);
         $this->lastBounceType  = $bounce->getType();
         $this->lastTimeBounced = $bounce->getBouncedOn();
 
@@ -95,7 +94,6 @@ class EmailStatus
     public function addComplaint(Complaint $complaint)
     {
         $complaint->setEmailAddress($this->getEmailAddress());
-        $this->complaints->add($complaint);
         ++$this->complaintsCount;
         $this->lastTimeComplained = $complaint->getComplainedOn();
 
@@ -110,7 +108,6 @@ class EmailStatus
     public function addDelivery(Delivery $delivery)
     {
         $delivery->setEmailAddress($this->getEmailAddress());
-        $this->deliveries->add($delivery);
         ++$this->deliveriesCount;
         $this->lastTimeDelivered = $delivery->getDeliveredOn();
 
