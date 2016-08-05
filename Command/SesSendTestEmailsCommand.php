@@ -58,7 +58,7 @@ class SesSendTestEmailsCommand extends ContainerAwareCommand
 
         $fromAddress = $this->getHelper('question')->ask($input, $output, $question);
 
-        $sent = [];
+        $sents = [];
         foreach ($emailAddresses as $toAddress) {
             $message = $this->createMessage($fromAddress, $toAddress);
             $output->writeln(sprintf('<info>Sending an email from mammt <comment>%s</comment> to <comment>%s</comment></info>', $fromAddress, $toAddress));
@@ -74,8 +74,11 @@ class SesSendTestEmailsCommand extends ContainerAwareCommand
 
             $outputMessage .= 'sent.';
 
-            $output->writeln('<' . $tag . '>' . $outputMessage . '</>');
+            $sents[] = '<' . $tag . '>' . $outputMessage . '</>';
         }
+
+        foreach ($sents as $sent)
+            $output->writeln($sent);
     }
 
     /**
