@@ -15,6 +15,8 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * {@inheritdoc}
+ *
+ * @codeCoverageIgnore
  */
 class AwsSesMonitorBundle extends Bundle
 {
