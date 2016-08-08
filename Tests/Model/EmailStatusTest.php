@@ -7,7 +7,7 @@
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  */
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Plugin;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
