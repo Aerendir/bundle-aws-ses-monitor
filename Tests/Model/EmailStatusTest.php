@@ -40,12 +40,8 @@ class EmailStatusTest extends \PHPUnit_Framework_TestCase
 
         $resource->addBounce($mockHardBounce);
 
-        $returnedHardBounce = $resource->getBounces()->first();
-        $this->assertSame($mockHardBounce, $returnedHardBounce);
-        //$this->assertSame($testEmail, $returnedHardBounce->getEmailAddress());
         $this->assertSame(Bounce::TYPE_PERMANENT, $resource->getLastBounceType());
         $this->assertSame($now, $resource->getLastTimeBounced());
-        $this->assertSame(1, $resource->getBounces()->count());
         $this->assertSame(1, $resource->getHardBouncesCount());
 
         // Test soft bounce
@@ -57,14 +53,10 @@ class EmailStatusTest extends \PHPUnit_Framework_TestCase
 
         $resource->addBounce($mockSoftBounce);
 
-        $returnedSoftBounce = $resource->getBounces()->last();
-        $this->assertSame($mockSoftBounce, $returnedSoftBounce);
-        //$this->assertSame($testEmail, $returnedSoftBounce->getEmailAddress());
         $this->assertSame(Bounce::TYPE_TRANSIENT, $resource->getLastBounceType());
         $this->assertSame($aLittleBitAfter, $resource->getLastTimeBounced());
-        $this->assertSame(2, $resource->getBounces()->count());
-        $this->assertSame(1, $resource->getHardBouncesCount());
-        $this->assertSame(1, $resource->getSoftBouncesCount());
+        $this->assertSame(1, $resource->getHardBouncesCount(), 'The total hard bounces count is wrong.');
+        $this->assertSame(1, $resource->getSoftBouncesCount(), 'The total soft bounces count is wrong.');
     }
 
     public function testComplaints()
@@ -84,11 +76,7 @@ class EmailStatusTest extends \PHPUnit_Framework_TestCase
 
         $resource->addComplaint($mockComplaint);
 
-        $returnedComplaint = $resource->getComplaints()->first();
-        $this->assertSame($mockComplaint, $returnedComplaint);
-        //$this->assertSame($testEmail, $returnedHardBounce->getEmailAddress());
         $this->assertSame($now, $resource->getLastTimeComplained());
-        $this->assertSame(1, $resource->getComplaints()->count());
         $this->assertSame(1, $resource->getComplaintsCount());
     }
 
@@ -109,11 +97,7 @@ class EmailStatusTest extends \PHPUnit_Framework_TestCase
 
         $resource->addDelivery($mockDelivery);
 
-        $returnedDelivery = $resource->getDeliveries()->first();
-        $this->assertSame($mockDelivery, $returnedDelivery);
-        //$this->assertSame($testEmail, $returnedHardBounce->getEmailAddress());
         $this->assertSame($now, $resource->getLastTimeDelivered());
-        $this->assertSame(1, $resource->getDeliveries()->count());
         $this->assertSame(1, $resource->getDeliveriesCount());
     }
 }
