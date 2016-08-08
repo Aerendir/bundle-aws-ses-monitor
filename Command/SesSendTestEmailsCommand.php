@@ -64,7 +64,7 @@ class SesSendTestEmailsCommand extends ContainerAwareCommand
             $output->writeln(sprintf('<info>Sending an email from mammt <comment>%s</comment> to <comment>%s</comment></info>', $fromAddress, $toAddress));
             $result = $this->getContainer()->get('mailer')->send($message);
 
-            $tag = 'fg=green';
+            $tag           = 'fg=green';
             $outputMessage = 'Email to ' . $toAddress . ' ';
 
             if (0 === $result) {
@@ -77,8 +77,9 @@ class SesSendTestEmailsCommand extends ContainerAwareCommand
             $sents[] = '<' . $tag . '>' . $outputMessage . '</>';
         }
 
-        foreach ($sents as $sent)
+        foreach ($sents as $sent) {
             $output->writeln($sent);
+        }
     }
 
     /**
