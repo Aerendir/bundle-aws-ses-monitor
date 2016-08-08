@@ -7,7 +7,7 @@
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  */
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Plugin;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Model;
 
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Topic;
