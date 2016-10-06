@@ -96,7 +96,7 @@ Add routing file for bounce endpoint (feel free to edit prefix)
 
 ```yaml
 # app/config/routing.yml
-bouncer:
+aws_ses_monitor:
     resource: '@AwsSesMonitorBundle/Resources/config/routing.yml'
     prefix: /aws/endpoints
 ```
