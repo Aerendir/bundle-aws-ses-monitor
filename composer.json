@@ -23,7 +23,7 @@
         "aws/aws-sdk-php": "^3.2",
         "aws/aws-php-sns-message-validator": "*",
         "doctrine/orm": "~2.5",
-        "symfony/framework-bundle": "~2",
+        "symfony/framework-bundle": "^2.8",
         "symfony/swiftmailer-bundle": "~2.3"
     },
     "require-dev": {
