@@ -87,7 +87,7 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
         $subscribe = $this->buildSubscribeArray();
         $response  = $this->getSnsClient()->subscribe($subscribe);
 
-        $this->getContainer()->get('doctrine.orm.default_entity_manager')->flush();
+        $this->getContainer()->get('aws_ses_monitor.entity_manager')->flush();
 
         $output->writeln(sprintf("\nSubscription endpoint URI: <comment>%s</comment>\n", $subscribe['Endpoint']));
         $output->writeln(sprintf('Subscription status: <comment>%s</comment>', $response->get('SubscriptionArn')));
@@ -178,7 +178,7 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
 
         $topic = new Topic($this->topicArn);
 
-        $this->getContainer()->get('doctrine.orm.default_entity_manager')->persist($topic);
+        $this->getContainer()->get('aws_ses_monitor.entity_manager')->persist($topic);
 
         return $this->topicArn;
     }
