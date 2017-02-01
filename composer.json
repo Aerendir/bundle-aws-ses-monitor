@@ -34,7 +34,7 @@
         "symfony/console": "^2.5",
         "symfony/yaml": "^2.5",
         "symfony/var-dumper": "*",
-        "phpunit/phpunit": "~5"
+        "phpunit/phpunit": "*"
     },
     "autoload": {
         "psr-4": { "SerendipityHQ\\Bundle\\AwsSesMonitorBundle\\": "" }
