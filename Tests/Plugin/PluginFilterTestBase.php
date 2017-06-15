@@ -10,6 +10,7 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Plugin;
 
 use Doctrine\ORM\EntityManager;
+use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\EmailStatus;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\EmailStatusRepository;
 
@@ -19,7 +20,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\EmailStatusRepository;
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-class PluginFilterTestBase extends \PHPUnit_Framework_TestCase
+class PluginFilterTestBase extends TestCase
 {
     /** @var \PHPUnit_Framework_MockObject_MockObject $bouncedMock */
     protected $mockBouncedEmailStatus;
@@ -95,66 +96,66 @@ class PluginFilterTestBase extends \PHPUnit_Framework_TestCase
         $recipientsBcc = null;
 
         $this->emailStatusRepo = $this->createMock(EmailStatusRepository::class);
-        $this->emailStatusRepo->expects($this->any())
+        $this->emailStatusRepo->expects(self::any())
             ->method('findOneByEmailAddress')
-            ->will($this->returnValueMap($map));
+            ->will(self::returnValueMap($map));
 
         $this->orm = $this->createMock(EntityManager::class);
         $this->orm
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getRepository')
             ->willReturnOnConsecutiveCalls($this->emailStatusRepo);
 
         $this->message = $this->createMock(\Swift_Mime_Message::class);
 
         $this->message
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getTo')
             ->willReturn($recipientsTo);
 
         $this->message
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getCc')
             ->willReturn($recipientsCc);
 
         $this->message
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getBcc')
             ->willReturn($recipientsBcc);
     }
 
     public function confirmThatNull()
     {
-        $this->assertNull(func_get_arg(0));
+        self::assertNull(func_get_arg(0));
     }
 
     public function confirmNoOneRemoved()
     {
         $recipients = func_get_arg(0);
-        $this->assertArrayHasKey('bounced@example.com', $recipients);
-        $this->assertArrayHasKey('complained@example.com', $recipients);
-        $this->assertArrayHasKey('ooto@example.com', $recipients);
-        $this->assertArrayHasKey('success@example.com', $recipients);
-        $this->assertArrayHasKey('suppressed@example.com', $recipients);
+        self::assertArrayHasKey('bounced@example.com', $recipients);
+        self::assertArrayHasKey('complained@example.com', $recipients);
+        self::assertArrayHasKey('ooto@example.com', $recipients);
+        self::assertArrayHasKey('success@example.com', $recipients);
+        self::assertArrayHasKey('suppressed@example.com', $recipients);
     }
 
     public function confirmBouncedRemoved()
     {
         $recipients = func_get_arg(0);
-        $this->assertArrayNotHasKey('bounced@example.com', $recipients);
-        $this->assertArrayHasKey('complained@example.com', $recipients);
-        $this->assertArrayHasKey('ooto@example.com', $recipients);
-        $this->assertArrayHasKey('success@example.com', $recipients);
-        $this->assertArrayHasKey('suppressed@example.com', $recipients);
+        self::assertArrayNotHasKey('bounced@example.com', $recipients);
+        self::assertArrayHasKey('complained@example.com', $recipients);
+        self::assertArrayHasKey('ooto@example.com', $recipients);
+        self::assertArrayHasKey('success@example.com', $recipients);
+        self::assertArrayHasKey('suppressed@example.com', $recipients);
     }
 
     public function confirmComplainedRemoved()
     {
         $recipients = func_get_arg(0);
-        $this->assertArrayHasKey('bounced@example.com', $recipients);
-        $this->assertArrayNotHasKey('complained@example.com', $recipients);
-        $this->assertArrayHasKey('ooto@example.com', $recipients);
-        $this->assertArrayHasKey('success@example.com', $recipients);
-        $this->assertArrayHasKey('suppressed@example.com', $recipients);
+        self::assertArrayHasKey('bounced@example.com', $recipients);
+        self::assertArrayNotHasKey('complained@example.com', $recipients);
+        self::assertArrayHasKey('ooto@example.com', $recipients);
+        self::assertArrayHasKey('success@example.com', $recipients);
+        self::assertArrayHasKey('suppressed@example.com', $recipients);
     }
 }

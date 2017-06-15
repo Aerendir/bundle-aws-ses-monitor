@@ -2,7 +2,9 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Command;
 
+use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Command\SesSendTestEmailsCommand;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\DependencyInjection\Container;
@@ -10,13 +12,14 @@ use Symfony\Component\DependencyInjection\Container;
 /**
  * {@inheritdoc}
  */
-class SesSendTestEmailsCommandTest extends \PHPUnit_Framework_TestCase
+class SesSendTestEmailsCommandTest extends TestCase
 {
     public function testExecute()
     {
         $application = new Application();
         $application->add(new SesSendTestEmailsCommand());
 
+        /** @var ContainerAwareCommand $command */
         $command = $application->find('aws:ses:monitor:test:swiftmailer');
         $command->setContainer($this->getMockContainer());
 
@@ -29,11 +32,11 @@ class SesSendTestEmailsCommandTest extends \PHPUnit_Framework_TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        $this->assertContains('Sending an email from test@example.com to success@simulator.amazonses.com', $output);
-        $this->assertContains('Sending an email from test@example.com to bounce@simulator.amazonses.com', $output);
-        $this->assertContains('Sending an email from test@example.com to ooto@simulator.amazonses.com', $output);
-        $this->assertContains('Sending an email from test@example.com to complaint@simulator.amazonses.com', $output);
-        $this->assertContains('Sending an email from test@example.com to suppressionlist@simulator.amazonses.com', $output);
+        self::assertContains('Sending an email from test@example.com to success@simulator.amazonses.com', $output);
+        self::assertContains('Sending an email from test@example.com to bounce@simulator.amazonses.com', $output);
+        self::assertContains('Sending an email from test@example.com to ooto@simulator.amazonses.com', $output);
+        self::assertContains('Sending an email from test@example.com to complaint@simulator.amazonses.com', $output);
+        self::assertContains('Sending an email from test@example.com to suppressionlist@simulator.amazonses.com', $output);
     }
 
     /**
@@ -59,7 +62,7 @@ class SesSendTestEmailsCommandTest extends \PHPUnit_Framework_TestCase
         $mockSwiftMailer = $this->createMock(\Swift_Mailer::class);
 
         $mockContainer = $this->createMock(Container::class);
-        $mockContainer->expects($this->exactly(5))
+        $mockContainer->expects(self::exactly(5))
             ->method('get')
             ->with('mailer')
             ->willReturn($mockSwiftMailer);

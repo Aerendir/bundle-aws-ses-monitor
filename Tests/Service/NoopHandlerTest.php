@@ -9,6 +9,7 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Service;
 
 use Aws\Credentials\Credentials;
+use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NoopHandler;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -18,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * {@inheritdoc}
  */
-class NoopHandlerTest extends \PHPUnit_Framework_TestCase
+class NoopHandlerTest extends TestCase
 {
     public function testHandlerTest()
     {
@@ -27,6 +28,6 @@ class NoopHandlerTest extends \PHPUnit_Framework_TestCase
 
         $handler = new NoopHandler();
 
-        $this->assertSame(200, $handler->handleRequest($mockRequest, $mockCredentials));
+        self::assertSame(200, $handler->handleRequest($mockRequest, $mockCredentials));
     }
 }

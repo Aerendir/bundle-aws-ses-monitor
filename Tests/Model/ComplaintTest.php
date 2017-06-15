@@ -9,6 +9,7 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Model;
 
+use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
 
@@ -17,7 +18,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
  *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-class ComplaintTest extends \PHPUnit_Framework_TestCase
+class ComplaintTest extends TestCase
 {
     public function testComplaint()
     {
@@ -40,14 +41,14 @@ class ComplaintTest extends \PHPUnit_Framework_TestCase
             ->setComplaintFeedbackType($test['complaintFeedbackType'])
             ->setArrivalDate($test['arrivalDate']);
 
-        $this->assertNull($resource->getId());
-        $this->assertSame($test['email'], $resource->getEmailAddress());
-        $this->assertSame($test['mailMessage'], $resource->getMailMessage());
-        $this->assertSame($test['complainedOn'], $resource->getComplainedOn());
-        $this->assertSame($test['feedbackId'], $resource->getFeedbackId());
-        $this->assertSame($test['userAgent'], $resource->getUserAgent());
-        $this->assertSame($test['complaintFeedbackType'], $resource->getComplaintFeedbackType());
-        $this->assertSame($test['arrivalDate'], $resource->getArrivalDate());
-        $this->assertSame(null, $resource->getEmailStatus());
+        self::assertNull($resource->getId());
+        self::assertSame($test['email'], $resource->getEmailAddress());
+        self::assertSame($test['mailMessage'], $resource->getMailMessage());
+        self::assertSame($test['complainedOn'], $resource->getComplainedOn());
+        self::assertSame($test['feedbackId'], $resource->getFeedbackId());
+        self::assertSame($test['userAgent'], $resource->getUserAgent());
+        self::assertSame($test['complaintFeedbackType'], $resource->getComplaintFeedbackType());
+        self::assertSame($test['arrivalDate'], $resource->getArrivalDate());
+        self::assertSame(null, $resource->getEmailStatus());
     }
 }

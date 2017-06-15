@@ -10,6 +10,7 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery;
@@ -20,16 +21,16 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\EmailStatus;
  *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-class EmailStatusTest extends \PHPUnit_Framework_TestCase
+class EmailStatusTest extends TestCase
 {
     public function testBounces()
     {
         $testEmail = 'test@example.com';
 
         $resource = new EmailStatus($testEmail);
-        $this->assertSame($testEmail, $resource->getEmailAddress());
-        $this->assertInstanceOf(ArrayCollection::class, $resource->getBounces());
-        $this->assertSame(0, $resource->getBounces()->count());
+        self::assertSame($testEmail, $resource->getEmailAddress());
+        self::assertInstanceOf(ArrayCollection::class, $resource->getBounces());
+        self::assertSame(0, $resource->getBounces()->count());
 
         // Test hard bounce
         $now = new \DateTime();
@@ -40,9 +41,9 @@ class EmailStatusTest extends \PHPUnit_Framework_TestCase
 
         $resource->addBounce($mockHardBounce);
 
-        $this->assertSame(Bounce::TYPE_PERMANENT, $resource->getLastBounceType());
-        $this->assertSame($now, $resource->getLastTimeBounced());
-        $this->assertSame(1, $resource->getHardBouncesCount());
+        self::assertSame(Bounce::TYPE_PERMANENT, $resource->getLastBounceType());
+        self::assertSame($now, $resource->getLastTimeBounced());
+        self::assertSame(1, $resource->getHardBouncesCount());
 
         // Test soft bounce
         $aLittleBitAfter = new \DateTime();
@@ -53,10 +54,10 @@ class EmailStatusTest extends \PHPUnit_Framework_TestCase
 
         $resource->addBounce($mockSoftBounce);
 
-        $this->assertSame(Bounce::TYPE_TRANSIENT, $resource->getLastBounceType());
-        $this->assertSame($aLittleBitAfter, $resource->getLastTimeBounced());
-        $this->assertSame(1, $resource->getHardBouncesCount(), 'The total hard bounces count is wrong.');
-        $this->assertSame(1, $resource->getSoftBouncesCount(), 'The total soft bounces count is wrong.');
+        self::assertSame(Bounce::TYPE_TRANSIENT, $resource->getLastBounceType());
+        self::assertSame($aLittleBitAfter, $resource->getLastTimeBounced());
+        self::assertSame(1, $resource->getHardBouncesCount(), 'The total hard bounces count is wrong.');
+        self::assertSame(1, $resource->getSoftBouncesCount(), 'The total soft bounces count is wrong.');
     }
 
     public function testComplaints()
@@ -64,9 +65,9 @@ class EmailStatusTest extends \PHPUnit_Framework_TestCase
         $testEmail = 'test@example.com';
 
         $resource = new EmailStatus($testEmail);
-        $this->assertSame($testEmail, $resource->getEmailAddress());
-        $this->assertInstanceOf(ArrayCollection::class, $resource->getComplaints());
-        $this->assertSame(0, $resource->getComplaints()->count());
+        self::assertSame($testEmail, $resource->getEmailAddress());
+        self::assertInstanceOf(ArrayCollection::class, $resource->getComplaints());
+        self::assertSame(0, $resource->getComplaints()->count());
 
         // Test Complaint
         $now = new \DateTime();
@@ -76,8 +77,8 @@ class EmailStatusTest extends \PHPUnit_Framework_TestCase
 
         $resource->addComplaint($mockComplaint);
 
-        $this->assertSame($now, $resource->getLastTimeComplained());
-        $this->assertSame(1, $resource->getComplaintsCount());
+        self::assertSame($now, $resource->getLastTimeComplained());
+        self::assertSame(1, $resource->getComplaintsCount());
     }
 
     public function testDeliveries()
@@ -85,9 +86,9 @@ class EmailStatusTest extends \PHPUnit_Framework_TestCase
         $testEmail = 'test@example.com';
 
         $resource = new EmailStatus($testEmail);
-        $this->assertSame($testEmail, $resource->getEmailAddress());
-        $this->assertInstanceOf(ArrayCollection::class, $resource->getDeliveries());
-        $this->assertSame(0, $resource->getDeliveries()->count());
+        self::assertSame($testEmail, $resource->getEmailAddress());
+        self::assertInstanceOf(ArrayCollection::class, $resource->getDeliveries());
+        self::assertSame(0, $resource->getDeliveries()->count());
 
         // Test Complaint
         $now = new \DateTime();
@@ -97,7 +98,7 @@ class EmailStatusTest extends \PHPUnit_Framework_TestCase
 
         $resource->addDelivery($mockDelivery);
 
-        $this->assertSame($now, $resource->getLastTimeDelivered());
-        $this->assertSame(1, $resource->getDeliveriesCount());
+        self::assertSame($now, $resource->getLastTimeDelivered());
+        self::assertSame(1, $resource->getDeliveriesCount());
     }
 }

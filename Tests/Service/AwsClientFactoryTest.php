@@ -11,6 +11,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Service;
 use Aws\Credentials\Credentials;
 use Aws\Ses\SesClient;
 use Aws\Sns\SnsClient;
+use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory;
 
 /**
@@ -19,7 +20,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory;
  *
  * {@inheritdoc}
  */
-class AwsClientFactoryTest extends \PHPUnit_Framework_TestCase
+class AwsClientFactoryTest extends TestCase
 {
     public function testGetSesClient()
     {
@@ -33,9 +34,9 @@ class AwsClientFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new AwsClientFactory($config);
         $result  = $factory->getSesClient($mockCredentials);
 
-        $this->assertInstanceOf(SesClient::class, $result);
-        $this->assertSame($config['region'], $result->getRegion());
-        $this->assertSame($config['ses_version'], $result->getApi()->getApiVersion());
+        self::assertInstanceOf(SesClient::class, $result);
+        self::assertSame($config['region'], $result->getRegion());
+        self::assertSame($config['ses_version'], $result->getApi()->getApiVersion());
     }
 
     public function testGetSnsClient()
@@ -50,8 +51,8 @@ class AwsClientFactoryTest extends \PHPUnit_Framework_TestCase
         $factory = new AwsClientFactory($config);
         $result  = $factory->getSnsClient($mockCredentials);
 
-        $this->assertInstanceOf(SnsClient::class, $result);
-        $this->assertSame($config['region'], $result->getRegion());
-        $this->assertSame($config['sns_version'], $result->getApi()->getApiVersion());
+        self::assertInstanceOf(SnsClient::class, $result);
+        self::assertSame($config['region'], $result->getRegion());
+        self::assertSame($config['sns_version'], $result->getApi()->getApiVersion());
     }
 }

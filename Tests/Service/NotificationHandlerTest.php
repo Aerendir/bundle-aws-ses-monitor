@@ -16,6 +16,7 @@ use Aws\Sns\MessageValidator;
 use Aws\Sns\SnsClient;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\EmailStatus;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationHandler;
@@ -28,7 +29,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * {@inheritdoc}
  */
-class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
+class NotificationHandlerTest extends TestCase
 {
     use PHPUnitHelper;
 
@@ -63,7 +64,7 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
         $this->mockRequest->method('isMethod')->willReturn(false);
         $handler  = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
-        $this->assertSame(405, $response['code'], $response['content']);
+        self::assertSame(405, $response['code'], $response['content']);
     }
 
     public function testReturn403IfMessageIsNotValid()
@@ -86,7 +87,7 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
 
         $handler  = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
-        $this->assertSame(403, $response['code'], $response['content']);
+        self::assertSame(403, $response['code'], $response['content']);
     }
 
     public function testReturn403IfMessageValidationTrhowsAnException()
@@ -109,7 +110,7 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
 
         $handler  = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
-        $this->assertSame(403, $response['code'], $response['content']);
+        self::assertSame(403, $response['code'], $response['content']);
     }
 
     public function testReturn403IfTokenOrTopicArnAreNotSet()
@@ -132,7 +133,7 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
 
         $handler  = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
-        $this->assertSame(403, $response['code'], $response['content']);
+        self::assertSame(403, $response['code'], $response['content']);
     }
 
     public function testReturn403IfMessageIsNotSet()
@@ -143,7 +144,7 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
 
         $handler  = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
-        $this->assertSame(403, $response['code'], $response['content']);
+        self::assertSame(403, $response['code'], $response['content']);
     }
 
     public function testHandleMailMessageReturnsANewMailMessageObject()
@@ -158,14 +159,14 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
         $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         /** @var MailMessage $result */
         $result = $this->invokeMethod($handler, 'handleMailMessage', [$this->getMailArray()]);
-        $this->assertInstanceOf(MailMessage::class, $result);
-        $this->assertInstanceOf(\DateTime::class, $result->getSentOn());
-        $this->assertSame($mail['messageId'], $result->getMessageId());
-        $this->assertSame($mail['source'], $result->getSentFrom());
-        $this->assertSame($mail['sourceArn'], $result->getSourceArn());
-        $this->assertSame($mail['sendingAccountId'], $result->getSendingAccountId());
-        $this->assertSame($mail['headers'], $result->getHeaders());
-        $this->assertSame($mail['commonHeaders'], $result->getCommonHeaders());
+        self::assertInstanceOf(MailMessage::class, $result);
+        self::assertInstanceOf(\DateTime::class, $result->getSentOn());
+        self::assertSame($mail['messageId'], $result->getMessageId());
+        self::assertSame($mail['source'], $result->getSentFrom());
+        self::assertSame($mail['sourceArn'], $result->getSourceArn());
+        self::assertSame($mail['sendingAccountId'], $result->getSendingAccountId());
+        self::assertSame($mail['headers'], $result->getHeaders());
+        self::assertSame($mail['commonHeaders'], $result->getCommonHeaders());
     }
 
     public function testHandleMailMessageReturnsAnAlreadyExistentMailMessageObject()
@@ -187,8 +188,8 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
         $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         /** @var MailMessage $result */
         $result = $this->invokeMethod($handler, 'handleMailMessage', [$mail]);
-        $this->assertInstanceOf(MailMessage::class, $result);
-        $this->assertSame($mail['messageId'], $result->getMessageId());
+        self::assertInstanceOf(MailMessage::class, $result);
+        self::assertSame($mail['messageId'], $result->getMessageId());
     }
 
     public function testHandleRequestSubscriptionSuccessPath()
@@ -209,7 +210,7 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
 
         $handler  = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
-        $this->assertSame(200, $response['code'], $response['content']);
+        self::assertSame(200, $response['code'], $response['content']);
     }
 
     public function testHandleBounceNotification()
@@ -227,7 +228,7 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
         $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         /** @var MailMessage $result */
         $result = $this->invokeMethod($handler, 'handleBounceNotification', [$message, $mailMessage]);
-        $this->assertSame(200, $result);
+        self::assertSame(200, $result);
     }
 
     public function testHandleRequestBouncePath()
@@ -248,13 +249,13 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
         $mockEmailStatusRepository->method('__call')->with('findOneByEmailAddress')->willReturn(null);
 
         $this->mockEntityManager
-            ->expects($this->exactly(2))
+            ->expects(self::exactly(2))
             ->method('getRepository')
             ->willReturnOnConsecutiveCalls($mockMailMessageRepository, $mockEmailStatusRepository);
 
         $handler  = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
-        $this->assertSame(200, $response['code'], $response['content']);
+        self::assertSame(200, $response['code'], $response['content']);
     }
 
     public function testHandleComplaintNotification()
@@ -272,7 +273,7 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
         $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         /** @var MailMessage $result */
         $result = $this->invokeMethod($handler, 'handleComplaintNotification', [$message, $mailMessage]);
-        $this->assertSame(200, $result);
+        self::assertSame(200, $result);
     }
 
     public function testHandleRequestComplaintPath()
@@ -293,13 +294,13 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
         $mockEmailStatusRepository->method('__call')->with('findOneByEmailAddress')->willReturn(null);
 
         $this->mockEntityManager
-            ->expects($this->exactly(2))
+            ->expects(self::exactly(2))
             ->method('getRepository')
             ->willReturnOnConsecutiveCalls($mockMailMessageRepository, $mockEmailStatusRepository);
 
         $handler  = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
-        $this->assertSame(200, $response['code'], $response['content']);
+        self::assertSame(200, $response['code'], $response['content']);
     }
 
     public function testHandleDeliveryNotification()
@@ -317,7 +318,7 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
         $handler = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         /** @var MailMessage $result */
         $result = $this->invokeMethod($handler, 'handleDeliveryNotification', [$message, $mailMessage]);
-        $this->assertSame(200, $result);
+        self::assertSame(200, $result);
     }
 
     public function testHandleRequestDeliveryPath()
@@ -338,13 +339,13 @@ class NotificationHandlerTest extends \PHPUnit_Framework_TestCase
         $mockEmailStatusRepository->method('__call')->with('findOneByEmailAddress')->willReturn(null);
 
         $this->mockEntityManager
-            ->expects($this->exactly(2))
+            ->expects(self::exactly(2))
             ->method('getRepository')
             ->willReturnOnConsecutiveCalls($mockMailMessageRepository, $mockEmailStatusRepository);
 
         $handler  = new NotificationHandler($this->mockEntityManager, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
-        $this->assertSame(200, $response['code'], $response['content']);
+        self::assertSame(200, $response['code'], $response['content']);
     }
 
     /**

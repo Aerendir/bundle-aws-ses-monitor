@@ -10,6 +10,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Service;
 
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManager;
+use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\HandlerFactory;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NoopHandler;
@@ -24,7 +25,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * {@inheritdoc}
  */
-class HandlerFactoryTest extends \PHPUnit_Framework_TestCase
+class HandlerFactoryTest extends TestCase
 {
     private $request;
     private $_em;
@@ -48,9 +49,9 @@ class HandlerFactoryTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $this->_em
-            ->expects($this->any())
+            ->expects(self::any())
             ->method('getRepository')
-            ->will($this->returnValue($this->createMock(ObjectRepository::class)));
+            ->will(self::returnValue($this->createMock(ObjectRepository::class)));
     }
 
     public function testNoopHandlerCreated()
@@ -59,8 +60,8 @@ class HandlerFactoryTest extends \PHPUnit_Framework_TestCase
 
         /* @var \Symfony\Component\HttpFoundation\Request $request */
         $this->request->headers->set('x-amz-sns-message-type', 'test-fake');
-        $object = $factory->buildHandler($this->request, 'not_relevant');
-        $this->assertInstanceOf(NoopHandler::class, $object);
+        $object = $factory->buildHandler($this->request);
+        self::assertInstanceOf(NoopHandler::class, $object);
     }
 
     public function testNotificationHandlerCreated()
@@ -69,8 +70,8 @@ class HandlerFactoryTest extends \PHPUnit_Framework_TestCase
 
         /* @var \Symfony\Component\HttpFoundation\Request $request */
         $this->request->headers->set('x-amz-sns-message-type', NotificationHandler::HEADER_TYPE);
-        $object = $factory->buildHandler($this->request, 'not_relevant');
-        $this->assertInstanceOf(NotificationHandler::class, $object);
+        $object = $factory->buildHandler($this->request);
+        self::assertInstanceOf(NotificationHandler::class, $object);
     }
 
     public function testSubscriptionConfirmationHandlerCreated()
@@ -79,7 +80,7 @@ class HandlerFactoryTest extends \PHPUnit_Framework_TestCase
 
         /* @var \Symfony\Component\HttpFoundation\Request $request */
         $this->request->headers->set('x-amz-sns-message-type', SubscriptionConfirmationHandler::HEADER_TYPE);
-        $object = $factory->buildHandler($this->request, 'not_relevant');
-        $this->assertInstanceOf(SubscriptionConfirmationHandler::class, $object);
+        $object = $factory->buildHandler($this->request);
+        self::assertInstanceOf(SubscriptionConfirmationHandler::class, $object);
     }
 }

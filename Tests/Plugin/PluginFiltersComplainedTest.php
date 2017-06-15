@@ -35,25 +35,25 @@ class PluginFiltersComplainedTest extends PluginFilterTestBase
         $this->complaintsConfig['filter']['enabled'] = false;
 
         $this->message
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setTo')
             ->withAnyParameters()
             ->willReturnCallback([$this, 'confirmNoOneRemoved']);
 
         $this->message
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setCc')
             ->withAnyParameters()
             ->willReturnCallback([$this, 'confirmNoOneRemoved']);
 
         $this->message
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setBcc')
             ->withAnyParameters()
             ->willReturnCallback([$this, 'confirmThatNull']);
 
         $this->event = $this->getMockBuilder(\Swift_Events_SendEvent::class)->disableOriginalConstructor()->getMock();
-        $this->event->expects($this->once())
+        $this->event->expects(self::once())
             ->method('getMessage')
             ->willReturn($this->message);
 
@@ -67,25 +67,25 @@ class PluginFiltersComplainedTest extends PluginFilterTestBase
         $this->complaintsConfig['filter']['force_send'] = true;
 
         $this->message
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setTo')
             ->withAnyParameters()
             ->willReturnCallback([$this, 'confirmNoOneRemoved']);
 
         $this->message
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setCc')
             ->withAnyParameters()
             ->willReturnCallback([$this, 'confirmNoOneRemoved']);
 
         $this->message
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setBcc')
             ->withAnyParameters()
             ->willReturnCallback([$this, 'confirmThatNull']);
 
         $this->event = $this->getMockBuilder(\Swift_Events_SendEvent::class)->disableOriginalConstructor()->getMock();
-        $this->event->expects($this->once())
+        $this->event->expects(self::once())
             ->method('getMessage')
             ->willReturn($this->message);
 
@@ -99,25 +99,25 @@ class PluginFiltersComplainedTest extends PluginFilterTestBase
         $this->bouncesConfig['filter']['enabled'] = false;
 
         $this->message
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setTo')
             ->withAnyParameters()
             ->willReturnCallback([$this, 'confirmComplainedRemoved']);
 
         $this->message
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setCc')
             ->withAnyParameters()
             ->willReturnCallback([$this, 'confirmComplainedRemoved']);
 
         $this->message
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('setBcc')
             ->withAnyParameters()
             ->willReturnCallback([$this, 'confirmThatNull']);
 
         $this->event = $this->getMockBuilder(\Swift_Events_SendEvent::class)->disableOriginalConstructor()->getMock();
-        $this->event->expects($this->once())
+        $this->event->expects(self::once())
             ->method('getMessage')
             ->willReturn($this->message);
 

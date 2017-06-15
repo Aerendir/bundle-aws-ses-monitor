@@ -9,6 +9,7 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Model;
 
+use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Topic;
 
@@ -17,7 +18,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Topic;
  *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-class TopicTest extends \PHPUnit_Framework_TestCase
+class TopicTest extends TestCase
 {
     public function testTopic()
     {
@@ -28,8 +29,8 @@ class TopicTest extends \PHPUnit_Framework_TestCase
 
         $resource = new Topic($test['topicArn'], $test['token']);
 
-        $this->assertNull($resource->getId());
-        $this->assertSame($test['topicArn'], $resource->getTopicArn());
-        $this->assertSame($test['token'], $resource->getToken());
+        self::assertNull($resource->getId());
+        self::assertSame($test['topicArn'], $resource->getTopicArn());
+        self::assertSame($test['token'], $resource->getToken());
     }
 }

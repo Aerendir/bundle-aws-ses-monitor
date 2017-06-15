@@ -9,6 +9,7 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Model;
 
+use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery;
@@ -19,7 +20,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
  *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-class MailMessageTest extends \PHPUnit_Framework_TestCase
+class MailMessageTest extends TestCase
 {
     public function testTopic()
     {
@@ -49,19 +50,19 @@ class MailMessageTest extends \PHPUnit_Framework_TestCase
             ->setHeaders($test['headers'])
             ->setCommonHeaders($test['commonHeaders']);
 
-        $this->assertNull($resource->getId());
-        $this->assertSame($test['messageId'], $resource->getMessageId());
-        $this->assertSame($test['sentOn'], $resource->getSentOn());
-        $this->assertSame($test['sentFrom'], $resource->getSentFrom());
-        $this->assertSame($test['sourceArn'], $resource->getSourceArn());
-        $this->assertSame($test['sendingAccountId'], $resource->getSendingAccountId());
-        $this->assertSame($test['headers'], $resource->getHeaders());
-        $this->assertSame($test['commonHeaders'], $resource->getCommonHeaders());
-        $this->assertSame(1, $resource->getBounces()->count());
-        $this->assertSame(1, $resource->getComplaints()->count());
-        $this->assertSame(1, $resource->getDeliveries()->count());
-        $this->assertSame($mockBounce, $resource->getBounces()->first());
-        $this->assertSame($mockComplaint, $resource->getComplaints()->first());
-        $this->assertSame($mockDelivery, $resource->getDeliveries()->first());
+        self::assertNull($resource->getId());
+        self::assertSame($test['messageId'], $resource->getMessageId());
+        self::assertSame($test['sentOn'], $resource->getSentOn());
+        self::assertSame($test['sentFrom'], $resource->getSentFrom());
+        self::assertSame($test['sourceArn'], $resource->getSourceArn());
+        self::assertSame($test['sendingAccountId'], $resource->getSendingAccountId());
+        self::assertSame($test['headers'], $resource->getHeaders());
+        self::assertSame($test['commonHeaders'], $resource->getCommonHeaders());
+        self::assertSame(1, $resource->getBounces()->count());
+        self::assertSame(1, $resource->getComplaints()->count());
+        self::assertSame(1, $resource->getDeliveries()->count());
+        self::assertSame($mockBounce, $resource->getBounces()->first());
+        self::assertSame($mockComplaint, $resource->getComplaints()->first());
+        self::assertSame($mockDelivery, $resource->getDeliveries()->first());
     }
 }

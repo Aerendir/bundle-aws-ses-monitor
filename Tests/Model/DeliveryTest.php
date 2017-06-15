@@ -9,6 +9,7 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Model;
 
+use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
 
@@ -17,7 +18,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
  *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-class DeliveryTest extends \PHPUnit_Framework_TestCase
+class DeliveryTest extends TestCase
 {
     public function testDelivery()
     {
@@ -38,13 +39,13 @@ class DeliveryTest extends \PHPUnit_Framework_TestCase
             ->setSmtpResponse($test['smtpResponse'])
             ->setReportingMta($test['reportingMta']);
 
-        $this->assertNull($resource->getId());
-        $this->assertSame($test['email'], $resource->getEmailAddress());
-        $this->assertSame($test['mailMessage'], $resource->getMailMessage());
-        $this->assertSame($test['deliveredOn'], $resource->getDeliveredOn());
-        $this->assertSame($test['processingTimeMillis'], $resource->getProcessingTimeMillis());
-        $this->assertSame($test['smtpResponse'], $resource->getSmtpResponse());
-        $this->assertSame($test['reportingMta'], $resource->getReportingMta());
-        $this->assertSame(null, $resource->getEmailStatus());
+        self::assertNull($resource->getId());
+        self::assertSame($test['email'], $resource->getEmailAddress());
+        self::assertSame($test['mailMessage'], $resource->getMailMessage());
+        self::assertSame($test['deliveredOn'], $resource->getDeliveredOn());
+        self::assertSame($test['processingTimeMillis'], $resource->getProcessingTimeMillis());
+        self::assertSame($test['smtpResponse'], $resource->getSmtpResponse());
+        self::assertSame($test['reportingMta'], $resource->getReportingMta());
+        self::assertSame(null, $resource->getEmailStatus());
     }
 }

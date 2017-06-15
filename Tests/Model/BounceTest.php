@@ -9,6 +9,7 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Model;
 
+use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
 
@@ -17,7 +18,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
  *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-class BounceTest extends \PHPUnit_Framework_TestCase
+class BounceTest extends TestCase
 {
     public function testBounce()
     {
@@ -46,18 +47,18 @@ class BounceTest extends \PHPUnit_Framework_TestCase
             ->setStatus($test['status'])
             ->setDiagnosticCode($test['diagnosticCode']);
 
-        $this->assertNull($resource->getId());
-        $this->assertSame($test['email'], $resource->getEmailAddress());
-        $this->assertSame($test['mailMessage'], $resource->getMailMessage());
-        $this->assertSame($test['bouncedOn'], $resource->getBouncedOn());
-        $this->assertSame($test['type'], $resource->getType());
-        $this->assertSame($test['subType'], $resource->getSubType());
-        $this->assertSame($test['feedbackId'], $resource->getFeedbackId());
-        $this->assertSame($test['reportingMta'], $resource->getReportingMta());
-        $this->assertSame($test['action'], $resource->getAction());
-        $this->assertSame($test['status'], $resource->getStatus());
-        $this->assertSame($test['diagnosticCode'], $resource->getDiagnosticCode());
-        $this->assertTrue($resource->isPermanent());
-        $this->assertSame(null, $resource->getEmailStatus());
+        self::assertNull($resource->getId());
+        self::assertSame($test['email'], $resource->getEmailAddress());
+        self::assertSame($test['mailMessage'], $resource->getMailMessage());
+        self::assertSame($test['bouncedOn'], $resource->getBouncedOn());
+        self::assertSame($test['type'], $resource->getType());
+        self::assertSame($test['subType'], $resource->getSubType());
+        self::assertSame($test['feedbackId'], $resource->getFeedbackId());
+        self::assertSame($test['reportingMta'], $resource->getReportingMta());
+        self::assertSame($test['action'], $resource->getAction());
+        self::assertSame($test['status'], $resource->getStatus());
+        self::assertSame($test['diagnosticCode'], $resource->getDiagnosticCode());
+        self::assertTrue($resource->isPermanent());
+        self::assertSame(null, $resource->getEmailStatus());
     }
 }

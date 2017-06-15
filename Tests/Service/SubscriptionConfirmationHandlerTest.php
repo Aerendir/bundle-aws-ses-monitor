@@ -13,6 +13,7 @@ use Aws\Sns\Exception\InvalidSnsMessageException;
 use Aws\Sns\MessageValidator;
 use Aws\Sns\SnsClient;
 use Doctrine\ORM\EntityManager;
+use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Topic;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\TopicRepository;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory;
@@ -25,7 +26,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * {@inheritdoc}
  */
-class SubscriptionConfirmationHandlerTest extends \PHPUnit_Framework_TestCase
+class SubscriptionConfirmationHandlerTest extends TestCase
 {
     /** @var Request */
     private $mockRequest;
@@ -59,7 +60,7 @@ class SubscriptionConfirmationHandlerTest extends \PHPUnit_Framework_TestCase
         $this->mockRequest->method('isMethod')->willReturn(false);
         $handler  = new SubscriptionConfirmationHandler($this->mockEntityManager, $this->mockAwsClientFactory, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
-        $this->assertSame(405, $response['code'], $response['content']);
+        self::assertSame(405, $response['code'], $response['content']);
     }
 
     public function testReturn403IfMessageIsNotValid()
@@ -82,7 +83,7 @@ class SubscriptionConfirmationHandlerTest extends \PHPUnit_Framework_TestCase
 
         $handler  = new SubscriptionConfirmationHandler($this->mockEntityManager, $this->mockAwsClientFactory, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
-        $this->assertSame(403, $response['code'], $response['content']);
+        self::assertSame(403, $response['code'], $response['content']);
     }
 
     public function testReturn403IfMessageValidationTrhowsAnException()
@@ -105,7 +106,7 @@ class SubscriptionConfirmationHandlerTest extends \PHPUnit_Framework_TestCase
 
         $handler  = new SubscriptionConfirmationHandler($this->mockEntityManager, $this->mockAwsClientFactory, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
-        $this->assertSame(403, $response['code'], $response['content']);
+        self::assertSame(403, $response['code'], $response['content']);
     }
 
     public function testReturn403IfTokenOrTopicArnAreNotSet()
@@ -128,7 +129,7 @@ class SubscriptionConfirmationHandlerTest extends \PHPUnit_Framework_TestCase
 
         $handler  = new SubscriptionConfirmationHandler($this->mockEntityManager, $this->mockAwsClientFactory, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
-        $this->assertSame(403, $response['code'], $response['content']);
+        self::assertSame(403, $response['code'], $response['content']);
     }
 
     public function testReturn404IfTopicIsNull()
@@ -157,7 +158,7 @@ class SubscriptionConfirmationHandlerTest extends \PHPUnit_Framework_TestCase
 
         $handler  = new SubscriptionConfirmationHandler($this->mockEntityManager, $this->mockAwsClientFactory, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
-        $this->assertSame(404, $response['code'], $response['content']);
+        self::assertSame(404, $response['code'], $response['content']);
     }
 
     public function testHandleRequest()
@@ -191,6 +192,6 @@ class SubscriptionConfirmationHandlerTest extends \PHPUnit_Framework_TestCase
 
         $handler  = new SubscriptionConfirmationHandler($this->mockEntityManager, $this->mockAwsClientFactory, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
-        $this->assertSame(200, $response['code'], $response['content']);
+        self::assertSame(200, $response['code'], $response['content']);
     }
 }
