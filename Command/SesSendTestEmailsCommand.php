@@ -89,7 +89,7 @@ class SesSendTestEmailsCommand extends ContainerAwareCommand
      */
     private function createMessage($sendFrom, $sendTo)
     {
-        return \Swift_Message::newInstance()
+        return (new \Swift_Message())
             ->setSubject('Test message from Aws Ses Monitor Bundle')
             ->setFrom($sendFrom)
             ->setTo($sendTo)

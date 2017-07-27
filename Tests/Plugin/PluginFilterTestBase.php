@@ -106,7 +106,7 @@ class PluginFilterTestBase extends TestCase
             ->method('getRepository')
             ->willReturnOnConsecutiveCalls($this->emailStatusRepo);
 
-        $this->message = $this->createMock(\Swift_Mime_Message::class);
+        $this->message = $this->createMock(\Swift_Message::class);
 
         $this->message
             ->expects(self::once())
