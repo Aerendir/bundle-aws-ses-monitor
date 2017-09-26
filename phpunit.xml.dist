@@ -12,12 +12,9 @@
     </testsuites>
     <filter>
         <whitelist>
-            <directory>.</directory>
+            <directory>src/</directory>
             <exclude>
-                <directory>./Resources</directory>
-                <directory>./Tests</directory>
-                <directory>./vendor</directory>
-                <directory>./build</directory>
+                <directory>./src/Resources</directory>
             </exclude>
         </whitelist>
     </filter>
