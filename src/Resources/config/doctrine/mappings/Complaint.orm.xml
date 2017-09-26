@@ -1,0 +1,27 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                   https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="SerendipityHQ\Bundle\SHQAwsSesMonitorBundle\Model\Complaint" table="shq_aws_ses_monitor_complaints"
+            repository-class="SerendipityHQ\Bundle\SHQAwsSesMonitorBundle\Repository\ComplaintRepository">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO" />
+        </id>
+        <many-to-one
+                field="mailMessage"
+                target-entity="MailMessage"
+                inversed-by="complaints">
+
+            <join-column name="mail_message" referenced-column-name="id" />
+        </many-to-one>
+        <field name="emailAddress" type="string" column="email_address" />
+        <field name="complainedOn" type="datetime" column="complained_on" />
+        <field name="feedbackId" type="string" column="feedback_id" />
+        <field name="userAgent" type="string" column="user_agent" nullable="true" />
+        <field name="complaintFeedbackType" type="string" column="complaint_feedback_type" nullable="true" />
+        <field name="arrivalDate" type="datetime" column="arrival_date" nullable="true" />
+
+    </entity>
+</doctrine-mapping>

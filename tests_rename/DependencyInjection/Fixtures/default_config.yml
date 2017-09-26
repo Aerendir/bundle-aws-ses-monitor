@@ -1,0 +1,15 @@
+shq_aws_ses_monitor:
+    aws_config:
+        credentials_service_name: 'test'
+    bounces:
+        topic:
+            endpoint:
+                host: localhost.local
+    complaints:
+        topic:
+            endpoint:
+                host: localhost.local
+    deliveries:
+        topic:
+            endpoint:
+                host: localhost.local

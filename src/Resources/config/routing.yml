@@ -1,0 +1,9 @@
+_shq_aws_ses_monitor_bounces_endpoint:
+  path: /endpoint/aws/ses/notify_bounce
+  defaults: { _controller: SHQAwsSesMonitorBundle:Notify:notify }
+_shq_aws_ses_monitor_complaints_endpoint:
+  path: /endpoint/aws/ses/notify_complaint
+  defaults: { _controller: SHQAwsSesMonitorBundle:Notify:notify }
+_shq_aws_ses_monitor_deliveries_endpoint:
+  path: /endpoint/aws/ses/notify_delivery
+  defaults: { _controller: SHQAwsSesMonitorBundle:Notify:notify }

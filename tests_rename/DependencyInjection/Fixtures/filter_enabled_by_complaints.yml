@@ -1,0 +1,21 @@
+shq_aws_ses_monitor:
+    aws_config:
+        credentials_service_name: 'test'
+    mailers:
+        - default
+    bounces:
+        topic:
+            endpoint:
+                host: localhost.local
+        filter:
+            enabled: false
+    complaints:
+        topic:
+            endpoint:
+                host: localhost.local
+        filter:
+            enabled: true
+    deliveries:
+        topic:
+            endpoint:
+                host: localhost.local

@@ -5,7 +5,6 @@
 [![Code Climate](https://codeclimate.com/github/Aerendir/aws-ses-monitor-bundle/badges/gpa.svg)](https://codeclimate.com/github/Aerendir/aws-ses-monitor-bundle)
 [![Test Coverage](https://codeclimate.com/github/Aerendir/aws-ses-monitor-bundle/badges/coverage.svg)](https://codeclimate.com/github/Aerendir/aws-ses-monitor-bundle)
 [![Issue Count](https://codeclimate.com/github/Aerendir/aws-ses-monitor-bundle/badges/issue_count.svg)](https://codeclimate.com/github/Aerendir/aws-ses-monitor-bundle)
-[![StyleCI](https://styleci.io/repos/64231402/shield)](https://styleci.io/repos/64231402)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/4c45c317-28c4-40ef-9a1b-01af44b77327/mini.png)](https://insight.sensiolabs.com/projects/4c45c317-28c4-40ef-9a1b-01af44b77327)
 [![Dependency Status](https://www.versioneye.com/user/projects/579355b8ad9529003b1d4f7c/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/579355b8ad9529003b1d4f7c)
 

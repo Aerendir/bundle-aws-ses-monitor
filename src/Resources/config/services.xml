@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="shq_aws_ses_monitor.request.factory.class">SerendipityHQ\Bundle\SHQAwsSesMonitorBundle\Service\HandlerFactory</parameter>
+        <parameter key="shq_aws_ses_monitor.aws.client.factory.class">SerendipityHQ\Bundle\SHQAwsSesMonitorBundle\Service\AwsClientFactory</parameter>
+    </parameters>
+
+    <services>
+        <service id="shq_aws_ses_monitor.handler.factory" class="%shq_aws_ses_monitor.request.factory.class%">
+            <argument type="service" id="shq_aws_ses_monitor.entity_manager" />
+            <argument type="service" id="shq_aws_ses_monitor.aws.client.factory" />
+        </service>
+
+        <service id="shq_aws_ses_monitor.aws.client.factory" class="%shq_aws_ses_monitor.aws.client.factory.class%">
+            <argument type="string">%shq_aws_ses_monitor.aws_config%</argument>
+        </service>
+    </services>
+
+</container>
