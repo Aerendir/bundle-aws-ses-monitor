@@ -7,7 +7,7 @@ $finder = PhpCsFixer\Finder::create()
         'vendor'
     ])
     ->in(__DIR__.'/src')
-    ->in(__DIR__.'/tests_rename');
+    ->in(__DIR__.'/tests');
 
 $header = <<<EOF
 This file is part of the SHQAwsSesBundle.
