@@ -34,7 +34,7 @@ The entire procedure is automated by the bundle in a really simple and easy way.
 Requirements
 ------------
 
-1. ^PHP 5.6|^7.0
+1. PHP ^7.1
 
 DOCUMENTATION
 =============
