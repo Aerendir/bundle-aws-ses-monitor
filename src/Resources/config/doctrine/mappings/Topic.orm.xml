@@ -3,7 +3,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="SerendipityHQ\Bundle\SHQAwsSesMonitorBundle\Model\Topic" table="shq_aws_ses_monitor_topics"
+    <entity name="SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Topic" table="shq_aws_ses_monitor_topics"
             repository-class="SerendipityHQ\Bundle\SHQAwsSesMonitorBundle\Repository\TopicRepository">
 
         <indexes>
