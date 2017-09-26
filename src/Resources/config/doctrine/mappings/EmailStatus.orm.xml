@@ -4,7 +4,7 @@
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <entity name="SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\EmailStatus" table="shq_aws_ses_monitor_email_statuses"
-            repository-class="SerendipityHQ\Bundle\SHQAwsSesMonitorBundle\Repository\EmailStatusRepository">
+            repository-class="SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\EmailStatusRepository">
 
         <indexes>
             <index columns="email_address" name="email_addresses" />

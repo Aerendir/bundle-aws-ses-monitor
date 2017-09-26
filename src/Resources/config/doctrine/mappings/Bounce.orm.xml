@@ -4,7 +4,7 @@
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <entity name="SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce" table="shq_aws_ses_monitor_bounces"
-            repository-class="SerendipityHQ\Bundle\SHQAwsSesMonitorBundle\Repository\BounceRepository">
+            repository-class="SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\BounceRepository">
 
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />

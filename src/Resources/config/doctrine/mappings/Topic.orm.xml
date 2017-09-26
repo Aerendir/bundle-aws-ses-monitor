@@ -4,7 +4,7 @@
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <entity name="SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Topic" table="shq_aws_ses_monitor_topics"
-            repository-class="SerendipityHQ\Bundle\SHQAwsSesMonitorBundle\Repository\TopicRepository">
+            repository-class="SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\TopicRepository">
 
         <indexes>
             <index columns="topic_arn" name="topic"/>

@@ -4,7 +4,7 @@
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <entity name="SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery" table="shq_aws_ses_monitor_deliveries"
-            repository-class="SerendipityHQ\Bundle\SHQAwsSesMonitorBundle\Repository\DeliveryRepository">
+            repository-class="SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\DeliveryRepository">
 
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />

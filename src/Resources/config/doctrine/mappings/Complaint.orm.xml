@@ -4,7 +4,7 @@
                    https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <entity name="SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint" table="shq_aws_ses_monitor_complaints"
-            repository-class="SerendipityHQ\Bundle\SHQAwsSesMonitorBundle\Repository\ComplaintRepository">
+            repository-class="SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\ComplaintRepository">
 
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />

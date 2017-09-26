@@ -33,7 +33,7 @@ class AppKernel extends Kernel
         $bundles = array(
             // ...
 
-            new SerendipityHQ\Bundle\SHQAwsSesMonitorBundle\SHQAwsSesMonitorBundle(),
+            new SerendipityHQ\Bundle\AwsSesMonitorBundle\SHQAwsSesMonitorBundle(),
         );
 
         // ...
