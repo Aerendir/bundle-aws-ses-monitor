@@ -39,7 +39,7 @@ Requirements
 DOCUMENTATION
 =============
 
-You can read how to install, configure, test and use AWS SES Monitor Bundle in the [documentation](Resources/docs/Index.md).
+You can read how to install, configure, test and use AWS SES Monitor Bundle in the [documentation](docs/Index.md).
 
 Credits
 =======
