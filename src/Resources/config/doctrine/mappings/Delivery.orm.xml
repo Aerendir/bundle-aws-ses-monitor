@@ -19,7 +19,7 @@
         <field name="emailAddress" type="string" column="email_address" />
         <field name="deliveredOn" type="datetime" column="delivered_on" />
         <field name="processingTimeMillis" type="integer" column="processing_time_millis" />
-        <field name="smtpResponse" type="string" column="smtp_response" />
+        <field name="smtpResponse" type="text" column="smtp_response" />
         <field name="reportingMta" type="string" column="reporting_mta" nullable="true" />
 
     </entity>
