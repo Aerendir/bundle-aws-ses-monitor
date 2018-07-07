@@ -20,6 +20,8 @@ Managing these notifications it is possible to know to which e-mails we should n
 
 **This bundle helps you setting up the automatic handling of notifications via SNS.**
 
+Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container)!
+
 How AWS SES Monitor Bundle integrates with AWS SNS
 --------------------------------------------------
 

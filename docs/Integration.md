@@ -1,3 +1,5 @@
+Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container)!
+
 How to integrate AWS SES with your application
 ==============================================
 
@@ -86,5 +88,7 @@ What will happen:
 2. All chosen identities will be configured to send Bounce notifications to that topic
 3. Your project url will be provided as HTTP or HTTPS (configuration) endpoint for AWS
 4. Automatic subscription confirmation will occur on AWS request to confirm (if your endpoint is reachable)
+
+Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container)!
 
 ([Go back to index](Index.md)) | Next step: [Test](Test.md)

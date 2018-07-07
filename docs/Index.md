@@ -1,3 +1,5 @@
+Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container)!
+
 AWS SES Monitor Bundle Documentation
 ====================================
 
@@ -35,3 +37,5 @@ Miscellaneous
 -------------
 
 - [Some sample code with PHP](https://forums.aws.amazon.com/message.jspa?messageID=202798#202798)
+
+Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container)!

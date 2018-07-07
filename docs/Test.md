@@ -1,3 +1,5 @@
+Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container)!
+
 How to test AWS SES e-mails sending
 ===================================
 
@@ -27,5 +29,7 @@ swiftmailer:
     disable_delivery: false
     #delivery_address: hello@aerendir.me
 ```
+
+Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container)!
 
 ([Go back to index](Index.md))

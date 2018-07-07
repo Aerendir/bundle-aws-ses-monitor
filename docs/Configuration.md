@@ -1,3 +1,5 @@
+Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container)!
+
 How to configure AWS SES Monitor Bundle
 =======================================
 
@@ -107,5 +109,7 @@ Step 4: Update your database schema
 ```
 $ php app/console doctrine:schema:update --force
 ```
+
+Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container)!
 
 ([Go back to index](Index.md)) | Next step: [Integrate](Integration.md)
