@@ -33,7 +33,7 @@ aws_seSHQAwsSesMonitorBundle    bounces:
 ```
 
 Aws Ses Monitor Bundle will create the topics on Amazon SNS. During creation it will also set the topic to call an endpoint on your application each time a new notification is created.
-This way yuo don't need to use also the AWS SQS service as you will never lose the notifications that are immediately persisted directly into the application.
+This way you don't need to use also the AWS SQS service as you will never lose the notifications that are immediately persisted directly into the application.
 
 ```yaml
 SHQAwsSesMonitorBundle

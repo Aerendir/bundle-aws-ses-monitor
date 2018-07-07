@@ -6,9 +6,9 @@ How to configure AWS SES Monitor Bundle
 The AWS SES Monitor Bundle uses the [`AWS SDK for PHP`](https://aws.amazon.com/it/documentation/sdk-for-php/)
  to connect and communicate with AWS API.
 
-The bundle creates an `Aws\SesClient` and an `Aws\SnsClient` that it uses to perform all task required to setup the environment on AWS.
+The bundle creates an `Aws\SesClient` and an `Aws\SnsClient` that it uses to perform all tasks required to setup the environment on AWS.
 
-To access to AWS you need a pair of credentials. Before continuing, if you have not already done it, [create this pair of credentials](https://aws.amazon.com/it/developers/access-keys/).
+To access to AWS you need a pair of credentials. **Before continuing, if you have not already done it, [create this pair of credentials](https://aws.amazon.com/it/developers/access-keys/).**
 
 
 Step 3: Configure the AWS Client
