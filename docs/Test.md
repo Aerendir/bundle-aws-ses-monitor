@@ -1,4 +1,4 @@
-Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container)!
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
 
 How to test AWS SES e-mails sending
 ===================================
@@ -30,6 +30,6 @@ swiftmailer:
     #delivery_address: hello@aerendir.me
 ```
 
-Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container)!
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
 
 ([Go back to index](Index.md))

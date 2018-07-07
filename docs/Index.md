@@ -1,4 +1,4 @@
-Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container)!
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
 
 AWS SES Monitor Bundle Documentation
 ====================================
@@ -38,4 +38,4 @@ Miscellaneous
 
 - [Some sample code with PHP](https://forums.aws.amazon.com/message.jspa?messageID=202798#202798)
 
-Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container)!
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*

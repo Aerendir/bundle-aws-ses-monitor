@@ -1,4 +1,4 @@
-Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container)!
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
 
 How to integrate AWS SES with your application
 ==============================================
@@ -89,6 +89,6 @@ What will happen:
 3. Your project url will be provided as HTTP or HTTPS (configuration) endpoint for AWS
 4. Automatic subscription confirmation will occur on AWS request to confirm (if your endpoint is reachable)
 
-Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container)!
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
 
 ([Go back to index](Index.md)) | Next step: [Test](Test.md)

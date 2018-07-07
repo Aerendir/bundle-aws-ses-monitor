@@ -1,3 +1,12 @@
+<p align="center">
+    <a href="http://www.serendipityhq.com" target="_blank">
+        <img src="http://www.serendipityhq.com/wp-content/uploads/2018/07/Logo-Serendipity-HQ.png">
+    </a>
+</p>
+
+AWS SES MONITOR BUNDLE
+======================
+
 [![Latest Stable Version](https://poser.pugx.org/serendipity_hq/aws-ses-monitor-bundle/v/stable.png)](https://packagist.org/packages/serendipity_hq/aws-ses-monitor-bundle)
 [![Build Status](https://travis-ci.org/Aerendir/aws-ses-monitor-bundle.svg?branch=master)](https://travis-ci.org/Aerendir/aws-ses-monitor-bundle)
 [![Total Downloads](https://poser.pugx.org/serendipity_hq/aws-ses-monitor-bundle/downloads.svg)](https://packagist.org/packages/serendipity_hq/aws-ses-monitor-bundle)
@@ -8,19 +17,16 @@
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/4c45c317-28c4-40ef-9a1b-01af44b77327/mini.png)](https://insight.sensiolabs.com/projects/4c45c317-28c4-40ef-9a1b-01af44b77327)
 [![Dependency Status](https://www.versioneye.com/user/projects/579355b8ad9529003b1d4f7c/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/579355b8ad9529003b1d4f7c)
 
-AWS SES MONITOR BUNDLE
-======================
-
 AWS SES Monitor Bundle for Symfony 2 automates the filtering of [bounced and complined e-mails sent through AWS SES](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/best-practices-bounces-complaints.html).
 
 AWS SES can give you notifications about bounced or complained e-mails both [via e-mail](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications-via-email.html)
  or [via the AWS SNS service](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications-via-sns.html).
 
-Managing these notifications it is possible to know to which e-mails we should not send other e-mails.
+Managing these notifications it is possible to know to which e-mails we should not send further e-mails.
 
 **This bundle helps you setting up the automatic handling of notifications via SNS.**
 
-Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container)!
+Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too! !
 
 How AWS SES Monitor Bundle integrates with AWS SNS
 --------------------------------------------------
