@@ -25,17 +25,17 @@
         "doctrine/doctrine-bundle": "^1.7",
         "doctrine/common": "^2.4",
         "doctrine/orm": "^2.5",
-        "symfony/framework-bundle": "^3.0",
-        "symfony/swiftmailer-bundle": "^3.0"
+        "symfony/framework-bundle": "^3|^4.0",
+        "symfony/swiftmailer-bundle": "^3.0|^4.0"
     },
     "require-dev": {
         "codeclimate/php-test-reporter": "dev-master",
         "friendsofphp/php-cs-fixer": "^2.0",
         "serendipity_hq/phpunit_helper": "*",
-        "symfony/console": "^3.0",
-        "symfony/yaml": "^3.0",
-        "symfony/var-dumper": "^3.0",
-        "phpunit/phpunit": "^6"
+        "symfony/console": "^3.0|^4.0",
+        "symfony/yaml": "^3.0|4.0",
+        "symfony/var-dumper": "^3.0|^4.0",
+        "phpunit/phpunit": "^6|^7"
     },
     "autoload": {
         "psr-4": { "SerendipityHQ\\Bundle\\AwsSesMonitorBundle\\": "src" }
