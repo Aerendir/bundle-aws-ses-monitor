@@ -1,22 +1,90 @@
-language: php
+# Template here
+# https://symfony.com/doc/current/bundles/best_practices.html#continuous-integration
 
-matrix:
-    include:
-        - php: 7.1
+language: php
+# Sudo is required by Phive
+sudo: true
+os:
+    - linux
 
 cache:
     directories:
-        - $HOME/.composer/cache
+        - $HOME/.composer/cache/files
+        - $HOME/symfony-bridge/.phpunit
+        - $HOME/.phive
+        - $HOME/.phive/phars
+        - $HOME/.gnupg
+
+env:
+    global:
+        - PHPUNIT_FLAGS="-v"
+        - SYMFONY_PHPUNIT_DIR="$HOME/symfony-bridge/.phpunit"
+        # This is required by Phive to work
+        - CACHE_NAME=GENERAL
+
+matrix:
+    fast_finish: true
+    include:
+        # Minimum supported dependencies with the latest and oldest PHP version
+        - php: 7.2
+          env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" SYMFONY_DEPRECATIONS_HELPER="weak_vendors"
+        - php: 7.0
+          env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" SYMFONY_DEPRECATIONS_HELPER="weak_vendors"
+
+        # Test the latest stable release
+        - php: 7.1
+        - php: 7.2
+          env: COVERAGE=true PHPUNIT_FLAGS="-v --coverage-text" FULL_CHECK=true
+
+        # Test LTS versions. This makes sure we do not use Symfony packages with version greater
+        # than 2 or 3 respectively. Read more at https://github.com/symfony/lts
+        - php: 7.2
+          env: DEPENDENCIES="symfony/lts:^2"
+        - php: 7.2
+          env: DEPENDENCIES="symfony/lts:^3"
+
+        # Latest commit to master
+        - php: 7.2
+          env: STABILITY="dev"
+
+before_install:
+    - if [[ $COVERAGE != true ]]; then phpenv config-rm xdebug.ini || true; fi;
+    - if ! [ -z "$STABILITY" ]; then composer config minimum-stability ${STABILITY}; fi;
+    - if ! [ -v "$DEPENDENCIES" ]; then composer require --no-update ${DEPENDENCIES}; fi;
+    - if [ ! -d $HOME/.phive ]; then mkdir $HOME/.phive ; fi;
+    - if [ ! -f $HOME/.phive/phive.phar ]; then ant getphive ; mv phive.phar $HOME/.phive ; fi;
+    # Here we copy to make possible to setup each job of the build:
+    # if we move with one Job, the others cannot execute this command anymore
+    - sudo cp $HOME/.phive/phive.phar /usr/local/bin/phive
+    - pecl channel-update pecl.php.net
+    - pecl install ast-0.1.6
 
 install:
-    - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction
+    # To be removed when this issue will be resolved: https://github.com/composer/composer/issues/5355
+    - if [[ "$COMPOSER_FLAGS" == *"--prefer-lowest"* ]]; then composer update --prefer-dist --no-interaction --prefer-stable; fi
+    - composer update ${COMPOSER_FLAGS} --prefer-dist --no-interaction
+    # Phan:    AFA6EAAB339B841E
+    # PHPStan: 8E730BA25823D8B5
+    - phive --no-progress install --trust-gpg-keys AFA6EAAB339B841E,8E730BA25823D8B5
+    - ./vendor/bin/simple-phpunit install
 
 script:
-    - phpenv config-rm xdebug.ini || return 0
+    # Validate the composer.json and dependencies
+    - if [[ $FULL_CHECK == true ]]; then composer validate --strict --no-check-lock; fi
+    - if [[ $FULL_CHECK == true ]]; then composer outdated; fi
+    # Check for security issues
+    - if [[ $FULL_CHECK == true ]]; then ./vendor/bin/security-checker security:check; fi
     # Check the style rules are applied
-    - ./vendor/bin/php-cs-fixer fix --diff --dry-run -v
-    # Run PHPUnit
-    - vendor/bin/phpunit --verbose --coverage-clover build/logs/clover.xml
+    - if [[ $FULL_CHECK == true ]]; then ./vendor/bin/php-cs-fixer fix --allow-risky yes --dry-run -v; fi
+    # Lint the config files and templates
+    - if [[ $FULL_CHECK == true ]]; then bin/console lint:yaml src/Resources/config; fi
+    - if [[ $FULL_CHECK == true ]]; then bin/console lint:twig src/Resources/views; fi
+    # Perform static code analysis
+    - ./tools/phpstan analyse src tests -c phpstan.neon --level max
+    - ./tools/phan --progress-bar --minimum-severity critical
+    # simple-phpunit is the PHPUnit wrapper provided by the PHPUnit Bridge component and
+    # it helps with testing legacy code and deprecations (composer require symfony/phpunit-bridge)
+    - ./vendor/bin/simple-phpunit $PHPUNIT_FLAGS
 
 after_script:
     - CODECLIMATE_REPO_TOKEN="e2e9d435955a38f76c397686cadd6b99f37b2dd595b066878db3240448e010aa" vendor/bin/test-reporter --stdout > codeclimate.json

@@ -19,23 +19,24 @@
         }
     ],
     "require": {
-        "php": "^7.1",
+        "php": "^7.0",
         "aws/aws-sdk-php": "^3.2",
         "aws/aws-php-sns-message-validator": "^1.1.0",
         "doctrine/doctrine-bundle": "^1.7",
         "doctrine/common": "^2.4",
         "doctrine/orm": "^2.5",
-        "symfony/framework-bundle": "^3|^4.0",
-        "symfony/swiftmailer-bundle": "^3.0|^4.0"
+        "symfony/framework-bundle": "^2.8|^3.4|^4.1",
+        "symfony/swiftmailer-bundle": "^3.0"
     },
     "require-dev": {
-        "codeclimate/php-test-reporter": "dev-master",
         "friendsofphp/php-cs-fixer": "^2.0",
+        "sensiolabs/security-checker": "^2.8|^3.4|^4.1",
         "serendipity_hq/phpunit_helper": "*",
-        "symfony/console": "^3.0|^4.0",
-        "symfony/yaml": "^3.0|4.0",
-        "symfony/var-dumper": "^3.0|^4.0",
-        "phpunit/phpunit": "^6|^7"
+        "symfony/console": "^2.8|^3.4|^4.1",
+        "symfony/yaml": "^2.8|^3.4|4.1",
+        "symfony/var-dumper": "^2.8|^3.4|^4.1",
+        "phpunit/phpunit": "^6",
+        "symfony/phpunit-bridge": "^2.8|^3.4|^4.1"
     },
     "autoload": {
         "psr-4": { "SerendipityHQ\\Bundle\\AwsSesMonitorBundle\\": "src" }

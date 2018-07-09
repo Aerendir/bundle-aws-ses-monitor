@@ -17,7 +17,6 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Service;
 
 use Aws\Credentials\Credentials;
 use Aws\Sns\Exception\InvalidSnsMessageException;
-use Aws\Sns\Message;
 use Aws\Sns\MessageValidator;
 use Aws\Sns\SnsClient;
 use Doctrine\ORM\EntityManager;

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="AWS SES Monitor Bundle" default="getphive" basedir=".">
+    <property name="source" value="src" />
+
+    <target name="getphive" description="Get phive on travis-ci">
+        <exec executable="wget">
+            <arg value="https://phar.io/releases/phive.phar"/>
+        </exec>
+        <exec executable="wget">
+            <arg value="https://phar.io/releases/phive.phar.asc"/>
+        </exec>
+        <exec executable="gpg">
+            <arg line="--keyserver hkps.pool.sks-keyservers.net --recv-keys 0x9B2D5D79" />
+        </exec>
+        <exec executable="gpg">
+            <arg line="--verify phive.phar.asc phive.phar" />
+        </exec>
+        <chmod file="phive.phar" perm="+x" />
+        <delete file="phive.phar.asc" />
+    </target>
+</project>
