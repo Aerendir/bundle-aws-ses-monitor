@@ -3,6 +3,6 @@
 composer validate --strict --no-check-lock &&
     vendor/bin/security-checker security:check &&
     vendor/bin/php-cs-fixer fix --allow-risky yes --dry-run -v &&
-    vendor/bin/phpstan analyse src tests -c phpstan.neon --level max &&
-    tools/phan --progress-bar --minimum-severity critical &&
+    tools/phpstan analyse src tests -c phpstan.neon --level 0 &&
+    tools/phan --progress-bar --minimum-severity 0 &&
     vendor/bin/simple-phpunit -v

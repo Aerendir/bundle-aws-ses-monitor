@@ -80,8 +80,8 @@ script:
     - if [[ $FULL_CHECK == true ]]; then bin/console lint:yaml src/Resources/config; fi
     - if [[ $FULL_CHECK == true ]]; then bin/console lint:twig src/Resources/views; fi
     # Perform static code analysis
-    - ./tools/phpstan analyse src tests -c phpstan.neon --level max
-    - ./tools/phan --progress-bar --minimum-severity critical
+    - ./tools/phpstan analyse src tests -c phpstan.neon --level 0
+    - ./tools/phan --progress-bar --minimum-severity 0
     # simple-phpunit is the PHPUnit wrapper provided by the PHPUnit Bridge component and
     # it helps with testing legacy code and deprecations (composer require symfony/phpunit-bridge)
     - ./vendor/bin/simple-phpunit $PHPUNIT_FLAGS
