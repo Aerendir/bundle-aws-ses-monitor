@@ -15,7 +15,10 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 
+use Doctrine\ORM\EntityManagerInterface;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationHandler;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * Setups a topic to receive complaints notifications from SNS.
@@ -27,19 +30,13 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationHandler;
 class SnsSetupComplaintsTopicCommand extends SnsSetupCommandAbstract
 {
     /**
-     * {@inheritdoc}
+     * @param array            $complaintsConfiguration
+     * @param AwsClientFactory $awsClientFactory
+     * @param RouterInterface  $router
      */
-    public function getNotificationConfig()
+    public function __construct(array $complaintsConfiguration, AwsClientFactory $awsClientFactory, EntityManagerInterface $entityManager, RouterInterface $router)
     {
-        return 'shq_aws_ses_monitor.complaints';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getNotificationKind()
-    {
-        return NotificationHandler::MESSAGE_TYPE_COMPLAINT;
+        parent::__construct($complaintsConfiguration, NotificationHandler::MESSAGE_TYPE_COMPLAINT, $awsClientFactory, $entityManager, $router);
     }
 
     /**

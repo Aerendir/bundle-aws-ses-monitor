@@ -18,6 +18,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
@@ -46,8 +47,11 @@ class SHQAwsSesMonitorExtension extends Extension
         $container->setParameter('shq_aws_ses_monitor.complaints', $config['complaints']);
         $container->setParameter('shq_aws_ses_monitor.deliveries', $config['deliveries']);
 
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader->load('services.yml');
+
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('services.xml');
+        // $loader->load('services.xml');
 
         // load db_driver container configuration
         $loader->load(sprintf('%s.xml', $config['db_driver']));

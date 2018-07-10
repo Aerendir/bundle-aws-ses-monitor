@@ -15,7 +15,10 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 
+use Doctrine\ORM\EntityManagerInterface;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationHandler;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * Setups a topic to receive deliveries notifications from SNS.
@@ -27,19 +30,13 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationHandler;
 class SnsSetupDeliveriesTopicCommand extends SnsSetupCommandAbstract
 {
     /**
-     * {@inheritdoc}
+     * @param array            $deliveriesConfiguration
+     * @param AwsClientFactory $awsClientFactory
+     * @param RouterInterface  $router
      */
-    public function getNotificationConfig()
+    public function __construct(array $deliveriesConfiguration, AwsClientFactory $awsClientFactory, EntityManagerInterface $entityManager, RouterInterface $router)
     {
-        return 'shq_aws_ses_monitor.deliveries';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getNotificationKind()
-    {
-        return NotificationHandler::MESSAGE_TYPE_DELIVERY;
+        parent::__construct($deliveriesConfiguration, NotificationHandler::MESSAGE_TYPE_DELIVERY, $awsClientFactory, $entityManager, $router);
     }
 
     /**

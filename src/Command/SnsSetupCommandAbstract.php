@@ -15,9 +15,14 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 
+use Aws\Credentials\Credentials;
 use Aws\Ses\SesClient;
+use Aws\Sns\Exception\SnsException;
 use Aws\Sns\SnsClient;
+use Doctrine\ORM\EntityManagerInterface;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Topic;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationHandler;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -28,15 +33,26 @@ use Symfony\Component\Routing\RouterInterface;
 /**
  * Abstract class to perform common command tasks.
  *
- * @author Audrius Karabanovas <audrius@karabanovas.net>
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  *
  * {@inheritdoc}
  */
 abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
 {
-    /** @var string $endpoint */
-    private $endpoint;
+    /** @var array $topicConfig */
+    private $topicConfig;
+
+    /** @var string $kind */
+    private $notificationType;
+
+    /** @var AwsClientFactory $awsClientFactory */
+    private $awsClientFactory;
+
+    /** @var EntityManagerInterface $entityManager */
+    private $entityManager;
+
+    /** @var RequestContext $requestContext */
+    private $requestContext;
 
     /** @var SesClient $sesClient */
     private $sesClient;
@@ -48,40 +64,39 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
     private $topicArn;
 
     /**
-     * @return string
+     * @param array                  $configuration
+     * @param string                 $notificationType
+     * @param AwsClientFactory       $awsClientFactory
+     * @param EntityManagerInterface $entityManager
+     * @param RouterInterface        $router
      */
-    abstract public function getNotificationConfig();
-
-    /**
-     * @return string
-     */
-    abstract public function getNotificationKind();
-
-    /**
-     * Performs common tasks for setup commands.
-     *
-     * @param string $topicName The kind of email handling (bounces, complaints, ecc.)
-     */
-    public function configureCommand($topicName)
+    public function __construct(array $configuration, string $notificationType, AwsClientFactory $awsClientFactory, EntityManagerInterface $entityManager, RouterInterface $router)
     {
-        $this->endpoint = $topicName;
+        $this->topicConfig      = $configuration['topic'];
+        $this->notificationType = $notificationType;
+        $this->awsClientFactory = $awsClientFactory;
+        $this->entityManager    = $entityManager;
+        $this->requestContext   = $router->getContext();
 
-        /** @var RequestContext $context */
-        $context = $this->getContainer()->get('router')->getContext();
-        $context->setHost($this->getContainer()->getParameter($topicName)['topic']['endpoint']['host']);
-        $context->setScheme($this->getContainer()->getParameter($topicName)['topic']['endpoint']['protocol']);
+        $this->requestContext->setHost($this->topicConfig['endpoint']['host']);
+        $this->requestContext->setScheme($this->topicConfig['endpoint']['protocol']);
 
-        $apiFactory = $this->getContainer()->get('shq_aws_ses_monitor.aws.client.factory');
+        parent::__construct();
+    }
 
-        $credentials     = $this->getContainer()->getParameter('shq_aws_ses_monitor.aws_config')['credentials_service_name'];
-        $this->sesClient = $apiFactory->getSesClient($this->getContainer()->get($credentials));
-        $this->snsClient = $apiFactory->getSnsClient($this->getContainer()->get($credentials));
+    /**
+     * @param Credentials $credentials
+     */
+    public function setCredentials(Credentials $credentials): void
+    {
+        $this->sesClient = $this->awsClientFactory->getSesClient($credentials);
+        $this->snsClient = $this->awsClientFactory->getSnsClient($credentials);
     }
 
     /**
      * @return SesClient
      */
-    public function getSesClient()
+    public function getSesClient(): SesClient
     {
         return $this->sesClient;
     }
@@ -89,7 +104,7 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
     /**
      * @return SnsClient
      */
-    public function getSnsClient()
+    public function getSnsClient(): SnsClient
     {
         return $this->snsClient;
     }
@@ -101,7 +116,7 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
      *
      * @return ChoiceQuestion
      */
-    public function createIdentitiesQuestion()
+    public function createIdentitiesQuestion(): ChoiceQuestion
     {
         $response   = $this->getSesClient()->listIdentities();
         $identities = $response->get('Identities');
@@ -118,29 +133,40 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
     /**
      * Creates and persists a topic.
      *
-     * @param string          $topicName The kind of email handling (bounces, complaints, ecc.)
      * @param OutputInterface $output
      *
      * @return string The created topic's ARN
      */
-    public function createSnsTopic($topicName, OutputInterface $output)
+    public function createSnsTopic(OutputInterface $output): string
     {
-        $name = $this->getContainer()->getParameter($topicName)['topic']['name'];
+        if ('not_set' === $this->topicConfig['name']) {
+            switch ($this->notificationType) {
+                case NotificationHandler::MESSAGE_TYPE_BOUNCE:
+                    $topicKind = 'bounces';
+                    break;
+                case NotificationHandler::MESSAGE_TYPE_COMPLAINT:
+                    $topicKind = 'complaints';
+                    break;
+                case NotificationHandler::MESSAGE_TYPE_DELIVERY:
+                    $topicKind = 'deliveries';
+                    break;
+                default:
+                    throw new \RuntimeException('The MESSAGE_TYPE given is not recognized. Review the code of commands that inherit from SnsSetupCommandAbstract.');
+            }
 
-        if ('not_set' === $name) {
-            $output->writeln('<error>You have to set a name for the creating topic. Specify it in shq_aws_ses_monitor.[bounces|complaints].topic_name.</error>');
+            $output->writeln(sprintf('<error>You have to set a name for the creating topic. Specify it in "shq_aws_ses_monitor.%s.name".</error>', $topicKind));
 
             return false;
         }
 
         // create SNS topic
-        $topic          = ['Name' => $name];
+        $topic          = ['Name' => $this->topicConfig['name']];
         $response       = $this->getSnsClient()->createTopic($topic);
         $this->topicArn = $response->get('TopicArn');
 
         $topic = new Topic($this->topicArn);
 
-        $this->getContainer()->get('shq_aws_ses_monitor.entity_manager')->persist($topic);
+        $this->entityManager->persist($topic);
 
         return $this->topicArn;
     }
@@ -149,16 +175,16 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
      * Sets the chosen identity in the SesClient.
      *
      * @param string $identity
-     * @param string $type     The type of notification
+     * @param string $notificationType The type of notification
      *
-     *                     @see http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-email-2010-12-01.html#setidentitynotificationtopic
+     * @see http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-email-2010-12-01.html#setidentitynotificationtopic
      */
-    public function setIdentityInSesClient($identity, $type)
+    public function setIdentityInSesClient(string $identity, string $notificationType): void
     {
         $this->getSesClient()->setIdentityNotificationTopic(
             [
                 'Identity'         => $identity,
-                'NotificationType' => $type,
+                'NotificationType' => $notificationType,
                 'SnsTopic'         => $this->topicArn,
             ]
         );
@@ -167,18 +193,14 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
     /**
      * @return array
      */
-    public function buildSubscribeArray()
+    public function buildSubscribeArray(): array
     {
         return [
             'TopicArn' => $this->topicArn,
-            'Protocol' => $this->getContainer()->getParameter($this->endpoint)['topic']['endpoint']['protocol'],
+            'Protocol' => $this->topicConfig['endpoint']['protocol'],
             'Endpoint' => $this->getContainer()
                 ->get('router')
-                ->generate(
-                    $this->getContainer()->getParameter($this->endpoint)['topic']['endpoint']['route_name'],
-                    [],
-                    RouterInterface::ABSOLUTE_URL
-                ),
+                ->generate($this->topicConfig['endpoint']['route_name'], [], RouterInterface::ABSOLUTE_URL),
         ];
     }
 
@@ -188,41 +210,48 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
      * @param InputInterface  $input
      * @param OutputInterface $output
      *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
      * @return bool|int|null null or 0 if everything went fine, or an error code
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        // Make the common configurations
-        $this->configureCommand($this->getNotificationConfig());
-
         // Show to developer the selction of identities
         $selectedIdentities = $this->getHelper('question')->ask($input, $output, $this->createIdentitiesQuestion());
 
         // Create and persist the topic
-        $topicArn = $this->createSnsTopic($this->getNotificationConfig(), $output);
+        $topicArn = $this->createSnsTopic($output);
 
         if (false === $topicArn) {
-            return false;
+            return 1;
         }
 
         $output->writeln("\nTopic created: " . $topicArn . "\n");
 
         // subscribe selected SES identities to SNS topic
-        $output->writeln(sprintf('Registering <comment>"%s"</comment> topic for identities:', $this->getContainer()->getParameter($this->getNotificationConfig())['topic']['name']));
+        $output->writeln(sprintf('Registering <comment>"%s"</comment> topic for identities:', $this->topicConfig['name']));
         foreach ($selectedIdentities as $identity) {
             $output->write($identity . ' ... ');
-            $this->setIdentityInSesClient($identity, $this->getNotificationKind());
+            $this->setIdentityInSesClient($identity, $this->notificationType);
             $output->writeln('OK');
         }
 
         $subscribe = $this->buildSubscribeArray();
-        $response  = $this->getSnsClient()->subscribe($subscribe);
+
+        try {
+            $response = $this->getSnsClient()->subscribe($subscribe);
+        } catch (SnsException $e) {
+            $output->writeln('<error>' . $e->getAwsErrorMessage() . '</error>');
+
+            return 1;
+        }
 
         $this->getContainer()->get('shq_aws_ses_monitor.entity_manager')->flush();
 
         $output->writeln(sprintf("\nSubscription endpoint URI: <comment>%s</comment>\n", $subscribe['Endpoint']));
         $output->writeln(sprintf('Subscription status: <comment>%s</comment>', $response->get('SubscriptionArn')));
 
-        return true;
+        return 0;
     }
 }

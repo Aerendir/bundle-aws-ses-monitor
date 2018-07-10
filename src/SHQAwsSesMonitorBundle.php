@@ -16,6 +16,7 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle;
 
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection\CompilerPass\SetCommandsCredentialsCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -44,6 +45,8 @@ class SHQAwsSesMonitorBundle extends Bundle
                 $this->getXmlMappingDriver($mappings)
             );
         }
+
+        $container->addCompilerPass(new SetCommandsCredentialsCompilerPass());
     }
 
     /**

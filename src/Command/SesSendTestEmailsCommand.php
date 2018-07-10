@@ -15,7 +15,7 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
@@ -29,8 +29,21 @@ use Symfony\Component\Console\Question\Question;
  *
  * {@inheritdoc}
  */
-class SesSendTestEmailsCommand extends ContainerAwareCommand
+class SesSendTestEmailsCommand extends Command
 {
+    /** @var \Swift_Mailer $mailer */
+    private $mailer;
+
+    /**
+     * @param \Swift_Mailer $mailer
+     */
+    public function __construct(\Swift_Mailer $mailer)
+    {
+        $this->mailer = $mailer;
+
+        parent::__construct();
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -48,7 +61,7 @@ class SesSendTestEmailsCommand extends ContainerAwareCommand
      * @param InputInterface  $input
      * @param OutputInterface $output
      *
-     * @return int|null null or 0 if everything went fine, or an error code
+     * @return int 0 if everything went fine, or an error code
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -68,7 +81,7 @@ class SesSendTestEmailsCommand extends ContainerAwareCommand
         foreach ($emailAddresses as $toAddress) {
             $message = $this->createMessage($fromAddress, $toAddress);
             $output->writeln(sprintf('<info>Sending an email from <comment>%s</comment> to <comment>%s</comment></info>', $fromAddress, $toAddress));
-            $result = $this->getContainer()->get('mailer')->send($message);
+            $result = $this->mailer->send($message);
 
             $tag           = 'fg=green';
             $outputMessage = 'Email to ' . $toAddress . ' ';
@@ -86,15 +99,17 @@ class SesSendTestEmailsCommand extends ContainerAwareCommand
         foreach ($sents as $sent) {
             $output->writeln($sent);
         }
+
+        return 0;
     }
 
     /**
      * @param $sendTo
      * @param mixed $sendFrom
      *
-     * @return \Swift_Mime_SimpleMimeEntity
+     * @return \Swift_Message
      */
-    private function createMessage($sendFrom, $sendTo)
+    private function createMessage($sendFrom, $sendTo): \Swift_Message
     {
         return (new \Swift_Message())
             ->setSubject('Test message from Aws Ses Monitor Bundle')

@@ -15,12 +15,14 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 
+use Doctrine\ORM\EntityManagerInterface;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationHandler;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * Setups a topic to receive bounces notifications from SNS.
  *
- * @author Audrius Karabanovas <audrius@karabanovas.net>
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  *
  * {@inheritdoc}
@@ -28,19 +30,13 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationHandler;
 class SnsSetupBouncesTopicCommand extends SnsSetupCommandAbstract
 {
     /**
-     * {@inheritdoc}
+     * @param array            $bouncesConfiguration
+     * @param AwsClientFactory $awsClientFactory
+     * @param RouterInterface  $router
      */
-    public function getNotificationConfig()
+    public function __construct(array $bouncesConfiguration, AwsClientFactory $awsClientFactory, EntityManagerInterface $entityManager, RouterInterface $router)
     {
-        return 'shq_aws_ses_monitor.bounces';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getNotificationKind()
-    {
-        return NotificationHandler::MESSAGE_TYPE_BOUNCE;
+        parent::__construct($bouncesConfiguration, NotificationHandler::MESSAGE_TYPE_BOUNCE, $awsClientFactory, $entityManager, $router);
     }
 
     /**

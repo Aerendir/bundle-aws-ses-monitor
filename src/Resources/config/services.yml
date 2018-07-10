@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+        bind:
+            $bouncesConfiguration: '%shq_aws_ses_monitor.bounces%'
+            $complaintsConfiguration: '%shq_aws_ses_monitor.complaints%'
+            $deliveriesConfiguration: '%shq_aws_ses_monitor.deliveries%'
+    SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\HandlerFactory: ~
+    SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory:
+        arguments: ['%shq_aws_ses_monitor.aws_config%']
+    SerendipityHQ\Bundle\AwsSesMonitorBundle\Command\SesSendTestEmailsCommand: ~
+    SerendipityHQ\Bundle\AwsSesMonitorBundle\Command\SnsSetupBouncesTopicCommand:
+        tags: ['shq_aws_ses_monitor.requires_credentials']
+    SerendipityHQ\Bundle\AwsSesMonitorBundle\Command\SnsSetupComplaintsTopicCommand:
+        tags: ['shq_aws_ses_monitor.requires_credentials']
+    SerendipityHQ\Bundle\AwsSesMonitorBundle\Command\SnsSetupDeliveriesTopicCommand:
+        tags: ['shq_aws_ses_monitor.requires_credentials']
