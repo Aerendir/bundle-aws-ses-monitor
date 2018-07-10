@@ -15,9 +15,9 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\EmailStatus;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\EmailAddressStatusRepository;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\EmailStatusRepository;
 use Swift_Events_SendEvent;
 
 /**
@@ -28,7 +28,7 @@ use Swift_Events_SendEvent;
  */
 class MonitorFilterPlugin implements \Swift_Events_SendListener
 {
-    /** @var array */
+    /** @var array $blacklisted */
     private $blacklisted = [];
 
     /** @var array $bouncesConfig */
@@ -37,19 +37,19 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     /** @var array $complaintsConfig */
     private $complaintsConfig;
 
-    /** @var EmailAddressStatusRepository */
+    /** @var EmailStatusRepository $emailStatusRepo */
     private $emailStatusRepo;
 
     /**
-     * @param EntityManager $manager
-     * @param array         $bouncesConfig    The configuration of bounces
-     * @param array         $complaintsConfig The configuration of complaints
+     * @param EntityManagerInterface $manager
+     * @param array                  $bouncesConfig    The configuration of bounces
+     * @param array                  $complaintsConfig The configuration of complaints
      */
-    public function __construct(EntityManager $manager, array $bouncesConfig, array $complaintsConfig)
+    public function __construct(EntityManagerInterface $manager, array $bouncesConfig, array $complaintsConfig)
     {
         $this->bouncesConfig    = $bouncesConfig['filter'];
         $this->complaintsConfig = $complaintsConfig['filter'];
-        $this->emailStatusRepo  = $manager->getRepository('SHQAwsSesMonitorBundle:EmailStatus');
+        $this->emailStatusRepo  = $manager->getRepository(EmailStatus::class);
     }
 
     /**
