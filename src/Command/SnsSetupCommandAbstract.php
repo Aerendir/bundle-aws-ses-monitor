@@ -39,6 +39,9 @@ use Symfony\Component\Routing\RouterInterface;
  */
 abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
 {
+    const THICK = "<fg=green>\xE2\x9C\x94</>";
+    const CROSS = "<fg=magenta>\xE2\x9C\x96</>";
+
     /** @var array $topicConfig */
     private $topicConfig;
 
@@ -135,9 +138,9 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
      *
      * @param OutputInterface $output
      *
-     * @return string The created topic's ARN
+     * @return bool If the topic was created or not
      */
-    public function createSnsTopic(OutputInterface $output): string
+    public function createSnsTopic(OutputInterface $output): bool
     {
         if ('not_set' === $this->topicConfig['name']) {
             switch ($this->notificationType) {
@@ -168,7 +171,7 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
 
         $this->entityManager->persist($topic);
 
-        return $this->topicArn;
+        return true;
     }
 
     /**
@@ -221,35 +224,40 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
         $selectedIdentities = $this->getHelper('question')->ask($input, $output, $this->createIdentitiesQuestion());
 
         // Create and persist the topic
-        $topicArn = $this->createSnsTopic($output);
+        $output->writeln(sprintf('Creating the topic <comment>%s</comment>', $this->topicConfig['name']));
+        if (false === $this->createSnsTopic($output)) {
+            $output->writeln(sprintf('<error>Topic <comment>%s</comment> was not created.</error>', $this->topicConfig['name']));
 
-        if (false === $topicArn) {
             return 1;
         }
 
-        $output->writeln("\nTopic created: " . $topicArn . "\n");
+        $output->writeln(sprintf('<fg=green>Topic <comment>%s</comment> created: <comment>%s</comment></>', $this->topicConfig['name'], $this->topicArn));
+        $output->writeln('');
 
-        // subscribe selected SES identities to SNS topic
-        $output->writeln(sprintf('Registering <comment>"%s"</comment> topic for identities:', $this->topicConfig['name']));
+        // Subscribe selected SES identities to SNS topic
+        $output->writeln(sprintf('Subscribing <comment>"%s"</comment> topic to identities:', $this->topicConfig['name']));
         foreach ($selectedIdentities as $identity) {
-            $output->write($identity . ' ... ');
+            $output->write('- ' . $identity . ' ... ');
             $this->setIdentityInSesClient($identity, $this->notificationType);
-            $output->writeln('OK');
+            $output->writeln(self::THICK);
         }
+        $output->writeln('');
 
+        // Set the SNS to the app's endpoint
+        $output->writeln('Subscribing the App\'s Endpoint to the Topic:');
         $subscribe = $this->buildSubscribeArray();
 
         try {
             $response = $this->getSnsClient()->subscribe($subscribe);
         } catch (SnsException $e) {
-            $output->writeln('<error>' . $e->getAwsErrorMessage() . '</error>');
+            $output->writeln(sprintf('<error>%s Error %s: %s</error>', self::CROSS, $e->getAwsErrorCode(), $e->getAwsErrorMessage()));
 
             return 1;
         }
 
-        $this->getContainer()->get('shq_aws_ses_monitor.entity_manager')->flush();
+        $this->entityManager->flush();
 
-        $output->writeln(sprintf("\nSubscription endpoint URI: <comment>%s</comment>\n", $subscribe['Endpoint']));
+        $output->writeln(sprintf('<fg=green>%s Endpoint <comment>%s</comment> added to Topic <comment>%s</comment></>', self::THICK, $subscribe['Endpoint'], $subscribe['TopicArn']));
         $output->writeln(sprintf('Subscription status: <comment>%s</comment>', $response->get('SubscriptionArn')));
 
         return 0;
