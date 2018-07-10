@@ -7,7 +7,7 @@
     </php>
     <testsuites>
         <testsuite name="SHQAwsSesMonitorBundle for the Symfony Framework">
-            <directory>./Tests</directory>
+            <directory>./src/Tests</directory>
         </testsuite>
     </testsuites>
     <filter>
@@ -15,6 +15,7 @@
             <directory>src/</directory>
             <exclude>
                 <directory>./src/Resources</directory>
+                <directory>./src/Tests</directory>
             </exclude>
         </whitelist>
     </filter>

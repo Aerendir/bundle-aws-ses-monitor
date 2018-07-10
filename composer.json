@@ -39,9 +39,11 @@
         "symfony/phpunit-bridge": "^2.8|^3.4|^4.1"
     },
     "autoload": {
-        "psr-4": { "SerendipityHQ\\Bundle\\AwsSesMonitorBundle\\": "src" }
-    },
-    "autoload-dev": {
-        "psr-4": { "SerendipityHQ\\Bundle\\AwsSesMonitorBundle\\Tests\\": "tests" }
+        "psr-4": {
+            "SerendipityHQ\\Bundle\\AwsSesMonitorBundle\\": "src"
+        },
+        "exclude-from-classmap": [
+            "**/Tests/"
+        ]
     }
 }
