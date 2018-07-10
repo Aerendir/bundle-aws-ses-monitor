@@ -17,10 +17,10 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\EmailStatus;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
 
 /**
  * Tests the EmailStatus entity.

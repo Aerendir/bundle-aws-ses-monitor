@@ -16,7 +16,7 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\EmailStatus;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
 
 /**
  * @author Adamo Aerendir Crespi <hello@aerendir.me>

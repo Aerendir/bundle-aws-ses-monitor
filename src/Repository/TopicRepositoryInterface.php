@@ -15,7 +15,7 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository;
 
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Topic;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Topic;
 
 /**
  * Repository to manage a Topic.

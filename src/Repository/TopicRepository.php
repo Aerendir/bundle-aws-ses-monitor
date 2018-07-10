@@ -16,7 +16,7 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Topic;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Topic;
 
 /**
  * @author Audrius Karabanovas <audrius@karabanovas.net>

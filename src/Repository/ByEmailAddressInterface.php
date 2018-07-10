@@ -15,7 +15,7 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository;
 
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce;
 
 /**
  * Repository to manage Bounces.

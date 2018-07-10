@@ -18,7 +18,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
 use Aws\Credentials\Credentials;
 use Aws\Sns\MessageValidator;
 use Doctrine\ORM\EntityManager;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Topic;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Topic;
 use Symfony\Component\HttpFoundation\Request;
 
 /**

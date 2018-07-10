@@ -36,7 +36,7 @@ class SHQAwsSesMonitorBundle extends Bundle
 
         $modelDir = realpath(__DIR__ . '/Resources/config/doctrine/mappings');
         $mappings = [
-            $modelDir => 'SerendipityHQ\Bundle\AwsSesMonitorBundle\Model',
+            $modelDir => 'SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity',
         ];
 
         $ormCompilerClass = 'Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass';
@@ -60,7 +60,7 @@ class SHQAwsSesMonitorBundle extends Bundle
             $mappings,
             ['shq_aws_ses_monitor.model_manager_name'],
             'shq_aws_ses_monitor.backend_orm',
-            ['SHQAwsSesMonitorBundle' => 'SerendipityHQ\Bundle\AwsSesMonitorBundle\Model']
+            ['SHQAwsSesMonitorBundle' => 'SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity']
         );
     }
 }

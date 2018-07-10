@@ -16,8 +16,8 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Model;
 
 use PHPUnit\Framework\TestCase;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Topic;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Topic;
 
 /**
  * Tests the Topic entity.

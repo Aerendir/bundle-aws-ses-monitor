@@ -17,7 +17,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Plugin;
 
 use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\EmailStatus;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\EmailStatusRepository;
 
 /**

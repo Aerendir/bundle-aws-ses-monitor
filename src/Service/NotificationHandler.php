@@ -19,11 +19,11 @@ use Aws\Credentials\Credentials;
 use Aws\Sns\Message;
 use Aws\Sns\MessageValidator;
 use Doctrine\ORM\EntityManager;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\EmailStatus;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage;
 use Symfony\Component\HttpFoundation\Request;
 
 /**

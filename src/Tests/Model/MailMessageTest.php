@@ -16,10 +16,10 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Model;
 
 use PHPUnit\Framework\TestCase;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Bounce;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Complaint;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Delivery;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\MailMessage;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage;
 
 /**
  * Tests the MailMessage entity.

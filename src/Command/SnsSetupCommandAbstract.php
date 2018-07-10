@@ -20,7 +20,7 @@ use Aws\Ses\SesClient;
 use Aws\Sns\Exception\SnsException;
 use Aws\Sns\SnsClient;
 use Doctrine\ORM\EntityManagerInterface;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Topic;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Topic;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationHandler;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;

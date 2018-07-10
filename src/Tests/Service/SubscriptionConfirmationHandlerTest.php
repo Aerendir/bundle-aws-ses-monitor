@@ -21,7 +21,7 @@ use Aws\Sns\MessageValidator;
 use Aws\Sns\SnsClient;
 use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\Topic;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Topic;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\TopicRepository;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\SubscriptionConfirmationHandler;

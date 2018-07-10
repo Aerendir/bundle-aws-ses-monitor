@@ -16,7 +16,7 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Model\EmailStatus;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\EmailStatusRepository;
 use Swift_Events_SendEvent;
 

@@ -13,7 +13,7 @@
  * @license   MIT License.
  */
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Model;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity;
 
 /**
  * Represents a Complaint.
