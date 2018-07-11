@@ -29,21 +29,11 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     /**
-     * The list of supported ORM drivers.
-     *
-     * @return array
-     */
-    public static function getSupportedDrivers()
-    {
-        return ['orm'];
-    }
-
-    /**
      * The list of supported protocols.
      *
      * @return array
      */
-    public static function getSupportedProtocols()
+    public static function getSupportedSchemas()
     {
         return ['HTTP', 'HTTPS', 'http', 'https'];
     }
@@ -58,16 +48,6 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('db_driver')
-                    ->validate()
-                        ->ifNotInArray(self::getSupportedDrivers())
-                        ->thenInvalid('The driver %s is not supported. Please choose one of ' . json_encode(self::getSupportedDrivers()))
-                    ->end()
-                    ->cannotBeOverwritten()
-                    ->defaultValue('orm')
-                    ->cannotBeEmpty()
-                ->end()
-                ->scalarNode('model_manager_name')->defaultNull()->end()
                 ->arrayNode('aws_config')
                     ->isRequired()
                     ->children()
@@ -84,7 +64,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('bounces')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->append($this->addTopicSection('_shq_aws_ses_monitor_bounces_endpoint'))
+                        ->append($this->addTopicSection('bounces'))
                         ->arrayNode('filter')
                             ->addDefaultsIfNotSet()
                             ->children()
@@ -102,7 +82,7 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('topic_name')->defaultValue('not_set')->cannotBeEmpty()->end()
-                        ->append($this->addTopicSection('_shq_aws_ses_monitor_complaints_endpoint'))
+                        ->append($this->addTopicSection('complaints'))
                         ->arrayNode('filter')
                             ->addDefaultsIfNotSet()
                             ->children()
@@ -117,7 +97,7 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('topic_name')->defaultValue('not_set')->cannotBeEmpty()->end()
-                            ->append($this->addTopicSection('_shq_aws_ses_monitor_deliveries_endpoint'))
+                            ->append($this->addTopicSection('deliveries'))
                         ->booleanNode('enabled')->defaultTrue()->end()
                         ->end()
                     ->end()
@@ -129,26 +109,29 @@ class Configuration implements ConfigurationInterface
     /**
      * Adds the section about endpoint configuration.
      *
-     * @param string $endpointName The endpoint name to use
+     * @param string $type The type of notification configuring
      *
      * @return ArrayNodeDefinition|NodeDefinition The root node (as an ArrayNodeDefinition when the type is 'array')
      */
-    public function addTopicSection($endpointName)
+    public function addTopicSection($type)
     {
-        $builder = new TreeBuilder();
-        $node    = $builder->root('topic')->addDefaultsIfNotSet();
+        $builder   = new TreeBuilder();
+        $node      = $builder->root('topic')->addDefaultsIfNotSet();
+        $routeName = sprintf('_shq_aws_ses_monitor_%s_endpoint', $type);
 
         $node
             ->children()
                 ->scalarNode('name')->defaultValue('not_set')->cannotBeEmpty()->end()
                 ->arrayNode('endpoint')
                     ->children()
-                        ->scalarNode('route_name')->defaultValue($endpointName)->cannotBeEmpty()->end()
-                        ->scalarNode('protocol')
+                        ->scalarNode('route_name')->defaultValue($routeName)->cannotBeEmpty()->end()
+                        ->scalarNode('scheme')
+                            ->defaultValue('https')
+                            ->cannotBeEmpty()
                             //->validate()
-                            //->ifNotInArray(self::getSupportedProtocols())
-                            //->thenInvalid('The protocol %s is not supported. Please choose one of ' . json_encode(self::getSupportedProtocols()))->end()
-                            //->defaultValue('http')->cannotBeEmpty()
+                            //    ->ifNotInArray(self::getSupportedSchemas())
+                            //    ->thenInvalid('The protocol %s for ' . $type . ' is not supported. Please choose one of ' . json_encode(self::getSupportedSchemas()))
+                            //->end()
                         ->end()
                         ->scalarNode('host')->isRequired()->cannotBeEmpty()->end()
                     ->end()

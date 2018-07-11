@@ -82,7 +82,7 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
         $this->requestContext   = $router->getContext();
 
         $this->requestContext->setHost($this->topicConfig['endpoint']['host']);
-        $this->requestContext->setScheme($this->topicConfig['endpoint']['protocol']);
+        $this->requestContext->setScheme($this->topicConfig['endpoint']['schema']);
 
         parent::__construct();
     }
@@ -200,7 +200,7 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
     {
         return [
             'TopicArn' => $this->topicArn,
-            'Protocol' => $this->topicConfig['endpoint']['protocol'],
+            'schema'   => $this->topicConfig['endpoint']['schema'],
             'Endpoint' => $this->getContainer()
                 ->get('router')
                 ->generate($this->topicConfig['endpoint']['route_name'], [], RouterInterface::ABSOLUTE_URL),

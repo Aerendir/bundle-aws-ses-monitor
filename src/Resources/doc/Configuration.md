@@ -61,7 +61,7 @@ shq_aws_ses_monitor:
             name: ses-your_app-bounces-topic # OPTIONAL. Required only to use the configuration commands. 
             endpoint:
                 route_name: _shq_aws_ses_monitor_bounces_endpoint # OTIONAL. The endpoint AWS SNS calls when SES reports a bounce.
-                protocol: http # OPTIONAL. The protocol to use. Accepted values are: http, HTTP, https, HTTPS.
+                schema: https # OPTIONAL. The schema to use. Accepted values are: http, HTTP, https, HTTPS.
                 host: your_domain.com # REQUIRED. The hostname of your project when in production.
         filter:
             enabled: true # OPTIONAL. If false, no filtering of bounced recipients will happen. Complained are ever filtered.
@@ -75,7 +75,7 @@ shq_aws_ses_monitor:
             name: ses-your_app-complaints-topic # OPTIONAL. Required only to use the configuration commands.
             endpoint:
                 route_name: _shq_aws_ses_monitor_complaints_endpoint # OTIONAL. The endpoint AWS SNS calls when SES reports a complaint.
-                protocol: http # OPTIONAL. The protocol to use. Accepted values are: http, HTTP, https, HTTPS.
+                schema: https # OPTIONAL. The schema to use. Accepted values are: http, HTTP, https, HTTPS.
                 host: your_domain.com # REQUIRED. The hostname of your project when in production.
         filter:
             enabled: true # OPTIONAL. If false, no filtering of complained recipients will happen. "false" IS VERY RISKY!
@@ -87,7 +87,7 @@ shq_aws_ses_monitor:
             name: ses-your_app-deliveries-topic # OPTIONAL. Required only to use the configuration commands.
             endpoint:
                 route_name: _shq_aws_ses_monitor_deliveries_endpoint # OTIONAL. The endpoint AWS SNS calls when SES reports a delivery.
-                protocol: http # OPTIONAL. The protocol to use. Accepted values are: http, HTTP, https, HTTPS.
+                schema: https # OPTIONAL. The schema to use. Accepted values are: http, HTTP, https, HTTPS.
                 host: your_domain.com # REQUIRED. The hostname of your project when in production.
         # Has no filter options
 ```

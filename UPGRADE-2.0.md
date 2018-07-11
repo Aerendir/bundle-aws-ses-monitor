@@ -48,15 +48,24 @@ STEP 1: Update the Config
 
 ### Removed config parameters
 
-The following parameters was removed: please remove them from your configuration:
+The following parameters was removed or renamed: please remove them from your configuration:
 
 ```yaml
 shq_aws_ses_monitor:
-    ##
-    # Following are the config params removed in version 2.0
-    ##
-    db_driver: orm
-    model_manager_name: null
+    db_driver: orm #removed
+    model_manager_name: null #removed
+    bounces:
+        topic:
+            endpoint:
+                schema: https # Renamed from protocol. Default value changed from http to https.
+    complaints:
+        topic:
+            endpoint:
+                schema: https # Renamed from protocol. Default value changed from http to https.
+    deliveries:
+        topic:
+            endpoint:
+                schema: https # Renamed from protocol. Default value changed from http to https.
 
 ```
 
