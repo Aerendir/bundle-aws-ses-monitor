@@ -11,6 +11,7 @@ These are the steps required to make the bundle work:
 2. [Configure the bundle](Configuration.md)
 3. [Configure AWS SES through Symfony's Console](Integration.md)
 4. [Test the sending of e-mails](Test.md)
+5. [Using the information collected](Using.md)
 
 After you have done this, your app will automatically manage bounces, complaints and deliveries and your AWS SES account will be safe and never deactivated by Amazon.
 

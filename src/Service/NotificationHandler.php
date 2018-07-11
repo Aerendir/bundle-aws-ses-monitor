@@ -22,7 +22,7 @@ use Doctrine\ORM\EntityManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -251,14 +251,14 @@ class NotificationHandler extends HandlerAbstract
     /**
      * @param string $email
      *
-     * @return EmailStatus
+     * @return Email
      */
     private function getEmailStatus($email)
     {
-        $status = $this->entityManager->getRepository('SHQAwsSesMonitorBundle:EmailStatus')->findOneByEmailAddress($email);
+        $status = $this->entityManager->getRepository('Email')->findOneByEmailAddress($email);
 
         if (null === $status) {
-            $status = new EmailStatus($email);
+            $status = new Email($email);
             $this->entityManager->persist($status);
         }
 

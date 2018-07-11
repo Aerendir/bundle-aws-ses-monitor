@@ -15,9 +15,9 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection;
 
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin\MonitorFilterPlugin;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
@@ -38,9 +38,6 @@ class SHQAwsSesMonitorExtension extends Extension
         $config        = $this->processConfiguration($configuration, $configs);
 
         // Set parameters in the container
-        $container->setParameter('shq_aws_ses_monitor.db_driver', $config['db_driver']);
-        $container->setParameter(sprintf('shq_aws_ses_monitor.backend_%s', $config['db_driver']), true);
-        $container->setParameter('shq_aws_ses_monitor.model_manager_name', $config['model_manager_name']);
         $container->setParameter('shq_aws_ses_monitor.aws_config', $config['aws_config']);
         $container->setParameter('shq_aws_ses_monitor.mailers', $config['mailers']);
         $container->setParameter('shq_aws_ses_monitor.bounces', $config['bounces']);
@@ -50,18 +47,12 @@ class SHQAwsSesMonitorExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
 
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        // $loader->load('services.xml');
-
-        // load db_driver container configuration
-        $loader->load(sprintf('%s.xml', $config['db_driver']));
-
         // Enable the plugin if required
         if ($config['bounces']['filter']['enabled'] || $config['complaints']['filter']['enabled']) {
-            $loader->load('filter.xml');
+            $loader->load('filter.yml');
 
             $mailers = $config['mailers'];
-            $filter  = $container->getDefinition('shq_aws_ses_monitor.swift_mailer.filter');
+            $filter  = $container->getDefinition(MonitorFilterPlugin::class);
             foreach ($mailers as $mailer) {
                 $filter->addTag(sprintf('swiftmailer.%s.plugin', $mailer));
             }

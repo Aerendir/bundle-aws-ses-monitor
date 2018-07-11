@@ -38,7 +38,7 @@ class DeliveryTest extends TestCase
             'reportingMta'         => 'test-type',
         ];
 
-        $resource->setEmailAddress($test['email'])
+        $resource->setEmail($test['email'])
             ->setMailMessage($test['mailMessage'])
             ->setDeliveredOn($test['deliveredOn'])
             ->setProcessingTimeMillis($test['processingTimeMillis'])
@@ -46,7 +46,7 @@ class DeliveryTest extends TestCase
             ->setReportingMta($test['reportingMta']);
 
         self::assertNull($resource->getId());
-        self::assertSame($test['email'], $resource->getEmailAddress());
+        self::assertSame($test['email'], $resource->getEmail());
         self::assertSame($test['mailMessage'], $resource->getMailMessage());
         self::assertSame($test['deliveredOn'], $resource->getDeliveredOn());
         self::assertSame($test['processingTimeMillis'], $resource->getProcessingTimeMillis());

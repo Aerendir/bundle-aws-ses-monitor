@@ -16,7 +16,7 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email;
 
 /**
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
@@ -28,7 +28,7 @@ class EmailStatusRepository extends EntityRepository implements ByEmailAddressIn
     /**
      * @param $email
      *
-     * @return EmailStatus|object|null
+     * @return Email|object|null
      */
     public function findOneByEmailAddress($email)
     {

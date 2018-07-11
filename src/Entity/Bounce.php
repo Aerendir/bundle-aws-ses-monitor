@@ -15,6 +15,8 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * A Bounce Entity.
  *
@@ -22,6 +24,9 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity;
  *
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ *
+ * @ORM\Table(name="shq_aws_ses_monitor_bounces")
+ * @ORM\Entity(repositoryClass="SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\BounceRepository")
  */
 class Bounce
 {
@@ -44,20 +49,29 @@ class Bounce
 
     /**
      * @var int
+     *
+     * @ORM\Column(name="id", type="integer", unique=true)
+     * @ORM\Id
      */
     private $id;
+
+    /**
+     * @var Email
+     * @ORM\ManyToOne(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email", inversedBy="bounces")
+     * @ORM\JoinColumn(name="email", referencedColumnName="address")
+     */
+    private $email;
 
     /**
      * The MessageObject that reported this bounce.
      *
      * @var MailMessage
+     *
+     * @ORM\ManyToOne(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage", inversedBy="bounces")
+     *
+     * @todo Review the relation
      */
     private $mailMessage;
-
-    /**
-     * @var string
-     */
-    private $emailAddress;
 
     /**
      * The date and time at which the bounce was sent (in ISO8601 format).
@@ -66,16 +80,19 @@ class Bounce
      * received by Amazon SES.
      *
      * @var \DateTime
+     * @ORM\Column(name="bounced_on", type="datetime")
      */
     private $bouncedOn;
 
     /**
      * @var string
+     * @ORM\Column(name="type", type="string")
      */
     private $type;
 
     /**
      * @var string
+     * @ORM\Column(name="sub_type", type="string")
      */
     private $subType;
 
@@ -83,6 +100,7 @@ class Bounce
      * A unique ID for the bounce.
      *
      * @var string
+     * @ORM\Column(name="feedback_id", type="string")
      */
     private $feedbackId;
 
@@ -92,7 +110,8 @@ class Bounce
      * This is the value of the Message Transfer Authority (MTA) that attempted to perform the delivery, relay, or
      * gateway operation described in the DSN.
      *
-     * @var string
+     * @var string|null
+     * @ORM\Column(name="reporting_mta", type="string", nullable=true)
      */
     private $reportingMta;
 
@@ -102,16 +121,18 @@ class Bounce
      * This indicates the action performed by the Reporting-MTA as a result of its attempt to deliver the message to
      * this recipient.
      *
-     * @var string
+     * @var string|null
+     * @ORM\Column(name="action", type="text", nullable=true)
      */
     private $action;
 
     /**
-     * The value of the EmailStatus field from the DSN.
+     * The value of the Email field from the DSN.
      *
      * This is the per-recipient transport-independent status code that indicates the delivery status of the message.
      *
-     * @var string
+     * @var string|null
+     * @ORM\Column(name="status", type="string", nullable=true)
      */
     private $status;
 
@@ -121,43 +142,39 @@ class Bounce
      * This is the value of the Diagnostic-Code field from the DSN. This field may be absent in the DSN (and therefore
      * also absent in the JSON).
      *
-     * @var string
+     * @var string|null
+     * @ORM\Column(name="diagnostic_code", type="text", nullable=true)
      */
     private $diagnosticCode;
 
     /**
-     * @var EmailStatus
-     */
-    private $emailStatus;
-
-    /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
+     * @return Email
+     */
+    public function getEmail(): Email
+    {
+        return $this->email;
+    }
+
+    /**
      * @return MailMessage
      */
-    public function getMailMessage()
+    public function getMailMessage(): MailMessage
     {
         return $this->mailMessage;
     }
 
     /**
-     * @return string
-     */
-    public function getEmailAddress()
-    {
-        return $this->emailAddress;
-    }
-
-    /**
      * @return \DateTime
      */
-    public function getBouncedOn()
+    public function getBouncedOn(): \DateTime
     {
         return $this->bouncedOn;
     }
@@ -165,55 +182,47 @@ class Bounce
     /**
      * @return string
      */
-    public function getFeedbackId()
+    public function getFeedbackId(): string
     {
         return $this->feedbackId;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getReportingMta()
+    public function getReportingMta(): ?string
     {
         return $this->reportingMta;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAction()
+    public function getAction(): ?string
     {
         return $this->action;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStatus()
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDiagnosticCode()
+    public function getDiagnosticCode(): ?string
     {
         return $this->diagnosticCode;
     }
 
     /**
-     * @return EmailStatus
-     */
-    public function getEmailStatus()
-    {
-        return $this->emailStatus;
-    }
-
-    /**
      * @return string
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
@@ -221,7 +230,7 @@ class Bounce
     /**
      * @return string
      */
-    public function getSubType()
+    public function getSubType(): string
     {
         return $this->subType;
     }
@@ -229,19 +238,21 @@ class Bounce
     /**
      * @return bool
      */
-    public function isPermanent()
+    public function isPermanent(): bool
     {
         return self::TYPE_PERMANENT === $this->type;
     }
 
     /**
-     * @param string $email
+     * @param Email $email
      *
-     * @return $this
+     * @return Bounce
+     *
+     * @internal
      */
-    public function setEmailAddress($email)
+    public function setEmail(Email $email): Bounce
     {
-        $this->emailAddress = $email;
+        $this->email = $email;
 
         return $this;
     }
@@ -249,7 +260,9 @@ class Bounce
     /**
      * @param MailMessage $mailMessage
      *
-     * @return $this
+     * @return Bounce
+     *
+     * @internal
      */
     public function setMailMessage(MailMessage $mailMessage)
     {
@@ -262,9 +275,11 @@ class Bounce
     /**
      * @param \DateTime $bouncedOn
      *
-     * @return $this
+     * @return Bounce
+     *
+     * @internal
      */
-    public function setBouncedOn($bouncedOn)
+    public function setBouncedOn(\DateTime $bouncedOn): Bounce
     {
         $this->bouncedOn = $bouncedOn;
 
@@ -272,11 +287,13 @@ class Bounce
     }
 
     /**
-     * @param bool $type
+     * @param string $type
      *
-     * @return $this
+     * @return Bounce
+     *
+     * @internal
      */
-    public function setType($type)
+    public function setType(string $type): Bounce
     {
         $this->type = $type;
 
@@ -284,11 +301,13 @@ class Bounce
     }
 
     /**
-     * @param bool $subType
+     * @param string $subType
      *
-     * @return $this
+     * @return Bounce
+     *
+     * @internal
      */
-    public function setSubType($subType)
+    public function setSubType(string $subType): Bounce
     {
         $this->subType = $subType;
 
@@ -298,9 +317,11 @@ class Bounce
     /**
      * @param string $feedbackId
      *
-     * @return $this
+     * @return Bounce
+     *
+     * @internal
      */
-    public function setFeedbackId($feedbackId)
+    public function setFeedbackId(string $feedbackId): Bounce
     {
         $this->feedbackId = $feedbackId;
 
@@ -310,9 +331,11 @@ class Bounce
     /**
      * @param string $reportingMta
      *
-     * @return $this
+     * @return Bounce
+     *
+     * @internal
      */
-    public function setReportingMta($reportingMta)
+    public function setReportingMta(string $reportingMta): Bounce
     {
         $this->reportingMta = $reportingMta;
 
@@ -322,9 +345,11 @@ class Bounce
     /**
      * @param string $action
      *
-     * @return $this
+     * @return Bounce
+     *
+     * @internal
      */
-    public function setAction($action)
+    public function setAction(string $action): Bounce
     {
         $this->action = $action;
 
@@ -334,9 +359,11 @@ class Bounce
     /**
      * @param string $status
      *
-     * @return $this
+     * @return Bounce
+     *
+     * @internal
      */
-    public function setStatus($status)
+    public function setStatus(string $status): Bounce
     {
         $this->status = $status;
 
@@ -346,9 +373,11 @@ class Bounce
     /**
      * @param string $diagnosticCode
      *
-     * @return $this
+     * @return Bounce
+     *
+     * @internal
      */
-    public function setDiagnosticCode($diagnosticCode)
+    public function setDiagnosticCode(string $diagnosticCode): Bounce
     {
         $this->diagnosticCode = $diagnosticCode;
 

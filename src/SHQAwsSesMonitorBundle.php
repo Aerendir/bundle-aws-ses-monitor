@@ -15,7 +15,6 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle;
 
-use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection\CompilerPass\SetCommandsCredentialsCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -34,33 +33,6 @@ class SHQAwsSesMonitorBundle extends Bundle
     {
         parent::build($container);
 
-        $modelDir = realpath(__DIR__ . '/Resources/config/doctrine/mappings');
-        $mappings = [
-            $modelDir => 'SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity',
-        ];
-
-        $ormCompilerClass = 'Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass';
-        if (class_exists($ormCompilerClass)) {
-            $container->addCompilerPass(
-                $this->getXmlMappingDriver($mappings)
-            );
-        }
-
         $container->addCompilerPass(new SetCommandsCredentialsCompilerPass());
-    }
-
-    /**
-     * @param array $mappings
-     *
-     * @return DoctrineOrmMappingsPass
-     */
-    private function getXmlMappingDriver(array $mappings)
-    {
-        return DoctrineOrmMappingsPass::createXmlMappingDriver(
-            $mappings,
-            ['shq_aws_ses_monitor.model_manager_name'],
-            'shq_aws_ses_monitor.backend_orm',
-            ['SHQAwsSesMonitorBundle' => 'SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity']
-        );
     }
 }

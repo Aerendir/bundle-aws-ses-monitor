@@ -15,34 +15,45 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Represents a Delivery.
  *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ *
+ * @ORM\Table(name="shq_aws_ses_monitor_deliveries")
+ * @ORM\Entity(repositoryClass="SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\DeliveryRepository")
  */
 class Delivery
 {
     /**
      * @var int
+     * @ORM\Column(name="id", type="integer", unique=true)
+     * @ORM\Id
      */
     private $id;
+
+    /**
+     * @var Email
+     * @ORM\ManyToOne(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email", inversedBy="deliveries")
+     * @ORM\JoinColumn(name="email", referencedColumnName="address")
+     */
+    private $email;
 
     /**
      * The MessageObject that reported this complaint.
      *
      * @var MailMessage
+     * @ORM\ManyToOne(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage", inversedBy="deliveries")
      */
     private $mailMessage;
-
-    /**
-     * @var string
-     */
-    private $emailAddress;
 
     /**
      * The time Amazon SES delivered the email to the recipient's mail server (in ISO8601 format).
      *
      * @var \DateTime
+     * @ORM\Column(name="delivered_on", type="datetime")
      */
     private $deliveredOn;
 
@@ -51,6 +62,7 @@ class Delivery
      * the recipient's mail server.
      *
      * @var int
+     * @ORM\Column(name="processing_time_millis", type="integer")
      */
     private $processingTimeMillis;
 
@@ -60,49 +72,46 @@ class Delivery
      * This message will vary by email, by receiving mail server, and by receiving ISP.
      *
      * @var string
+     * @ORM\Column(name="smtp_response", type="text")
      */
     private $smtpResponse;
 
     /**
      * The host name of the Amazon SES mail server that sent the mail.
      *
-     * @var string
+     * @var string|null
+     * @ORM\Column(name="reporting_mta", type="string", nullable=true)
      */
     private $reportingMta;
 
     /**
-     * @var EmailStatus
-     */
-    private $emailStatus;
-
-    /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
+     * @return Email
+     */
+    public function getEmail(): Email
+    {
+        return $this->email;
+    }
+
+    /**
      * @return MailMessage
      */
-    public function getMailMessage()
+    public function getMailMessage(): MailMessage
     {
         return $this->mailMessage;
     }
 
     /**
-     * @return string
-     */
-    public function getEmailAddress()
-    {
-        return $this->emailAddress;
-    }
-
-    /**
      * @return \DateTime
      */
-    public function getDeliveredOn()
+    public function getDeliveredOn(): \DateTime
     {
         return $this->deliveredOn;
     }
@@ -110,7 +119,7 @@ class Delivery
     /**
      * @return string
      */
-    public function getProcessingTimeMillis()
+    public function getProcessingTimeMillis(): string
     {
         return $this->processingTimeMillis;
     }
@@ -118,35 +127,29 @@ class Delivery
     /**
      * @return string
      */
-    public function getSmtpResponse()
+    public function getSmtpResponse(): string
     {
         return $this->smtpResponse;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getReportingMta()
+    public function getReportingMta(): ?string
     {
         return $this->reportingMta;
     }
 
     /**
-     * @return EmailStatus
-     */
-    public function getEmailStatus()
-    {
-        return $this->emailStatus;
-    }
-
-    /**
-     * @param string $email
+     * @param Email $email
      *
-     * @return $this
+     *@internal
+     *
+     * @return Delivery
      */
-    public function setEmailAddress($email)
+    public function setEmail(Email $email): Delivery
     {
-        $this->emailAddress = $email;
+        $this->email = $email;
 
         return $this;
     }
@@ -154,9 +157,11 @@ class Delivery
     /**
      * @param MailMessage $mailMessage
      *
-     * @return $this
+     *@internal
+     *
+     * @return Delivery
      */
-    public function setMailMessage(MailMessage $mailMessage)
+    public function setMailMessage(MailMessage $mailMessage): Delivery
     {
         $this->mailMessage = $mailMessage;
         $this->mailMessage->addDelivery($this);
@@ -167,9 +172,11 @@ class Delivery
     /**
      * @param \DateTime $deliveredOn
      *
-     * @return $this
+     *@internal
+     *
+     * @return Delivery
      */
-    public function setDeliveredOn($deliveredOn)
+    public function setDeliveredOn(\DateTime $deliveredOn): Delivery
     {
         $this->deliveredOn = $deliveredOn;
 
@@ -177,11 +184,13 @@ class Delivery
     }
 
     /**
-     * @param string $processingTimeMillis
+     * @param int $processingTimeMillis
      *
-     * @return $this
+     *@internal
+     *
+     * @return Delivery
      */
-    public function setProcessingTimeMillis($processingTimeMillis)
+    public function setProcessingTimeMillis(int $processingTimeMillis): Delivery
     {
         $this->processingTimeMillis = $processingTimeMillis;
 
@@ -191,9 +200,11 @@ class Delivery
     /**
      * @param string $smtpResponse
      *
-     * @return $this
+     *@internal
+     *
+     * @return Delivery
      */
-    public function setSmtpResponse($smtpResponse)
+    public function setSmtpResponse(string $smtpResponse): Delivery
     {
         $this->smtpResponse = $smtpResponse;
 
@@ -203,9 +214,11 @@ class Delivery
     /**
      * @param string $reportingMta
      *
-     * @return $this
+     *@internal
+     *
+     * @return Delivery
      */
-    public function setReportingMta($reportingMta)
+    public function setReportingMta(string $reportingMta): Delivery
     {
         $this->reportingMta = $reportingMta;
 

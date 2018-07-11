@@ -16,7 +16,7 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\EmailStatusRepository;
 use Swift_Events_SendEvent;
 
@@ -49,7 +49,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     {
         $this->bouncesConfig    = $bouncesConfig['filter'];
         $this->complaintsConfig = $complaintsConfig['filter'];
-        $this->emailStatusRepo  = $manager->getRepository(EmailStatus::class);
+        $this->emailStatusRepo  = $manager->getRepository(Email::class);
     }
 
     /**
@@ -93,8 +93,8 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
             $email = $this->emailStatusRepo->findOneByEmailAddress($email);
 
             if (null !== $email && ($this->isBounced($email) || $this->isComplained($email))) {
-                $this->blacklisted[$email->getEmailAddress()] = $recipients[$email->getEmailAddress()];
-                unset($recipients[$email->getEmailAddress()]);
+                $this->blacklisted[$email->getAddress()] = $recipients[$email->getAddress()];
+                unset($recipients[$email->getAddress()]);
             }
         }
 
@@ -102,11 +102,11 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     }
 
     /**
-     * @param EmailStatus $email
+     * @param Email $email
      *
      * @return bool
      */
-    private function isBounced(EmailStatus $email)
+    private function isBounced(Email $email)
     {
         if (false === $this->areBouncesChecksEnabled()) {
             return false;
@@ -130,11 +130,11 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     }
 
     /**
-     * @param EmailStatus $email
+     * @param Email $email
      *
      * @return bool
      */
-    private function isComplained(EmailStatus $email)
+    private function isComplained(Email $email)
     {
         if (false === $this->areComplaintsChecksEnabled()) {
             return false;

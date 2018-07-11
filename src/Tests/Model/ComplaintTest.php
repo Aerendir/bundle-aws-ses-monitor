@@ -39,7 +39,7 @@ class ComplaintTest extends TestCase
             'arrivalDate'           => $this->createMock(\DateTime::class),
         ];
 
-        $resource->setEmailAddress($test['email'])
+        $resource->setEmail($test['email'])
             ->setMailMessage($test['mailMessage'])
             ->setComplainedOn($test['complainedOn'])
             ->setFeedbackId($test['feedbackId'])
@@ -48,7 +48,7 @@ class ComplaintTest extends TestCase
             ->setArrivalDate($test['arrivalDate']);
 
         self::assertNull($resource->getId());
-        self::assertSame($test['email'], $resource->getEmailAddress());
+        self::assertSame($test['email'], $resource->getEmail());
         self::assertSame($test['mailMessage'], $resource->getMailMessage());
         self::assertSame($test['complainedOn'], $resource->getComplainedOn());
         self::assertSame($test['feedbackId'], $resource->getFeedbackId());

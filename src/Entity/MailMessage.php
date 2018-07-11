@@ -16,6 +16,8 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * A MailMessage Entity.
@@ -25,11 +27,16 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @see http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notification-contents.html#mail-object
  *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ *
+ * @ORM\Table(name="shq_aws_ses_monitor_messages")
+ * @ORM\Entity()
  */
 class MailMessage
 {
     /**
      * @var int
+     * @ORM\Column(name="id", type="integer", unique=true)
+     * @ORM\Id()
      */
     private $id;
 
@@ -41,6 +48,7 @@ class MailMessage
      * email in the headers and commonHeaders fields of the mail object.
      *
      * @var string
+     * @ORM\Column(name="message_id", type="string")
      */
     private $messageId;
 
@@ -50,6 +58,7 @@ class MailMessage
      * Formerly "timestamp".
      *
      * @var \DateTime
+     * @ORM\Column(name="sent_on", type="datetime")
      */
     private $sentOn;
 
@@ -59,6 +68,7 @@ class MailMessage
      * Formerly "source".
      *
      * @var string
+     * @ORM\Column(name="sent_from", type="string")
      */
     private $sentFrom;
 
@@ -70,6 +80,7 @@ class MailMessage
      * Authorization.
      *
      * @var string
+     * @ORM\Column(name="source_arn", type="string")
      */
     private $sourceArn;
 
@@ -79,6 +90,7 @@ class MailMessage
      * In the case of sending authorization, the sendingAccountId is the delegate sender's account ID.
      *
      * @var string
+     * @ORM\Column(name="sending_account_id", type="string")
      */
     private $sendingAccountId;
 
@@ -90,7 +102,8 @@ class MailMessage
      *
      * (Only present if the notification settings include the original email headers.)
      *
-     * @var string
+     * @var string|null
+     * @ORM\Column(name="headers", type="text", nullable=true)
      */
     private $headers;
 
@@ -103,17 +116,27 @@ class MailMessage
      *
      * (Only present if the notification settings include the original email headers.)
      *
-     * @var string
+     * @var string|null
+     * @ORM\Column(name="common_headers", type="text", nullable=true)
      */
     private $commonHeaders;
 
-    /** @var ArrayCollection */
+    /**
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce", mappedBy="mailMessage")
+     */
     private $bounces;
 
-    /** @var ArrayCollection */
+    /**
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint", mappedBy="mailMessage")
+     */
     private $complaints;
 
-    /** @var ArrayCollection */
+    /**
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery", mappedBy="mailMessage")
+     */
     private $deliveries;
 
     /**
@@ -129,9 +152,9 @@ class MailMessage
     /**
      * @param Bounce $bounce
      *
-     * @return $this
+     * @return MailMessage
      */
-    public function addBounce(Bounce $bounce)
+    public function addBounce(Bounce $bounce): MailMessage
     {
         $this->bounces->add($bounce);
 
@@ -145,9 +168,9 @@ class MailMessage
     /**
      * @param Complaint $complaint
      *
-     * @return $this
+     * @return MailMessage
      */
-    public function addComplaint(Complaint $complaint)
+    public function addComplaint(Complaint $complaint): MailMessage
     {
         $this->complaints->add($complaint);
 
@@ -161,9 +184,9 @@ class MailMessage
     /**
      * @param Delivery $delivery
      *
-     * @return $this
+     * @return MailMessage
      */
-    public function addDelivery(Delivery $delivery)
+    public function addDelivery(Delivery $delivery): MailMessage
     {
         $this->deliveries->add($delivery);
 
@@ -175,25 +198,25 @@ class MailMessage
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getBounces()
+    public function getBounces(): Collection
     {
         return $this->bounces;
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getComplaints()
+    public function getComplaints(): Collection
     {
         return $this->complaints;
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getDeliveries()
+    public function getDeliveries(): Collection
     {
         return $this->deliveries;
     }
@@ -201,7 +224,7 @@ class MailMessage
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -209,7 +232,7 @@ class MailMessage
     /**
      * @return string
      */
-    public function getMessageId()
+    public function getMessageId(): string
     {
         return $this->messageId;
     }
@@ -217,7 +240,7 @@ class MailMessage
     /**
      * @return \DateTime
      */
-    public function getSentOn()
+    public function getSentOn(): \DateTime
     {
         return $this->sentOn;
     }
@@ -225,7 +248,7 @@ class MailMessage
     /**
      * @return string
      */
-    public function getSentFrom()
+    public function getSentFrom(): string
     {
         return $this->sentFrom;
     }
@@ -233,7 +256,7 @@ class MailMessage
     /**
      * @return string
      */
-    public function getSourceArn()
+    public function getSourceArn(): string
     {
         return $this->sourceArn;
     }
@@ -241,7 +264,7 @@ class MailMessage
     /**
      * @return string
      */
-    public function getSendingAccountId()
+    public function getSendingAccountId(): string
     {
         return $this->sendingAccountId;
     }
@@ -249,7 +272,7 @@ class MailMessage
     /**
      * @return string
      */
-    public function getHeaders()
+    public function getHeaders(): string
     {
         return $this->headers;
     }
@@ -257,7 +280,7 @@ class MailMessage
     /**
      * @return string
      */
-    public function getCommonHeaders()
+    public function getCommonHeaders(): string
     {
         return $this->commonHeaders;
     }
@@ -265,9 +288,9 @@ class MailMessage
     /**
      * @param string $messageId
      *
-     * @return $this
+     * @return MailMessage
      */
-    public function setMessageId($messageId)
+    public function setMessageId(string $messageId): MailMessage
     {
         $this->messageId = $messageId;
 
@@ -277,9 +300,9 @@ class MailMessage
     /**
      * @param \DateTime $sentOn
      *
-     * @return $this
+     * @return MailMessage
      */
-    public function setSentOn($sentOn)
+    public function setSentOn(\DateTime $sentOn): MailMessage
     {
         $this->sentOn = $sentOn;
 
@@ -289,9 +312,9 @@ class MailMessage
     /**
      * @param string $sentFrom
      *
-     * @return $this
+     * @return MailMessage
      */
-    public function setSentFrom($sentFrom)
+    public function setSentFrom(string $sentFrom): MailMessage
     {
         $this->sentFrom = $sentFrom;
 
@@ -301,9 +324,9 @@ class MailMessage
     /**
      * @param string $sourceArn
      *
-     * @return $this
+     * @return MailMessage
      */
-    public function setSourceArn($sourceArn)
+    public function setSourceArn(string $sourceArn): MailMessage
     {
         $this->sourceArn = $sourceArn;
 
@@ -313,9 +336,9 @@ class MailMessage
     /**
      * @param string $sendingAccountId
      *
-     * @return $this
+     * @return MailMessage
      */
-    public function setSendingAccountId($sendingAccountId)
+    public function setSendingAccountId(string $sendingAccountId): MailMessage
     {
         $this->sendingAccountId = $sendingAccountId;
 
@@ -325,9 +348,9 @@ class MailMessage
     /**
      * @param string $headers
      *
-     * @return $this
+     * @return MailMessage
      */
-    public function setHeaders($headers)
+    public function setHeaders(string $headers): MailMessage
     {
         $this->headers = $headers;
 
@@ -337,9 +360,9 @@ class MailMessage
     /**
      * @param string $commonHeaders
      *
-     * @return $this
+     * @return MailMessage
      */
-    public function setCommonHeaders($commonHeaders)
+    public function setCommonHeaders(string $commonHeaders): MailMessage
     {
         $this->commonHeaders = $commonHeaders;
 

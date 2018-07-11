@@ -15,6 +15,8 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * A Topic entity.
  *
@@ -23,14 +25,24 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity;
  */
 class Topic
 {
-    /** @var int */
-    protected $id;
+    /**
+     * @var int
+     * @ORM\Column(name="email", type="string")
+     * @ORM\Id()
+     */
+    private $id;
 
-    /** @var string */
-    protected $topicArn;
+    /**
+     * @var string
+     * @ORM\Column(name="topic_arn", type="string", length="296")
+     */
+    private $topicArn;
 
-    /** @var string|null */
-    protected $token;
+    /**
+     * @var string|null
+     * @ORM\Column(name="token", type="string", length="1024", nullable=true)
+     */
+    private $token;
 
     /**
      * @param $topicArn
@@ -45,37 +57,33 @@ class Topic
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
+     * @return string
+     */
+    public function getTopicArn(): string
+    {
+        return $this->topicArn;
+    }
+
+    /**
      * @return string|null
      */
-    public function getToken()
+    public function getToken(): ?string
     {
         return $this->token;
     }
 
     /**
-     * @param string|null $token
-     *
-     * @return $this
-     */
-    public function setToken($token)
-    {
-        $this->token = $token;
-
-        return $this;
-    }
-
-    /**
      * @param string $topicArn
      *
-     * @return $this
+     * @return Topic
      */
-    public function setTopicArn($topicArn)
+    public function setTopicArn(string $topicArn): Topic
     {
         $this->topicArn = $topicArn;
 
@@ -83,10 +91,14 @@ class Topic
     }
 
     /**
-     * @return string
+     * @param string|null $token
+     *
+     * @return Topic
      */
-    public function getTopicArn()
+    public function setToken(string $token): Topic
     {
-        return $this->topicArn;
+        $this->token = $token;
+
+        return $this;
     }
 }

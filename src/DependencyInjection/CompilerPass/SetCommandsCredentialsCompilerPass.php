@@ -31,14 +31,14 @@ class SetCommandsCredentialsCompilerPass implements CompilerPassInterface
         $credentialsServiceName = $container->getParameter('shq_aws_ses_monitor.aws_config')['credentials_service_name'];
         $credentials            = $container->getDefinition($credentialsServiceName);
 
-        //$bouncesConfiguration = $container->getParameter('shq_aws_ses_monitor.bounces');
-        //$complaintsConfiguration = $container->getParameter('shq_aws_ses_monitor.complaints');
-        //$deliveriesConfiguration = $container->getParameter('shq_aws_ses_monitor.deliveries');
+        //$bouncesConfig = $container->getParameter('shq_aws_ses_monitor.bounces');
+        //$complaintsConfig = $container->getParameter('shq_aws_ses_monitor.complaints');
+        //$deliveriesConfig = $container->getParameter('shq_aws_ses_monitor.deliveries');
 
         foreach ($container->findTaggedServiceIds('shq_aws_ses_monitor.requires_credentials') as $service => $tags) {
             $commandDefinition = $container->getDefinition($service);
 
-            $commandDefinition->addMethodCall('setCredentials', [$credentials/*, $bouncesConfiguration, $complaintsConfiguration, $deliveriesConfiguration*/]);
+            $commandDefinition->addMethodCall('setCredentials', [$credentials/*, $bouncesConfig, $complaintsConfig, $deliveriesConfig*/]);
         }
     }
 }

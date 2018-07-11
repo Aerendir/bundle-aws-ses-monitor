@@ -30,13 +30,13 @@ use Symfony\Component\Routing\RouterInterface;
 class SnsSetupBouncesTopicCommand extends SnsSetupCommandAbstract
 {
     /**
-     * @param array            $bouncesConfiguration
+     * @param array            $bouncesConfig
      * @param AwsClientFactory $awsClientFactory
      * @param RouterInterface  $router
      */
-    public function __construct(array $bouncesConfiguration, AwsClientFactory $awsClientFactory, EntityManagerInterface $entityManager, RouterInterface $router)
+    public function __construct(array $bouncesConfig, AwsClientFactory $awsClientFactory, EntityManagerInterface $entityManager, RouterInterface $router)
     {
-        parent::__construct($bouncesConfiguration, NotificationHandler::MESSAGE_TYPE_BOUNCE, $awsClientFactory, $entityManager, $router);
+        parent::__construct($bouncesConfig, NotificationHandler::MESSAGE_TYPE_BOUNCE, $awsClientFactory, $entityManager, $router);
     }
 
     /**

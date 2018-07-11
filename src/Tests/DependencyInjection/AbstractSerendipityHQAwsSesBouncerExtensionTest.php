@@ -117,7 +117,7 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         self::assertTrue($this->container->has('shq_aws_ses_monitor.swift_mailer.filter'));
     }
 
-    public function testFilterEnabledByBouncesConfiguration()
+    public function testFilterEnabledBybouncesConfig()
     {
         $this->loadConfiguration($this->container, 'filter_enabled_by_bounces');
         $this->container->compile();
@@ -125,7 +125,7 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         self::assertTrue($this->container->has('shq_aws_ses_monitor.swift_mailer.filter'));
     }
 
-    public function testFilterEnabledByComplaintsConfiguration()
+    public function testFilterEnabledBycomplaintsConfig()
     {
         $this->loadConfiguration($this->container, 'filter_enabled_by_complaints');
         $this->container->compile();

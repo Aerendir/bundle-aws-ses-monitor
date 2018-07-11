@@ -42,7 +42,7 @@ class BounceTest extends TestCase
             'diagnosticCode' => 'test-diagnostic-code',
         ];
 
-        $resource->setEmailAddress($test['email'])
+        $resource->setEmail($test['email'])
             ->setMailMessage($test['mailMessage'])
             ->setBouncedOn($test['bouncedOn'])
             ->setType($test['type'])

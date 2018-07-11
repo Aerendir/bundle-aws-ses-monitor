@@ -17,7 +17,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Plugin;
 
 use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\EmailStatusRepository;
 
 /**
@@ -71,22 +71,22 @@ class PluginFilterTestBase extends TestCase
             ],
         ];
 
-        $this->mockBouncedEmailStatus = $this->createMock(EmailStatus::class);
+        $this->mockBouncedEmailStatus = $this->createMock(Email::class);
         $this->mockBouncedEmailStatus->method('getEmailAddress')->willReturn('bounced@example.com');
         $this->mockBouncedEmailStatus->method('getHardBouncesCount')->willReturn(3);
         $this->mockBouncedEmailStatus->method('getSoftBouncesCount')->willReturn(3);
 
-        $this->mockComplainedEmailStatus = $this->createMock(EmailStatus::class);
+        $this->mockComplainedEmailStatus = $this->createMock(Email::class);
         $this->mockComplainedEmailStatus->method('getEmailAddress')->willReturn('complained@example.com');
         $this->mockComplainedEmailStatus->method('getComplaintsCount')->willReturn(1);
 
-        $this->mockOotoEmailStatus = $this->createMock(EmailStatus::class);
+        $this->mockOotoEmailStatus = $this->createMock(Email::class);
         $this->mockOotoEmailStatus->method('getEmailAddress')->willReturn('ooto@example.com');
 
-        $this->mockSuccessEmailStatus = $this->createMock(EmailStatus::class);
+        $this->mockSuccessEmailStatus = $this->createMock(Email::class);
         $this->mockSuccessEmailStatus->method('getEmailAddress')->willReturn('success@example.com');
 
-        $this->mockSuppressedEmailStatus = $this->createMock(EmailStatus::class);
+        $this->mockSuppressedEmailStatus = $this->createMock(Email::class);
         $this->mockSuppressedEmailStatus->method('getEmailAddress')->willReturn('suppressed@example.com');
 
         $map = [

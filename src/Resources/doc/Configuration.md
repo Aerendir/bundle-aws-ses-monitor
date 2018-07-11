@@ -48,8 +48,6 @@ The full configuration is as follows. The set values are the default ones:
 ```yaml
 SHQAwsSesMonitorBundlele"
 shq_aws_ses_monitor:
-    db_driver: orm #OPTIONL. Currently only ORM supported.
-    model_manager_name: null # OPTIONAL. Set this if you are using a custom ORM model manager.
     aws_config:
         credentials_service_name: 'client.amazon.credentials' # REQUIRED. Here the NAME (not the service itself!) of the credentials service set in the previous step.
                                                               # If you omit this, the bundle looks for client.aws.credentials service.
