@@ -61,7 +61,11 @@ shq_aws_ses_monitor:
                 host: yourapp.com # REQUIRED. The hostname of your project when in production.
 ```
 
-Now you are ready to launch the console commands to create the topics on AWS SNS.
+Now you are ready to launch the console commands to create the topics on AWS SNS and subscribe your app to them.
+
+The full procedure is described on the AWS SNS documentation "[Sending Amazon SNS Messages to HTTP/HTTPS Endpoints](https://docs.aws.amazon.com/sns/latest/dg/SendMessageToHttp.html)" page.
+
+The console command will automate all the steps.
 
 So, run in console:
 ```

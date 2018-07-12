@@ -52,6 +52,7 @@ class Bounce
      *
      * @ORM\Column(name="id", type="integer", unique=true)
      * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -146,6 +147,53 @@ class Bounce
      * @ORM\Column(name="diagnostic_code", type="text", nullable=true)
      */
     private $diagnosticCode;
+
+    /**
+     * @param Email       $email
+     * @param MailMessage $mailMessage
+     */
+    public function __construct(Email $email, MailMessage $mailMessage)
+    {
+        $this->email = $email;
+        $this->setMailMessage($mailMessage);
+
+        $this->email->addBounce($this);
+    }
+
+    /**
+     * @param Email       $email
+     * @param MailMessage $mailMessage
+     * @param array       $bouncedRecipient
+     * @param array       $notification
+     *
+     * @return Bounce
+     */
+    public static function create(Email $email, MailMessage $mailMessage, array $bouncedRecipient, array $notification): Bounce
+    {
+        $bounce = (new self($email, $mailMessage))
+            ->setBouncedOn(new \DateTime($notification['bounce']['timestamp']))
+            ->setType(($notification['bounce']['bounceType']))
+            ->setSubType(($notification['bounce']['bounceSubType']))
+            ->setFeedbackId($notification['bounce']['feedbackId']);
+
+        if (isset($notification['bounce']['reportingMta'])) {
+            $bounce->setReportingMta($notification['bounce']['reportingMta']);
+        }
+
+        if (isset($bouncedRecipient['action'])) {
+            $bounce->setAction($bouncedRecipient['action']);
+        }
+
+        if (isset($bouncedRecipient['status'])) {
+            $bounce->setStatus($bouncedRecipient['status']);
+        }
+
+        if (isset($bouncedRecipient['diagnosticCode'])) {
+            $bounce->setDiagnosticCode($bouncedRecipient['diagnosticCode']);
+        }
+
+        return $bounce;
+    }
 
     /**
      * @return int
@@ -258,21 +306,6 @@ class Bounce
     }
 
     /**
-     * @param MailMessage $mailMessage
-     *
-     * @return Bounce
-     *
-     * @internal
-     */
-    public function setMailMessage(MailMessage $mailMessage)
-    {
-        $this->mailMessage = $mailMessage;
-        $this->mailMessage->addBounce($this);
-
-        return $this;
-    }
-
-    /**
      * @param \DateTime $bouncedOn
      *
      * @return Bounce
@@ -380,6 +413,21 @@ class Bounce
     public function setDiagnosticCode(string $diagnosticCode): Bounce
     {
         $this->diagnosticCode = $diagnosticCode;
+
+        return $this;
+    }
+
+    /**
+     * @param MailMessage $mailMessage
+     *
+     * @return Bounce
+     *
+     * @internal
+     */
+    private function setMailMessage(MailMessage $mailMessage)
+    {
+        $this->mailMessage = $mailMessage;
+        $this->mailMessage->addBounce($this);
 
         return $this;
     }

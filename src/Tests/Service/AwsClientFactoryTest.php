@@ -19,7 +19,7 @@ use Aws\Credentials\Credentials;
 use Aws\Ses\SesClient;
 use Aws\Sns\SnsClient;
 use PHPUnit\Framework\TestCase;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Factory\AwsClientFactory;
 
 /**
  * @author Audrius Karabanovas <audrius@karabanovas.net>

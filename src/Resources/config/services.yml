@@ -4,16 +4,29 @@ services:
         autoconfigure: true
         public: false
         bind:
+            $config: '%shq_aws_ses_monitor.aws_config%'
             $bouncesConfig: '%shq_aws_ses_monitor.bounces%'
             $complaintsConfig: '%shq_aws_ses_monitor.complaints%'
             $deliveriesConfig: '%shq_aws_ses_monitor.deliveries%'
-    SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\HandlerFactory: ~
-    SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory:
-        arguments: ['%shq_aws_ses_monitor.aws_config%']
-    SerendipityHQ\Bundle\AwsSesMonitorBundle\Command\SesSendTestEmailsCommand: ~
-    SerendipityHQ\Bundle\AwsSesMonitorBundle\Command\SnsSetupBouncesTopicCommand:
-        tags: ['shq_aws_ses_monitor.requires_credentials']
-    SerendipityHQ\Bundle\AwsSesMonitorBundle\Command\SnsSetupComplaintsTopicCommand:
-        tags: ['shq_aws_ses_monitor.requires_credentials']
-    SerendipityHQ\Bundle\AwsSesMonitorBundle\Command\SnsSetupDeliveriesTopicCommand:
-        tags: ['shq_aws_ses_monitor.requires_credentials']
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    SerendipityHQ\Bundle\AwsSesMonitorBundle\Command\:
+        resource: '%kernel.project_dir%/vendor/serendipity_hq/aws-ses-monitor-bundle/src/Command/*'
+    SerendipityHQ\Bundle\AwsSesMonitorBundle\Factory\:
+        resource: '%kernel.project_dir%/vendor/serendipity_hq/aws-ses-monitor-bundle/src/Factory/*'
+    SerendipityHQ\Bundle\AwsSesMonitorBundle\Handler\:
+        resource: '%kernel.project_dir%/vendor/serendipity_hq/aws-ses-monitor-bundle/src/Handler/*'
+    SerendipityHQ\Bundle\AwsSesMonitorBundle\Helper\:
+        resource: '%kernel.project_dir%/vendor/serendipity_hq/aws-ses-monitor-bundle/src/Helper/*'
+    SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\:
+        resource: '%kernel.project_dir%/vendor/serendipity_hq/aws-ses-monitor-bundle/src/Service/*'
+
+    Aws\Sns\MessageValidator: ~
+
+    #SerendipityHQ\Bundle\AwsSesMonitorBundle\Factory\HandlerFactory: ~
+    #SerendipityHQ\Bundle\AwsSesMonitorBundle\Command\SesSendTestEmailsCommand: ~
+    #SerendipityHQ\Bundle\AwsSesMonitorBundle\Command\SnsSetupBouncesTopicCommand: ~
+    #SerendipityHQ\Bundle\AwsSesMonitorBundle\Command\SnsSetupComplaintsTopicCommand: ~
+    #SerendipityHQ\Bundle\AwsSesMonitorBundle\Command\SnsSetupDeliveriesTopicCommand: ~
+    #SerendipityHQ\Bundle\AwsSesMonitorBundle\Factory\AwsClientFactory:
+    #    arguments: ['%shq_aws_ses_monitor.aws_config%']

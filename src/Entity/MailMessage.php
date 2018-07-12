@@ -36,7 +36,8 @@ class MailMessage
     /**
      * @var int
      * @ORM\Column(name="id", type="integer", unique=true)
-     * @ORM\Id()
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -150,6 +151,31 @@ class MailMessage
     }
 
     /**
+     * @param array $mailMessageData
+     *
+     * @return MailMessage
+     */
+    public static function create(array $mailMessageData): MailMessage
+    {
+        $mailMessage = new self();
+        $mailMessage->setMessageId($mailMessageData['messageId'])
+                    ->setSentOn(new \DateTime($mailMessageData['timestamp']))
+                    ->setSentFrom($mailMessageData['source'])
+                    ->setSourceArn($mailMessageData['sourceArn'])
+                    ->setSendingAccountId($mailMessageData['sendingAccountId']);
+
+        if (isset($mailMessageData['headers'])) {
+            $mailMessage->setHeaders($mailMessageData['headers']);
+        }
+
+        if (isset($mailMessageData['commonHeaders'])) {
+            $mailMessage->setCommonHeaders($mailMessageData['commonHeaders']);
+        }
+
+        return $mailMessage;
+    }
+
+    /**
      * @param Bounce $bounce
      *
      * @return MailMessage
@@ -157,10 +183,6 @@ class MailMessage
     public function addBounce(Bounce $bounce): MailMessage
     {
         $this->bounces->add($bounce);
-
-        if ($bounce->getMailMessage() !== $this) {
-            $bounce->setMailMessage($this);
-        }
 
         return $this;
     }
@@ -174,10 +196,6 @@ class MailMessage
     {
         $this->complaints->add($complaint);
 
-        if ($complaint->getMailMessage() !== $this) {
-            $complaint->setMailMessage($this);
-        }
-
         return $this;
     }
 
@@ -189,10 +207,6 @@ class MailMessage
     public function addDelivery(Delivery $delivery): MailMessage
     {
         $this->deliveries->add($delivery);
-
-        if ($delivery->getMailMessage() !== $this) {
-            $delivery->setMailMessage($this);
-        }
 
         return $this;
     }
@@ -288,6 +302,8 @@ class MailMessage
     /**
      * @param string $messageId
      *
+     * @internal
+     *
      * @return MailMessage
      */
     public function setMessageId(string $messageId): MailMessage
@@ -299,6 +315,8 @@ class MailMessage
 
     /**
      * @param \DateTime $sentOn
+     *
+     * @internal
      *
      * @return MailMessage
      */
@@ -312,6 +330,8 @@ class MailMessage
     /**
      * @param string $sentFrom
      *
+     * @internal
+     *
      * @return MailMessage
      */
     public function setSentFrom(string $sentFrom): MailMessage
@@ -323,6 +343,8 @@ class MailMessage
 
     /**
      * @param string $sourceArn
+     *
+     * @internal
      *
      * @return MailMessage
      */
@@ -336,6 +358,8 @@ class MailMessage
     /**
      * @param string $sendingAccountId
      *
+     * @internal
+     *
      * @return MailMessage
      */
     public function setSendingAccountId(string $sendingAccountId): MailMessage
@@ -348,6 +372,8 @@ class MailMessage
     /**
      * @param string $headers
      *
+     * @internal
+     *
      * @return MailMessage
      */
     public function setHeaders(string $headers): MailMessage
@@ -359,6 +385,8 @@ class MailMessage
 
     /**
      * @param string $commonHeaders
+     *
+     * @internal
      *
      * @return MailMessage
      */

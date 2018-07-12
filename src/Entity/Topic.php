@@ -30,19 +30,20 @@ class Topic
     /**
      * @var int
      * @ORM\Column(name="email", type="string")
-     * @ORM\Id()
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var string
-     * @ORM\Column(name="topic_arn", type="string", length="296")
+     * @ORM\Column(name="topic_arn", type="string", length=296)
      */
     private $topicArn;
 
     /**
      * @var string|null
-     * @ORM\Column(name="token", type="string", length="1024", nullable=true)
+     * @ORM\Column(name="token", type="string", length=1024, nullable=true)
      */
     private $token;
 

@@ -16,8 +16,8 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationHandler;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Factory\AwsClientFactory;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\SnsTypes;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
@@ -30,13 +30,14 @@ use Symfony\Component\Routing\RouterInterface;
 class SnsSetupBouncesTopicCommand extends SnsSetupCommandAbstract
 {
     /**
-     * @param array            $bouncesConfig
-     * @param AwsClientFactory $awsClientFactory
-     * @param RouterInterface  $router
+     * @param array                  $bouncesConfig
+     * @param AwsClientFactory       $awsClientFactory
+     * @param EntityManagerInterface $entityManager
+     * @param RouterInterface        $router
      */
     public function __construct(array $bouncesConfig, AwsClientFactory $awsClientFactory, EntityManagerInterface $entityManager, RouterInterface $router)
     {
-        parent::__construct($bouncesConfig, NotificationHandler::MESSAGE_TYPE_BOUNCE, $awsClientFactory, $entityManager, $router);
+        parent::__construct($bouncesConfig, SnsTypes::MESSAGE_TYPE_BOUNCE, $awsClientFactory, $entityManager, $router);
     }
 
     /**

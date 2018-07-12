@@ -22,9 +22,9 @@ use Aws\Sns\SnsClient;
 use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Topic;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Factory\AwsClientFactory;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\TopicRepository;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\SubscriptionConfirmationHandler;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\SubscriptionProcessor;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -65,7 +65,7 @@ class SubscriptionConfirmationHandlerTest extends TestCase
     public function testReturn405IfMethodIsNotPost()
     {
         $this->mockRequest->method('isMethod')->willReturn(false);
-        $handler  = new SubscriptionConfirmationHandler($this->mockEntityManager, $this->mockAwsClientFactory, $this->mockMessageValidator);
+        $handler  = new SubscriptionProcessor($this->mockEntityManager, $this->mockAwsClientFactory, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
         self::assertSame(405, $response['code'], $response['content']);
     }
@@ -88,7 +88,7 @@ class SubscriptionConfirmationHandlerTest extends TestCase
         $this->mockRequest->method('getContent')->willReturn($encodedData);
         $this->mockMessageValidator->method('isValid')->willReturn(false);
 
-        $handler  = new SubscriptionConfirmationHandler($this->mockEntityManager, $this->mockAwsClientFactory, $this->mockMessageValidator);
+        $handler  = new SubscriptionProcessor($this->mockEntityManager, $this->mockAwsClientFactory, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
         self::assertSame(403, $response['code'], $response['content']);
     }
@@ -111,7 +111,7 @@ class SubscriptionConfirmationHandlerTest extends TestCase
         $this->mockRequest->method('getContent')->willReturn($encodedData);
         $this->mockMessageValidator->method('isValid')->willThrowException(new InvalidSnsMessageException('An error message'));
 
-        $handler  = new SubscriptionConfirmationHandler($this->mockEntityManager, $this->mockAwsClientFactory, $this->mockMessageValidator);
+        $handler  = new SubscriptionProcessor($this->mockEntityManager, $this->mockAwsClientFactory, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
         self::assertSame(403, $response['code'], $response['content']);
     }
@@ -134,7 +134,7 @@ class SubscriptionConfirmationHandlerTest extends TestCase
         $this->mockRequest->method('getContent')->willReturn($encodedData);
         $this->mockMessageValidator->method('isValid')->willReturn(true);
 
-        $handler  = new SubscriptionConfirmationHandler($this->mockEntityManager, $this->mockAwsClientFactory, $this->mockMessageValidator);
+        $handler  = new SubscriptionProcessor($this->mockEntityManager, $this->mockAwsClientFactory, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
         self::assertSame(403, $response['code'], $response['content']);
     }
@@ -163,7 +163,7 @@ class SubscriptionConfirmationHandlerTest extends TestCase
         $mockTopicRepository->method('findOneByTopicArn')->willReturn(null);
         $this->mockEntityManager->method('getRepository')->willReturn($mockTopicRepository);
 
-        $handler  = new SubscriptionConfirmationHandler($this->mockEntityManager, $this->mockAwsClientFactory, $this->mockMessageValidator);
+        $handler  = new SubscriptionProcessor($this->mockEntityManager, $this->mockAwsClientFactory, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
         self::assertSame(404, $response['code'], $response['content']);
     }
@@ -197,7 +197,7 @@ class SubscriptionConfirmationHandlerTest extends TestCase
 
         $this->mockAwsClientFactory->method('getSnsClient')->willReturn($mockSnsClient);
 
-        $handler  = new SubscriptionConfirmationHandler($this->mockEntityManager, $this->mockAwsClientFactory, $this->mockMessageValidator);
+        $handler  = new SubscriptionProcessor($this->mockEntityManager, $this->mockAwsClientFactory, $this->mockMessageValidator);
         $response = $handler->handleRequest($this->mockRequest, $this->mockCredentials);
         self::assertSame(200, $response['code'], $response['content']);
     }

@@ -76,21 +76,16 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     }
 
     /**
-     * @param $recipients
+     * @param array $recipients
      *
-     * @return mixed
-     *
-     * @todo Review
+     * @return array
      */
-    private function filterBlacklisted($recipients)
+    private function filterBlacklisted(array $recipients): array
     {
-        if ( ! is_array($recipients)) {
-            return $recipients;
-        }
-
         $emails = array_keys($recipients);
 
         foreach ($emails as $email) {
+            /** @var Email|null $email */
             $email = $this->emailStatusRepo->findOneBy(['email' => $email]);
 
             if (null !== $email && ($this->isBounced($email) || $this->isComplained($email))) {

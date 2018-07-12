@@ -24,7 +24,6 @@ use Doctrine\ORM\EntityRepository;
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationHandler;
 use SerendipityHQ\Library\PHPUnit_Helper\PHPUnitHelper;
 use Symfony\Component\HttpFoundation\Request;
 

@@ -31,13 +31,14 @@ class Email
     /**
      * @var string
      * @ORM\Column()
-     * @ORM\Id()
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $address;
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce", mappedBy="email")
+     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce", mappedBy="email", cascade={"persist"}))
      */
     private $bounces;
 
@@ -67,7 +68,7 @@ class Email
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint", mappedBy="email")
+     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint", mappedBy="email", cascade={"persist"}))
      */
     private $complaints;
 
@@ -79,7 +80,7 @@ class Email
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery", mappedBy="email")
+     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery", mappedBy="email", cascade={"persist"}))
      */
     private $deliveries;
 

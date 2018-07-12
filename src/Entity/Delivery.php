@@ -31,6 +31,7 @@ class Delivery
      * @var int
      * @ORM\Column(name="id", type="integer", unique=true)
      * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -83,6 +84,41 @@ class Delivery
      * @ORM\Column(name="reporting_mta", type="string", nullable=true)
      */
     private $reportingMta;
+
+    /**
+     * @param Email       $email
+     * @param MailMessage $mailMessage
+     */
+    public function __construct(Email $email, MailMessage $mailMessage)
+    {
+        $this->email = $email;
+        $this->setMailMessage($mailMessage);
+
+        $this->email->addDelivery($this);
+    }
+
+    /**
+     * @param Email       $email
+     * @param MailMessage $mailMessage
+     * @param array       $notification
+     *
+     * @return Delivery
+     */
+    public static function create(Email $email, MailMessage $mailMessage, array $notification): Delivery
+    {
+        $delivery = (new self($email, $mailMessage))
+            ->setDeliveredOn(new \DateTime($notification['delivery']['timestamp']))
+            ->setProcessingTimeMillis($notification['delivery']['processingTimeMillis'])
+            ->setSmtpResponse($notification['delivery']['smtpResponse']);
+
+        if (isset($notification['delivery']['reportingMta'])) {
+            $delivery->setReportingMta($notification['delivery']['reportingMta']);
+        }
+
+        $email->addDelivery($delivery);
+
+        return $delivery;
+    }
 
     /**
      * @return int

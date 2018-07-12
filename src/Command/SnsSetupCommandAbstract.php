@@ -15,14 +15,13 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 
-use Aws\Credentials\Credentials;
 use Aws\Ses\SesClient;
 use Aws\Sns\Exception\SnsException;
 use Aws\Sns\SnsClient;
 use Doctrine\ORM\EntityManagerInterface;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Topic;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationHandler;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Factory\AwsClientFactory;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\SnsTypes;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -84,20 +83,13 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
         $this->entityManager    = $entityManager;
         $this->router           = $router;
         $this->requestContext   = $router->getContext();
+        $this->sesClient        = $this->awsClientFactory->getSesClient();
+        $this->snsClient        = $this->awsClientFactory->getSnsClient();
 
         $this->requestContext->setHost($this->topicConfig['endpoint']['host']);
-        $this->requestContext->setScheme($this->topicConfig['endpoint']['schema']);
+        $this->requestContext->setScheme($this->topicConfig['endpoint']['scheme']);
 
         parent::__construct();
-    }
-
-    /**
-     * @param Credentials $credentials
-     */
-    public function setCredentials(Credentials $credentials): void
-    {
-        $this->sesClient = $this->awsClientFactory->getSesClient($credentials);
-        $this->snsClient = $this->awsClientFactory->getSnsClient($credentials);
     }
 
     /**
@@ -148,13 +140,13 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
     {
         if ('not_set' === $this->topicConfig['name']) {
             switch ($this->notificationType) {
-                case NotificationHandler::MESSAGE_TYPE_BOUNCE:
+                case SnsTypes::MESSAGE_TYPE_BOUNCE:
                     $topicKind = 'bounces';
                     break;
-                case NotificationHandler::MESSAGE_TYPE_COMPLAINT:
+                case SnsTypes::MESSAGE_TYPE_COMPLAINT:
                     $topicKind = 'complaints';
                     break;
-                case NotificationHandler::MESSAGE_TYPE_DELIVERY:
+                case SnsTypes::MESSAGE_TYPE_DELIVERY:
                     $topicKind = 'deliveries';
                     break;
                 default:
@@ -203,9 +195,9 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
     public function buildSubscribeArray(): array
     {
         return [
-            'TopicArn' => $this->topicArn,
-            'schema'   => $this->topicConfig['endpoint']['schema'],
-            'Endpoint' => $this->router->generate(
+            'TopicArn'   => $this->topicArn,
+            'Protocol'   => $this->topicConfig['endpoint']['scheme'],
+            'Endpoint'   => $this->router->generate(
                 $this->topicConfig['endpoint']['route_name'],
                 [],
                 RouterInterface::ABSOLUTE_URL
@@ -214,15 +206,7 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
     }
 
     /**
-     * Executes the command.
-     *
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     *
-     * @return bool|int|null null or 0 if everything went fine, or an error code
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

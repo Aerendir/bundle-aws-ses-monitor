@@ -73,7 +73,7 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
          * Test bounces configuration
          */
         self::assertSame('_shq_aws_ses_monitor_bounces_endpoint', $this->container->getParameter('shq_aws_ses_monitor.bounces')['topic']['endpoint']['route_name']);
-        self::assertSame('http', $this->container->getParameter('shq_aws_ses_monitor.bounces')['topic']['endpoint']['schema']);
+        self::assertSame('http', $this->container->getParameter('shq_aws_ses_monitor.bounces')['topic']['endpoint']['scheme']);
         self::assertSame('localhost.local', $this->container->getParameter('shq_aws_ses_monitor.bounces')['topic']['endpoint']['host']);
         self::assertTrue($this->container->getParameter('shq_aws_ses_monitor.bounces')['filter']['enabled']);
         self::assertFalse($this->container->getParameter('shq_aws_ses_monitor.bounces')['filter']['soft_as_hard']);
@@ -86,7 +86,7 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
          * Test complaints configuration
          */
         self::assertSame('_shq_aws_ses_monitor_complaints_endpoint', $this->container->getParameter('shq_aws_ses_monitor.complaints')['topic']['endpoint']['route_name']);
-        self::assertSame('http', $this->container->getParameter('shq_aws_ses_monitor.complaints')['topic']['endpoint']['schema']);
+        self::assertSame('http', $this->container->getParameter('shq_aws_ses_monitor.complaints')['topic']['endpoint']['scheme']);
         self::assertSame('localhost.local', $this->container->getParameter('shq_aws_ses_monitor.complaints')['topic']['endpoint']['host']);
         self::assertTrue($this->container->getParameter('shq_aws_ses_monitor.complaints')['filter']['enabled']);
         self::assertSame('forever', $this->container->getParameter('shq_aws_ses_monitor.complaints')['filter']['blacklist_time']);
@@ -97,7 +97,7 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
          */
         self::assertTrue($this->container->getParameter('shq_aws_ses_monitor.deliveries')['enabled']);
         self::assertSame('_shq_aws_ses_monitor_deliveries_endpoint', $this->container->getParameter('shq_aws_ses_monitor.deliveries')['topic']['endpoint']['route_name']);
-        self::assertSame('http', $this->container->getParameter('shq_aws_ses_monitor.deliveries')['topic']['endpoint']['schema']);
+        self::assertSame('http', $this->container->getParameter('shq_aws_ses_monitor.deliveries')['topic']['endpoint']['scheme']);
         self::assertSame('localhost.local', $this->container->getParameter('shq_aws_ses_monitor.deliveries')['topic']['endpoint']['host']);
     }
 

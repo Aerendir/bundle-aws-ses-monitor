@@ -61,7 +61,7 @@ shq_aws_ses_monitor:
             name: ses-your_app-bounces-topic # OPTIONAL. Required only to use the configuration commands. 
             endpoint:
                 route_name: _shq_aws_ses_monitor_bounces_endpoint # OTIONAL. The endpoint AWS SNS calls when SES reports a bounce.
-                schema: https # OPTIONAL. The schema to use. Accepted values are: http, HTTP, https, HTTPS.
+                scheme: https # OPTIONAL. The scheme to use. Accepted values are: http, HTTP, https, HTTPS.
                 host: your_domain.com # REQUIRED. The hostname of your project when in production.
         filter:
             enabled: true # OPTIONAL. If false, no filtering of bounced recipients will happen. Complained are ever filtered.
@@ -75,7 +75,7 @@ shq_aws_ses_monitor:
             name: ses-your_app-complaints-topic # OPTIONAL. Required only to use the configuration commands.
             endpoint:
                 route_name: _shq_aws_ses_monitor_complaints_endpoint # OTIONAL. The endpoint AWS SNS calls when SES reports a complaint.
-                schema: https # OPTIONAL. The schema to use. Accepted values are: http, HTTP, https, HTTPS.
+                scheme: https # OPTIONAL. The scheme to use. Accepted values are: http, HTTP, https, HTTPS.
                 host: your_domain.com # REQUIRED. The hostname of your project when in production.
         filter:
             enabled: true # OPTIONAL. If false, no filtering of complained recipients will happen. "false" IS VERY RISKY!
@@ -87,7 +87,7 @@ shq_aws_ses_monitor:
             name: ses-your_app-deliveries-topic # OPTIONAL. Required only to use the configuration commands.
             endpoint:
                 route_name: _shq_aws_ses_monitor_deliveries_endpoint # OTIONAL. The endpoint AWS SNS calls when SES reports a delivery.
-                schema: https # OPTIONAL. The schema to use. Accepted values are: http, HTTP, https, HTTPS.
+                scheme: https # OPTIONAL. The scheme to use. Accepted values are: http, HTTP, https, HTTPS.
                 host: your_domain.com # REQUIRED. The hostname of your project when in production.
         # Has no filter options
 ```
@@ -101,11 +101,11 @@ shq_aws_ses_monitor:
     prefix: /aws/endpoints
 ```
 
-Step 4: Update your database schema
+Step 4: Update your database scheme
 -----------------------------------
 
 ```
-$ php app/console doctrine:schema:update --force
+$ php app/console doctrine:scheme:update --force
 ```
 
 *Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*

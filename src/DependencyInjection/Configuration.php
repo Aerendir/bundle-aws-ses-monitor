@@ -29,26 +29,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     /**
-     * The list of supported ORM drivers.
-     *
-     * @return array
-     */
-    public static function getSupportedDrivers()
-    {
-        return ['orm'];
-    }
-
-    /**
-     * The list of supported protocols.
-     *
-     * @return array
-     */
-    public static function getSupportedProtocols()
-    {
-        return ['HTTP', 'HTTPS', 'http', 'https'];
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getConfigTreeBuilder()
@@ -58,15 +38,6 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('db_driver')
-                    ->validate()
-                        ->ifNotInArray(self::getSupportedDrivers())
-                        ->thenInvalid('The driver %s is not supported. Please choose one of ' . json_encode(self::getSupportedDrivers()))
-                    ->end()
-                    ->cannotBeOverwritten()
-                    ->defaultValue('orm')
-                    ->cannotBeEmpty()
-                ->end()
                 ->arrayNode('aws_config')
                     ->isRequired()
                     ->children()
@@ -144,13 +115,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('endpoint')
                     ->children()
                         ->scalarNode('route_name')->defaultValue($routeName)->cannotBeEmpty()->end()
-                        ->scalarNode('scheme')
-                            ->defaultValue('https')
-                            ->validate()
-                                ->ifNotInArray(self::getSupportedProtocols())
-                                ->thenInvalid('The protocol %s for ' . $type . ' is not supported. Please choose one of ' . json_encode(self::getSupportedProtocols()))
-                            ->end()
-                        ->end()
+                        ->scalarNode('scheme')->defaultValue('https')->end()
                         ->scalarNode('host')->isRequired()->cannotBeEmpty()->end()
                     ->end()
                 ->end()

@@ -13,7 +13,7 @@
  * @license   MIT License.
  */
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Factory;
 
 use Aws\Credentials\Credentials;
 use Aws\Ses\SesClient;
@@ -29,10 +29,11 @@ use Aws\Sns\SnsClient;
  */
 class AwsClientFactory
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     private $config;
+
+    /** @var Credentials $credentials */
+    private $credentials;
 
     /**
      * @param array $config
@@ -43,52 +44,72 @@ class AwsClientFactory
     }
 
     /**
+     * @return Credentials
+     */
+    public function getCredentials(): Credentials
+    {
+        return $this->credentials;
+    }
+
+    /**
      * @param Credentials $credentials
-     *
+     */
+    public function setCredentials(Credentials $credentials): void
+    {
+        $this->credentials = $credentials;
+    }
+
+    /**
      * @return SesClient
      */
-    public function getSesClient(Credentials $credentials)
+    public function getSesClient(): SesClient
     {
-        $config = $this->buildSesConfig($credentials);
+        static $client = null;
 
-        return new SesClient($config);
+        if (null === $client) {
+            $config = $this->buildSesConfig();
+
+            $client = new SesClient($config);
+        }
+
+        return $client;
     }
 
     /**
-     * @param Credentials $credentials
-     *
      * @return SnsClient
      */
-    public function getSnsClient(Credentials $credentials)
+    public function getSnsClient(): SnsClient
     {
-        $config = $this->buildSnsConfig($credentials);
+        static $client = null;
 
-        return new SnsClient($config);
+        if (null === $client) {
+            $config = $this->buildSnsConfig();
+
+            $client = new SnsClient($config);
+        }
+
+        return $client;
     }
 
     /**
-     * @param Credentials $credentials
-     *
      * @return array
      */
-    private function buildSesConfig(Credentials $credentials)
+    private function buildSesConfig(): array
     {
         return [
-            'credentials' => $credentials,
+            'credentials' => $this->getCredentials(),
             'region'      => $this->config['region'],
             'version'     => $this->config['ses_version'],
         ];
     }
 
     /**
-     * @param Credentials $credentials
-     *
      * @return array
      */
-    private function buildSnsConfig(Credentials $credentials)
+    private function buildSnsConfig(): array
     {
         return [
-            'credentials' => $credentials,
+            'credentials' => $this->getCredentials(),
             'region'      => $this->config['region'],
             'version'     => $this->config['sns_version'],
         ];

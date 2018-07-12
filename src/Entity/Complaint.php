@@ -55,6 +55,7 @@ class Complaint
      *
      * @ORM\Column(name="id", type="integer", unique=true)
      * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -123,6 +124,46 @@ class Complaint
      * @ORM\Column(name="arrival_date", type="datetime", nullable=true)
      */
     private $arrivalDate;
+
+    /**
+     * @param Email       $email
+     * @param MailMessage $mailMessage
+     */
+    public function __construct(Email $email, MailMessage $mailMessage)
+    {
+        $this->email = $email;
+        $this->setMailMessage($mailMessage);
+
+        $this->email->addComplaint($this);
+    }
+
+    /**
+     * @param Email       $email
+     * @param MailMessage $mailMessage
+     * @param array       $notification
+     *
+     * @return Complaint
+     */
+    public static function create(Email $email, MailMessage $mailMessage, array $notification): Complaint
+    {
+        $complaint = (new self($email, $mailMessage))
+            ->setComplainedOn(new \DateTime($notification['complaint']['timestamp']))
+            ->setFeedbackId($notification['complaint']['feedbackId']);
+
+        if (isset($notification['complaint']['userAgent'])) {
+            $complaint->setUserAgent($notification['complaint']['userAgent']);
+        }
+
+        if (isset($notification['complaint']['complaintFeedbackType'])) {
+            $complaint->setComplaintFeedbackType($notification['complaint']['complaintFeedbackType']);
+        }
+
+        if (isset($notification['complaint']['arrivalDate'])) {
+            $complaint->setArrivalDate(new \DateTime($notification['complaint']['arrivalDate']));
+        }
+
+        return $complaint;
+    }
 
     /**
      * @return int

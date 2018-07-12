@@ -18,11 +18,10 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Service;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\AwsClientFactory;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\HandlerFactory;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Factory\AwsClientFactory;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Factory\HandlerFactory;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NoopHandler;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationHandler;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\SubscriptionConfirmationHandler;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\SubscriptionProcessor;
 use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -86,8 +85,8 @@ class HandlerFactoryTest extends TestCase
         $factory = new HandlerFactory($this->_em, $this->aws);
 
         /* @var \Symfony\Component\HttpFoundation\Request $request */
-        $this->request->headers->set('x-amz-sns-message-type', SubscriptionConfirmationHandler::HEADER_TYPE);
+        $this->request->headers->set('x-amz-sns-message-type', SubscriptionProcessor::HEADER_TYPE);
         $object = $factory->buildHandler($this->request);
-        self::assertInstanceOf(SubscriptionConfirmationHandler::class, $object);
+        self::assertInstanceOf(SubscriptionProcessor::class, $object);
     }
 }

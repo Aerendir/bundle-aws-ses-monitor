@@ -15,7 +15,7 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle;
 
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection\CompilerPass\SetCommandsCredentialsCompilerPass;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection\CompilerPass\SetCredentialsCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -33,6 +33,6 @@ class SHQAwsSesMonitorBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(new SetCommandsCredentialsCompilerPass());
+        $container->addCompilerPass(new SetCredentialsCompilerPass());
     }
 }

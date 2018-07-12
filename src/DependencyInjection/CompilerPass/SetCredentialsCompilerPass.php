@@ -15,26 +15,24 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection\CompilerPass;
 
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Factory\AwsClientFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Set the credentials in the command.
  */
-class SetCommandsCredentialsCompilerPass implements CompilerPassInterface
+class SetCredentialsCompilerPass implements CompilerPassInterface
 {
     /**
      * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {
-        $credentialsServiceName = $container->getParameter('shq_aws_ses_monitor.aws_config')['credentials_service_name'];
-        $credentials            = $container->getDefinition($credentialsServiceName);
+        $credentialsServiceName     = $container->getParameter('shq_aws_ses_monitor.aws_config')['credentials_service_name'];
+        $credentials                = $container->getDefinition($credentialsServiceName);
+        $awsClientFactoryDefinition = $container->getDefinition(AwsClientFactory::class);
 
-        foreach ($container->findTaggedServiceIds('shq_aws_ses_monitor.requires_credentials') as $service => $tags) {
-            $commandDefinition = $container->getDefinition($service);
-
-            $commandDefinition->addMethodCall('setCredentials', [$credentials/*, $bouncesConfig, $complaintsConfig, $deliveriesConfig*/]);
-        }
+        $awsClientFactoryDefinition->addMethodCall('setCredentials', [$credentials]);
     }
 }
