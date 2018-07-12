@@ -23,7 +23,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  *
  * @ORM\Table(name="shq_aws_ses_monitor_deliveries")
- * @ORM\Entity(repositoryClass="SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\DeliveryRepository")
+ * @ORM\Entity()
  */
 class Delivery
 {
@@ -117,9 +117,9 @@ class Delivery
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getProcessingTimeMillis(): string
+    public function getProcessingTimeMillis(): int
     {
         return $this->processingTimeMillis;
     }
@@ -143,7 +143,7 @@ class Delivery
     /**
      * @param Email $email
      *
-     *@internal
+     * @internal
      *
      * @return Delivery
      */
@@ -157,7 +157,7 @@ class Delivery
     /**
      * @param MailMessage $mailMessage
      *
-     *@internal
+     * @internal
      *
      * @return Delivery
      */
@@ -172,7 +172,7 @@ class Delivery
     /**
      * @param \DateTime $deliveredOn
      *
-     *@internal
+     * @internal
      *
      * @return Delivery
      */
@@ -186,7 +186,7 @@ class Delivery
     /**
      * @param int $processingTimeMillis
      *
-     *@internal
+     * @internal
      *
      * @return Delivery
      */
@@ -200,7 +200,7 @@ class Delivery
     /**
      * @param string $smtpResponse
      *
-     *@internal
+     * @internal
      *
      * @return Delivery
      */
@@ -214,7 +214,7 @@ class Delivery
     /**
      * @param string $reportingMta
      *
-     *@internal
+     * @internal
      *
      * @return Delivery
      */

@@ -25,7 +25,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  *
  * @ORM\Table(name="shq_aws_ses_monitor_complaints")
- * @ORM\Entity(repositoryClass="SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\ComplaintRepository")
+ * @ORM\Entity()
  */
 class Complaint
 {
@@ -109,7 +109,7 @@ class Complaint
      *
      * This contains the type of feedback.
      *
-     * @var string
+     * @var string|null
      * @ORM\Column(name="complaint_feedback_type", type="string", nullable=true)
      */
     private $complaintFeedbackType;
@@ -119,7 +119,7 @@ class Complaint
      *
      * This field may be absent in the report (and therefore also absent in the JSON).
      *
-     * @var string
+     * @var \DateTime|null
      * @ORM\Column(name="arrival_date", type="datetime", nullable=true)
      */
     private $arrivalDate;
@@ -141,9 +141,9 @@ class Complaint
     }
 
     /**
-     * @return string
+     * @return Email
      */
-    public function getEmail(): string
+    public function getEmail(): Email
     {
         return $this->email;
     }
@@ -173,17 +173,17 @@ class Complaint
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getComplaintFeedbackType(): string
+    public function getComplaintFeedbackType(): ? string
     {
         return $this->complaintFeedbackType;
     }
 
     /**
-     * @return string
+     * @return \DateTime|null
      */
-    public function getArrivalDate(): string
+    public function getArrivalDate(): ? \DateTime
     {
         return $this->arrivalDate;
     }
@@ -205,7 +205,7 @@ class Complaint
     /**
      * @param MailMessage $mailMessage
      *
-     *@internal
+     * @internal
      *
      * @return Complaint
      */
@@ -220,7 +220,7 @@ class Complaint
     /**
      * @param \DateTime $complainedOn
      *
-     *@internal
+     * @internal
      *
      * @return Complaint
      */
@@ -234,7 +234,7 @@ class Complaint
     /**
      * @param string $feedbackId
      *
-     *@internal
+     * @internal
      *
      * @return Complaint
      */
@@ -248,7 +248,7 @@ class Complaint
     /**
      * @param string $userAgent
      *
-     *@internal
+     * @internal
      *
      * @return Complaint
      */
@@ -262,7 +262,7 @@ class Complaint
     /**
      * @param string $complaintFeedbackType
      *
-     *@internal
+     * @internal
      *
      * @return Complaint
      */
@@ -276,7 +276,7 @@ class Complaint
     /**
      * @param \DateTime $arrivalDate
      *
-     *@internal
+     * @internal
      *
      * @return Complaint
      */

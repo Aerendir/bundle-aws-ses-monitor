@@ -104,12 +104,12 @@ class SesSendTestEmailsCommand extends Command
     }
 
     /**
-     * @param $sendTo
-     * @param mixed $sendFrom
+     * @param string $sendFrom
+     * @param string $sendTo
      *
      * @return \Swift_Message
      */
-    private function createMessage($sendFrom, $sendTo): \Swift_Message
+    private function createMessage(string $sendFrom, string $sendTo): \Swift_Message
     {
         return (new \Swift_Message())
             ->setSubject('Test message from Aws Ses Monitor Bundle')

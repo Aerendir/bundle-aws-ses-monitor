@@ -25,7 +25,6 @@ use Aws\Sns\SnsClient;
  * @see https://aws.amazon.com/it/documentation/ses/
  * @see https://aws.amazon.com/it/documentation/sns/
  *
- * @author Audrius Karabanovas <audrius@karabanovas.net>
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
 class AwsClientFactory
@@ -38,7 +37,7 @@ class AwsClientFactory
     /**
      * @param array $config
      */
-    public function __construct($config)
+    public function __construct(array $config)
     {
         $this->config = $config;
     }

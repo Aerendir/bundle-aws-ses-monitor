@@ -24,7 +24,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  * @ORM\Table(name="shq_aws_ses_monitor_emails", indexes={@ORM\Index(name="emails", columns={"address"})})
- * @ORM\Entity(repositoryClass="SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\EmailStatusRepository")
+ * @ORM\Entity()
  */
 class Email
 {
@@ -189,7 +189,7 @@ class Email
      */
     public function addBounce(Bounce $bounce): Email
     {
-        $bounce->setEmail($this->getAddress());
+        $bounce->setEmail($this);
         $this->lastBounceType  = $bounce->getType();
         $this->lastTimeBounced = $bounce->getBouncedOn();
 
@@ -213,7 +213,7 @@ class Email
      */
     public function addComplaint(Complaint $complaint): Email
     {
-        $complaint->setEmail($this->getAddress());
+        $complaint->setEmail($this);
         $this->lastTimeComplained = $complaint->getComplainedOn();
 
         return $this;
@@ -228,7 +228,7 @@ class Email
      */
     public function addDelivery(Delivery $delivery): Email
     {
-        $delivery->setEmail($this->getAddress());
+        $delivery->setEmail($this);
         $this->lastTimeDelivered = $delivery->getDeliveredOn();
 
         return $this;

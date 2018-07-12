@@ -270,17 +270,17 @@ class MailMessage
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getHeaders(): string
+    public function getHeaders(): ? string
     {
         return $this->headers;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCommonHeaders(): string
+    public function getCommonHeaders(): ? string
     {
         return $this->commonHeaders;
     }

@@ -32,15 +32,13 @@ use Symfony\Component\HttpFoundation\Response;
 class NotifyController extends Controller
 {
     /**
-     * @param Request $request
+     * @param Request        $request
+     * @param HandlerFactory $factory
      *
      * @return Response
      */
-    public function notifyAction(Request $request)
+    public function notifyAction(Request $request, HandlerFactory $factory)
     {
-        /** @var HandlerFactory $factory */
-        $factory = $this->get('shq_aws_ses_monitor.handler.factory');
-
         $monitorHandler = $factory->buildHandler($request);
         $response       = $monitorHandler->handleRequest($request, $this->getCredentials());
 

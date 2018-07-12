@@ -17,7 +17,6 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\EmailStatusRepository;
 use Swift_Events_SendEvent;
 
 /**
@@ -37,7 +36,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     /** @var array $complaintsConfig */
     private $complaintsConfig;
 
-    /** @var EmailStatusRepository $emailStatusRepo */
+    /** @var \Doctrine\Common\Persistence\ObjectRepository $emailStatusRepo */
     private $emailStatusRepo;
 
     /**
@@ -57,7 +56,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      *
      * @param Swift_Events_SendEvent $event
      */
-    public function beforeSendPerformed(Swift_Events_SendEvent $event)
+    public function beforeSendPerformed(Swift_Events_SendEvent $event): void
     {
         $message = $event->getMessage();
 
@@ -71,7 +70,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      *
      * @param Swift_Events_SendEvent $evt
      */
-    public function sendPerformed(Swift_Events_SendEvent $evt)
+    public function sendPerformed(Swift_Events_SendEvent $evt): void
     {
         $evt->setFailedRecipients(array_keys($this->blacklisted));
     }
@@ -80,6 +79,8 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      * @param $recipients
      *
      * @return mixed
+     *
+     * @todo Review
      */
     private function filterBlacklisted($recipients)
     {
@@ -90,7 +91,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
         $emails = array_keys($recipients);
 
         foreach ($emails as $email) {
-            $email = $this->emailStatusRepo->findOneByEmailAddress($email);
+            $email = $this->emailStatusRepo->findOneBy(['email' => $email]);
 
             if (null !== $email && ($this->isBounced($email) || $this->isComplained($email))) {
                 $this->blacklisted[$email->getAddress()] = $recipients[$email->getAddress()];
@@ -106,7 +107,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      *
      * @return bool
      */
-    private function isBounced(Email $email)
+    private function isBounced(Email $email): bool
     {
         if (false === $this->areBouncesChecksEnabled()) {
             return false;
@@ -134,7 +135,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      *
      * @return bool
      */
-    private function isComplained(Email $email)
+    private function isComplained(Email $email): bool
     {
         if (false === $this->areComplaintsChecksEnabled()) {
             return false;
@@ -144,7 +145,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
             return false;
         }
 
-        if ($email->getComplaintsCount() >= 1) {
+        if ($email->getComplaints()->count() >= 1) {
             return true;
         }
 
@@ -154,7 +155,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     /**
      * @return bool
      */
-    private function areBouncesChecksEnabled()
+    private function areBouncesChecksEnabled(): bool
     {
         return $this->bouncesConfig['enabled'];
     }
@@ -162,7 +163,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     /**
      * @return bool
      */
-    private function areBouncesForced()
+    private function areBouncesForced(): bool
     {
         return $this->bouncesConfig['force_send'];
     }
@@ -170,7 +171,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     /**
      * @return bool
      */
-    private function areComplaintsChecksEnabled()
+    private function areComplaintsChecksEnabled(): bool
     {
         return $this->complaintsConfig['enabled'];
     }
@@ -178,7 +179,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     /**
      * @return bool
      */
-    private function areComplaintsForced()
+    private function areComplaintsForced(): bool
     {
         return $this->complaintsConfig['force_send'];
     }

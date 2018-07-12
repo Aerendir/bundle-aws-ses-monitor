@@ -4,3 +4,4 @@ parameters:
         - src
     excludes_analyse:
         - */src/Tests/*
+        - */src/DependencyInjection/Configuration.php

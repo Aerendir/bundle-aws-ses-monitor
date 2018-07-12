@@ -54,6 +54,9 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
     /** @var EntityManagerInterface $entityManager */
     private $entityManager;
 
+    /** @var RouterInterface $router */
+    private $router;
+
     /** @var RequestContext $requestContext */
     private $requestContext;
 
@@ -79,6 +82,7 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
         $this->notificationType = $notificationType;
         $this->awsClientFactory = $awsClientFactory;
         $this->entityManager    = $entityManager;
+        $this->router           = $router;
         $this->requestContext   = $router->getContext();
 
         $this->requestContext->setHost($this->topicConfig['endpoint']['host']);
@@ -201,9 +205,11 @@ abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
         return [
             'TopicArn' => $this->topicArn,
             'schema'   => $this->topicConfig['endpoint']['schema'],
-            'Endpoint' => $this->getContainer()
-                ->get('router')
-                ->generate($this->topicConfig['endpoint']['route_name'], [], RouterInterface::ABSOLUTE_URL),
+            'Endpoint' => $this->router->generate(
+                $this->topicConfig['endpoint']['route_name'],
+                [],
+                RouterInterface::ABSOLUTE_URL
+            ),
         ];
     }
 

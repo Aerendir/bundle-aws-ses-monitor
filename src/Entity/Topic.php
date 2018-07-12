@@ -22,6 +22,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @author Audrius Karabanovas <audrius@karabanovas.net>
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ * @ORM\Table(name="shq_aws_ses_monitor_topics")
+ * @ORM\Entity()
  */
 class Topic
 {
@@ -45,10 +47,10 @@ class Topic
     private $token;
 
     /**
-     * @param $topicArn
-     * @param null $token
+     * @param string      $topicArn
+     * @param string|null $token
      */
-    public function __construct($topicArn, $token = null)
+    public function __construct(string $topicArn, ?string $token = null)
     {
         $this->setTopicArn($topicArn);
         $this->setToken($token);
@@ -95,7 +97,7 @@ class Topic
      *
      * @return Topic
      */
-    public function setToken(string $token): Topic
+    public function setToken(?string $token): Topic
     {
         $this->token = $token;
 

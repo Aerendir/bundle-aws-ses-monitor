@@ -26,7 +26,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  *
  * @ORM\Table(name="shq_aws_ses_monitor_bounces")
- * @ORM\Entity(repositoryClass="SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\BounceRepository")
+ * @ORM\Entity()
  */
 class Bounce
 {
