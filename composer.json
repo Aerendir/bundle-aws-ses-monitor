@@ -19,7 +19,7 @@
         }
     ],
     "require": {
-        "php": "^7.0",
+        "php": "^7.1",
         "aws/aws-sdk-php": "^3.2",
         "aws/aws-php-sns-message-validator": "^1.1.0",
         "doctrine/doctrine-bundle": "^1.7",
