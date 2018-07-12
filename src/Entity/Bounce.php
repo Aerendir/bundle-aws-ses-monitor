@@ -58,7 +58,7 @@ class Bounce
 
     /**
      * @var Email
-     * @ORM\ManyToOne(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email", inversedBy="bounces")
+     * @ORM\ManyToOne(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email", inversedBy="bounces", cascade={"persist"})
      * @ORM\JoinColumn(name="email", referencedColumnName="address")
      */
     private $email;
@@ -197,6 +197,7 @@ class Bounce
 
     /**
      * @return int
+     * @codeCoverageIgnore
      */
     public function getId(): int
     {
@@ -292,41 +293,11 @@ class Bounce
     }
 
     /**
-     * @param Email $email
-     *
-     * @return Bounce
-     *
-     * @internal
-     */
-    public function setEmail(Email $email): Bounce
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * @param \DateTime $bouncedOn
-     *
-     * @return Bounce
-     *
-     * @internal
-     */
-    public function setBouncedOn(\DateTime $bouncedOn): Bounce
-    {
-        $this->bouncedOn = $bouncedOn;
-
-        return $this;
-    }
-
-    /**
      * @param string $type
      *
      * @return Bounce
-     *
-     * @internal
      */
-    public function setType(string $type): Bounce
+    private function setType(string $type): Bounce
     {
         $this->type = $type;
 
@@ -337,10 +308,8 @@ class Bounce
      * @param string $subType
      *
      * @return Bounce
-     *
-     * @internal
      */
-    public function setSubType(string $subType): Bounce
+    private function setSubType(string $subType): Bounce
     {
         $this->subType = $subType;
 
@@ -351,10 +320,8 @@ class Bounce
      * @param string $feedbackId
      *
      * @return Bounce
-     *
-     * @internal
      */
-    public function setFeedbackId(string $feedbackId): Bounce
+    private function setFeedbackId(string $feedbackId): Bounce
     {
         $this->feedbackId = $feedbackId;
 
@@ -365,10 +332,8 @@ class Bounce
      * @param string $reportingMta
      *
      * @return Bounce
-     *
-     * @internal
      */
-    public function setReportingMta(string $reportingMta): Bounce
+    private function setReportingMta(string $reportingMta): Bounce
     {
         $this->reportingMta = $reportingMta;
 
@@ -379,10 +344,8 @@ class Bounce
      * @param string $action
      *
      * @return Bounce
-     *
-     * @internal
      */
-    public function setAction(string $action): Bounce
+    private function setAction(string $action): Bounce
     {
         $this->action = $action;
 
@@ -393,10 +356,8 @@ class Bounce
      * @param string $status
      *
      * @return Bounce
-     *
-     * @internal
      */
-    public function setStatus(string $status): Bounce
+    private function setStatus(string $status): Bounce
     {
         $this->status = $status;
 
@@ -407,12 +368,22 @@ class Bounce
      * @param string $diagnosticCode
      *
      * @return Bounce
-     *
-     * @internal
      */
-    public function setDiagnosticCode(string $diagnosticCode): Bounce
+    private function setDiagnosticCode(string $diagnosticCode): Bounce
     {
         $this->diagnosticCode = $diagnosticCode;
+
+        return $this;
+    }
+
+    /**
+     * @param \DateTime $bouncedOn
+     *
+     * @return Bounce
+     */
+    private function setBouncedOn(\DateTime $bouncedOn): Bounce
+    {
+        $this->bouncedOn = $bouncedOn;
 
         return $this;
     }
@@ -421,8 +392,6 @@ class Bounce
      * @param MailMessage $mailMessage
      *
      * @return Bounce
-     *
-     * @internal
      */
     private function setMailMessage(MailMessage $mailMessage)
     {

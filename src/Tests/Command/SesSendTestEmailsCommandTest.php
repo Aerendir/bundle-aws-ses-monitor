@@ -29,8 +29,10 @@ class SesSendTestEmailsCommandTest extends TestCase
 {
     public function testExecute()
     {
+        /** @var \Swift_Mailer $mockMailer */
+        $mockMailer  = self::getMockBuilder(\Swift_Mailer::class)->disableOriginalConstructor()->getMock();
         $application = new Application();
-        $application->add(new SesSendTestEmailsCommand());
+        $application->add(new SesSendTestEmailsCommand($mockMailer));
 
         /** @var ContainerAwareCommand $command */
         $command = $application->find('aws:ses:monitor:test:swiftmailer');

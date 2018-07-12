@@ -38,7 +38,7 @@ class Email
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce", mappedBy="email", cascade={"persist"}))
+     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce", mappedBy="email")
      */
     private $bounces;
 
@@ -68,7 +68,7 @@ class Email
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint", mappedBy="email", cascade={"persist"}))
+     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint", mappedBy="email")
      */
     private $complaints;
 
@@ -80,7 +80,7 @@ class Email
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery", mappedBy="email", cascade={"persist"}))
+     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery", mappedBy="email")
      */
     private $deliveries;
 
@@ -190,16 +190,24 @@ class Email
      */
     public function addBounce(Bounce $bounce): Email
     {
-        $bounce->setEmail($this);
-        $this->lastBounceType  = $bounce->getType();
-        $this->lastTimeBounced = $bounce->getBouncedOn();
+        // Add only if not already added to avoid circular references
+        $predictate = function (/** @noinspection PhpUnusedParameterInspection */ $key, Bounce $element) use ($bounce) {
+            return $element->getFeedbackId() === $bounce->getFeedbackId();
+        };
 
-        if (Bounce::TYPE_PERMANENT === $this->getLastBounceType()) {
-            ++$this->hardBouncesCount;
-        }
+        if (false === $this->bounces->exists($predictate)) {
+            $this->bounces->add($bounce);
 
-        if (Bounce::TYPE_TRANSIENT === $this->getLastBounceType()) {
-            ++$this->softBouncesCount;
+            $this->lastBounceType  = $bounce->getType();
+            $this->lastTimeBounced = $bounce->getBouncedOn();
+
+            if (Bounce::TYPE_PERMANENT === $this->getLastBounceType()) {
+                ++$this->hardBouncesCount;
+            }
+
+            if (Bounce::TYPE_TRANSIENT === $this->getLastBounceType()) {
+                ++$this->softBouncesCount;
+            }
         }
 
         return $this;
@@ -214,8 +222,16 @@ class Email
      */
     public function addComplaint(Complaint $complaint): Email
     {
-        $complaint->setEmail($this);
-        $this->lastTimeComplained = $complaint->getComplainedOn();
+        // Add only if not already added to avoid circular references
+        $predictate = function (/** @noinspection PhpUnusedParameterInspection */ $key, Complaint $element) use ($complaint) {
+            return $element->getFeedbackId() === $complaint->getFeedbackId();
+        };
+
+        if (false === $this->complaints->exists($predictate)) {
+            $this->complaints->add($complaint);
+
+            $this->lastTimeComplained = $complaint->getComplainedOn();
+        }
 
         return $this;
     }
@@ -229,8 +245,17 @@ class Email
      */
     public function addDelivery(Delivery $delivery): Email
     {
-        $delivery->setEmail($this);
-        $this->lastTimeDelivered = $delivery->getDeliveredOn();
+        // Add only if not already added to avoid circular references
+        $predictate = function (/** @noinspection PhpUnusedParameterInspection */ $key, Delivery $element) use ($delivery) {
+            // A Delivery doesn't have a feedbackId, so we rely on timestamp that should be sufficient to get identity uniqueness
+            return $element->getDeliveredOn()->getTimestamp() === $delivery->getDeliveredOn()->getTimestamp();
+        };
+
+        if (false === $this->deliveries->exists($predictate)) {
+            $this->deliveries->add($delivery);
+
+            $this->lastTimeDelivered = $delivery->getDeliveredOn();
+        }
 
         return $this;
     }

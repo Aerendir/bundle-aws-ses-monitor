@@ -61,7 +61,7 @@ class Complaint
 
     /**
      * @var Email
-     * @ORM\ManyToOne(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email", inversedBy="complaints")
+     * @ORM\ManyToOne(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email", inversedBy="complaints", cascade={"persist"})
      * @ORM\JoinColumn(name="email", referencedColumnName="address")
      */
     private $email;
@@ -230,27 +230,11 @@ class Complaint
     }
 
     /**
-     * @param Email $email
-     *
-     * @return Complaint
-     *
-     * @internal
-     */
-    public function setEmail(Email $email): Complaint
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
      * @param MailMessage $mailMessage
      *
-     * @internal
-     *
      * @return Complaint
      */
-    public function setMailMessage(MailMessage $mailMessage): Complaint
+    private function setMailMessage(MailMessage $mailMessage): Complaint
     {
         $this->mailMessage = $mailMessage;
         $this->mailMessage->addComplaint($this);
@@ -261,11 +245,9 @@ class Complaint
     /**
      * @param \DateTime $complainedOn
      *
-     * @internal
-     *
      * @return Complaint
      */
-    public function setComplainedOn(\DateTime $complainedOn): Complaint
+    private function setComplainedOn(\DateTime $complainedOn): Complaint
     {
         $this->complainedOn = $complainedOn;
 
@@ -275,11 +257,9 @@ class Complaint
     /**
      * @param string $feedbackId
      *
-     * @internal
-     *
      * @return Complaint
      */
-    public function setFeedbackId(string $feedbackId): Complaint
+    private function setFeedbackId(string $feedbackId): Complaint
     {
         $this->feedbackId = $feedbackId;
 
@@ -289,11 +269,9 @@ class Complaint
     /**
      * @param string $userAgent
      *
-     * @internal
-     *
      * @return Complaint
      */
-    public function setUserAgent(string $userAgent): Complaint
+    private function setUserAgent(string $userAgent): Complaint
     {
         $this->userAgent = $userAgent;
 
@@ -303,11 +281,9 @@ class Complaint
     /**
      * @param string $complaintFeedbackType
      *
-     * @internal
-     *
      * @return Complaint
      */
-    public function setComplaintFeedbackType(string $complaintFeedbackType): Complaint
+    private function setComplaintFeedbackType(string $complaintFeedbackType): Complaint
     {
         $this->complaintFeedbackType = $complaintFeedbackType;
 
@@ -317,11 +293,9 @@ class Complaint
     /**
      * @param \DateTime $arrivalDate
      *
-     * @internal
-     *
      * @return Complaint
      */
-    public function setArrivalDate(\DateTime $arrivalDate): Complaint
+    private function setArrivalDate(\DateTime $arrivalDate): Complaint
     {
         $this->arrivalDate = $arrivalDate;
 

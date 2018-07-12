@@ -13,7 +13,7 @@
  * @license   MIT License.
  */
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Model;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Entity;
 
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint;

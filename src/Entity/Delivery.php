@@ -20,6 +20,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Represents a Delivery.
  *
+ * @see https://docs.aws.amazon.com/ses/latest/DeveloperGuide/notification-contents.html#delivery-object
+ *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  *
  * @ORM\Table(name="shq_aws_ses_monitor_deliveries")
@@ -37,7 +39,7 @@ class Delivery
 
     /**
      * @var Email
-     * @ORM\ManyToOne(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email", inversedBy="deliveries")
+     * @ORM\ManyToOne(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email", inversedBy="deliveries", cascade={"persist"})
      * @ORM\JoinColumn(name="email", referencedColumnName="address")
      */
     private $email;
@@ -115,8 +117,6 @@ class Delivery
             $delivery->setReportingMta($notification['delivery']['reportingMta']);
         }
 
-        $email->addDelivery($delivery);
-
         return $delivery;
     }
 
@@ -177,27 +177,11 @@ class Delivery
     }
 
     /**
-     * @param Email $email
-     *
-     * @internal
-     *
-     * @return Delivery
-     */
-    public function setEmail(Email $email): Delivery
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
      * @param MailMessage $mailMessage
      *
-     * @internal
-     *
      * @return Delivery
      */
-    public function setMailMessage(MailMessage $mailMessage): Delivery
+    private function setMailMessage(MailMessage $mailMessage): Delivery
     {
         $this->mailMessage = $mailMessage;
         $this->mailMessage->addDelivery($this);
@@ -208,11 +192,9 @@ class Delivery
     /**
      * @param \DateTime $deliveredOn
      *
-     * @internal
-     *
      * @return Delivery
      */
-    public function setDeliveredOn(\DateTime $deliveredOn): Delivery
+    private function setDeliveredOn(\DateTime $deliveredOn): Delivery
     {
         $this->deliveredOn = $deliveredOn;
 
@@ -222,11 +204,9 @@ class Delivery
     /**
      * @param int $processingTimeMillis
      *
-     * @internal
-     *
      * @return Delivery
      */
-    public function setProcessingTimeMillis(int $processingTimeMillis): Delivery
+    private function setProcessingTimeMillis(int $processingTimeMillis): Delivery
     {
         $this->processingTimeMillis = $processingTimeMillis;
 
@@ -236,11 +216,9 @@ class Delivery
     /**
      * @param string $smtpResponse
      *
-     * @internal
-     *
      * @return Delivery
      */
-    public function setSmtpResponse(string $smtpResponse): Delivery
+    private function setSmtpResponse(string $smtpResponse): Delivery
     {
         $this->smtpResponse = $smtpResponse;
 
@@ -250,11 +228,9 @@ class Delivery
     /**
      * @param string $reportingMta
      *
-     * @internal
-     *
      * @return Delivery
      */
-    public function setReportingMta(string $reportingMta): Delivery
+    private function setReportingMta(string $reportingMta): Delivery
     {
         $this->reportingMta = $reportingMta;
 
