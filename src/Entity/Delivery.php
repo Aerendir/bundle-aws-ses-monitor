@@ -122,6 +122,7 @@ class Delivery
 
     /**
      * @return int
+     * @codeCoverageIgnore
      */
     public function getId(): int
     {

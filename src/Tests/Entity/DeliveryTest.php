@@ -17,6 +17,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Entity;
 
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage;
 
 /**
@@ -28,30 +29,26 @@ class DeliveryTest extends TestCase
 {
     public function testDelivery()
     {
-        $resource = new Delivery();
         $test     = [
-            'email'                => 'test@example.com',
+            'email'                => $this->createMock(Email::class),
             'mailMessage'          => $this->createMock(MailMessage::class),
-            'deliveredOn'          => $this->createMock(\DateTime::class),
-            'processingTimeMillis' => 1000,
-            'smtpResponse'         => 'test-user-agent',
-            'reportingMta'         => 'test-type',
+            'notification'         => [
+            'delivery' => [
+                'timestamp'            => '2016-08-01 00:00:00',
+                'processingTimeMillis' => 1234,
+                'smtpResponse'         => 'smtp response',
+                'reportingMta'         => 'reporting MTA',
+            ],
+                ],
         ];
 
-        $resource->setEmail($test['email'])
-            ->setMailMessage($test['mailMessage'])
-            ->setDeliveredOn($test['deliveredOn'])
-            ->setProcessingTimeMillis($test['processingTimeMillis'])
-            ->setSmtpResponse($test['smtpResponse'])
-            ->setReportingMta($test['reportingMta']);
+        $resource = Delivery::create($test['email'], $test['mailMessage'], $test['notification']);
 
-        self::assertNull($resource->getId());
         self::assertSame($test['email'], $resource->getEmail());
         self::assertSame($test['mailMessage'], $resource->getMailMessage());
-        self::assertSame($test['deliveredOn'], $resource->getDeliveredOn());
-        self::assertSame($test['processingTimeMillis'], $resource->getProcessingTimeMillis());
-        self::assertSame($test['smtpResponse'], $resource->getSmtpResponse());
-        self::assertSame($test['reportingMta'], $resource->getReportingMta());
-        self::assertSame(null, $resource->getEmailStatus());
+        self::assertSame($test['notification']['delivery']['timestamp'], $resource->getDeliveredOn()->format('Y-m-d H:i:s'));
+        self::assertSame($test['notification']['delivery']['processingTimeMillis'], $resource->getProcessingTimeMillis());
+        self::assertSame($test['notification']['delivery']['smtpResponse'], $resource->getSmtpResponse());
+        self::assertSame($test['notification']['delivery']['reportingMta'], $resource->getReportingMta());
     }
 }
