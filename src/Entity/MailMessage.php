@@ -212,6 +212,15 @@ class MailMessage
     }
 
     /**
+     * @return int
+     * @codeCoverageIgnore
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
      * @return Collection
      */
     public function getBounces(): Collection
@@ -233,14 +242,6 @@ class MailMessage
     public function getDeliveries(): Collection
     {
         return $this->deliveries;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
     }
 
     /**

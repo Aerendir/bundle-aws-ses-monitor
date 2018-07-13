@@ -31,35 +31,27 @@ class MailMessageTest extends TestCase
     public function testTopic()
     {
         $test = [
-            'messageId'        => 'test-message-id',
-            'sentOn'           => $this->createMock(\DateTime::class),
-            'sentFrom'         => 'test@example.com',
-            'sourceArn'        => 'test-source-arn',
-            'sendingAccountId' => 'test-sending-account-id',
-            'headers'          => 'test-headers',
-            'commonHeaders'    => 'test-common-headers',
+            'messageId'           => 'test-message-id',
+            'timestamp'           => (new \DateTime())->format('Y-m-d H:i:s'),
+            'source'              => 'test@example.com',
+            'sourceArn'           => 'test-source-arn',
+            'sendingAccountId'    => 'test-sending-account-id',
+            'headers'             => 'test-headers',
+            'commonHeaders'       => 'test-common-headers',
         ];
 
         $mockBounce    = $this->createMock(Bounce::class);
         $mockComplaint = $this->createMock(Complaint::class);
         $mockDelivery  = $this->createMock(Delivery::class);
 
-        $resource = new MailMessage();
-        $resource->addBounce($mockBounce)
-            ->addComplaint($mockComplaint)
-            ->addDelivery($mockDelivery)
-            ->setMessageId($test['messageId'])
-            ->setSentOn($test['sentOn'])
-            ->setSentFrom($test['sentFrom'])
-            ->setSourceArn($test['sourceArn'])
-            ->setSendingAccountId($test['sendingAccountId'])
-            ->setHeaders($test['headers'])
-            ->setCommonHeaders($test['commonHeaders']);
+        $resource = MailMessage::create($test)
+                               ->addBounce($mockBounce)
+                               ->addComplaint($mockComplaint)
+                               ->addDelivery($mockDelivery);
 
-        self::assertNull($resource->getId());
         self::assertSame($test['messageId'], $resource->getMessageId());
-        self::assertSame($test['sentOn'], $resource->getSentOn());
-        self::assertSame($test['sentFrom'], $resource->getSentFrom());
+        self::assertSame($test['timestamp'], $resource->getSentOn()->format('Y-m-d H:i:s'));
+        self::assertSame($test['source'], $resource->getSentFrom());
         self::assertSame($test['sourceArn'], $resource->getSourceArn());
         self::assertSame($test['sendingAccountId'], $resource->getSendingAccountId());
         self::assertSame($test['headers'], $resource->getHeaders());
