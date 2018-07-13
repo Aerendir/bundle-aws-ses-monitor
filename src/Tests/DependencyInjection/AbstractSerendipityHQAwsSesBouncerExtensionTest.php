@@ -17,6 +17,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\DependencyInjection;
 
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection\SHQAwsSesMonitorExtension;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin\MonitorFilterPlugin;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
@@ -27,8 +28,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
 {
+    /** @var SHQAwsSesMonitorExtension $extension */
     private $extension;
-    /** @var ContainerBuilder */
+
+    /** @var ContainerBuilder $container */
     private $container;
 
     /**
@@ -46,9 +49,6 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
     {
         $this->loadConfiguration($this->container, 'default_config');
         $this->container->compile();
-
-        self::assertSame('orm', $this->container->getParameter('shq_aws_ses_monitor.db_driver'));
-        self::assertSame(null, $this->container->getParameter('shq_aws_ses_monitor.model_manager_name'));
 
         /*
          *  Test AWS Config
@@ -73,7 +73,7 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
          * Test bounces configuration
          */
         self::assertSame('_shq_aws_ses_monitor_bounces_endpoint', $this->container->getParameter('shq_aws_ses_monitor.bounces')['topic']['endpoint']['route_name']);
-        self::assertSame('http', $this->container->getParameter('shq_aws_ses_monitor.bounces')['topic']['endpoint']['scheme']);
+        self::assertSame('https', $this->container->getParameter('shq_aws_ses_monitor.bounces')['topic']['endpoint']['scheme']);
         self::assertSame('localhost.local', $this->container->getParameter('shq_aws_ses_monitor.bounces')['topic']['endpoint']['host']);
         self::assertTrue($this->container->getParameter('shq_aws_ses_monitor.bounces')['filter']['enabled']);
         self::assertFalse($this->container->getParameter('shq_aws_ses_monitor.bounces')['filter']['soft_as_hard']);
@@ -86,7 +86,7 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
          * Test complaints configuration
          */
         self::assertSame('_shq_aws_ses_monitor_complaints_endpoint', $this->container->getParameter('shq_aws_ses_monitor.complaints')['topic']['endpoint']['route_name']);
-        self::assertSame('http', $this->container->getParameter('shq_aws_ses_monitor.complaints')['topic']['endpoint']['scheme']);
+        self::assertSame('https', $this->container->getParameter('shq_aws_ses_monitor.complaints')['topic']['endpoint']['scheme']);
         self::assertSame('localhost.local', $this->container->getParameter('shq_aws_ses_monitor.complaints')['topic']['endpoint']['host']);
         self::assertTrue($this->container->getParameter('shq_aws_ses_monitor.complaints')['filter']['enabled']);
         self::assertSame('forever', $this->container->getParameter('shq_aws_ses_monitor.complaints')['filter']['blacklist_time']);
@@ -97,67 +97,64 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
          */
         self::assertTrue($this->container->getParameter('shq_aws_ses_monitor.deliveries')['enabled']);
         self::assertSame('_shq_aws_ses_monitor_deliveries_endpoint', $this->container->getParameter('shq_aws_ses_monitor.deliveries')['topic']['endpoint']['route_name']);
-        self::assertSame('http', $this->container->getParameter('shq_aws_ses_monitor.deliveries')['topic']['endpoint']['scheme']);
+        self::assertSame('https', $this->container->getParameter('shq_aws_ses_monitor.deliveries')['topic']['endpoint']['scheme']);
         self::assertSame('localhost.local', $this->container->getParameter('shq_aws_ses_monitor.deliveries')['topic']['endpoint']['host']);
     }
 
-    public function testFilterDisabledByBothConfiguration()
+    public function testFilterDisabledForBothConfig()
     {
-        $this->loadConfiguration($this->container, 'filter_disabled_by_both');
+        $this->loadConfiguration($this->container, 'filter_disabled_for_both');
         $this->container->compile();
 
-        self::assertFalse($this->container->has('shq_aws_ses_monitor.swift_mailer.filter'));
+        $bouncesConfig    = $this->container->getParameter('shq_aws_ses_monitor.bounces');
+        $complaintsConfig = $this->container->getParameter('shq_aws_ses_monitor.complaints');
+        self::assertFalse($bouncesConfig['filter']['enabled']);
+        self::assertFalse($complaintsConfig['filter']['enabled']);
+
+        // The filter isn't loaded at all
+        self::assertArrayNotHasKey(MonitorFilterPlugin::class, $this->container->getRemovedIds());
     }
 
-    public function testFilterEnabledByBothConfiguration()
+    public function testFilterEnabledForBothConfig()
     {
-        $this->loadConfiguration($this->container, 'filter_enabled_by_both');
+        $this->loadConfiguration($this->container, 'filter_enabled_for_both');
         $this->container->compile();
 
-        self::assertTrue($this->container->has('shq_aws_ses_monitor.swift_mailer.filter'));
+        $bouncesConfig    = $this->container->getParameter('shq_aws_ses_monitor.bounces');
+        $complaintsConfig = $this->container->getParameter('shq_aws_ses_monitor.complaints');
+        self::assertTrue($bouncesConfig['filter']['enabled']);
+        self::assertTrue($complaintsConfig['filter']['enabled']);
+
+        // The filter was loaded (but also removed by the container)
+        self::assertArrayHasKey(MonitorFilterPlugin::class, $this->container->getRemovedIds());
     }
 
-    public function testFilterEnabledBybouncesConfig()
+    public function testFilterEnabledForBouncesOnlyConfig()
     {
-        $this->loadConfiguration($this->container, 'filter_enabled_by_bounces');
+        $this->loadConfiguration($this->container, 'filter_enabled_for_bounces');
         $this->container->compile();
 
-        self::assertTrue($this->container->has('shq_aws_ses_monitor.swift_mailer.filter'));
+        $bouncesConfig    = $this->container->getParameter('shq_aws_ses_monitor.bounces');
+        $complaintsConfig = $this->container->getParameter('shq_aws_ses_monitor.complaints');
+        self::assertTrue($bouncesConfig['filter']['enabled']);
+        self::assertFalse($complaintsConfig['filter']['enabled']);
+
+        // The filter was loaded (but also removed by the container)
+        self::assertArrayHasKey(MonitorFilterPlugin::class, $this->container->getRemovedIds());
     }
 
-    public function testFilterEnabledBycomplaintsConfig()
+    public function testFilterEnabledForComplaintsOnlyConfig()
     {
-        $this->loadConfiguration($this->container, 'filter_enabled_by_complaints');
+        $this->loadConfiguration($this->container, 'filter_enabled_for_complaints');
         $this->container->compile();
 
-        self::assertTrue($this->container->has('shq_aws_ses_monitor.swift_mailer.filter'));
-    }
+        $bouncesConfig    = $this->container->getParameter('shq_aws_ses_monitor.bounces');
+        $complaintsConfig = $this->container->getParameter('shq_aws_ses_monitor.complaints');
+        self::assertFalse($bouncesConfig['filter']['enabled']);
+        self::assertTrue($complaintsConfig['filter']['enabled']);
 
-    public function testFilterHasPluginTagConfiguration()
-    {
-        $this->loadConfiguration($this->container, 'filter_enabled_by_both');
-        $this->container->compile();
-
-        self::assertTrue($this->container->has('shq_aws_ses_monitor.swift_mailer.filter'));
-        self::assertTrue($this->container->hasDefinition('shq_aws_ses_monitor.swift_mailer.filter'));
-
-        $definition = $this->container->getDefinition('shq_aws_ses_monitor.swift_mailer.filter');
-        self::assertArrayHasKey('swiftmailer.default.plugin', $definition->getTags());
-    }
-
-    public function testFilterHasMultiplePluginTagConfiguration()
-    {
-        $this->loadConfiguration($this->container, 'filter_multiple_mailers');
-        $this->container->compile();
-
-        self::assertTrue($this->container->has('shq_aws_ses_monitor.swift_mailer.filter'));
-        self::assertTrue($this->container->hasDefinition('shq_aws_ses_monitor.swift_mailer.filter'));
-
-        $definition = $this->container->getDefinition('shq_aws_ses_monitor.swift_mailer.filter');
-        self::assertCount(3, $definition->getTags());
-        self::assertArrayHasKey('swiftmailer.default.plugin', $definition->getTags());
-        self::assertArrayHasKey('swiftmailer.second.plugin', $definition->getTags());
-        self::assertArrayHasKey('swiftmailer.third.plugin', $definition->getTags());
+        // The filter was loaded (but also removed by the container)
+        self::assertArrayHasKey(MonitorFilterPlugin::class, $this->container->getRemovedIds());
     }
 
     /**

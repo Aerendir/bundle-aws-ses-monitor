@@ -54,6 +54,7 @@ shq_aws_ses_monitor:
         region: "%amazon.aws.eu_region%" # OPTIONAL. If omitted, the bundle sets this to us-east-1.
         ses_version: "%amazon.ses.version%" # OPTIONAL. The AWS SES API version to use. Defaults to 2010-12-01.
         sns_version: "%amazon.sns.version%" # OPTIONAL. The AWS SNS API version to use. Defaults to 2010-03-31.
+    # On which mailers you want to activate the filter plugin (requires you activate the plugin in one of complaints or bounces sections below)
     mailers:
         - default
     bounces:

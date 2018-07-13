@@ -21,6 +21,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Set the credentials in the command.
+ *
+ * @codeCoverageIgnore
  */
 class SetCredentialsCompilerPass implements CompilerPassInterface
 {
