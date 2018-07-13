@@ -35,7 +35,7 @@ class BounceNotificationHandler extends AbstractNotification
     public function processNotification(array $notification, MailMessage $mailMessage): Response
     {
         foreach ($notification['bounce']['bouncedRecipients'] as $bouncedRecipient) {
-            $email = $this->getEmailManager()->loadOrCreateEmail($bouncedRecipient['emailAddress']);
+            $email = $this->getEmailStatusManager()->loadOrCreateEmailStatus($bouncedRecipient['emailAddress']);
 
             Bounce::create($email, $mailMessage, $bouncedRecipient, $notification);
         }

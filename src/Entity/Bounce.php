@@ -57,8 +57,8 @@ class Bounce
     private $id;
 
     /**
-     * @var Email
-     * @ORM\ManyToOne(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email", inversedBy="bounces", cascade={"persist"})
+     * @var EmailStatus
+     * @ORM\ManyToOne(targetEntity="EmailStatus", inversedBy="bounces", cascade={"persist"})
      * @ORM\JoinColumn(name="email", referencedColumnName="address")
      */
     private $email;
@@ -128,7 +128,7 @@ class Bounce
     private $action;
 
     /**
-     * The value of the Email field from the DSN.
+     * The value of the EmailStatus field from the DSN.
      *
      * This is the per-recipient transport-independent status code that indicates the delivery status of the message.
      *
@@ -149,14 +149,14 @@ class Bounce
     private $diagnosticCode;
 
     /**
-     * @param Email       $email
+     * @param EmailStatus $email
      * @param MailMessage $mailMessage
      * @param array       $bouncedRecipient
      * @param array       $notification
      *
      * @return Bounce
      */
-    public static function create(Email $email, MailMessage $mailMessage, array $bouncedRecipient, array $notification): Bounce
+    public static function create(EmailStatus $email, MailMessage $mailMessage, array $bouncedRecipient, array $notification): Bounce
     {
         $bounce = (new self())
             ->setBouncedOn(new \DateTime($notification['bounce']['timestamp']))
@@ -195,9 +195,9 @@ class Bounce
     }
 
     /**
-     * @return Email
+     * @return EmailStatus
      */
-    public function getEmail(): Email
+    public function getEmail(): EmailStatus
     {
         return $this->email;
     }
@@ -283,11 +283,11 @@ class Bounce
     }
 
     /**
-     * @param Email $email
+     * @param EmailStatus $email
      *
      * @return Bounce
      */
-    private function setEmail(Email $email): Bounce
+    private function setEmail(EmailStatus $email): Bounce
     {
         $this->email = $email;
         $email->addBounce($this);

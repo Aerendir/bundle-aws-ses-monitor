@@ -35,7 +35,7 @@ class DeliveryNotificationHandler extends AbstractNotification
     public function processNotification(array $notification, MailMessage $mailMessage): Response
     {
         foreach ($notification['delivery']['recipients'] as $recipient) {
-            $email = $this->getEmailManager()->loadOrCreateEmail($recipient);
+            $email = $this->getEmailStatusManager()->loadOrCreateEmailStatus($recipient);
 
             Delivery::create($email, $mailMessage, $notification);
         }

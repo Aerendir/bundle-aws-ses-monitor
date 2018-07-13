@@ -16,12 +16,12 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
 
 /**
- * Manages Email entities.
+ * Manages EmailStatus entities.
  */
-class EmailManager
+class EmailStatusManager
 {
     /** @var EntityManagerInterface $entityManager */
     private $entityManager;
@@ -37,11 +37,11 @@ class EmailManager
     /**
      * @param string $emailAddress
      *
-     * @return Email
+     * @return EmailStatus
      */
-    public function createEmail(string $emailAddress): Email
+    public function createEmailStatus(string $emailAddress): EmailStatus
     {
-        $email = new Email($emailAddress);
+        $email = new EmailStatus($emailAddress);
         $this->entityManager->persist($email);
 
         return $email;
@@ -50,12 +50,12 @@ class EmailManager
     /**
      * @param string $emailAddress
      *
-     * @return Email|null
+     * @return EmailStatus|null
      */
-    public function loadEmail(string $emailAddress): ?Email
+    public function loadEmailStatus(string $emailAddress): ?EmailStatus
     {
-        /** @var Email|null $email */
-        $email = $this->entityManager->getRepository(Email::class)->findOneBy(['address' => mb_strtolower($emailAddress)]);
+        /** @var EmailStatus|null $email */
+        $email = $this->entityManager->getRepository(EmailStatus::class)->findOneBy(['address' => mb_strtolower($emailAddress)]);
 
         return $email;
     }
@@ -63,14 +63,14 @@ class EmailManager
     /**
      * @param string $emailAddress
      *
-     * @return Email
+     * @return EmailStatus
      */
-    public function loadOrCreateEmail(string $emailAddress): Email
+    public function loadOrCreateEmailStatus(string $emailAddress): EmailStatus
     {
-        $email = $this->loadEmail($emailAddress);
+        $email = $this->loadEmailStatus($emailAddress);
 
         if (null === $email) {
-            $email = $this->createEmail($emailAddress);
+            $email = $this->createEmailStatus($emailAddress);
         }
 
         return $email;

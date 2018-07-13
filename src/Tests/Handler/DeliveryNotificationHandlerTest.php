@@ -16,10 +16,10 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Service;
 
 use PHPUnit\Framework\TestCase;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Handler\DeliveryNotificationHandler;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\EmailManager;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\EmailStatusManager;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -41,10 +41,10 @@ class DeliveryNotificationHandlerTest extends TestCase
             ],
         ];
 
-        $mockEmail        = $this->createMock(Email::class);
+        $mockEmailStatus  = $this->createMock(EmailStatus::class);
         $mockMailMessage  = $this->createMock(MailMessage::class);
-        $mockEmailManager = $this->createMock(EmailManager::class);
-        $mockEmailManager->method('loadOrCreateEmail')->willReturn($mockEmail);
+        $mockEmailManager = $this->createMock(EmailStatusManager::class);
+        $mockEmailManager->method('loadOrCreateEmailStatus')->willReturn($mockEmailStatus);
 
         $resource = new DeliveryNotificationHandler($mockEmailManager);
 

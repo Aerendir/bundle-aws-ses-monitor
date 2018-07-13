@@ -17,7 +17,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Entity;
 
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage;
 
 /**
@@ -30,7 +30,7 @@ class BounceTest extends TestCase
     public function testBounce()
     {
         $test     = [
-            'email'            => $this->createMock(Email::class),
+            'email'            => $this->createMock(EmailStatus::class),
             'mailMessage'      => $this->createMock(MailMessage::class),
             'bouncedRecipient' => [
                 'emailAddress'   => 'test_recipient@example.com',

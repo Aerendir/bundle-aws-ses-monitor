@@ -60,8 +60,8 @@ class Complaint
     private $id;
 
     /**
-     * @var Email
-     * @ORM\ManyToOne(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email", inversedBy="complaints", cascade={"persist"})
+     * @var EmailStatus
+     * @ORM\ManyToOne(targetEntity="EmailStatus", inversedBy="complaints", cascade={"persist"})
      * @ORM\JoinColumn(name="email", referencedColumnName="address")
      */
     private $email;
@@ -126,10 +126,10 @@ class Complaint
     private $arrivalDate;
 
     /**
-     * @param Email       $email
+     * @param EmailStatus $email
      * @param MailMessage $mailMessage
      */
-    public function __construct(Email $email, MailMessage $mailMessage)
+    public function __construct(EmailStatus $email, MailMessage $mailMessage)
     {
         $this->email = $email;
         $this->setMailMessage($mailMessage);
@@ -138,13 +138,13 @@ class Complaint
     }
 
     /**
-     * @param Email       $email
+     * @param EmailStatus $email
      * @param MailMessage $mailMessage
      * @param array       $notification
      *
      * @return Complaint
      */
-    public static function create(Email $email, MailMessage $mailMessage, array $notification): Complaint
+    public static function create(EmailStatus $email, MailMessage $mailMessage, array $notification): Complaint
     {
         $complaint = (new self($email, $mailMessage))
             ->setComplainedOn(new \DateTime($notification['complaint']['timestamp']))
@@ -183,9 +183,9 @@ class Complaint
     }
 
     /**
-     * @return Email
+     * @return EmailStatus
      */
-    public function getEmail(): Email
+    public function getEmail(): EmailStatus
     {
         return $this->email;
     }

@@ -22,7 +22,7 @@ use Aws\Sns\SnsClient;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use PHPUnit\Framework\TestCase;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage;
 use SerendipityHQ\Library\PHPUnit_Helper\PHPUnitHelper;
 use Symfony\Component\HttpFoundation\Request;
@@ -221,7 +221,7 @@ class NotificationHandlerTest extends TestCase
     {
         $message = $this->getBouncedNotificationMessage();
 
-        $mockEmailStatus = $this->createMock(Email::class);
+        $mockEmailStatus = $this->createMock(EmailStatus::class);
 
         $mockMailMessageRepository = $this->getMockBuilder(EntityRepository::class)->disableOriginalConstructor()->getMock();
         $mockMailMessageRepository->method('__call')->with('findOneByEmailAddress')->willReturn($mockEmailStatus);
@@ -266,7 +266,7 @@ class NotificationHandlerTest extends TestCase
     {
         $message = $this->getComplainedNotificationMessage();
 
-        $mockEmailStatus = $this->createMock(Email::class);
+        $mockEmailStatus = $this->createMock(EmailStatus::class);
 
         $mockMailMessageRepository = $this->getMockBuilder(EntityRepository::class)->disableOriginalConstructor()->getMock();
         $mockMailMessageRepository->method('__call')->with('findOneByEmailAddress')->willReturn($mockEmailStatus);
@@ -311,7 +311,7 @@ class NotificationHandlerTest extends TestCase
     {
         $message = $this->getDeliveredNotificationMessage();
 
-        $mockEmailStatus = $this->createMock(Email::class);
+        $mockEmailStatus = $this->createMock(EmailStatus::class);
 
         $mockMailMessageRepository = $this->getMockBuilder(EntityRepository::class)->disableOriginalConstructor()->getMock();
         $mockMailMessageRepository->method('__call')->with('findOneByEmailAddress')->willReturn($mockEmailStatus);

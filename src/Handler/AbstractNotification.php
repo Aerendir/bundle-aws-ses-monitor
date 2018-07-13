@@ -16,7 +16,7 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Handler;
 
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\EmailManager;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\EmailStatusManager;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -24,15 +24,15 @@ use Symfony\Component\HttpFoundation\Response;
  */
 abstract class AbstractNotification
 {
-    /** @var EmailManager $emailManager */
-    private $emailManager;
+    /** @var EmailStatusManager $emailStatusManager */
+    private $emailStatusManager;
 
     /**
-     * @param EmailManager $emailManager
+     * @param EmailStatusManager $emailStatusManager
      */
-    public function __construct(EmailManager $emailManager)
+    public function __construct(EmailStatusManager $emailStatusManager)
     {
-        $this->emailManager = $emailManager;
+        $this->emailStatusManager = $emailStatusManager;
     }
 
     /**
@@ -44,10 +44,10 @@ abstract class AbstractNotification
     abstract public function processNotification(array $notification, MailMessage $mailMessage): Response;
 
     /**
-     * @return EmailManager
+     * @return EmailStatusManager
      */
-    public function getEmailManager(): EmailManager
+    protected function getEmailStatusManager(): EmailStatusManager
     {
-        return $this->emailManager;
+        return $this->emailStatusManager;
     }
 }

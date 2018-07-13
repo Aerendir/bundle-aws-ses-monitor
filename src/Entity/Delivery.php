@@ -38,8 +38,8 @@ class Delivery
     private $id;
 
     /**
-     * @var Email
-     * @ORM\ManyToOne(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email", inversedBy="deliveries", cascade={"persist"})
+     * @var EmailStatus
+     * @ORM\ManyToOne(targetEntity="EmailStatus", inversedBy="deliveries", cascade={"persist"})
      * @ORM\JoinColumn(name="email", referencedColumnName="address")
      */
     private $email;
@@ -88,10 +88,10 @@ class Delivery
     private $reportingMta;
 
     /**
-     * @param Email       $email
+     * @param EmailStatus $email
      * @param MailMessage $mailMessage
      */
-    public function __construct(Email $email, MailMessage $mailMessage)
+    public function __construct(EmailStatus $email, MailMessage $mailMessage)
     {
         $this->email = $email;
         $this->setMailMessage($mailMessage);
@@ -100,13 +100,13 @@ class Delivery
     }
 
     /**
-     * @param Email       $email
+     * @param EmailStatus $email
      * @param MailMessage $mailMessage
      * @param array       $notification
      *
      * @return Delivery
      */
-    public static function create(Email $email, MailMessage $mailMessage, array $notification): Delivery
+    public static function create(EmailStatus $email, MailMessage $mailMessage, array $notification): Delivery
     {
         $delivery = (new self($email, $mailMessage))
             ->setDeliveredOn(new \DateTime($notification['delivery']['timestamp']))
@@ -130,9 +130,9 @@ class Delivery
     }
 
     /**
-     * @return Email
+     * @return EmailStatus
      */
-    public function getEmail(): Email
+    public function getEmail(): EmailStatus
     {
         return $this->email;
     }

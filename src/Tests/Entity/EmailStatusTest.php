@@ -20,20 +20,20 @@ use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
 
 /**
- * Tests the Email entity.
+ * Tests the EmailStatus entity.
  *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-class EmailTest extends TestCase
+class EmailStatusTest extends TestCase
 {
     public function testBounces()
     {
         $testEmail = 'test@example.com';
 
-        $resource = new Email($testEmail);
+        $resource = new EmailStatus($testEmail);
         self::assertSame($testEmail, $resource->getAddress());
         self::assertInstanceOf(ArrayCollection::class, $resource->getBounces());
         self::assertSame(0, $resource->getBounces()->count());
@@ -72,7 +72,7 @@ class EmailTest extends TestCase
     {
         $testEmail = 'test@example.com';
 
-        $resource = new Email($testEmail);
+        $resource = new EmailStatus($testEmail);
         self::assertSame($testEmail, $resource->getAddress());
         self::assertInstanceOf(ArrayCollection::class, $resource->getComplaints());
         self::assertSame(0, $resource->getComplaints()->count());
@@ -106,7 +106,7 @@ class EmailTest extends TestCase
     {
         $testEmail = 'test@example.com';
 
-        $resource = new Email($testEmail);
+        $resource = new EmailStatus($testEmail);
         self::assertSame($testEmail, $resource->getAddress());
         self::assertInstanceOf(ArrayCollection::class, $resource->getDeliveries());
         self::assertSame(0, $resource->getDeliveries()->count());

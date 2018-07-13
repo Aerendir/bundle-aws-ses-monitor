@@ -17,7 +17,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Entity;
 
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage;
 
 /**
@@ -30,7 +30,7 @@ class ComplaintTest extends TestCase
     public function testComplaint()
     {
         $test     = [
-            'email'                 => $this->createMock(Email::class),
+            'email'                 => $this->createMock(EmailStatus::class),
             'mailMessage'           => $this->createMock(MailMessage::class),
             'notification'          => [
                 'complaint' => [

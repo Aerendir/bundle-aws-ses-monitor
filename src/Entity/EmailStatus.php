@@ -23,10 +23,10 @@ use Doctrine\ORM\Mapping as ORM;
  * Represents an email address and records information about its health.
  *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
- * @ORM\Table(name="shq_aws_ses_monitor_emails", indexes={@ORM\Index(name="emails", columns={"address"})})
+ * @ORM\Table(name="shq_aws_ses_monitor_email_statuses", indexes={@ORM\Index(name="emails_statuses", columns={"address"})})
  * @ORM\Entity()
  */
-class Email
+class EmailStatus
 {
     /**
      * @var string
@@ -184,11 +184,11 @@ class Email
     /**
      * @param Bounce $bounce
      *
-     * @return Email
+     * @return EmailStatus
      *
      * @internal
      */
-    public function addBounce(Bounce $bounce): Email
+    public function addBounce(Bounce $bounce): EmailStatus
     {
         // Add only if not already added to avoid circular references
         $predictate = function (/** @noinspection PhpUnusedParameterInspection */ $key, Bounce $element) use ($bounce) {
@@ -216,11 +216,11 @@ class Email
     /**
      * @param Complaint $complaint
      *
-     * @return Email
+     * @return EmailStatus
      *
      * @internal
      */
-    public function addComplaint(Complaint $complaint): Email
+    public function addComplaint(Complaint $complaint): EmailStatus
     {
         // Add only if not already added to avoid circular references
         $predictate = function (/** @noinspection PhpUnusedParameterInspection */ $key, Complaint $element) use ($complaint) {
@@ -239,11 +239,11 @@ class Email
     /**
      * @param Delivery $delivery
      *
-     * @return Email
+     * @return EmailStatus
      *
      * @internal
      */
-    public function addDelivery(Delivery $delivery): Email
+    public function addDelivery(Delivery $delivery): EmailStatus
     {
         // Add only if not already added to avoid circular references
         $predictate = function (/** @noinspection PhpUnusedParameterInspection */ $key, Delivery $element) use ($delivery) {

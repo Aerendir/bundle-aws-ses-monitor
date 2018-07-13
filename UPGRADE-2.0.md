@@ -21,7 +21,7 @@ The main changes involve the configuration settings, the renaming of a table and
 4. Eventually add the new available ones;
 5. Update your code to use the new methods.
 
-Then it is required to edit the databse to reflect the new namings: `EmailStatus` entity, in fact, was renamed to `Email` and so its table has to be renamed, too.
+Then it is required to edit the databse to reflect the new namings: `EmailStatus` entity, in fact, was renamed to `EmailStatus` and so its table has to be renamed, too.
 
 Also some fields of various entities was renamed or deleted.
 
@@ -36,7 +36,7 @@ bin/console doctrine:schema:update --force
 
 Those are the changes that will be applied:
 
-- `EmailStatus` renamed to `Email`:
+- `EmailStatus`:
     - CHANGE `EmailStatus::$emailAddress` to `EmailStatus::$address`
     - REMOVE `EmailStatus::$complaintsCount`: use `EmailStatus::getComplaints()->count()` instead
     - REMOVE `EmailStatus::$deliveriesCount`: use `EmailStatus::getDeliveries()->count()` instead
@@ -105,25 +105,21 @@ In this work can be of help the use of a tool like PHPStan or Phan to statically
 Classes and their Methods
 -------------------------
 
-### Renamed classes
-
-- `EmailStatus` => `Email`
-
 ### Changed methods
 
-`EmailStatus` (renamed from `EmailStatus`) entity:
+`EmailStatus` entity:
 
-- `EmailStatus::getEmailAddress()` => `Email::getAddress()`;
-- `Bounce::getEmailAddress():string` => `Bounce::getEmail():Email`
-- `Delivery::getEmailAddress():string` => `Delivery::getEmail():Email`
-- `Complaint::getEmailAddress():string` => `Complaint::getEmail():Email`
+- `EmailStatus::getEmailAddress()` => `EmailStatus::getAddress()`;
+- `Bounce::getEmailAddress():string` => `Bounce::getEmail():EmailStatus`
+- `Delivery::getEmailAddress():string` => `Delivery::getEmail():EmailStatus`
+- `Complaint::getEmailAddress():string` => `Complaint::getEmail():EmailStatus`
 
 ### Removed methods
 
-`Email` (renamed from `EmailStatus`) entity:
+`EmailStatus` entity:
 
-- `Email::getComplaintsCount()`
-- `Email::getDeliveriesCount()`
+- `EmailStatus::getComplaintsCount()`
+- `EmailStatus::getDeliveriesCount()`
 - `Bounce::getEmailStatus()`
 - `Delivery::getEmailStatus()`
 - `Complaint::getEmailStatus()`

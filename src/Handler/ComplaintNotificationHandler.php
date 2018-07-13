@@ -35,7 +35,7 @@ class ComplaintNotificationHandler extends AbstractNotification
     public function processNotification(array $notification, MailMessage $mailMessage): Response
     {
         foreach ($notification['complaint']['complainedRecipients'] as $complainedRecipient) {
-            $email = $this->getEmailManager()->loadOrCreateEmail($complainedRecipient['emailAddress']);
+            $email = $this->getEmailStatusManager()->loadOrCreateEmailStatus($complainedRecipient['emailAddress']);
 
             Complaint::create($email, $mailMessage, $notification);
         }
