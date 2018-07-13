@@ -29,7 +29,7 @@ class Topic
 {
     /**
      * @var int
-     * @ORM\Column(name="email", type="string")
+     * @ORM\Column(name="id", type="integer", unique=true)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */

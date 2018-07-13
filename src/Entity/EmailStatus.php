@@ -30,7 +30,7 @@ class EmailStatus
 {
     /**
      * @var string
-     * @ORM\Column()
+     * @ORM\Column(unique=true)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
