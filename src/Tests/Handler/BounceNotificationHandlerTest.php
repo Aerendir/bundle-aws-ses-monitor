@@ -47,10 +47,10 @@ class BounceNotificationHandlerTest extends TestCase
             ],
         ];
 
-        $email            = new Email('test@example.com');
+        $mockEmail        = $this->createMock(Email::class);
         $mockMailMessage  = $this->createMock(MailMessage::class);
         $mockEmailManager = $this->createMock(EmailManager::class);
-        $mockEmailManager->method('loadOrCreateEmail')->willReturn($email);
+        $mockEmailManager->method('loadOrCreateEmail')->willReturn($mockEmail);
 
         $resource = new BounceNotificationHandler($mockEmailManager);
 
