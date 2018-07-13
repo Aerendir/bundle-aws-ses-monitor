@@ -79,7 +79,7 @@ class NotificationProcessor
             return new Response(['code' => 403, 'content' => 'The message is invalid.']);
         }
 
-        $notificationData = $this->messageHelper->extractMessageData($message);
+        $notificationData = $message->toArray()['Message'];
 
         if (false === isset($notificationData['notificationType'])) {
             return new Response(['code' => 403, 'content' => 'Missed NotificationType.']);

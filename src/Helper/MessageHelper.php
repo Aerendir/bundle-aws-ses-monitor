@@ -64,16 +64,4 @@ class MessageHelper
     {
         return $this->messageValidator->isValid($message);
     }
-
-    /**
-     * @param Message $message
-     *
-     * @return array
-     *
-     * @internal
-     */
-    public function extractMessageData(Message $message): array
-    {
-        return json_decode($message->toArray()['Message'], true);
-    }
 }
