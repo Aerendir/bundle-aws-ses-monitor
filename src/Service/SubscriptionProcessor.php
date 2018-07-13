@@ -64,7 +64,7 @@ class SubscriptionProcessor
             return new Response(['code' => 403, 'content' => 'The message is invalid.']);
         }
 
-        $subscriptionData = $this->messageHelper->extractMessageData($message);
+        $subscriptionData = $message->toArray();
 
         if (false === isset($subscriptionData['Token']) || false === isset($subscriptionData['TopicArn'])) {
             return new Response('Token or TopicArn is missed.', 403);
