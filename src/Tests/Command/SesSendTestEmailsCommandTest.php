@@ -20,7 +20,6 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Command\SesSendTestEmailsCommand;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\DependencyInjection\Container;
 
 /**
  * {@inheritdoc}
@@ -29,19 +28,20 @@ class SesSendTestEmailsCommandTest extends TestCase
 {
     public function testExecute()
     {
-        /** @var \Swift_Mailer $mockMailer */
-        $mockMailer  = self::getMockBuilder(\Swift_Mailer::class)->disableOriginalConstructor()->getMock();
         $application = new Application();
+        $mockMailer  = self::getMockBuilder(\Swift_Mailer::class)->disableOriginalConstructor()->getMock();
+        $mockMailer
+            ->method('send')
+            ->will(self::onConsecutiveCalls(1, 1, 1, 1, 0));
+
+        /** @var \Swift_Mailer $mockMailer */
         $application->add(new SesSendTestEmailsCommand($mockMailer));
 
         /** @var ContainerAwareCommand $command */
         $command = $application->find('aws:ses:monitor:test:swiftmailer');
-        $command->setContainer($this->getMockContainer());
 
         $commandTester = new CommandTester($command);
-
-        $helper = $command->getHelper('question');
-        $helper->setInputStream($this->getInputStream("test@example.com\n"));
+        $commandTester->setInputs(['test@example.com']);
 
         $commandTester->execute(['command'  => $command->getName()]);
 
@@ -52,36 +52,5 @@ class SesSendTestEmailsCommandTest extends TestCase
         self::assertContains('Sending an email from test@example.com to ooto@simulator.amazonses.com', $output);
         self::assertContains('Sending an email from test@example.com to complaint@simulator.amazonses.com', $output);
         self::assertContains('Sending an email from test@example.com to suppressionlist@simulator.amazonses.com', $output);
-    }
-
-    /**
-     * @param $input
-     *
-     * @return resource
-     */
-    protected function getInputStream($input)
-    {
-        $stream = fopen('php://memory', 'r+', false);
-        fwrite($stream, $input);
-        rewind($stream);
-
-        return $stream;
-    }
-
-    /**
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function getMockContainer()
-    {
-        // Mock the container and everything you'll need here
-        $mockSwiftMailer = $this->createMock(\Swift_Mailer::class);
-
-        $mockContainer = $this->createMock(Container::class);
-        $mockContainer->expects(self::exactly(5))
-            ->method('get')
-            ->with('mailer')
-            ->willReturn($mockSwiftMailer);
-
-        return $mockContainer;
     }
 }
