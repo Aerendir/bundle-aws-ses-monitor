@@ -151,18 +151,6 @@ class Bounce
     /**
      * @param Email       $email
      * @param MailMessage $mailMessage
-     */
-    public function __construct(Email $email, MailMessage $mailMessage)
-    {
-        $this->email = $email;
-        $this->setMailMessage($mailMessage);
-
-        $this->email->addBounce($this);
-    }
-
-    /**
-     * @param Email       $email
-     * @param MailMessage $mailMessage
      * @param array       $bouncedRecipient
      * @param array       $notification
      *
@@ -170,11 +158,13 @@ class Bounce
      */
     public static function create(Email $email, MailMessage $mailMessage, array $bouncedRecipient, array $notification): Bounce
     {
-        $bounce = (new self($email, $mailMessage))
+        $bounce = (new self())
             ->setBouncedOn(new \DateTime($notification['bounce']['timestamp']))
             ->setType(($notification['bounce']['bounceType']))
             ->setSubType(($notification['bounce']['bounceSubType']))
-            ->setFeedbackId($notification['bounce']['feedbackId']);
+            ->setFeedbackId($notification['bounce']['feedbackId'])
+            ->setMailMessage($mailMessage)
+            ->setEmail($email);
 
         if (isset($notification['bounce']['reportingMta'])) {
             $bounce->setReportingMta($notification['bounce']['reportingMta']);
@@ -290,6 +280,19 @@ class Bounce
     public function isPermanent(): bool
     {
         return self::TYPE_PERMANENT === $this->type;
+    }
+
+    /**
+     * @param Email $email
+     *
+     * @return Bounce
+     */
+    private function setEmail(Email $email): Bounce
+    {
+        $this->email = $email;
+        $email->addBounce($this);
+
+        return $this;
     }
 
     /**
