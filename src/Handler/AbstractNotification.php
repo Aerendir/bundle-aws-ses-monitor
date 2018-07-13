@@ -28,11 +28,11 @@ abstract class AbstractNotification
     private $emailManager;
 
     /**
-     * @param EmailManager $emailHelper
+     * @param EmailManager $emailManager
      */
-    public function __construct(EmailManager $emailHelper)
+    public function __construct(EmailManager $emailManager)
     {
-        $this->emailManager = $emailHelper;
+        $this->emailManager = $emailManager;
     }
 
     /**
