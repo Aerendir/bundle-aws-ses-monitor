@@ -13,7 +13,7 @@
  * @license   MIT License.
  */
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Service;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Factory;
 
 use Aws\Credentials\Credentials;
 use Aws\Ses\SesClient;
@@ -39,7 +39,8 @@ class AwsClientFactoryTest extends TestCase
         $mockCredentials = $this->createMock(Credentials::class);
 
         $factory = new AwsClientFactory($config);
-        $result  = $factory->getSesClient($mockCredentials);
+        $factory->setCredentials($mockCredentials);
+        $result  = $factory->getSesClient();
 
         self::assertInstanceOf(SesClient::class, $result);
         self::assertSame($config['region'], $result->getRegion());
@@ -56,7 +57,8 @@ class AwsClientFactoryTest extends TestCase
         $mockCredentials = $this->createMock(Credentials::class);
 
         $factory = new AwsClientFactory($config);
-        $result  = $factory->getSnsClient($mockCredentials);
+        $factory->setCredentials($mockCredentials);
+        $result  = $factory->getSnsClient();
 
         self::assertInstanceOf(SnsClient::class, $result);
         self::assertSame($config['region'], $result->getRegion());
