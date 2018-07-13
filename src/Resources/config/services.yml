@@ -10,15 +10,7 @@ services:
             $deliveriesConfig: '%shq_aws_ses_monitor.deliveries%'
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
-    SerendipityHQ\Bundle\AwsSesMonitorBundle\Command\:
-        resource: '../../Command/*'
-    SerendipityHQ\Bundle\AwsSesMonitorBundle\Factory\:
-        resource: '../../Factory/*'
-    SerendipityHQ\Bundle\AwsSesMonitorBundle\Handler\:
-        resource: '../../Handler/*'
-    SerendipityHQ\Bundle\AwsSesMonitorBundle\Helper\:
-        resource: '../../Helper/*'
-    SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\:
-        resource: '../../Service/*'
+    SerendipityHQ\Bundle\AwsSesMonitorBundle\:
+        resource: '../../*'
 
     Aws\Sns\MessageValidator: ~
