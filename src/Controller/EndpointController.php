@@ -36,7 +36,7 @@ class EndpointController extends Controller
      *
      * @return Response
      */
-    public function endpoint(Request $request, RequestProcessor $processor)
+    public function endpoint(Request $request, RequestProcessor $processor): Response
     {
         return $processor->processRequest($request);
     }
