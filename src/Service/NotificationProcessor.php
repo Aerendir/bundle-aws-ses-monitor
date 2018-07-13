@@ -79,10 +79,14 @@ class NotificationProcessor
             return new Response('The message is invalid.', 403);
         }
 
-        $notificationData = $message->toArray()['Message'];
+        $notificationData = $this->messageHelper->extractMessageData($message);
 
         if (false === isset($notificationData['notificationType'])) {
             return new Response('Missed NotificationType.', 403);
+        }
+
+        if (SnsTypes::MESSAGE_TYPE_SUBSCRIPTION_SUCCESS === $notificationData['notificationType']) {
+            return new Response('OK', 200);
         }
 
         $mailMessage = $this->loadOrCreateMailMessage($notificationData);
@@ -95,10 +99,6 @@ class NotificationProcessor
                 break;
             case SnsTypes::MESSAGE_TYPE_DELIVERY:
                 return $this->deliveryNotificationHandler->processNotification($notificationData, $mailMessage);
-                break;
-            case SnsTypes::MESSAGE_TYPE_SUBSCRIPTION_SUCCESS:
-                // @todo Verify Amazon really requests this
-                throw new \RuntimeException('This should simply return code 200 if really requested from amazon.');
                 break;
             default:
                 return new Response('Notification type not understood', 403);
