@@ -42,23 +42,16 @@ class Topic
     private $topicArn;
 
     /**
-     * @var string|null
-     * @ORM\Column(name="token", type="string", length=1024, nullable=true)
+     * @param string $topicArn
      */
-    private $token;
-
-    /**
-     * @param string      $topicArn
-     * @param string|null $token
-     */
-    public function __construct(string $topicArn, ?string $token = null)
+    public function __construct(string $topicArn)
     {
         $this->setTopicArn($topicArn);
-        $this->setToken($token);
     }
 
     /**
      * @return int
+     * @codeCoverageIgnore
      */
     public function getId(): int
     {
@@ -74,33 +67,13 @@ class Topic
     }
 
     /**
-     * @return string|null
-     */
-    public function getToken(): ?string
-    {
-        return $this->token;
-    }
-
-    /**
      * @param string $topicArn
      *
      * @return Topic
      */
-    public function setTopicArn(string $topicArn): Topic
+    private function setTopicArn(string $topicArn): Topic
     {
         $this->topicArn = $topicArn;
-
-        return $this;
-    }
-
-    /**
-     * @param string|null $token
-     *
-     * @return Topic
-     */
-    public function setToken(?string $token): Topic
-    {
-        $this->token = $token;
 
         return $this;
     }

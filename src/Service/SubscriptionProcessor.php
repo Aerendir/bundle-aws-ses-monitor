@@ -80,11 +80,10 @@ class SubscriptionProcessor
             return new Response('Topic not found', 404);
         }
 
-        $topic->setToken($token);
         $this->snsClient->confirmSubscription(
             [
                 'TopicArn' => $topic->getTopicArn(),
-                'Token'    => $topic->getToken(),
+                'Token'    => $token,
             ]
         );
 

@@ -16,7 +16,6 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Entity;
 
 use PHPUnit\Framework\TestCase;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Topic;
 
 /**
@@ -28,15 +27,10 @@ class TopicTest extends TestCase
 {
     public function testTopic()
     {
-        $test = [
-            'topicArn' => 'test@example.com',
-            'token'    => $this->createMock(MailMessage::class),
-        ];
+        $test = ['topicArn' => 'arn:aws:sns:us-west-2:111122223333:TestTopic'];
 
-        $resource = new Topic($test['topicArn'], $test['token']);
+        $resource = new Topic($test['topicArn']);
 
-        self::assertNull($resource->getId());
         self::assertSame($test['topicArn'], $resource->getTopicArn());
-        self::assertSame($test['token'], $resource->getToken());
     }
 }
