@@ -61,7 +61,7 @@ class SubscriptionProcessor
         $message = $this->messageHelper->buildMessageFromRequest($request);
 
         if (false === $this->messageHelper->validateNotification($message)) {
-            return new Response(['code' => 403, 'content' => 'The message is invalid.']);
+            return new Response('The message is invalid.', 403);
         }
 
         $subscriptionData = $message->toArray();
