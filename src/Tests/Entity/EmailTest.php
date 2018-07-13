@@ -27,7 +27,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Email;
  *
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
-class EmailStatusTest extends TestCase
+class EmailTest extends TestCase
 {
     public function testBounces()
     {
@@ -44,6 +44,7 @@ class EmailStatusTest extends TestCase
         $mockHardBounce = $this->createMock(Bounce::class);
         $mockHardBounce->method('getType')->willReturn(Bounce::TYPE_PERMANENT);
         $mockHardBounce->method('getBouncedOn')->willReturn($now);
+        $mockHardBounce->method('getFeedbackId')->willReturn('bounce-1');
 
         $resource->addBounce($mockHardBounce);
 
@@ -57,6 +58,7 @@ class EmailStatusTest extends TestCase
         $mockSoftBounce = $this->createMock(Bounce::class);
         $mockSoftBounce->method('getType')->willReturn(Bounce::TYPE_TRANSIENT);
         $mockSoftBounce->method('getBouncedOn')->willReturn($aLittleBitAfter);
+        $mockSoftBounce->method('getFeedbackId')->willReturn('bounce-2');
 
         $resource->addBounce($mockSoftBounce);
 
@@ -80,11 +82,24 @@ class EmailStatusTest extends TestCase
 
         $mockComplaint = $this->createMock(Complaint::class);
         $mockComplaint->method('getComplainedOn')->willReturn($now);
+        $mockComplaint->method('getFeedbackId')->willReturn('complaint-1');
 
         $resource->addComplaint($mockComplaint);
 
         self::assertSame($now, $resource->getLastTimeComplained());
-        self::assertSame(1, $resource->getComplaintsCount());
+        self::assertSame(1, $resource->getComplaints()->count());
+
+        // Test another Complaint
+        $aLittleBitLater = new \DateTime();
+
+        $mockComplaint2 = $this->createMock(Complaint::class);
+        $mockComplaint2->method('getComplainedOn')->willReturn($aLittleBitLater);
+        $mockComplaint2->method('getFeedbackId')->willReturn('complaint-2');
+
+        $resource->addComplaint($mockComplaint2);
+
+        self::assertSame($aLittleBitLater, $resource->getLastTimeComplained());
+        self::assertSame(2, $resource->getComplaints()->count());
     }
 
     public function testDeliveries()
@@ -96,7 +111,7 @@ class EmailStatusTest extends TestCase
         self::assertInstanceOf(ArrayCollection::class, $resource->getDeliveries());
         self::assertSame(0, $resource->getDeliveries()->count());
 
-        // Test Complaint
+        // Test Delivery
         $now = new \DateTime();
 
         $mockDelivery = $this->createMock(Delivery::class);
@@ -105,6 +120,17 @@ class EmailStatusTest extends TestCase
         $resource->addDelivery($mockDelivery);
 
         self::assertSame($now, $resource->getLastTimeDelivered());
-        self::assertSame(1, $resource->getDeliveriesCount());
+        self::assertSame(1, $resource->getDeliveries()->count());
+
+        // Test another Delivery (add one second because the script is too fast and the two timestamps are the same)
+        $aLittleBitLater = (new \DateTime())->modify('+1 second');
+
+        $mockDelivery2 = $this->createMock(Delivery::class);
+        $mockDelivery2->method('getDeliveredOn')->willReturn($aLittleBitLater);
+
+        $resource->addDelivery($mockDelivery2);
+
+        self::assertSame($aLittleBitLater, $resource->getLastTimeDelivered());
+        self::assertSame(2, $resource->getDeliveries()->count());
     }
 }
