@@ -167,6 +167,7 @@ class Complaint
 
     /**
      * @return int
+     * @codeCoverageIgnore
      */
     public function getId(): int
     {
