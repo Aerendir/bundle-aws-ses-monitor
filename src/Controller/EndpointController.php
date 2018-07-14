@@ -24,7 +24,6 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Controller to handle notifications.
  *
- * @author Audrius Karabanovas <audrius@karabanovas.net>
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  *
  * {@inheritdoc}

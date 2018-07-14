@@ -20,7 +20,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * A Topic entity.
  *
- * @author Audrius Karabanovas <audrius@karabanovas.net>
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  * @ORM\Table(name="shq_aws_ses_monitor_topics")
  * @ORM\Entity()
