@@ -36,6 +36,7 @@ class EndpointController extends Controller
      * @param RequestProcessor $processor
      *
      * @return Response
+     * @codeCoverageIgnore
      */
     public function endpoint(Request $request, RequestProcessor $processor, EntityManagerInterface $entityManager): Response
     {
