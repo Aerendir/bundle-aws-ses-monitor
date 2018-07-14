@@ -23,7 +23,6 @@ use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Topic;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Factory\AwsClientFactory;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Helper\MessageHelper;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\RequestProcessor;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\SubscriptionProcessor;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +32,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class SubscriptionProcessorTest extends TestCase
 {
-    /** @var RequestProcessor $requestProcessor */
+    /** @var SubscriptionProcessor $requestProcessor */
     private $subscriptionProcessor;
 
     /** @var MockObject $mockAwsClientFactory */
