@@ -64,17 +64,8 @@ class SubscriptionProcessor
             return new Response('The message is invalid.', 403);
         }
 
-        $subscriptionData = $message->toArray();
-
-        if (false === isset($subscriptionData['Token']) || false === isset($subscriptionData['TopicArn'])) {
-            return new Response('Token or TopicArn is missed.', 403);
-        }
-
-        $topicArn = $message['TopicArn'];
-        $token    = $message['Token'];
-
         /** @var Topic|null $topic */
-        $topic = $this->entityManager->getRepository(Topic::class)->findOneBy(['topicArn' => $topicArn]);
+        $topic = $this->entityManager->getRepository(Topic::class)->findOneBy(['topicArn' => $message->offsetGet('TopicArn')]);
 
         if (null === $topic) {
             return new Response('Topic not found', 404);
@@ -83,7 +74,7 @@ class SubscriptionProcessor
         $this->snsClient->confirmSubscription(
             [
                 'TopicArn' => $topic->getTopicArn(),
-                'Token'    => $token,
+                'Token'    => $message->offsetGet('Token'),
             ]
         );
 
