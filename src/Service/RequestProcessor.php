@@ -50,8 +50,8 @@ class RequestProcessor
      */
     public function processRequest(Request $request): Response
     {
-        if ( ! $request->isMethod('POST')) {
-            new Response('Only POST requests are accepted.', 405);
+        if (false === $request->isMethod('POST')) {
+            return new Response('Only POST requests are accepted.', 405);
         }
 
         /**
