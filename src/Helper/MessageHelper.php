@@ -74,6 +74,6 @@ class MessageHelper
      */
     public function extractMessageData(Message $message): array
     {
-        return json_decode($message->toArray()['Message'], true);
+        return json_decode($message->offsetGet('Message'), true);
     }
 }
