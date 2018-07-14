@@ -15,10 +15,10 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Plugin;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Repository\EmailStatusRepository;
 
 /**
  * Base class to test bounced and complained address filtering.
@@ -72,22 +72,23 @@ class PluginFilterTestBase extends TestCase
         ];
 
         $this->mockBouncedEmailStatus = $this->createMock(EmailStatus::class);
-        $this->mockBouncedEmailStatus->method('getEmailAddress')->willReturn('bounced@example.com');
+        $this->mockBouncedEmailStatus->method('getAddress')->willReturn('bounced@example.com');
         $this->mockBouncedEmailStatus->method('getHardBouncesCount')->willReturn(3);
         $this->mockBouncedEmailStatus->method('getSoftBouncesCount')->willReturn(3);
 
+        $mockComplainedCollection        = $this->createMock(ArrayCollection::class)->method('count')->willReturn(1);
         $this->mockComplainedEmailStatus = $this->createMock(EmailStatus::class);
-        $this->mockComplainedEmailStatus->method('getEmailAddress')->willReturn('complained@example.com');
-        $this->mockComplainedEmailStatus->method('getComplaintsCount')->willReturn(1);
+        $this->mockComplainedEmailStatus->method('getAddress')->willReturn('complained@example.com');
+        $this->mockComplainedEmailStatus->method('getComplaints')->willReturn($mockComplainedCollection);
 
         $this->mockOotoEmailStatus = $this->createMock(EmailStatus::class);
-        $this->mockOotoEmailStatus->method('getEmailAddress')->willReturn('ooto@example.com');
+        $this->mockOotoEmailStatus->method('getAddress')->willReturn('ooto@example.com');
 
         $this->mockSuccessEmailStatus = $this->createMock(EmailStatus::class);
-        $this->mockSuccessEmailStatus->method('getEmailAddress')->willReturn('success@example.com');
+        $this->mockSuccessEmailStatus->method('getAddress')->willReturn('success@example.com');
 
         $this->mockSuppressedEmailStatus = $this->createMock(EmailStatus::class);
-        $this->mockSuppressedEmailStatus->method('getEmailAddress')->willReturn('suppressed@example.com');
+        $this->mockSuppressedEmailStatus->method('getAddress')->willReturn('suppressed@example.com');
 
         $map = [
             ['bounced@example.com', $this->mockBouncedEmailStatus],
