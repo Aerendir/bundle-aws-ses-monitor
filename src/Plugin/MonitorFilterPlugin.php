@@ -15,8 +15,8 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin;
 
-use Doctrine\ORM\EntityManagerInterface;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\EmailStatusManager;
 use Swift_Events_SendEvent;
 
 /**
@@ -36,19 +36,19 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     /** @var array $complaintsConfig */
     private $complaintsConfig;
 
-    /** @var \Doctrine\Common\Persistence\ObjectRepository $emailStatusRepo */
-    private $emailStatusRepo;
+    /** @var EmailStatusManager $emailStatusManager */
+    private $emailStatusManager;
 
     /**
-     * @param EntityManagerInterface $manager
-     * @param array                  $bouncesConfig    The configuration of bounces
-     * @param array                  $complaintsConfig The configuration of complaints
+     * @param EmailStatusManager $emailStatusManager
+     * @param array              $bouncesConfig      The configuration of bounces
+     * @param array              $complaintsConfig   The configuration of complaints
      */
-    public function __construct(EntityManagerInterface $manager, array $bouncesConfig, array $complaintsConfig)
+    public function __construct(EmailStatusManager $emailStatusManager, array $bouncesConfig, array $complaintsConfig)
     {
-        $this->bouncesConfig    = $bouncesConfig['filter'];
-        $this->complaintsConfig = $complaintsConfig['filter'];
-        $this->emailStatusRepo  = $manager->getRepository(EmailStatus::class);
+        $this->bouncesConfig      = $bouncesConfig['filter'];
+        $this->complaintsConfig   = $complaintsConfig['filter'];
+        $this->emailStatusManager = $emailStatusManager;
     }
 
     /**
@@ -60,9 +60,17 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     {
         $message = $event->getMessage();
 
-        $message->setTo($this->filterBlacklisted($message->getTo()));
-        $message->setCc($this->filterBlacklisted($message->getCc()));
-        $message->setBcc($this->filterBlacklisted($message->getBcc()));
+        if (null !== $message->getTo()) {
+            $message->setTo($this->filterBlacklisted($message->getTo()));
+        }
+
+        if (null !== $message->getCc()) {
+            $message->setCc($this->filterBlacklisted($message->getCc()));
+        }
+
+        if (null !== $message->getBcc()) {
+            $message->setBcc($this->filterBlacklisted($message->getBcc()));
+        }
     }
 
     /**
@@ -85,8 +93,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
         $emails = array_keys($recipients);
 
         foreach ($emails as $email) {
-            /** @var EmailStatus|null $email */
-            $email = $this->emailStatusRepo->findOneBy(['email' => $email]);
+            $email = $this->emailStatusManager->loadEmailStatus($email);
 
             if (null !== $email && ($this->isBounced($email) || $this->isComplained($email))) {
                 $this->blacklisted[$email->getAddress()] = $recipients[$email->getAddress()];
