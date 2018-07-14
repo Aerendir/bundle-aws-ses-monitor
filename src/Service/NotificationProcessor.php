@@ -115,7 +115,7 @@ class NotificationProcessor
         $mailMessageData = $messageData['mail'];
 
         /** @var MailMessage|null $mailMessage */
-        $mailMessage     = $this->entityManager->getRepository(MailMessage::class)->findOneBy(['MessageId' => $mailMessageData['messageId']]);
+        $mailMessage     = $this->entityManager->getRepository(MailMessage::class)->findOneBy(['messageId' => $mailMessageData['messageId']]);
 
         // If a MailMessage object doesn't already exists...
         if (null === $mailMessage) {

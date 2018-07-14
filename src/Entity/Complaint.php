@@ -128,27 +128,17 @@ class Complaint
     /**
      * @param EmailStatus $email
      * @param MailMessage $mailMessage
-     */
-    public function __construct(EmailStatus $email, MailMessage $mailMessage)
-    {
-        $this->email = $email;
-        $this->setMailMessage($mailMessage);
-
-        $this->email->addComplaint($this);
-    }
-
-    /**
-     * @param EmailStatus $email
-     * @param MailMessage $mailMessage
      * @param array       $notification
      *
      * @return Complaint
      */
     public static function create(EmailStatus $email, MailMessage $mailMessage, array $notification): Complaint
     {
-        $complaint = (new self($email, $mailMessage))
+        $complaint = (new self())
             ->setComplainedOn(new \DateTime($notification['complaint']['timestamp']))
-            ->setFeedbackId($notification['complaint']['feedbackId']);
+            ->setFeedbackId($notification['complaint']['feedbackId'])
+            ->setMailMessage($mailMessage)
+            ->setEmail($email);
 
         if (isset($notification['complaint']['userAgent'])) {
             $complaint->setUserAgent($notification['complaint']['userAgent']);
@@ -228,6 +218,19 @@ class Complaint
     public function getArrivalDate(): ? \DateTime
     {
         return $this->arrivalDate;
+    }
+
+    /**
+     * @param EmailStatus $email
+     *
+     * @return Complaint
+     */
+    private function setEmail(EmailStatus $email): Complaint
+    {
+        $this->email = $email;
+        $email->addComplaint($this);
+
+        return $this;
     }
 
     /**

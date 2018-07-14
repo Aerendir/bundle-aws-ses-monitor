@@ -90,28 +90,18 @@ class Delivery
     /**
      * @param EmailStatus $email
      * @param MailMessage $mailMessage
-     */
-    public function __construct(EmailStatus $email, MailMessage $mailMessage)
-    {
-        $this->email = $email;
-        $this->setMailMessage($mailMessage);
-
-        $this->email->addDelivery($this);
-    }
-
-    /**
-     * @param EmailStatus $email
-     * @param MailMessage $mailMessage
      * @param array       $notification
      *
      * @return Delivery
      */
     public static function create(EmailStatus $email, MailMessage $mailMessage, array $notification): Delivery
     {
-        $delivery = (new self($email, $mailMessage))
+        $delivery = (new self())
             ->setDeliveredOn(new \DateTime($notification['delivery']['timestamp']))
             ->setProcessingTimeMillis($notification['delivery']['processingTimeMillis'])
-            ->setSmtpResponse($notification['delivery']['smtpResponse']);
+            ->setSmtpResponse($notification['delivery']['smtpResponse'])
+            ->setMailMessage($mailMessage)
+            ->setEmail($email);
 
         if (isset($notification['delivery']['reportingMta'])) {
             $delivery->setReportingMta($notification['delivery']['reportingMta']);
@@ -175,6 +165,19 @@ class Delivery
     public function getReportingMta(): ?string
     {
         return $this->reportingMta;
+    }
+
+    /**
+     * @param EmailStatus $email
+     *
+     * @return Delivery
+     */
+    private function setEmail(EmailStatus $email): Delivery
+    {
+        $this->email = $email;
+        $email->addDelivery($this);
+
+        return $this;
     }
 
     /**

@@ -124,19 +124,19 @@ class MailMessage
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce", mappedBy="mailMessage")
+     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce", mappedBy="mailMessage", cascade={"persist"})
      */
     private $bounces;
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint", mappedBy="mailMessage")
+     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint", mappedBy="mailMessage", cascade={"persist"})
      */
     private $complaints;
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery", mappedBy="mailMessage")
+     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery", mappedBy="mailMessage", cascade={"persist"})
      */
     private $deliveries;
 

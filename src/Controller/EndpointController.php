@@ -15,6 +15,7 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\RequestProcessor;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,8 +37,12 @@ class EndpointController extends Controller
      *
      * @return Response
      */
-    public function endpoint(Request $request, RequestProcessor $processor): Response
+    public function endpoint(Request $request, RequestProcessor $processor, EntityManagerInterface $entityManager): Response
     {
-        return $processor->processRequest($request);
+        $response = $processor->processRequest($request);
+
+        $entityManager->flush();
+
+        return $response;
     }
 }
