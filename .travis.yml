@@ -61,8 +61,8 @@ before_install:
 
 install:
     # To be removed when this issue will be resolved: https://github.com/composer/composer/issues/5355
-    - if [[ "$COMPOSER_FLAGS" == *"--prefer-lowest"* ]]; then composer update --prefer-dist --no-interaction --prefer-stable; fi
-    - composer update ${COMPOSER_FLAGS} --prefer-dist --no-interaction
+    - if [[ "$COMPOSER_FLAGS" == *"--prefer-lowest"* ]]; then composer update --prefer-dist --prefer-stable; fi
+    - composer update ${COMPOSER_FLAGS} --prefer-dist
     # Phan:    AFA6EAAB339B841E
     # PHPStan: 8E730BA25823D8B5
     - phive --no-progress install --trust-gpg-keys AFA6EAAB339B841E,8E730BA25823D8B5
@@ -77,10 +77,8 @@ script:
     # Check the style rules are applied
     - if [[ $FULL_CHECK == true ]]; then ./vendor/bin/php-cs-fixer fix --allow-risky yes --dry-run -v; fi
     # Lint the config files and templates
-    - if [[ $FULL_CHECK == true ]]; then bin/console lint:yaml src/Resources/config; fi
-    - if [[ $FULL_CHECK == true ]]; then bin/console lint:twig src/Resources/views; fi
     # Perform static code analysis
-    - ./tools/phpstan analyse src tests -c phpstan.neon --level 0
+    - ./tools/phpstan analyse src -c phpstan.neon --level 0
     # - ./tools/phan --progress-bar --minimum-severity 0
     # simple-phpunit is the PHPUnit wrapper provided by the PHPUnit Bridge component and
     # it helps with testing legacy code and deprecations (composer require symfony/phpunit-bridge)
