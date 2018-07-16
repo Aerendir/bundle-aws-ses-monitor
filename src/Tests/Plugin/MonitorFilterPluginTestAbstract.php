@@ -68,6 +68,16 @@ class MonitorFilterPluginTestAbstract extends TestCase
         self::assertArrayHasKey('suppressed@example.com', $recipients);
     }
 
+    public function confirmOnlyComplainedAreRemoved()
+    {
+        $recipients = func_get_arg(0);
+        self::assertArrayHasKey('bounced@example.com', $recipients);
+        self::assertArrayNotHasKey('complained@example.com', $recipients);
+        self::assertArrayHasKey('ooto@example.com', $recipients);
+        self::assertArrayHasKey('success@example.com', $recipients);
+        self::assertArrayHasKey('suppressed@example.com', $recipients);
+    }
+
     /**
      * @return array
      */
@@ -125,7 +135,8 @@ class MonitorFilterPluginTestAbstract extends TestCase
         $mockBouncedEmailStatus->method('getHardBouncesCount')->willReturn(3);
         $mockBouncedEmailStatus->method('getSoftBouncesCount')->willReturn(3);
 
-        $mockComplainedCollection        = $this->createMock(ArrayCollection::class)->method('count')->willReturn(1);
+        $mockComplainedCollection        = $this->getMockBuilder(ArrayCollection::class)->getMock();
+        $mockComplainedCollection->method('count')->willReturn(1);
         $mockComplainedEmailStatus       = $this->createMock(EmailStatus::class);
         $mockComplainedEmailStatus->method('getAddress')->willReturn('complained@example.com');
         $mockComplainedEmailStatus->method('getComplaints')->willReturn($mockComplainedCollection);
