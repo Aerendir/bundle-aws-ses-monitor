@@ -32,14 +32,6 @@ use Doctrine\ORM\Mapping as ORM;
 class MailMessage
 {
     /**
-     * @var int
-     * @ORM\Column(name="id", type="integer", unique=true)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
      * A unique ID that Amazon SES assigned to the message.
      *
      * Amazon SES returned this value to you when you sent the message.
@@ -48,6 +40,7 @@ class MailMessage
      *
      * @var string
      * @ORM\Column(name="message_id", type="string")
+     * @ORM\Id
      */
     private $messageId;
 
@@ -207,15 +200,6 @@ class MailMessage
         $this->deliveries->add($delivery);
 
         return $this;
-    }
-
-    /**
-     * @return int
-     * @codeCoverageIgnore
-     */
-    public function getId(): int
-    {
-        return $this->id;
     }
 
     /**

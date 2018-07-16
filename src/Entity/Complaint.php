@@ -69,8 +69,7 @@ class Complaint
      *
      * @var MailMessage
      * @ORM\ManyToOne(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage", inversedBy="complaints")
-     *
-     * @todo Review the relation
+     * @ORM\JoinColumn(name="mail_message", referencedColumnName="message_id")
      */
     private $mailMessage;
 

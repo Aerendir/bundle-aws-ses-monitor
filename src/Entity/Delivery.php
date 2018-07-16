@@ -47,6 +47,7 @@ class Delivery
      *
      * @var MailMessage
      * @ORM\ManyToOne(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage", inversedBy="deliveries")
+     * @ORM\JoinColumn(name="mail_message", referencedColumnName="message_id")
      */
     private $mailMessage;
 
