@@ -49,7 +49,7 @@ class BounceTest extends TestCase
 
         $resource = Bounce::create($test['email'], $test['mailMessage'], $test['bouncedRecipient'], $test['notification']);
 
-        self::assertSame($test['email'], $resource->getEmail());
+        self::assertSame($test['email'], $resource->getEmailStatus());
         self::assertSame($test['mailMessage'], $resource->getMailMessage());
         self::assertSame($test['notification']['bounce']['timestamp'], $resource->getBouncedOn()->format('Y-m-d H:i:s'));
         self::assertSame($test['notification']['bounce']['bounceType'], $resource->getType());

@@ -42,7 +42,7 @@ class DeliveryTest extends TestCase
 
         $resource = Delivery::create($test['email'], $test['mailMessage'], $test['notification']);
 
-        self::assertSame($test['email'], $resource->getEmail());
+        self::assertSame($test['email'], $resource->getEmailStatus());
         self::assertSame($test['mailMessage'], $resource->getMailMessage());
         self::assertSame($test['notification']['delivery']['timestamp'], $resource->getDeliveredOn()->format('Y-m-d H:i:s'));
         self::assertSame($test['notification']['delivery']['processingTimeMillis'], $resource->getProcessingTimeMillis());

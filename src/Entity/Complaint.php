@@ -60,9 +60,9 @@ class Complaint
     /**
      * @var EmailStatus
      * @ORM\ManyToOne(targetEntity="EmailStatus", inversedBy="complaints", cascade={"persist"})
-     * @ORM\JoinColumn(name="email", referencedColumnName="address")
+     * @ORM\JoinColumn(name="email_status", referencedColumnName="address")
      */
-    private $email;
+    private $emailStatus;
 
     /**
      * The MessageObject that reported this complaint.
@@ -136,7 +136,7 @@ class Complaint
             ->setComplainedOn(new \DateTime($notification['complaint']['timestamp']))
             ->setFeedbackId($notification['complaint']['feedbackId'])
             ->setMailMessage($mailMessage)
-            ->setEmail($email);
+            ->setEmailStatus($email);
 
         if (isset($notification['complaint']['userAgent'])) {
             $complaint->setUserAgent($notification['complaint']['userAgent']);
@@ -173,9 +173,9 @@ class Complaint
     /**
      * @return EmailStatus
      */
-    public function getEmail(): EmailStatus
+    public function getEmailStatus(): EmailStatus
     {
-        return $this->email;
+        return $this->emailStatus;
     }
 
     /**
@@ -219,14 +219,14 @@ class Complaint
     }
 
     /**
-     * @param EmailStatus $email
+     * @param EmailStatus $emailStatus
      *
      * @return Complaint
      */
-    private function setEmail(EmailStatus $email): Complaint
+    private function setEmailStatus(EmailStatus $emailStatus): Complaint
     {
-        $this->email = $email;
-        $email->addComplaint($this);
+        $this->emailStatus = $emailStatus;
+        $emailStatus->addComplaint($this);
 
         return $this;
     }

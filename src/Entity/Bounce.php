@@ -56,9 +56,9 @@ class Bounce
     /**
      * @var EmailStatus
      * @ORM\ManyToOne(targetEntity="EmailStatus", inversedBy="bounces", cascade={"persist"})
-     * @ORM\JoinColumn(name="email", referencedColumnName="address")
+     * @ORM\JoinColumn(name="email_status", referencedColumnName="address")
      */
-    private $email;
+    private $emailStatus;
 
     /**
      * The MessageObject that reported this bounce.
@@ -161,7 +161,7 @@ class Bounce
             ->setSubType(($notification['bounce']['bounceSubType']))
             ->setFeedbackId($notification['bounce']['feedbackId'])
             ->setMailMessage($mailMessage)
-            ->setEmail($email);
+            ->setEmailStatus($email);
 
         if (isset($notification['bounce']['reportingMta'])) {
             $bounce->setReportingMta($notification['bounce']['reportingMta']);
@@ -194,9 +194,9 @@ class Bounce
     /**
      * @return EmailStatus
      */
-    public function getEmail(): EmailStatus
+    public function getEmailStatus(): EmailStatus
     {
-        return $this->email;
+        return $this->emailStatus;
     }
 
     /**
@@ -280,14 +280,14 @@ class Bounce
     }
 
     /**
-     * @param EmailStatus $email
+     * @param EmailStatus $emailStatus
      *
      * @return Bounce
      */
-    private function setEmail(EmailStatus $email): Bounce
+    private function setEmailStatus(EmailStatus $emailStatus): Bounce
     {
-        $this->email = $email;
-        $email->addBounce($this);
+        $this->emailStatus = $emailStatus;
+        $emailStatus->addBounce($this);
 
         return $this;
     }

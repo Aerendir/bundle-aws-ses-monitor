@@ -36,7 +36,7 @@ class EmailStatus
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce", mappedBy="email")
+     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce", mappedBy="emailStatus")
      */
     private $bounces;
 
@@ -66,7 +66,7 @@ class EmailStatus
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint", mappedBy="email")
+     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint", mappedBy="emailStatus")
      */
     private $complaints;
 
@@ -78,7 +78,7 @@ class EmailStatus
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery", mappedBy="email")
+     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery", mappedBy="emailStatus")
      */
     private $deliveries;
 

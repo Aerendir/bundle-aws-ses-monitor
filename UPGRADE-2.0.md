@@ -69,16 +69,7 @@ shq_aws_ses_monitor:
 
 ```
 
-STEP 2: Rename `shq_aws_ses_monitor_email_statuses` to `shq_aws_ses_monitor_emails`:
-------------------------------------------------------------------------------------
-
-Simply run this query:
-
-```sql
-rename table shq_aws_ses_monitor_email_statuses to shq_aws_ses_monitor_emails;
-```
-
-STEP 3: Fully update the database using `doctrine:schema:update`:
+STEP 2: Fully update the database using `doctrine:schema:update`:
 -----------------------------------------------------------------
 
 This will reflect the other changes to the properties of the entities and will automatically rename the fields, indexes and foreign keys:
@@ -93,7 +84,7 @@ If you want to see which queries Doctrine will execute WITHOUT really executing 
 $ bin/console doctrine:schema:update --dump-sql
 ```
 
-STEP 4: Update your code using the new classes and methods
+STEP 3: Update your code using the new classes and methods
 ----------------------------------------------------------
 
 This is a more long procedure and you have to do it manually.
@@ -118,8 +109,5 @@ Classes and their Methods
 
 `EmailStatus` entity:
 
-- `EmailStatus::getComplaintsCount()`
-- `EmailStatus::getDeliveriesCount()`
-- `Bounce::getEmailStatus()`
-- `Delivery::getEmailStatus()`
-- `Complaint::getEmailStatus()`
+- `EmailStatus::getComplaintsCount()` (use `EmailStatus::getComplaints()->count()` instead)
+- `EmailStatus::getDeliveriesCount()` (use `EmailStatus::getComplaints()->count()` instead)

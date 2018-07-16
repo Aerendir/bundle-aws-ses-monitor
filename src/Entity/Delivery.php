@@ -38,9 +38,9 @@ class Delivery
     /**
      * @var EmailStatus
      * @ORM\ManyToOne(targetEntity="EmailStatus", inversedBy="deliveries", cascade={"persist"})
-     * @ORM\JoinColumn(name="email", referencedColumnName="address")
+     * @ORM\JoinColumn(name="email_status", referencedColumnName="address")
      */
-    private $email;
+    private $emailStatus;
 
     /**
      * The MessageObject that reported this complaint.
@@ -99,7 +99,7 @@ class Delivery
             ->setProcessingTimeMillis($notification['delivery']['processingTimeMillis'])
             ->setSmtpResponse($notification['delivery']['smtpResponse'])
             ->setMailMessage($mailMessage)
-            ->setEmail($email);
+            ->setEmailStatus($email);
 
         if (isset($notification['delivery']['reportingMta'])) {
             $delivery->setReportingMta($notification['delivery']['reportingMta']);
@@ -120,9 +120,9 @@ class Delivery
     /**
      * @return EmailStatus
      */
-    public function getEmail(): EmailStatus
+    public function getEmailStatus(): EmailStatus
     {
-        return $this->email;
+        return $this->emailStatus;
     }
 
     /**
@@ -166,14 +166,14 @@ class Delivery
     }
 
     /**
-     * @param EmailStatus $email
+     * @param EmailStatus $emailStatus
      *
      * @return Delivery
      */
-    private function setEmail(EmailStatus $email): Delivery
+    private function setEmailStatus(EmailStatus $emailStatus): Delivery
     {
-        $this->email = $email;
-        $email->addDelivery($this);
+        $this->emailStatus = $emailStatus;
+        $emailStatus->addDelivery($this);
 
         return $this;
     }

@@ -47,7 +47,7 @@ class ComplaintTest extends TestCase
         ];
         $resource = Complaint::create($test['email'], $test['mailMessage'], $test['notification']);
 
-        self::assertSame($test['email'], $resource->getEmail());
+        self::assertSame($test['email'], $resource->getEmailStatus());
         self::assertSame($test['mailMessage'], $resource->getMailMessage());
         self::assertSame($test['notification']['complaint']['timestamp'], $resource->getComplainedOn()->format('Y-m-d H:i:s'));
         self::assertSame($test['notification']['complaint']['feedbackId'], $resource->getFeedbackId());
