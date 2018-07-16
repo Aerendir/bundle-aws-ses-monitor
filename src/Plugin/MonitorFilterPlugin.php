@@ -22,13 +22,12 @@ use Swift_Events_SendEvent;
 /**
  * The SwiftMailer plugin.
  *
- * @author Audrius Karabanovas <audrius@karabanovas.net>
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
 class MonitorFilterPlugin implements \Swift_Events_SendListener
 {
     /** @var array $blacklisted */
-    private $blacklisted = [];
+    private $blacklisted;
 
     /** @var array $bouncesConfig */
     private $bouncesConfig;
@@ -58,7 +57,9 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      */
     public function beforeSendPerformed(Swift_Events_SendEvent $event): void
     {
-        $message = $event->getMessage();
+        // Reset the blacklisted array
+        $this->blacklisted = [];
+        $message           = $event->getMessage();
 
         if (null !== $message->getTo()) {
             $message->setTo($this->filterBlacklisted($message->getTo()));
@@ -80,7 +81,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      */
     public function sendPerformed(Swift_Events_SendEvent $evt): void
     {
-        $evt->setFailedRecipients(array_keys($this->blacklisted));
+        $evt->setFailedRecipients(array_unique($this->blacklisted));
     }
 
     /**
@@ -93,11 +94,11 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
         $emails = array_keys($recipients);
 
         foreach ($emails as $email) {
-            $email = $this->emailStatusManager->loadEmailStatus($email);
+            $emailStatus = $this->emailStatusManager->loadEmailStatus($email);
 
-            if (null !== $email && ($this->isBounced($email) || $this->isComplained($email))) {
-                $this->blacklisted[$email->getAddress()] = $recipients[$email->getAddress()];
-                unset($recipients[$email->getAddress()]);
+            if (null !== $emailStatus && ($this->isBounced($emailStatus) || $this->isComplained($emailStatus))) {
+                $this->blacklisted[] = $emailStatus->getAddress();
+                unset($recipients[$emailStatus->getAddress()]);
             }
         }
 
