@@ -87,7 +87,7 @@ script:
     - if [[ $FULL_CHECK == true ]]; then ./vendor/bin/php-cs-fixer fix --allow-risky yes --dry-run -v; fi
     # This triggers an analysis on SensioLabs Insight
     # Instructions: https://insight.sensiolabs.com/docs/bitbucket/analyze-a-symfony-project-on-bitbucket.html
-    - if [[ $FULL_CHECK == true ]]; then curl -X POST -H "Accept: application/vnd.com.sensiolabs.insight+xml" "https://$SENSIO_INSIGHT_USER:$SENSIO_INSIGHT_PASS@insight.sensiolabs.com/api/projects/$SENSIO_INSIGHT_PROJECT/analyses"; fi;
+    - if [[ $FULL_CHECK == true ]]; then ./bin/ask-insights; fi;
     # Lint the config files and templates
     # Perform static code analysis
     - ./tools/phpstan analyse src -c phpstan.neon --level 0
