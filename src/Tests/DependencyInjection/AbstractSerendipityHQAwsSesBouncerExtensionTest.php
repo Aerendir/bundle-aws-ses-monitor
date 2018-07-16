@@ -53,7 +53,7 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         self::assertTrue(is_array($this->container->getParameter('shq_aws_ses_monitor.aws_config')));
 
         // Test Region
-        self::assertSame('us-east-1', $this->container->getParameter('shq_aws_ses_monitor.aws_config')['region']);
+        self::assertSame('eu-west-1', $this->container->getParameter('shq_aws_ses_monitor.aws_config')['region']);
 
         // Test SES version
         self::assertSame('2010-12-01', $this->container->getParameter('shq_aws_ses_monitor.aws_config')['ses_version']);

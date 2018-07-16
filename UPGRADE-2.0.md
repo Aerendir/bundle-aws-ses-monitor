@@ -69,6 +69,13 @@ shq_aws_ses_monitor:
 
 ```
 
+### Changed default values
+```yaml
+shq_aws_ses_monitor:
+    aws_config:
+        region: eu-west-1 # Previously was "us-east-1"
+```
+
 STEP 2: Fully update the database using `doctrine:schema:update`:
 -----------------------------------------------------------------
 

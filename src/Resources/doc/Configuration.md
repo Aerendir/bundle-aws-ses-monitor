@@ -10,34 +10,62 @@ The bundle creates an `Aws\SesClient` and an `Aws\SnsClient` that it uses to per
 
 To access to AWS you need a pair of credentials. **Before continuing, if you have not already done it, [create this pair of credentials](https://aws.amazon.com/it/developers/access-keys/).**
 
+To use the bundle both on production and on development, you need two configuration files:
 
-Step 3: Configure the AWS Client
---------------------------------
+1. `config/packages/dev/shq_aws_ses_monitor.yaml`
+2. `config/packages/prod/shq_aws_ses_monitor.yaml`
 
-First, add the configuration parameters to `parameters.yml`:
+*NOTE: If you are using Symfony Flex, those files will be created automatically toghter with the required parameters in the `.env` file.*
 
-```yaml
-parameters:
-    ...
-    amazon.aws.key: 'your_key'
-    amazon.aws.secret: 'your_secret'
-    amazon.aws.eu_region: 'eu-west-1' # You can omit this. If omitted, the bundle sets this to us-east-1
-    amazon.ses.version: '2010-12-01' # You can omit this. If omitted, the bundle sets this to 2010-12-01
-    amazon.sns.version: '2010-03-31' # You can omit this. If omitted, the bundle sets this to 2010-03-31
+Step 3: Set the required environment variables and services
+-----------------------------------------------------------
+
+First, add the required environment variables.
+
+On your local machine, you will use the `.env` file. In `prod` you have to set them the way your server requires them to be set.
+
+The variables in the `.env` file are different from the variables required on your production servers.
+
+```
+# .env
+
+## Not required on production
+NGROK_APP_SCHEME=https
+NGROK_APP_HOST=xxxxxxxx.ngrok.io
+
+## Convenient variables that make easier configuration
+# Keep attention: this may be httpS on production!
+APP_SCHEME=http
+
+# This has to be the same of bin/console server:start on development machines
+APP_HOST=127.0.0.1:8000
+
+## This may be required by other bundles that use AWS
+AWS_ACCESS_KEY_ID=your-aws-key-id
+AWS_ACCESS_KEY_SECRET==your-aws-key-secret
+
+## Variabes specific to AWS SES Monitor Bundle
+AWS_SES_TOPIC_BOUNCES=tbme-dev-ses-bounces-topic
+AWS_SES_TOPIC_COMPLAINTS=tbme-dev-ses-complaints-topic
+AWS_SES_TOPIC_DELIVERIES=tbme-dev-ses-deliveries-topic
 ```
 
-NOTE: Do not forget to add those parameters also to your `parameters.dist.yml`.
+*NOTE 1: Do not forget to add those parameters also to your `.env.dist`.*
+
+*NOTE 2: In this example we use `NGROK_APP_SCHEME` and `NGROK_APP_HOST` together with `APP_SCHEME` and `APP_HOST`. This is because using `APP_SCHEME` and `APP_HOST` is a convenient way of having those information at hand as they are required by a lot of bundles and configurations. BUT we have also `NGROK_APP_SCHEME` and `NGROK_APP_HOST` as those are parameters only used in development when really sending emails through AWS SES.
+Maybe you have sufficient experience with Symfony to already know the convenience of having both pairs of configs: if you are not understanding what we are sayng, feel free to open an issue: we will explain to you further on this topic.*
 
 ### Create an AWS\Credentials service
 
 Create the `Credentials` service needed by the `AWS\Client` to pass it your access information:
  
 ```yaml
- services:
-     ...
-     client.amazon.credentials:
-         class: Aws\Credentials\Credentials
-         arguments: ["%amazon.aws.key%", "%amazon.aws.secret%"]
+# config/services.yaml
+
+services:
+    ...
+    Aws\Credentials\Credentials:
+        arguments: ['%env(AWS_ACCESS_KEY_ID)%', '%env(AWS_ACCESS_KEY_SECRET)%']
 ```
 
 STEP 4: CONFIGURE AWS SES MONITOR BUNDLE
@@ -46,68 +74,154 @@ STEP 4: CONFIGURE AWS SES MONITOR BUNDLE
 The full configuration is as follows. The set values are the default ones:
 
 ```yaml
-SHQAwsSesMonitorBundlele"
+# config/packages/shq_aws_ses_monitor.yaml (used for all environments)
 shq_aws_ses_monitor:
     aws_config:
-        credentials_service_name: 'client.amazon.credentials' # REQUIRED. Here the NAME (not the service itself!) of the credentials service set in the previous step.
-                                                              # If you omit this, the bundle looks for client.aws.credentials service.
-        region: "%amazon.aws.eu_region%" # OPTIONAL. If omitted, the bundle sets this to us-east-1.
-        ses_version: "%amazon.ses.version%" # OPTIONAL. The AWS SES API version to use. Defaults to 2010-12-01.
-        sns_version: "%amazon.sns.version%" # OPTIONAL. The AWS SNS API version to use. Defaults to 2010-03-31.
-    # On which mailers you want to activate the filter plugin (requires you activate the plugin in one of complaints or bounces sections below)
+        # REQUIRED. Here the NAME (not the service itself!) of the credentials service set in the previous step.
+        # If you omit this, the bundle looks for Aws\Credentials\Credentials service.
+        credentials_service_name: 'Aws\Credentials\Credentials'
+        
+        # OPTIONAL. If omitted, the bundle sets this to eu-west-1.
+        # If you use this, remember to add it to .env and .env.dist files
+        region: "%env(AWS_REGION)%"
+        
+        # OPTIONAL. The AWS SES API version to use. Defaults to 2010-12-01.
+        # If you use this, remember to add it to .env and .env.dist files
+        ses_version: "%env(AWS_SES_VERSION)%"
+        
+        # OPTIONAL. The AWS SNS API version to use. Defaults to 2010-03-31.
+        # If you use this, remember to add it to .env and .env.dist files
+        sns_version: "%env(AWS_SNS_VERSION)%"
+    
+    # On which mailers you want to activate the filter plugin.
+    # This requires that at least one between bounces and complaints filters are activated.
+    # If both bounces and complaints filter are not activated, the filter plugin is not
+    # added to any mailer.
     mailers:
         - default
+    
+    # Configuration for bounced emails
     bounces:
+        # OPTIONAL. The node "topic" is optional. But it is REQUIRED if you want to use the command aws:ses:monitor:setup:bounces-topic
         topic:
-            name: ses-your_app-bounces-topic # OPTIONAL. Required only to use the configuration commands. 
+            # REQUIRED. The name of the topic to create on SNS to which SES will notify bounced emails.
+            # Requires you to add AWS SES Monitor routings to your configuration (see next section "Add routing")
+            name: ses-your_app-bounces-topic 
             endpoint:
-                route_name: _shq_aws_ses_monitor_bounces_endpoint # OTIONAL. The endpoint AWS SNS calls when SES reports a bounce.
-                scheme: https # OPTIONAL. The scheme to use. Accepted values are: http, HTTP, https, HTTPS.
-                host: your_domain.com # REQUIRED. The hostname of your project when in production.
+                # OTIONAL. The endpoint AWS SNS calls when SES reports a bounce.
+                # This is the default value: you can change it when importing routes from Aws Ses Monitor Bundle
+                route_name: _shq_aws_ses_monitor_bounces_endpoint
+                
+                # OPTIONAL. The scheme to use. Defaults to "https". Accepted values are: http, HTTP, https, HTTPS.
+                scheme: '%env(APP_SCHEME)%'
+                
+                # REQUIRED. The hostname of your project when in production. No default value.
+                host: '%env(APP_HOST)%'
+        
+        # Configuration for the SwiftMailer filter plugin
         filter:
-            enabled: true # OPTIONAL. If false, no filtering of bounced recipients will happen. Complained are ever filtered.
-            soft_as_hard: false # OPTIONAL. If true, the temporary bounces counts as hard bounces
-            max_bounces: 5 # OPTIONAL. The max number of bounces before the address is blacklisted
-            soft_blacklist_time: forever # OPTIONAL. NOT YET IMPLEMENTED. The amount of time for wich a temporary bounced address has to be blacklisted. If "forever" emails will never been sent in the future.
-            hard_blacklist_time: forever # OPTIONAL. NOT YET IMPLEMENTED. The amount of time for wich an hard bounced address has to be blacklisted. If "forever" emails will never been sent in the future.
-            force_send: false # OPTIONAL. If you want to force the sending of e-maills to bounced e-mails. VERY RISKY!
+            # OPTIONAL. If false, no filtering of bounced recipients will happen.
+            # "false" IS VERY RISKY for the health of your AWS SES account.
+            enabled: true
+            
+            # OPTIONAL. If true, the temporary bounces counts as hard bounces
+            # More infor about the difference here:
+            # - https://docs.aws.amazon.com/ses/latest/DeveloperGuide/deliverability-and-ses.html#bounce
+            # - https://aws.amazon.com/it/blogs/messaging-and-targeting/email-definitions-bounces/
+            soft_as_hard: false
+            
+            # OPTIONAL. The max number of bounces before the address is blacklisted (no more emails will be sent to it)
+            max_bounces: 5
+            
+            # OPTIONAL. NOT YET IMPLEMENTED. The amount of time for wich a temporary bounced address has to be blacklisted. If "forever" emails will never been sent in the future.
+            soft_blacklist_time: forever
+            
+            # OPTIONAL. NOT YET IMPLEMENTED. The amount of time for wich an hard bounced address has to be blacklisted. If "forever" emails will never been sent in the future.
+            hard_blacklist_time: forever
+            
+            # OPTIONAL. If you want to force the sending of e-mails to bounced e-mails. VERY RISKY!
+            force_send: false
+    
+    # Configuration for complained emails
     complaints:
+        # OPTIONAL. The node "topic" is optional. But it is REQUIRED if you want to use the command aws:ses:monitor:setup:complaints-topic
         topic:
-            name: ses-your_app-complaints-topic # OPTIONAL. Required only to use the configuration commands.
+            # REQUIRED. The name of the topic to create on SNS to which SES will notify complained emails.
+            # Requires you to add AWS SES Monitor routings to your configuration (see next section "Add routing")
+            name: ses-your_app-complaints-topic
             endpoint:
-                route_name: _shq_aws_ses_monitor_complaints_endpoint # OTIONAL. The endpoint AWS SNS calls when SES reports a complaint.
-                scheme: https # OPTIONAL. The scheme to use. Accepted values are: http, HTTP, https, HTTPS.
-                host: your_domain.com # REQUIRED. The hostname of your project when in production.
+                # OTIONAL. The endpoint AWS SNS calls when SES reports a complaint.
+                # This is the default value: you can change it when importing routes from Aws Ses Monitor Bundle
+                route_name: _shq_aws_ses_monitor_complaints_endpoint
+                
+                # OPTIONAL. The scheme to use. Defaults to "https". Accepted values are: http, HTTP, https, HTTPS.
+                scheme: '%env(APP_SCHEME)%'
+                
+                # REQUIRED. The hostname of your project when in production. No default value.
+                host: '%env(APP_HOST)%'
+        
+        # Configuration for the SwiftMailer filter plugin
         filter:
-            enabled: true # OPTIONAL. If false, no filtering of complained recipients will happen. "false" IS VERY RISKY!
-            blacklist_time: forever # OPTIONAL. NOT YET IMPLEMENTED. The amount of time for wich an address has to be blacklisted. If "forever" emails will never been sent in the future.
-            force_send: false # OPTIONAL. If you want to force the sending of e-maills to complained e-mails. VERY RISKY!
+            # OPTIONAL. If false, no filtering of bounced recipients will happen.
+            # "false" IS VERY RISKY for the health of your AWS SES account.
+            enabled: true
+            
+            # OPTIONAL. NOT YET IMPLEMENTED. The amount of time for wich an address has to be blacklisted. If "forever" emails will never been sent in the future.
+            blacklist_time: forever
+            
+            # OPTIONAL. If you want to force the sending of e-mails to complained e-mails. VERY RISKY!
+            force_send: false
+    
+    # Configuration for delivered emails
     deliveries:
-        enabled: true # OPTIONAL. By default also the deliveries are tracked.
+        # OPTIONAL. The node "topic" is optional. But it is REQUIRED if you want to use the command aws:ses:monitor:setup:deliveries-topic
         topic:
-            name: ses-your_app-deliveries-topic # OPTIONAL. Required only to use the configuration commands.
+            # REQUIRED. The name of the topic to create on SNS to which SES will notify delivered emails.
+            # Requires you to add AWS SES Monitor routings to your configuration (see next section "Add routing")
+            name: ses-your_app-deliveries-topic
             endpoint:
-                route_name: _shq_aws_ses_monitor_deliveries_endpoint # OTIONAL. The endpoint AWS SNS calls when SES reports a delivery.
-                scheme: https # OPTIONAL. The scheme to use. Accepted values are: http, HTTP, https, HTTPS.
-                host: your_domain.com # REQUIRED. The hostname of your project when in production.
-        # Has no filter options
+                # OTIONAL. The endpoint AWS SNS calls when SES reports a delivery.
+                # This is the default value: you can change it when importing routes from Aws Ses Monitor Bundle
+                route_name: _shq_aws_ses_monitor_deliveries_endpoint
+                
+                # OPTIONAL. The scheme to use. Defaults to "https". Accepted values are: http, HTTP, https, HTTPS.
+                scheme: '%env(APP_SCHEME)%'
+                
+                # REQUIRED. The hostname of your project when in production. No default value.
+                host: '%env(APP_HOST)%'
+
+        # Configuration for the SwiftMailer filter plugin
+        enabled: true # OPTIONAL. By default also the deliveries are tracked.
 ```
 
-Add routing file for bounce endpoint (feel free to edit prefix)
+Step 5: Add routing file for bounce endpoint
+--------------------------------------------
+
+To get notifications from AWS SES through SNS, you need to activate the Aws Ses Monitor Bundle endpoint route: SNS will send this route to notify what happened with the email addresses to which you sent emails.
+
+With this notification from SNS, Aws Ses Monitor Bundle is able to understand if is secure to send emails to a particular address or not. 
+
+To configure the endpoint route, add this to your routing configuration:
 
 ```yaml
-# app/config/routing.yml
-shq_aws_ses_monitor:
-    resource: SHSHQAwsSesMonitorBundlee
-    prefix: /aws/endpoints
+# config/routes/shq_aws_ses_monitor.yaml
+_shq_aws_ses_monitor:
+    resource: '@SHQAwsSesMonitorBundle/Resources/config/routing.yml'
+    prefix: /endpoints/aws
 ```
 
-Step 4: Update your database scheme
+Step 6: Update your database scheme
 -----------------------------------
+
+Now it's time to update your database to create the tables required by Aws Ses Monitor bundle.
+
+A simple forced update is sufficient and also secure as you will not go to modify any one of your still existent tables:
 
 ```
 $ php app/console doctrine:scheme:update --force
 ```
+
+Now that you have completed the configuration, it is time to integrate your app with AWS SES and SNS.
 
 *Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
 
