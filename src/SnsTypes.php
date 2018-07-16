@@ -18,7 +18,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle;
 /**
  * Defines the type of requests SNS can send.
  */
-interface SnsTypes
+class SnsTypes
 {
     const HEADER_TYPE_NOTIFICATION          = 'Notification';
     const HEADER_TYPE_CONFIRM_SUBSCRIPTION  = 'SubscriptionConfirmation';
