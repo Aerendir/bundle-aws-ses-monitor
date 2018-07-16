@@ -22,19 +22,22 @@ env:
         # This is required by Phive to work
         - CACHE_NAME=GENERAL
 
+php:
+    - 7.1
+    - 7.2
+
 matrix:
     fast_finish: true
     include:
+        # Test the latest stable release building coverage and performing all checks
+        - php: 7.2
+          env: COVERAGE=true PHPUNIT_FLAGS="-v --coverage-text" FULL_CHECK=true
+
         # Minimum supported dependencies with the latest and oldest PHP version
         - php: 7.2
           env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" SYMFONY_DEPRECATIONS_HELPER="weak_vendors"
         - php: 7.1
           env: COMPOSER_FLAGS="--prefer-stable --prefer-lowest" SYMFONY_DEPRECATIONS_HELPER="weak_vendors"
-
-        # Test the latest stable release
-        - php: 7.1
-        - php: 7.2
-          env: COVERAGE=true PHPUNIT_FLAGS="-v --coverage-text" FULL_CHECK=true
 
         # Test LTS versions. This makes sure we do not use Symfony packages with version greater
         # than 3. Read more at https://github.com/symfony/lts
@@ -42,6 +45,9 @@ matrix:
           env: DEPENDENCIES="symfony/lts:^3"
 
         # Latest commit to master
+        - php: 7.2
+          env: STABILITY="dev"
+    allow_failures:
         - php: 7.2
           env: STABILITY="dev"
 
