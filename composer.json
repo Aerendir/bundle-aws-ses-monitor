@@ -25,17 +25,17 @@
         "doctrine/doctrine-bundle": "^1.7",
         "doctrine/common": "^2.4",
         "doctrine/orm": "^2.5",
-        "symfony/framework-bundle": "^2.8|^3.4|^4.1",
+        "symfony/framework-bundle": "^3.4|^4.1",
         "symfony/swiftmailer-bundle": "^3.0",
-        "symfony/yaml": "^2.8|^3.4|^4.1"
+        "symfony/yaml": "^3.4|^4.1"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.0",
-        "sensiolabs/security-checker": "^2.8|^3.4|^4.1",
+        "sensiolabs/security-checker": "^3.4|^4.1",
         "serendipity_hq/phpunit_helper": "*",
-        "symfony/console": "^2.8|^3.4|^4.1",
-        "symfony/var-dumper": "^2.8|^3.4|^4.1",
-        "symfony/phpunit-bridge": "^2.8|^3.4|^4.1"
+        "symfony/console": "^3.4|^4.1",
+        "symfony/var-dumper": "^3.4|^4.1",
+        "symfony/phpunit-bridge": "^3.4|^4.1"
     },
     "autoload": {
         "psr-4": {
