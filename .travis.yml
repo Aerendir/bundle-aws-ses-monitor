@@ -60,10 +60,10 @@ before_install:
     # Here we copy to make possible to setup each job of the build:
     # if we move with one Job, the others cannot execute this command anymore
     - sudo cp $HOME/.phive/phive.phar /usr/local/bin/phive
-    - pecl channel-update pecl.php.net
-    - pecl install ast-0.1.6
-    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-    - chmod +x ./cc-test-reporter
+    - if [[ $FULL_CHECK == true ]]; then pecl channel-update pecl.php.net; fi;
+    - if [[ $FULL_CHECK == true ]]; then pecl install ast-0.1.6; fi;
+    - if [[ $FULL_CHECK == true ]]; then curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; fi;
+    - if [[ $FULL_CHECK == true ]]; then chmod +x ./cc-test-reporter; fi;
 
 install:
     # To be removed when this issue will be resolved: https://github.com/composer/composer/issues/5355
@@ -75,7 +75,7 @@ install:
     - ./vendor/bin/simple-phpunit install
 
 before_script:
-    - ./cc-test-reporter before-build
+    - if [[ $FULL_CHECK == true ]]; then ./cc-test-reporter before-build; fi;
 
 script:
     # Validate the composer.json and dependencies
@@ -94,4 +94,4 @@ script:
     - ./vendor/bin/simple-phpunit $PHPUNIT_FLAGS
 
 after_script:
-    - ./cc-test-reporter after-build --coverage-input-type clover  --exit-code $TRAVIS_TEST_RESULT
+    - if [[ $FULL_CHECK == true ]]; then ./cc-test-reporter after-build --coverage-input-type clover  --exit-code $TRAVIS_TEST_RESULT; fi;
