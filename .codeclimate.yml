@@ -18,4 +18,4 @@ ratings:
   paths:
   - "**.php"
 exclude_patterns:
-  - "Tests/"
+  - "**/Tests/"
