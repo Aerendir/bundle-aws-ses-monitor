@@ -19,3 +19,17 @@ ratings:
   - "**.php"
 exclude_patterns:
   - "**/Tests/"
+plugins:
+  git-legal:
+    enabled: true
+  markdownlint:
+    enabled: true
+  phan:
+    enabled: true
+    config:
+      file_extensions: "php"
+  sonar-php:
+    enabled: true
+    config:
+      tests_patterns:
+        - src/Tests/**
