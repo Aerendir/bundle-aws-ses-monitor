@@ -20,8 +20,6 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Topic;
 
 /**
  * Tests the Topic entity.
- *
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
 class TopicTest extends TestCase
 {

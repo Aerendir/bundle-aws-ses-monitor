@@ -25,8 +25,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Handles the confirmation of the subscription.
- *
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
 class SubscriptionProcessor
 {

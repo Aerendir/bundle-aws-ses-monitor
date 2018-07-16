@@ -20,11 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
- *
  * {@inheritdoc}
- *
- * Loads the Yaml configuration
  */
 class YamlAwsSesMonitorBundleExtensionTest extends AbstractSerendipityHQAwsSesBouncerExtensionTest
 {

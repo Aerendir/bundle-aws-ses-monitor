@@ -22,9 +22,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Tests the configuration of the bundle.
- *
- * @author Audrius Karabanovas <audrius@karabanovas.net>
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
 abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
 {

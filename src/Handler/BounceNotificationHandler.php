@@ -21,8 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Handles notifications of bounced Emails.
- *
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ * {@inheritdoc}
  */
 class BounceNotificationHandler extends AbstractNotification
 {

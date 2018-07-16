@@ -22,8 +22,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @see https://docs.aws.amazon.com/ses/latest/DeveloperGuide/notification-contents.html#delivery-object
  *
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
- *
  * @ORM\Table(name="shq_aws_ses_monitor_deliveries")
  * @ORM\Entity()
  */

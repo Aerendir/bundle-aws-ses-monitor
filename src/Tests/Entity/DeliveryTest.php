@@ -22,8 +22,6 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage;
 
 /**
  * Tests the Delivery entity.
- *
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
 class DeliveryTest extends TestCase
 {

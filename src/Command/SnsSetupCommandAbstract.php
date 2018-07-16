@@ -31,9 +31,6 @@ use Symfony\Component\Routing\RouterInterface;
 
 /**
  * Abstract class to perform common command tasks.
- *
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
- *
  * {@inheritdoc}
  */
 abstract class SnsSetupCommandAbstract extends ContainerAwareCommand

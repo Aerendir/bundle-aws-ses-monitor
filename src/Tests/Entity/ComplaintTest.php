@@ -22,8 +22,6 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage;
 
 /**
  * Tests the Complaint entity.
- *
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
 class ComplaintTest extends TestCase
 {

@@ -21,8 +21,7 @@ use Swift_Events_SendEvent;
 
 /**
  * The SwiftMailer plugin.
- *
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ * {@inheritdoc}
  */
 class MonitorFilterPlugin implements \Swift_Events_SendListener
 {

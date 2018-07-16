@@ -21,8 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Handles notifications of delivered emails.
- *
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ * {@inheritdoc}
  */
 class DeliveryNotificationHandler extends AbstractNotification
 {

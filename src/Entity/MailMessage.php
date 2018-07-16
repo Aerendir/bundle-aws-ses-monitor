@@ -26,8 +26,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @see http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notification-contents.html#mail-object
  *
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
- *
  * @ORM\Table(name="shq_aws_ses_monitor_messages")
  * @ORM\Entity()
  */

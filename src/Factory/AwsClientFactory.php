@@ -24,8 +24,6 @@ use Aws\Sns\SnsClient;
  *
  * @see https://aws.amazon.com/it/documentation/ses/
  * @see https://aws.amazon.com/it/documentation/sns/
- *
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
 class AwsClientFactory
 {

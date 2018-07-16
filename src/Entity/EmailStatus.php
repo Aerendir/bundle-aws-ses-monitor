@@ -22,7 +22,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Represents an email address and records information about its health.
  *
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
  * @ORM\Table(name="shq_aws_ses_monitor_email_statuses", indexes={@ORM\Index(name="emails_statuses", columns={"address"})})
  * @ORM\Entity()
  */

@@ -22,8 +22,6 @@ use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Factory\AwsClientFactory;
 
 /**
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
- *
  * {@inheritdoc}
  */
 class AwsClientFactoryTest extends TestCase

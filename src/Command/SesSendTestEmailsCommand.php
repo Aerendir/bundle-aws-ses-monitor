@@ -25,8 +25,6 @@ use Symfony\Component\Console\Question\Question;
  *
  * @see: http://docs.aws.amazon.com/ses/latest/DeveloperGuide/mailbox-simulator.html
  *
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
- *
  * {@inheritdoc}
  */
 class SesSendTestEmailsCommand extends Command

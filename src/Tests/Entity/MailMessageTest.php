@@ -23,8 +23,6 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage;
 
 /**
  * Tests the MailMessage entity.
- *
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
 class MailMessageTest extends TestCase
 {

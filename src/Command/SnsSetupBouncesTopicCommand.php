@@ -22,9 +22,6 @@ use Symfony\Component\Routing\RouterInterface;
 
 /**
  * Setups a topic to receive bounces notifications from SNS.
- *
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
- *
  * {@inheritdoc}
  */
 class SnsSetupBouncesTopicCommand extends SnsSetupCommandAbstract

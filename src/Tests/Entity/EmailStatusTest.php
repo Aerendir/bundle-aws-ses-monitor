@@ -24,8 +24,6 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
 
 /**
  * Tests the EmailStatus entity.
- *
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */
 class EmailStatusTest extends TestCase
 {

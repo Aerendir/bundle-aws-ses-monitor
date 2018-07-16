@@ -21,8 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Handles notifications of compalined emails.
- *
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ * {@inheritdoc}
  */
 class ComplaintNotificationHandler extends AbstractNotification
 {
