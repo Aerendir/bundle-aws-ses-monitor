@@ -9,8 +9,8 @@ Step 1: Download the Bundle
 Open a command console, enter your project directory and execute the
 following command to download the latest stable version of this bundle:
 
-```bash
-$ composer require serendipity_hq/aws-ses-monitor-bundle "~0"
+```console
+composer require serendipity_hq/aws-ses-monitor-bundle "~0"
 ```
 
 This command requires you to have Composer installed globally, as explained

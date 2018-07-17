@@ -11,17 +11,17 @@ The methods available in the `EmailStatus` entity are those:
 
 - `EmailStatus::getEmail()`: Returns the email address represented by the object;
 - Information about **Bounces**:
-    - `EmailStatus::getBounces()`: Returns all the `Bounce` entities related to the email address
-    - `EmailStatus::getHardBouncesCount()`: Returns the amount of hard bounces
-    - `EmailStatus::getSoftBouncesCount()`: Returns the amount of soft bounces
-    - `EmailStatus::getLastBounceType()`: Returns the type of the last bounce (One between `Bounce::TYPE_PERMANENT` and `Bounce::TYPE_TRANSIENT`)
-    - `EmailStatus::getLastTimeBounced()`: Returns a `\DateTime` object of the last time the email bounced one of your messages
+  - `EmailStatus::getBounces()`: Returns all the `Bounce` entities related to the email address
+  - `EmailStatus::getHardBouncesCount()`: Returns the amount of hard bounces
+  - `EmailStatus::getSoftBouncesCount()`: Returns the amount of soft bounces
+  - `EmailStatus::getLastBounceType()`: Returns the type of the last bounce (One between `Bounce::TYPE_PERMANENT` and `Bounce::TYPE_TRANSIENT`)
+  - `EmailStatus::getLastTimeBounced()`: Returns a `\DateTime` object of the last time the email bounced one of your messages
 - Information about **Complaints**:
-    - `EmailStatus::getComplaints()`: Returns the `Complaint` entities related to the email address
-    - `EmailStatus::getLastTimeComplained()`: Returns a `\DateTime` object of the last time the email complained about one of your messages
+  - `EmailStatus::getComplaints()`: Returns the `Complaint` entities related to the email address
+  - `EmailStatus::getLastTimeComplained()`: Returns a `\DateTime` object of the last time the email complained about one of your messages
 - Information about **Deliveries** (available only if activated in the configuration):
-    - `EmailStatus::getDeliveries()`: Returns the `Complaint` entities related to the email address
-    - `EmailStatus::getLastTimeDelivered()`: Returns a `\DateTime` object of the last time the email correctly received one of your messages
+  - `EmailStatus::getDeliveries()`: Returns the `Complaint` entities related to the email address
+  - `EmailStatus::getLastTimeDelivered()`: Returns a `\DateTime` object of the last time the email correctly received one of your messages
 
 ***NOTE 1**: The `EmailStatus::getHardBouncesCount()` and `EmailStatus::getSoftBouncesCount()` methods don't trigger a new query to the database nor perform any complex task: the values returned are hard set when a Bounce is added. This way there is no overhed in calling those methods, also when there are a lot of Bounces.*
 

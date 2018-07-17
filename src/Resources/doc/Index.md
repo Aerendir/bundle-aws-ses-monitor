@@ -18,21 +18,21 @@ After you have done this, your app will automatically manage bounces, complaints
 Other useful resources about AWS SES
 ------------------------------------
 
-* [AWS Simple Email Service Developer guide](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/Welcome.html)
-    * [Processing bounces and complaints](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/best-practices-bounces-complaints.html)
-    * [Using Notifications with Amazon SES](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications.html)
-    * [Amazon SES Notifications Through Amazon SNS](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications-via-sns.html)
-    * [Testing Amazon SES Email Sending](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/mailbox-simulator.html)
-* [AWS Simple Email Service Blog](http://sesblog.amazon.com/)
-    * [Handling bounces and complaints](http://sesblog.amazon.com/post/TxJE1JNZ6T9JXK/-Handling-span-class-matches-Bounces-span-and-Complaints.pdf)
-* [AWS Simple Email Service Forum](https://forums.aws.amazon.com/forum.jspa?forumID=90)
+- [AWS Simple Email Service Developer guide](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/Welcome.html)
+  - [Processing bounces and complaints](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/best-practices-bounces-complaints.html)
+  - [Using Notifications with Amazon SES](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications.html)
+  - [Amazon SES Notifications Through Amazon SNS](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications-via-sns.html)
+  - [Testing Amazon SES Email Sending](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/mailbox-simulator.html)
+- [AWS Simple Email Service Blog](http://sesblog.amazon.com/)
+  - [Handling bounces and complaints](http://sesblog.amazon.com/post/TxJE1JNZ6T9JXK/-Handling-span-class-matches-Bounces-span-and-Complaints.pdf)
+- [AWS Simple Email Service Forum](https://forums.aws.amazon.com/forum.jspa?forumID=90)
 
 Other useful resources about AWS SNS
 ------------------------------------
 
-* [AWS Simple Notification Service Developer guide](http://docs.aws.amazon.com/sns/latest/dg/welcome.html)
-* [AWS Simple Notification Service Blog](https://aws.amazon.com/it/blogs/aws/category/amazon-sns/)
-* [AWS Simple Notification Service Forum](https://forums.aws.amazon.com/forum.jspa?forumID=72)
+- [AWS Simple Notification Service Developer guide](http://docs.aws.amazon.com/sns/latest/dg/welcome.html)
+- [AWS Simple Notification Service Blog](https://aws.amazon.com/it/blogs/aws/category/amazon-sns/)
+- [AWS Simple Notification Service Forum](https://forums.aws.amazon.com/forum.jspa?forumID=72)
 
 Miscellaneous
 -------------

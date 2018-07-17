@@ -93,13 +93,10 @@ class NotificationProcessor
         switch ($notificationData['notificationType']) {
             case SnsTypes::MESSAGE_TYPE_BOUNCE:
                 return $this->bounceNotificationHandler->processNotification($notificationData, $mailMessage);
-                break;
             case SnsTypes::MESSAGE_TYPE_COMPLAINT:
                 return $this->complaintNotificationHandler->processNotification($notificationData, $mailMessage);
-                break;
             case SnsTypes::MESSAGE_TYPE_DELIVERY:
                 return $this->deliveryNotificationHandler->processNotification($notificationData, $mailMessage);
-                break;
             default:
                 return new Response('Notification type not understood', 403);
         }

@@ -25,10 +25,10 @@ Then it is required to edit the databse to reflect the new namings: `EmailStatus
 
 Also some fields of various entities was renamed or deleted.
 
-Ti upgrade your database without losing the data collected until now, please follow those steps:
+To upgrade your database without losing the data collected until now, please 
+follow those steps.
 
-
-2. Also the database fields change from version 1.3 to version 2.0: so, please, run the following command:
+Also the database fields change from version 1.3 to version 2.0: so, please, run the following command:
 
 ```console
 bin/console doctrine:schema:update --force
@@ -37,9 +37,9 @@ bin/console doctrine:schema:update --force
 Those are the changes that will be applied:
 
 - `EmailStatus`:
-    - CHANGE `EmailStatus::$emailAddress` to `EmailStatus::$address`
-    - REMOVE `EmailStatus::$complaintsCount`: use `EmailStatus::getComplaints()->count()` instead
-    - REMOVE `EmailStatus::$deliveriesCount`: use `EmailStatus::getDeliveries()->count()` instead
+  - CHANGE `EmailStatus::$emailAddress` to `EmailStatus::$address`
+  - REMOVE `EmailStatus::$complaintsCount`: use `EmailStatus::getComplaints()->count()` instead
+  - REMOVE `EmailStatus::$deliveriesCount`: use `EmailStatus::getDeliveries()->count()` instead
 
 There should be no loss of data about emails and their statuses if you follow those steps.
 
@@ -86,25 +86,26 @@ shq_aws_ses_monitor:
 ```
 
 ### Changed default values
+
 ```yaml
 shq_aws_ses_monitor:
     aws_config:
         region: eu-west-1 # Previously was "us-east-1"
 ```
 
-STEP 2: Fully update the database using `doctrine:schema:update`:
+STEP 2: Fully update the database using `doctrine:schema:update`
 -----------------------------------------------------------------
 
 This will reflect the other changes to the properties of the entities and will automatically rename the fields, indexes and foreign keys:
 
 ```console
-$ bin/console doctrine:schema:update --force
+bin/console doctrine:schema:update --force
 ```
 
 If you want to see which queries Doctrine will execute WITHOUT really executing them, run:
 
 ```console
-$ bin/console doctrine:schema:update --dump-sql
+bin/console doctrine:schema:update --dump-sql
 ```
 
 STEP 3: Update your code using the new classes and methods

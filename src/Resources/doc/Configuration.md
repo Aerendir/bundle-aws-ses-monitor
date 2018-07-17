@@ -26,29 +26,27 @@ On your local machine, you will use the `.env` file. In `prod` you have to set t
 
 The variables in the `.env` file are different from the variables required on your production servers.
 
-```
-# .env
-
-## Not required on production
-NGROK_APP_SCHEME=https
-NGROK_APP_HOST=xxxxxxxx.ngrok.io
-
-## Convenient variables that make easier configuration
-# Keep attention: this may be httpS on production!
-APP_SCHEME=http
-
-# This has to be the same of bin/console server:start on development machines
-APP_HOST=127.0.0.1:8000
-
-## This may be required by other bundles that use AWS
-AWS_ACCESS_KEY_ID=your-aws-key-id
-AWS_ACCESS_KEY_SECRET==your-aws-key-secret
-
-## Variabes specific to AWS SES Monitor Bundle
-AWS_SES_TOPIC_BOUNCES=tbme-dev-ses-bounces-topic
-AWS_SES_TOPIC_COMPLAINTS=tbme-dev-ses-complaints-topic
-AWS_SES_TOPIC_DELIVERIES=tbme-dev-ses-deliveries-topic
-```
+    # .env
+    
+    ## Not required on production
+    NGROK_APP_SCHEME=https
+    NGROK_APP_HOST=xxxxxxxx.ngrok.io
+    
+    ## Convenient variables that make easier configuration
+    # Keep attention: this may be httpS on production!
+    APP_SCHEME=http
+    
+    # This has to be the same of bin/console server:start on development machines
+    APP_HOST=127.0.0.1:8000
+    
+    ## This may be required by other bundles that use AWS
+    AWS_ACCESS_KEY_ID=your-aws-key-id
+    AWS_ACCESS_KEY_SECRET==your-aws-key-secret
+    
+    ## Variabes specific to AWS SES Monitor Bundle
+    AWS_SES_TOPIC_BOUNCES=tbme-dev-ses-bounces-topic
+    AWS_SES_TOPIC_COMPLAINTS=tbme-dev-ses-complaints-topic
+    AWS_SES_TOPIC_DELIVERIES=tbme-dev-ses-deliveries-topic
 
 *NOTE 1: Do not forget to add those parameters also to your `.env.dist`.*
 
@@ -58,7 +56,7 @@ Maybe you have sufficient experience with Symfony to already know the convenienc
 ### Create an AWS\Credentials service
 
 Create the `Credentials` service needed by the `AWS\Client` to pass it your access information:
- 
+
 ```yaml
 # config/services.yaml
 
@@ -192,8 +190,8 @@ Now it's time to update your database to create the tables required by Aws Ses M
 
 A simple forced update is sufficient and also secure as you will not go to modify any one of your still existent tables:
 
-```
-$ php app/console doctrine:scheme:update --force
+```console
+app/console doctrine:scheme:update --force
 ```
 
 Now that you have completed the configuration, it is time to integrate your app with AWS SES and SNS.

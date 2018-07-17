@@ -65,9 +65,9 @@ class AwsClientFactory
         static $client = null;
 
         if (null === $client) {
-            $config = $this->buildSesConfig();
+            $sesConfig = $this->buildSesConfig();
 
-            $client = new SesClient($config);
+            $client = new SesClient($sesConfig);
         }
 
         return $client;
@@ -81,9 +81,9 @@ class AwsClientFactory
         static $client = null;
 
         if (null === $client) {
-            $config = $this->buildSnsConfig();
+            $snsConfig = $this->buildSnsConfig();
 
-            $client = new SnsClient($config);
+            $client = new SnsClient($snsConfig);
         }
 
         return $client;

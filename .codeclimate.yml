@@ -1,5 +1,36 @@
 ---
-engines:
+version: "2"
+checks:
+  argument-count:
+    config:
+      threshold: 5
+  method-count:
+    config:
+      threshold: 25
+  method-lines:
+    config:
+      threshold: 30
+  return-statements:
+    enabled: false
+plugins:
+  git-legal:
+    enabled: true
+  markdownlint:
+    enabled: true
+  sonar-php:
+    enabled: true
+    config:
+      tests_patterns:
+        - src/Tests/**
+    checks:
+      php:S1142:
+        enabled: false
+      php:S1172:
+        enabled: false
+      php:S1192:
+        enabled: false
+      php:S1448:
+        enabled: false
   duplication:
     enabled: true
     config:
@@ -14,22 +45,12 @@ engines:
         enabled: false
       Naming/LongVariable:
         enabled: false
-ratings:
-  paths:
-  - "**.php"
+      UnusedPrivateMethod:
+        enabled: false
+      UnusedLocalVariable:
+        enabled: false
+      CleanCode/StaticAccess:
+        enabled: false
 exclude_patterns:
   - "**/Tests/"
-plugins:
-  git-legal:
-    enabled: true
-  markdownlint:
-    enabled: true
-  phan:
-    enabled: true
-    config:
-      file_extensions: "php"
-  sonar-php:
-    enabled: true
-    config:
-      tests_patterns:
-        - src/Tests/**
+  - "src/DependencyInjection/Configuration.php"

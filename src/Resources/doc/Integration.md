@@ -68,19 +68,20 @@ The full procedure is described on the AWS SNS documentation "[Sending Amazon SN
 The console command will automate all the steps.
 
 So, run in console:
-```
+
+```console
 app/console aws:ses:monitor:setup:bounces-topic
 ```
 
 and then
 
-```
+```console
 app/console aws:ses:monitor:setup:complaints-topic
 ```
 
 and then
 
-```
+```console
 app/console aws:ses:monitor:setup:deliveries-topic
 ```
 
