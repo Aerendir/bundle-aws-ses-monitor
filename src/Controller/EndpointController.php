@@ -28,8 +28,9 @@ use Symfony\Component\HttpFoundation\Response;
 class EndpointController extends Controller
 {
     /**
-     * @param Request          $request
-     * @param RequestProcessor $processor
+     * @param Request                $request
+     * @param RequestProcessor       $processor
+     * @param EntityManagerInterface $entityManager
      *
      * @return Response
      * @codeCoverageIgnore

@@ -36,6 +36,7 @@ class SHQAwsSesMonitorExtension extends Extension
 
         // Set parameters in the container
         $container->setParameter('shq_aws_ses_monitor.aws_config', $config['aws_config']);
+        $container->setParameter('shq_aws_ses_monitor.endpoint', $config['endpoint']);
         $container->setParameter('shq_aws_ses_monitor.mailers', $config['mailers']);
         $container->setParameter('shq_aws_ses_monitor.bounces', $config['bounces']);
         $container->setParameter('shq_aws_ses_monitor.complaints', $config['complaints']);
@@ -45,7 +46,7 @@ class SHQAwsSesMonitorExtension extends Extension
         $loader->load('services.yml');
 
         // Enable the plugin if required
-        if ($config['bounces']['filter']['enabled'] || $config['complaints']['filter']['enabled']) {
+        if ($config['bounces']['track'] || $config['complaints']['track']) {
             $loader->load('filter.yml');
 
             $mailers = $config['mailers'];

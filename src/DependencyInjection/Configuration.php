@@ -15,10 +15,9 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
-use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 /**
  * {@inheritdoc}
@@ -48,10 +47,18 @@ class Configuration implements ConfigurationInterface
                     ->prototype('scalar')->end()
                     ->defaultValue(['default'])
                 ->end()
+                ->arrayNode('endpoint')
+                    ->isRequired()
+                    ->children()
+                        ->scalarNode('scheme')->defaultValue('https')->end()
+                        ->scalarNode('host')->isRequired()->cannotBeEmpty()->end()
+                    ->end()
+                ->end()
                 ->arrayNode('bounces')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->append($this->addTopicSection('bounces'))
+                        ->booleanNode('track')->defaultTrue()->end()
+                        ->scalarNode('topic')->defaultNull()->end()
                         ->arrayNode('filter')
                             ->addDefaultsIfNotSet()
                             ->children()
@@ -68,12 +75,11 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('complaints')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('topic_name')->defaultValue('not_set')->cannotBeEmpty()->end()
-                        ->append($this->addTopicSection('complaints'))
+                        ->booleanNode('track')->defaultTrue()->end()
+                        ->scalarNode('topic')->defaultNull()->end()
                         ->arrayNode('filter')
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->booleanNode('enabled')->defaultTrue()->end()
                                 ->booleanNode('blacklist_time')->defaultValue('forever')->end()
                                 ->booleanNode('force_send')->defaultFalse()->end()
                             ->end()
@@ -83,41 +89,54 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('deliveries')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('topic_name')->defaultValue('not_set')->cannotBeEmpty()->end()
-                            ->append($this->addTopicSection('deliveries'))
-                        ->booleanNode('enabled')->defaultTrue()->end()
+                        ->booleanNode('track')->defaultTrue()->end()
+                        ->scalarNode('topic')->defaultNull()->end()
                         ->end()
                     ->end()
+                ->end()
+                ->validate()
+                    ->ifTrue(function (array $tree) {
+                        return $this->validateConfiguration($tree);
+                    })
+                    ->then(function (array $tree) {
+                        return $tree;
+                    })
                 ->end();
 
         return $treeBuilder;
     }
 
     /**
-     * Adds the section about endpoint configuration.
+     * @param array $tree
      *
-     * @param string $type The type of notification configuring
-     *
-     * @return ArrayNodeDefinition|NodeDefinition The root node (as an ArrayNodeDefinition when the type is 'array')
+     * @return bool
      */
-    public function addTopicSection($type)
+    private function validateConfiguration(array $tree): bool
     {
-        $builder   = new TreeBuilder();
-        $node      = $builder->root('topic')->addDefaultsIfNotSet();
-        $routeName = sprintf('_shq_aws_ses_monitor_%s_endpoint', $type);
+        $this->validateType('bounces', $tree);
+        $this->validateType('complaints', $tree);
+        $this->validateType('deliveries', $tree);
 
-        $node
-            ->children()
-                ->scalarNode('name')->defaultValue('not_set')->cannotBeEmpty()->end()
-                ->arrayNode('endpoint')
-                    ->children()
-                        ->scalarNode('route_name')->defaultValue($routeName)->cannotBeEmpty()->end()
-                        ->scalarNode('scheme')->defaultValue('https')->end()
-                        ->scalarNode('host')->isRequired()->cannotBeEmpty()->end()
-                    ->end()
-                ->end()
-            ->end();
+        return true;
+    }
 
-        return $node;
+    /**
+     * @param string $type
+     * @param array  $tree
+     */
+    private function validateType(string $type, array $tree): void
+    {
+        $track = $tree[$type]['track'];
+        $topic = $tree[$type]['topic'];
+
+        // If tracking is enabled and topic is null...
+        if (true === $track && null === $topic) {
+            throw new InvalidConfigurationException(sprintf('You have enabled the tracking of "%s" but you have not set the name of the topic to use. Please, set the name of the topic at path "%s.topic".', $type, $type));
+        }
+
+        // If tracking is disabled but the topic name is passed anyway...
+        if (false === $track && null !== $topic) {
+            throw new InvalidConfigurationException(sprintf('You have not enabled the tracking of "%s" but you have anyway set the name of the topic. Either remove the name of the topic at path "%s.topic" or enabled the tracking of "%s" setting "%s.track" to "true".', $type, $type, $type, $type));
+        }
     }
 }

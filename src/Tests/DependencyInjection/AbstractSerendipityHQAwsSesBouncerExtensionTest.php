@@ -18,6 +18,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\DependencyInjection;
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection\SHQAwsSesMonitorExtension;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin\MonitorFilterPlugin;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
@@ -67,12 +68,16 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         self::assertSame(['default'], $this->container->getParameter('shq_aws_ses_monitor.mailers'));
 
         /*
+         * Test endpoint configuration
+         */
+        self::assertSame('https', $this->container->getParameter('shq_aws_ses_monitor.endpoint')['scheme']);
+        self::assertSame('localhost.local', $this->container->getParameter('shq_aws_ses_monitor.endpoint')['host']);
+
+        /*
          * Test bounces configuration
          */
-        self::assertSame('_shq_aws_ses_monitor_bounces_endpoint', $this->container->getParameter('shq_aws_ses_monitor.bounces')['topic']['endpoint']['route_name']);
-        self::assertSame('https', $this->container->getParameter('shq_aws_ses_monitor.bounces')['topic']['endpoint']['scheme']);
-        self::assertSame('localhost.local', $this->container->getParameter('shq_aws_ses_monitor.bounces')['topic']['endpoint']['host']);
-        self::assertTrue($this->container->getParameter('shq_aws_ses_monitor.bounces')['filter']['enabled']);
+        self::assertTrue($this->container->getParameter('shq_aws_ses_monitor.bounces')['track']);
+        self::assertSame('dummy-bounces-topic', $this->container->getParameter('shq_aws_ses_monitor.bounces')['topic']);
         self::assertFalse($this->container->getParameter('shq_aws_ses_monitor.bounces')['filter']['soft_as_hard']);
         self::assertSame(5, $this->container->getParameter('shq_aws_ses_monitor.bounces')['filter']['max_bounces']);
         self::assertSame('forever', $this->container->getParameter('shq_aws_ses_monitor.bounces')['filter']['soft_blacklist_time']);
@@ -82,73 +87,124 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         /*
          * Test complaints configuration
          */
-        self::assertSame('_shq_aws_ses_monitor_complaints_endpoint', $this->container->getParameter('shq_aws_ses_monitor.complaints')['topic']['endpoint']['route_name']);
-        self::assertSame('https', $this->container->getParameter('shq_aws_ses_monitor.complaints')['topic']['endpoint']['scheme']);
-        self::assertSame('localhost.local', $this->container->getParameter('shq_aws_ses_monitor.complaints')['topic']['endpoint']['host']);
-        self::assertTrue($this->container->getParameter('shq_aws_ses_monitor.complaints')['filter']['enabled']);
+        self::assertTrue($this->container->getParameter('shq_aws_ses_monitor.complaints')['track']);
+        self::assertSame('dummy-complaints-topic', $this->container->getParameter('shq_aws_ses_monitor.complaints')['topic']);
         self::assertSame('forever', $this->container->getParameter('shq_aws_ses_monitor.complaints')['filter']['blacklist_time']);
         self::assertFalse($this->container->getParameter('shq_aws_ses_monitor.complaints')['filter']['force_send']);
 
         /*
          * Test deliveries configuration
          */
-        self::assertTrue($this->container->getParameter('shq_aws_ses_monitor.deliveries')['enabled']);
-        self::assertSame('_shq_aws_ses_monitor_deliveries_endpoint', $this->container->getParameter('shq_aws_ses_monitor.deliveries')['topic']['endpoint']['route_name']);
-        self::assertSame('https', $this->container->getParameter('shq_aws_ses_monitor.deliveries')['topic']['endpoint']['scheme']);
-        self::assertSame('localhost.local', $this->container->getParameter('shq_aws_ses_monitor.deliveries')['topic']['endpoint']['host']);
+        self::assertTrue($this->container->getParameter('shq_aws_ses_monitor.deliveries')['track']);
+        self::assertSame('dummy-deliveries-topic', $this->container->getParameter('shq_aws_ses_monitor.deliveries')['topic']);
     }
 
-    public function testFilterDisabledForBothConfig()
+    public function testTrackingDisabledDoesntRequireTopicBounces()
     {
-        $this->loadConfiguration($this->container, 'filter_disabled_for_both');
+        $this->loadConfiguration($this->container, 'tracking_disabled_no_topic_bounces');
+
+        self::expectException(InvalidConfigurationException::class);
+        self::expectExceptionMessage('You have not enabled the tracking of "bounces" but you have anyway set the name of the topic. Either remove the name of the topic at path "bounces.topic" or enabled the tracking of "bounces" setting "bounces.track" to "true"');
+        $this->container->compile();
+    }
+
+    public function testTrackingDisabledDoesntRequireTopicComplaints()
+    {
+        $this->loadConfiguration($this->container, 'tracking_disabled_no_topic_complaints');
+
+        self::expectException(InvalidConfigurationException::class);
+        self::expectExceptionMessage('You have not enabled the tracking of "complaints" but you have anyway set the name of the topic. Either remove the name of the topic at path "complaints.topic" or enabled the tracking of "complaints" setting "complaints.track" to "true"');
+        $this->container->compile();
+    }
+
+    public function testTrackingDisabledDoesntRequireTopicDeliveries()
+    {
+        $this->loadConfiguration($this->container, 'tracking_disabled_no_topic_deliveries');
+
+        self::expectException(InvalidConfigurationException::class);
+        self::expectExceptionMessage('You have not enabled the tracking of "deliveries" but you have anyway set the name of the topic. Either remove the name of the topic at path "deliveries.topic" or enabled the tracking of "deliveries" setting "deliveries.track" to "true"');
+        $this->container->compile();
+    }
+
+    public function testTrackingEnabledRequiresTopicBounces()
+    {
+        $this->loadConfiguration($this->container, 'tracking_enabled_requires_topic_bounces');
+
+        self::expectException(InvalidConfigurationException::class);
+        self::expectExceptionMessage('You have enabled the tracking of "bounces" but you have not set the name of the topic to use. Please, set the name of the topic at path "bounces.topic".');
+        $this->container->compile();
+    }
+
+    public function testTrackingEnabledRequiresTopicComplaints()
+    {
+        $this->loadConfiguration($this->container, 'tracking_enabled_requires_topic_bounces');
+
+        self::expectException(InvalidConfigurationException::class);
+        self::expectExceptionMessage('You have enabled the tracking of "bounces" but you have not set the name of the topic to use. Please, set the name of the topic at path "bounces.topic".');
+        $this->container->compile();
+    }
+
+    public function testTrackingEnabledRequiresTopicDeliveries()
+    {
+        $this->loadConfiguration($this->container, 'tracking_enabled_requires_topic_bounces');
+
+        self::expectException(InvalidConfigurationException::class);
+        self::expectExceptionMessage('You have enabled the tracking of "bounces" but you have not set the name of the topic to use. Please, set the name of the topic at path "bounces.topic".');
+        $this->container->compile();
+    }
+
+    public function testTrackingDisabledForBothConfigFilterIsNotLoaded()
+    {
+        $this->loadConfiguration($this->container, 'tracking_disabled_for_both');
         $this->container->compile();
 
         $bouncesConfig    = $this->container->getParameter('shq_aws_ses_monitor.bounces');
         $complaintsConfig = $this->container->getParameter('shq_aws_ses_monitor.complaints');
-        self::assertFalse($bouncesConfig['filter']['enabled']);
-        self::assertFalse($complaintsConfig['filter']['enabled']);
+
+        self::assertFalse($bouncesConfig['track']);
+        self::assertFalse($complaintsConfig['track']);
 
         // The filter isn't loaded at all
         self::assertArrayNotHasKey(MonitorFilterPlugin::class, $this->container->getRemovedIds());
     }
 
-    public function testFilterEnabledForBothConfig()
+    public function testTrackingEnabledForBothConfigFilterIsLoaded()
     {
-        $this->loadConfiguration($this->container, 'filter_enabled_for_both');
+        $this->loadConfiguration($this->container, 'tracking_enabled_for_both');
         $this->container->compile();
 
         $bouncesConfig    = $this->container->getParameter('shq_aws_ses_monitor.bounces');
         $complaintsConfig = $this->container->getParameter('shq_aws_ses_monitor.complaints');
-        self::assertTrue($bouncesConfig['filter']['enabled']);
-        self::assertTrue($complaintsConfig['filter']['enabled']);
+        self::assertTrue($bouncesConfig['track']);
+        self::assertTrue($complaintsConfig['track']);
 
         // The filter was loaded (but also removed by the container)
         self::assertArrayHasKey(MonitorFilterPlugin::class, $this->container->getRemovedIds());
     }
 
-    public function testFilterEnabledForBouncesOnlyConfig()
+    public function testTrackingEnabledForBouncesOnlyConfigFilterIsLoaded()
     {
-        $this->loadConfiguration($this->container, 'filter_enabled_for_bounces');
+        $this->loadConfiguration($this->container, 'tracking_enabled_for_bounces');
         $this->container->compile();
 
         $bouncesConfig    = $this->container->getParameter('shq_aws_ses_monitor.bounces');
         $complaintsConfig = $this->container->getParameter('shq_aws_ses_monitor.complaints');
-        self::assertTrue($bouncesConfig['filter']['enabled']);
-        self::assertFalse($complaintsConfig['filter']['enabled']);
+        self::assertTrue($bouncesConfig['track']);
+        self::assertFalse($complaintsConfig['track']);
 
         // The filter was loaded (but also removed by the container)
         self::assertArrayHasKey(MonitorFilterPlugin::class, $this->container->getRemovedIds());
     }
 
-    public function testFilterEnabledForComplaintsOnlyConfig()
+    public function testTrackingEnabledForComplaintsOnlyConfigFilterIsLoaded()
     {
-        $this->loadConfiguration($this->container, 'filter_enabled_for_complaints');
+        $this->loadConfiguration($this->container, 'tracking_enabled_for_complaints');
         $this->container->compile();
 
         $bouncesConfig    = $this->container->getParameter('shq_aws_ses_monitor.bounces');
         $complaintsConfig = $this->container->getParameter('shq_aws_ses_monitor.complaints');
-        self::assertFalse($bouncesConfig['filter']['enabled']);
-        self::assertTrue($complaintsConfig['filter']['enabled']);
+        self::assertFalse($bouncesConfig['track']);
+        self::assertTrue($complaintsConfig['track']);
 
         // The filter was loaded (but also removed by the container)
         self::assertArrayHasKey(MonitorFilterPlugin::class, $this->container->getRemovedIds());

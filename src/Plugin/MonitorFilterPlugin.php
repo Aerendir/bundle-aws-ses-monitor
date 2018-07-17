@@ -44,8 +44,8 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      */
     public function __construct(EmailStatusManager $emailStatusManager, array $bouncesConfig, array $complaintsConfig)
     {
-        $this->bouncesConfig      = $bouncesConfig['filter'];
-        $this->complaintsConfig   = $complaintsConfig['filter'];
+        $this->bouncesConfig      = $bouncesConfig;
+        $this->complaintsConfig   = $complaintsConfig;
         $this->emailStatusManager = $emailStatusManager;
     }
 
@@ -111,7 +111,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      */
     private function isBounced(EmailStatus $email): bool
     {
-        if (false === $this->areBouncesChecksEnabled()) {
+        if (false === $this->isBouncesTrackingEnabled()) {
             return false;
         }
 
@@ -121,11 +121,11 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
 
         $bouncesCount = $email->getHardBouncesCount();
 
-        if ($this->bouncesConfig['soft_as_hard']) {
+        if ($this->bouncesConfig['filter']['soft_as_hard']) {
             $bouncesCount += $email->getSoftBouncesCount();
         }
 
-        if ($bouncesCount >= $this->bouncesConfig['max_bounces']) {
+        if ($bouncesCount >= $this->bouncesConfig['filter']['max_bounces']) {
             return true;
         }
 
@@ -139,7 +139,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      */
     private function isComplained(EmailStatus $email): bool
     {
-        if (false === $this->areComplaintsChecksEnabled()) {
+        if (false === $this->isComplaintsTrackingEnabled()) {
             return false;
         }
 
@@ -157,9 +157,9 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     /**
      * @return bool
      */
-    private function areBouncesChecksEnabled(): bool
+    private function isBouncesTrackingEnabled(): bool
     {
-        return $this->bouncesConfig['enabled'];
+        return $this->bouncesConfig['track'];
     }
 
     /**
@@ -167,15 +167,15 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      */
     private function areBouncesForced(): bool
     {
-        return $this->bouncesConfig['force_send'];
+        return $this->bouncesConfig['filter']['force_send'];
     }
 
     /**
      * @return bool
      */
-    private function areComplaintsChecksEnabled(): bool
+    private function isComplaintsTrackingEnabled(): bool
     {
-        return $this->complaintsConfig['enabled'];
+        return $this->complaintsConfig['track'];
     }
 
     /**
@@ -183,6 +183,6 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      */
     private function areComplaintsForced(): bool
     {
-        return $this->complaintsConfig['force_send'];
+        return $this->complaintsConfig['filter']['force_send'];
     }
 }

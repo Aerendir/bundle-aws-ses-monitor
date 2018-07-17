@@ -22,7 +22,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Topic;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Factory\AwsClientFactory;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\SnsTypes;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
@@ -33,7 +33,7 @@ use Symfony\Component\Routing\RouterInterface;
  * Abstract class to perform common command tasks.
  * {@inheritdoc}
  */
-abstract class SnsSetupCommandAbstract extends ContainerAwareCommand
+abstract class SnsSetupCommandAbstract extends Command
 {
     const THICK = "<fg=green>\xE2\x9C\x94</>";
     const CROSS = "<fg=magenta>\xE2\x9C\x96</>";

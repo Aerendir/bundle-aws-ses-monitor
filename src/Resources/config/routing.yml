@@ -1,9 +1,3 @@
-_shq_aws_ses_monitor_bounces_endpoint:
+_shq_aws_ses_monitor_endpoint:
   path: /endpoint/aws/ses/notify_bounce
-  controller: SerendipityHQ\Bundle\AwsSesMonitorBundle\Controller\EndpointController::endpoint
-_shq_aws_ses_monitor_complaints_endpoint:
-  path: /endpoint/aws/ses/notify_complaint
-  controller: SerendipityHQ\Bundle\AwsSesMonitorBundle\Controller\EndpointController::endpoint
-_shq_aws_ses_monitor_deliveries_endpoint:
-  path: /endpoint/aws/ses/notify_delivery
   controller: SerendipityHQ\Bundle\AwsSesMonitorBundle\Controller\EndpointController::endpoint

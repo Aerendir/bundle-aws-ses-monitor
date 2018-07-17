@@ -84,8 +84,8 @@ class MonitorFilterPluginTestAbstract extends TestCase
     protected function getDefaultBouncesConfig(): array
     {
         return [
+            'track'  => true,
             'filter' => [
-                'enabled'             => true,
                 'max_bounces'         => 5,
                 'soft_as_hard'        => false,
                 'soft_blacklist_time' => 'forever', // NOT IMPLEMENTED YET
@@ -101,8 +101,8 @@ class MonitorFilterPluginTestAbstract extends TestCase
     protected function getDefaultComplaintsConfig(): array
     {
         return [
+            'track'  => true,
             'filter' => [
-                'enabled'    => true,
                 'force_send' => false,
             ],
         ];

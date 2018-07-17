@@ -80,118 +80,93 @@ shq_aws_ses_monitor:
         # REQUIRED. Here the NAME (not the service itself!) of the credentials service set in the previous step.
         # If you omit this, the bundle looks for Aws\Credentials\Credentials service.
         credentials_service_name: 'Aws\Credentials\Credentials'
-        
+
         # OPTIONAL. If omitted, the bundle sets this to eu-west-1.
         # If you use this, remember to add it to .env and .env.dist files
         region: "%env(AWS_REGION)%"
-        
+
         # OPTIONAL. The AWS SES API version to use. Defaults to 2010-12-01.
         # If you use this, remember to add it to .env and .env.dist files
         ses_version: "%env(AWS_SES_VERSION)%"
-        
+
         # OPTIONAL. The AWS SNS API version to use. Defaults to 2010-03-31.
         # If you use this, remember to add it to .env and .env.dist files
         sns_version: "%env(AWS_SNS_VERSION)%"
-    
+
+    endpoint:
+        # OPTIONAL. The scheme to use. Defaults to "https". Accepted values are: http, HTTP, https, HTTPS.
+        scheme: '%env(APP_SCHEME)%'
+
+        # REQUIRED. The hostname of your project when in production. No default value.
+        host: '%env(APP_HOST)%'
+
     # On which mailers you want to activate the filter plugin.
     # This requires that at least one between bounces and complaints filters are activated.
     # If both bounces and complaints filter are not activated, the filter plugin is not
     # added to any mailer.
     mailers:
         - default
-    
+
     # Configuration for bounced emails
     bounces:
-        # OPTIONAL. The node "topic" is optional. But it is REQUIRED if you want to use the command aws:ses:monitor:setup:bounces-topic
-        topic:
-            # REQUIRED. The name of the topic to create on SNS to which SES will notify bounced emails.
-            # Requires you to add AWS SES Monitor routings to your configuration (see next section "Add routing")
-            name: ses-your_app-bounces-topic 
-            endpoint:
-                # OTIONAL. The endpoint AWS SNS calls when SES reports a bounce.
-                # This is the default value: you can change it when importing routes from Aws Ses Monitor Bundle
-                route_name: _shq_aws_ses_monitor_bounces_endpoint
-                
-                # OPTIONAL. The scheme to use. Defaults to "https". Accepted values are: http, HTTP, https, HTTPS.
-                scheme: '%env(APP_SCHEME)%'
-                
-                # REQUIRED. The hostname of your project when in production. No default value.
-                host: '%env(APP_HOST)%'
-        
+        # OPTIONAL. If false, no tracking of bounced recipients will happen.
+        # Without tracking them, bounced emails cannot be filtered.
+        # "false" IS VERY RISKY for the health of your AWS SES account.
+        track: true
+
+        # REQUIRED. The name of the topic to create on SNS to which SES will notify bounced emails.
+        # Requires you to add AWS SES Monitor routings to your configuration (see next section "Add routing")
+        topic: ses-your_app-bounces-topic
+
         # Configuration for the SwiftMailer filter plugin
-        filter:
-            # OPTIONAL. If false, no filtering of bounced recipients will happen.
-            # "false" IS VERY RISKY for the health of your AWS SES account.
-            enabled: true
-            
+        filter:            
             # OPTIONAL. If true, the temporary bounces counts as hard bounces
             # More infor about the difference here:
             # - https://docs.aws.amazon.com/ses/latest/DeveloperGuide/deliverability-and-ses.html#bounce
             # - https://aws.amazon.com/it/blogs/messaging-and-targeting/email-definitions-bounces/
             soft_as_hard: false
-            
+
             # OPTIONAL. The max number of bounces before the address is blacklisted (no more emails will be sent to it)
             max_bounces: 5
-            
+
             # OPTIONAL. NOT YET IMPLEMENTED. The amount of time for wich a temporary bounced address has to be blacklisted. If "forever" emails will never been sent in the future.
             soft_blacklist_time: forever
-            
+
             # OPTIONAL. NOT YET IMPLEMENTED. The amount of time for wich an hard bounced address has to be blacklisted. If "forever" emails will never been sent in the future.
             hard_blacklist_time: forever
-            
+
             # OPTIONAL. If you want to force the sending of e-mails to bounced e-mails. VERY RISKY!
             force_send: false
-    
+
     # Configuration for complained emails
     complaints:
-        # OPTIONAL. The node "topic" is optional. But it is REQUIRED if you want to use the command aws:ses:monitor:setup:complaints-topic
-        topic:
-            # REQUIRED. The name of the topic to create on SNS to which SES will notify complained emails.
-            # Requires you to add AWS SES Monitor routings to your configuration (see next section "Add routing")
-            name: ses-your_app-complaints-topic
-            endpoint:
-                # OTIONAL. The endpoint AWS SNS calls when SES reports a complaint.
-                # This is the default value: you can change it when importing routes from Aws Ses Monitor Bundle
-                route_name: _shq_aws_ses_monitor_complaints_endpoint
-                
-                # OPTIONAL. The scheme to use. Defaults to "https". Accepted values are: http, HTTP, https, HTTPS.
-                scheme: '%env(APP_SCHEME)%'
-                
-                # REQUIRED. The hostname of your project when in production. No default value.
-                host: '%env(APP_HOST)%'
-        
-        # Configuration for the SwiftMailer filter plugin
-        filter:
-            # OPTIONAL. If false, no filtering of bounced recipients will happen.
-            # "false" IS VERY RISKY for the health of your AWS SES account.
-            enabled: true
-            
-            # OPTIONAL. NOT YET IMPLEMENTED. The amount of time for wich an address has to be blacklisted. If "forever" emails will never been sent in the future.
-            blacklist_time: forever
-            
-            # OPTIONAL. If you want to force the sending of e-mails to complained e-mails. VERY RISKY!
-            force_send: false
-    
-    # Configuration for delivered emails
-    deliveries:
-        # OPTIONAL. The node "topic" is optional. But it is REQUIRED if you want to use the command aws:ses:monitor:setup:deliveries-topic
-        topic:
-            # REQUIRED. The name of the topic to create on SNS to which SES will notify delivered emails.
-            # Requires you to add AWS SES Monitor routings to your configuration (see next section "Add routing")
-            name: ses-your_app-deliveries-topic
-            endpoint:
-                # OTIONAL. The endpoint AWS SNS calls when SES reports a delivery.
-                # This is the default value: you can change it when importing routes from Aws Ses Monitor Bundle
-                route_name: _shq_aws_ses_monitor_deliveries_endpoint
-                
-                # OPTIONAL. The scheme to use. Defaults to "https". Accepted values are: http, HTTP, https, HTTPS.
-                scheme: '%env(APP_SCHEME)%'
-                
-                # REQUIRED. The hostname of your project when in production. No default value.
-                host: '%env(APP_HOST)%'
+        # OPTIONAL. If false, no tracking of complained recipients will happen.
+        # Without tracking them, complained emails cannot be filtered.
+        # "false" IS VERY RISKY for the health of your AWS SES account.
+        track: true
+
+        # REQUIRED. The name of the topic to create on SNS to which SES will notify complained emails.
+        # Requires you to add AWS SES Monitor routings to your configuration (see next section "Add routing")
+        topic: ses-your_app-complaints-topic
 
         # Configuration for the SwiftMailer filter plugin
-        enabled: true # OPTIONAL. By default also the deliveries are tracked.
+        filter:
+            # OPTIONAL. NOT YET IMPLEMENTED. The amount of time for wich an address has to be blacklisted. If "forever" emails will never been sent in the future.
+            blacklist_time: forever
+
+            # OPTIONAL. If you want to force the sending of e-mails to complained e-mails. VERY RISKY!
+            force_send: false
+
+    # Configuration for delivered emails
+    deliveries:
+        # OPTIONAL. If false, no trcking of delivered emails will happen.
+        # Not trcking them has no relevant impact, BUT makes impossible to
+        # understand the health of an email address
+        track: true
+
+        # REQUIRED. The name of the topic to create on SNS to which SES will notify delivered emails.
+        # Requires you to add AWS SES Monitor routings to your configuration (see next section "Add routing")
+        topic: ses-your_app-deliveries-topic
 ```
 
 Step 5: Add routing file for bounce endpoint

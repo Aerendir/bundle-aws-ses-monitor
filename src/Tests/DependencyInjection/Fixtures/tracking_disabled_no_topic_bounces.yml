@@ -1,9 +1,12 @@
 shq_aws_ses_monitor:
     aws_config:
         credentials_service_name: 'test'
+    mailers:
+        - default
     endpoint:
         host: localhost.local
     bounces:
+        track: false
         topic: 'dummy-bounces-topic'
     complaints:
         topic: 'dummy-complaints-topic'

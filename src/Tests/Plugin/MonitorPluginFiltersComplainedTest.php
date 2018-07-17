@@ -35,13 +35,13 @@ class MonitorPluginFiltersComplainedTest extends MonitorFilterPluginTestAbstract
         $this->bouncesConfig = $this->getDefaultBouncesConfig();
 
         // Disable the filtering of bounces to not make it interfere with complaints filtering testing
-        $this->bouncesConfig['filter']['enabled'] = false;
+        $this->bouncesConfig['track'] = false;
     }
 
     public function testComplainedFilterDisabledNoNoOneIsRemoved()
     {
-        $complaintsConfig                      = $this->getDefaultComplaintsConfig();
-        $complaintsConfig['filter']['enabled'] = false;
+        $complaintsConfig          = $this->getDefaultComplaintsConfig();
+        $complaintsConfig['track'] = false;
 
         $filter = new MonitorFilterPlugin($this->mockEmailStatusManager, $this->bouncesConfig, $complaintsConfig);
 

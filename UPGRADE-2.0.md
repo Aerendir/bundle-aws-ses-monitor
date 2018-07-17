@@ -48,25 +48,41 @@ STEP 1: Update the Config
 
 ### Removed config parameters
 
-The following parameters was removed or renamed: please remove them from your configuration:
+The following parameters was removed or renamed: please remove or rename them from your configuration:
 
 ```yaml
 shq_aws_ses_monitor:
-    db_driver: orm #removed
-    model_manager_name: null #removed
+    db_driver: orm # Removed
+    model_manager_name: null # Removed
+    endpoint: #Added
+        scheme: '%env(APP_SCHEME)%' # Added
+        host: '%env(APP_HOST)%' # Added
     bounces:
-        topic:
-            endpoint:
-                schema: https # Renamed from protocol. Default value changed from http to https.
+        track: true # Added. Moved from "bounces.filter.enabled"
+        topic: ses-your_app-bounces-topic # Changed. Now accepts the name of the topic
+            endpoint: # Removed
+                route_name: # Removed
+                protocol: # Removed
+                host: # Removed
+        filter:
+            enabled: # Removed. Moved to "bounces.enabled"
     complaints:
-        topic:
-            endpoint:
-                schema: https # Renamed from protocol. Default value changed from http to https.
+        track: true # Added. Moved from "complaints.filter.enabled"
+        topic: ses-your_app-complaints-topic # Changed. Now accepts the name of the topic
+            endpoint: # Removed
+                route_name: # Removed
+                protocol: # Removed
+                host: # Removed
+        filter:
+            enabled: # Removed. Moved to "complaints.enabled"
     deliveries:
-        topic:
-            endpoint:
-                schema: https # Renamed from protocol. Default value changed from http to https.
-
+        track: true # Renamed from "deliveries.enabled"
+        enabled: # Removed. Moved to "deliveries.track"
+        topic: ses-your_app-deliveries-topic # Changed. Now accepts the name of the topic
+            endpoint: # Removed
+                route_name: # Removed
+                protocol: # Removed
+                host: # Removed
 ```
 
 ### Changed default values
