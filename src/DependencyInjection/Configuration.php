@@ -18,6 +18,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * {@inheritdoc}
@@ -29,8 +30,14 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode    = $treeBuilder->root('shq_aws_ses_monitor');
+        // Support Symfony 5.0
+        $treeBuilder = Kernel::VERSION_ID >= 40200
+            ? new TreeBuilder('shq_aws_ses_monitor')
+            : new TreeBuilder();
+
+        $rootNode = Kernel::VERSION_ID >= 40200
+            ? $treeBuilder->getRootNode()
+            : $treeBuilder->root('shq_aws_ses_monitor');
 
         $rootNode
             ->children()
