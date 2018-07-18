@@ -4,7 +4,6 @@ services:
         autoconfigure: true
         public: false
         bind:
-            $config: '%shq_aws_ses_monitor.aws_config%'
             $bouncesConfig: '%shq_aws_ses_monitor.bounces%'
             $complaintsConfig: '%shq_aws_ses_monitor.complaints%'
             $deliveriesConfig: '%shq_aws_ses_monitor.deliveries%'

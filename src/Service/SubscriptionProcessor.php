@@ -18,7 +18,6 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
 use Aws\Sns\SnsClient;
 use Doctrine\ORM\EntityManagerInterface;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Topic;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Factory\AwsClientFactory;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Helper\MessageHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,13 +37,13 @@ class SubscriptionProcessor
     private $messageHelper;
 
     /**
+     * @param SnsClient              $snsClient
      * @param EntityManagerInterface $entityManager
-     * @param AwsClientFactory       $clientFactory
      * @param MessageHelper          $messageHelper
      */
-    public function __construct(AwsClientFactory $clientFactory, EntityManagerInterface $entityManager, MessageHelper $messageHelper)
+    public function __construct(SnsClient $snsClient, EntityManagerInterface $entityManager, MessageHelper $messageHelper)
     {
-        $this->snsClient     = $clientFactory->getSnsClient();
+        $this->snsClient     = $snsClient;
         $this->entityManager = $entityManager;
         $this->messageHelper = $messageHelper;
     }

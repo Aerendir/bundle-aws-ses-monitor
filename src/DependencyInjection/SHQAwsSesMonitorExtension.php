@@ -35,7 +35,6 @@ class SHQAwsSesMonitorExtension extends Extension
         $config        = $this->processConfiguration($configuration, $configs);
 
         // Set parameters in the container
-        $container->setParameter('shq_aws_ses_monitor.aws_config', $config['aws_config']);
         $container->setParameter('shq_aws_ses_monitor.endpoint', $config['endpoint']);
         $container->setParameter('shq_aws_ses_monitor.mailers', $config['mailers']);
         $container->setParameter('shq_aws_ses_monitor.bounces', $config['bounces']);

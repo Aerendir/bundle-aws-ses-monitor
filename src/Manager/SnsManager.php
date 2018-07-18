@@ -15,8 +15,8 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager;
 
+use Aws\Sns\SnsClient;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Topic;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Factory\AwsClientFactory;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
@@ -34,14 +34,14 @@ class SnsManager
     private $router;
 
     /**
-     * @param array            $endpointConfig
-     * @param AwsClientFactory $awsClientFactory
-     * @param RouterInterface  $router
+     * @param array           $endpointConfig
+     * @param SnsClient       $client
+     * @param RouterInterface $router
      */
-    public function __construct(array $endpointConfig, AwsClientFactory $awsClientFactory, RouterInterface $router)
+    public function __construct(array $endpointConfig, SnsClient $client, RouterInterface $router)
     {
         $this->endpointConfig = $endpointConfig;
-        $this->client         = $awsClientFactory->getSnsClient();
+        $this->client         = $client;
         $this->router         = $router;
 
         $this->router->getContext()->setHost($this->endpointConfig['host']);

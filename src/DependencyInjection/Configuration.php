@@ -41,15 +41,6 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode('aws_config')
-                    ->isRequired()
-                    ->children()
-                        ->scalarNode('credentials_service_name')->defaultValue('Aws\Credentials\Credentials')->cannotBeEmpty()->end()
-                        ->scalarNode('region')->defaultValue('eu-west-1')->cannotBeEmpty()->end()
-                        ->scalarNode('ses_version')->defaultValue('2010-12-01')->cannotBeEmpty()->end()
-                        ->scalarNode('sns_version')->defaultValue('2010-03-31')->cannotBeEmpty()->end()
-                    ->end()
-                ->end()
                 ->arrayNode('mailers')
                     ->prototype('scalar')->end()
                     ->defaultValue(['default'])

@@ -16,7 +16,7 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager;
 
 use Aws\Result;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Factory\AwsClientFactory;
+use Aws\Ses\SesClient;
 
 /**
  * Manages the interaction with AWS SES.
@@ -27,11 +27,11 @@ class SesManager
     private $client;
 
     /**
-     * @param AwsClientFactory $awsClientFactory
+     * @param SesClient $client
      */
-    public function __construct(AwsClientFactory $awsClientFactory)
+    public function __construct(SesClient $client)
     {
-        $this->client = $awsClientFactory->getSesClient();
+        $this->client = $client;
     }
 
     /**

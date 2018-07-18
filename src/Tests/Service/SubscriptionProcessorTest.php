@@ -16,12 +16,12 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Service;
 
 use Aws\Sns\Message;
+use Aws\Sns\SnsClient;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Topic;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Factory\AwsClientFactory;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Helper\MessageHelper;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\SubscriptionProcessor;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,8 +35,8 @@ class SubscriptionProcessorTest extends TestCase
     /** @var SubscriptionProcessor $requestProcessor */
     private $subscriptionProcessor;
 
-    /** @var MockObject $mockAwsClientFactory */
-    private $mockAwsClientFactory;
+    /** @var MockObject $mockSnsClient */
+    private $mockSnsClient;
 
     /** @var MockObject $mockEntityManager */
     private $mockEntityManager;
@@ -49,12 +49,12 @@ class SubscriptionProcessorTest extends TestCase
      */
     public function setUp()
     {
-        $this->mockAwsClientFactory = $this->createMock(AwsClientFactory::class);
-        $this->mockEntityManager    = $this->createMock(EntityManagerInterface::class);
-        $this->mockMessageHelper    = $this->createMock(MessageHelper::class);
+        $this->mockSnsClient     = $this->createMock(SnsClient::class);
+        $this->mockEntityManager = $this->createMock(EntityManagerInterface::class);
+        $this->mockMessageHelper = $this->createMock(MessageHelper::class);
 
         $this->subscriptionProcessor = new SubscriptionProcessor(
-            $this->mockAwsClientFactory, $this->mockEntityManager, $this->mockMessageHelper
+            $this->mockSnsClient, $this->mockEntityManager, $this->mockMessageHelper
         );
     }
 

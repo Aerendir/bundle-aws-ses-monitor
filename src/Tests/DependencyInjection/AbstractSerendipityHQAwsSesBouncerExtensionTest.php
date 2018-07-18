@@ -49,20 +49,6 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         $this->container->compile();
 
         /*
-         *  Test AWS Config
-         */
-        self::assertTrue(is_array($this->container->getParameter('shq_aws_ses_monitor.aws_config')));
-
-        // Test Region
-        self::assertSame('eu-west-1', $this->container->getParameter('shq_aws_ses_monitor.aws_config')['region']);
-
-        // Test SES version
-        self::assertSame('2010-12-01', $this->container->getParameter('shq_aws_ses_monitor.aws_config')['ses_version']);
-
-        // Test SNS version
-        self::assertSame('2010-03-31', $this->container->getParameter('shq_aws_ses_monitor.aws_config')['sns_version']);
-
-        /*
          * Test mailers
          */
         self::assertSame(['default'], $this->container->getParameter('shq_aws_ses_monitor.mailers'));
