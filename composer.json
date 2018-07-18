@@ -25,6 +25,7 @@
         "doctrine/common": "^2.4",
         "doctrine/doctrine-bundle": "^1.7",
         "doctrine/orm": "^2.5",
+        "serendipity_hq/console-styles-bundle": "^1.1",
         "symfony/framework-bundle": "^3.4|^4.1",
         "symfony/http-kernel": "^3.4|^4.1",
         "symfony/swiftmailer-bundle": "^3.0",
