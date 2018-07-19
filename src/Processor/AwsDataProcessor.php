@@ -103,19 +103,23 @@ class AwsDataProcessor
         foreach ($result->get('NotificationAttributes') as $identity => $attribute) {
             $this->data[self::IDENTITIES][$identity]['notifications'] = [
                 'forwarding_enabled' => $attribute['ForwardingEnabled'],
-                'bounces'            => [
-                    'topic'           => $attribute['BounceTopic'],
-                    'include_headers' => $attribute['HeadersInBounceNotificationsEnabled'],
-                ],
-                'complaints' => [
-                    'topic'           => $attribute['ComplaintTopic'],
-                    'include_headers' => $attribute['HeadersInComplaintNotificationsEnabled'],
-                ],
-                'deliveries' => [
-                    'topic'           => $attribute['DeliveryTopic'],
-                    'include_headers' => $attribute['HeadersInDeliveryNotificationsEnabled'],
-                ],
+                'bounces'            => ['include_headers' => $attribute['HeadersInBounceNotificationsEnabled']],
+                'complaints'         => ['include_headers' => $attribute['HeadersInComplaintNotificationsEnabled']],
+                'deliveries'         => ['include_headers' => $attribute['HeadersInDeliveryNotificationsEnabled']],
             ];
+
+            // Thoses fields are not present if the identity was not set to send notification to a SNS topic
+            if (isset($attribute['BounceTopic'])) {
+                $this->data[self::IDENTITIES][$identity]['notifications']['bounces']['topic'] = $attribute['BounceTopic'];
+            }
+
+            if (isset($attribute['ComplaintTopic'])) {
+                $this->data[self::IDENTITIES][$identity]['notifications']['complaints']['topic'] = $attribute['ComplaintTopic'];
+            }
+
+            if (isset($attribute['DeliveryTopic'])) {
+                $this->data[self::IDENTITIES][$identity]['notifications']['deliveries']['topic'] = $attribute['DeliveryTopic'];
+            }
         }
     }
 
