@@ -19,7 +19,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\SesManager;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 
 /**
- * Helper methods for the SubscribeCommand.
+ * Helper methods for the ConfigureCommand.
  */
 class SubscribeHelper
 {

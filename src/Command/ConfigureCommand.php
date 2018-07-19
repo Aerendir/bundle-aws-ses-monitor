@@ -30,7 +30,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Abstract class to perform common command tasks.
  * {@inheritdoc}
  */
-class SubscribeCommand extends Command
+class ConfigureCommand extends Command
 {
     const THICK = "<fg=green>\xE2\x9C\x94</>";
     const CROSS = "<fg=magenta>\xE2\x9C\x96</>";
@@ -91,7 +91,7 @@ class SubscribeCommand extends Command
     protected function configure()
     {
         $this->setDescription('Subscribes the application to topics to get notifications from AWS SES, creating them if they don\'t still exist.')
-             ->setName('aws:ses:monitor:subscribe')
+             ->setName('aws:ses:configure')
             ->addOption('bounces', 'b', InputOption::VALUE_NONE, 'Subscribe to bounces notifications.')
             ->addOption('complaints', 'c', InputOption::VALUE_NONE, 'Subscribe to bounces notifications.')
             ->addOption('deliveries', 'd', InputOption::VALUE_NONE, 'Subscribe to bounces notifications.');

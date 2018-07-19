@@ -135,3 +135,8 @@ Classes and their Methods
 
 - `EmailStatus::getComplaintsCount()` (use `EmailStatus::getComplaints()->count()` instead)
 - `EmailStatus::getDeliveriesCount()` (use `EmailStatus::getComplaints()->count()` instead)
+
+Commands
+--------
+
+The command `aws:ses:monitor:subscribe` was substituted by the broader and more powerful `aws:ses:configure`.
