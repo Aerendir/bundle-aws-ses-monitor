@@ -35,7 +35,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class DebugCommand extends Command
 {
     const THICK = "<fg=green>\xE2\x9C\x94</>";
-    const CROSS = "<fg=magenta>\xE2\x9C\x96</>";
+    const CROSS = "<fg=red>\xE2\x9C\x96</>";
 
     /** @var AwsDataProcessor $awsDataProcessor */
     private $awsDataProcessor;
@@ -285,7 +285,7 @@ class DebugCommand extends Command
             $section->overwrite(sprintf('Validating identity <comment>%s</comment>', $identity));
 
             // Is identity verified?
-            $results[$identity][] = ['   Verified', 'Success' === $details['verification']['status'] ? self::THICK : self::CROSS];
+            $results[$identity][] = ['   Verified (enabled for sending)', 'Success' === $details['verification']['status'] ? self::THICK : self::CROSS];
 
             // Is DKIM enabled?
             $results[$identity][] = ['   DKIM enabled', $details['dkim']['enabled'] ? self::THICK : self::CROSS];
