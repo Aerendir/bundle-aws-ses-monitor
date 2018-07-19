@@ -65,7 +65,7 @@ class DebugCommand extends Command
     protected function configure()
     {
         $this->setDescription('Debugs the aws ses configuration helping discovering errors and wrong settings.')
-             ->setName('aws:ses:monitor:debug');
+             ->setName('aws:ses:debug');
     }
 
     /**
