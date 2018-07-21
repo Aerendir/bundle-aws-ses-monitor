@@ -4,9 +4,7 @@ services:
         autoconfigure: true
         public: false
         bind:
-            $bouncesConfig: '%shq_aws_ses_monitor.bounces%'
-            $complaintsConfig: '%shq_aws_ses_monitor.complaints%'
-            $deliveriesConfig: '%shq_aws_ses_monitor.deliveries%'
+            $identities: '%shq_aws_ses_monitor.identities%'
             $endpointConfig: '%shq_aws_ses_monitor.endpoint%'
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

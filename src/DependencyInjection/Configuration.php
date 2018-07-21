@@ -15,6 +15,8 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -30,14 +32,8 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        // Support Symfony 5.0
-        $treeBuilder = Kernel::VERSION_ID >= 40200
-            ? new TreeBuilder('shq_aws_ses_monitor')
-            : new TreeBuilder();
-
-        $rootNode = Kernel::VERSION_ID >= 40200
-            ? $treeBuilder->getRootNode()
-            : $treeBuilder->root('shq_aws_ses_monitor');
+        $treeBuilder = $this->createTreeBuilder('shq_aws_ses_monitor');
+        $rootNode    = $this->createRootNode($treeBuilder, 'shq_aws_ses_monitor');
 
         $rootNode
             ->children()
@@ -52,56 +48,135 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('host')->isRequired()->cannotBeEmpty()->end()
                     ->end()
                 ->end()
-                ->arrayNode('bounces')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->booleanNode('track')->defaultTrue()->end()
-                        ->scalarNode('topic')->defaultNull()->end()
-                        ->arrayNode('filter')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->booleanNode('enabled')->defaultTrue()->end()
-                                ->booleanNode('soft_as_hard')->defaultFalse()->end()
-                                ->integerNode('max_bounces')->min(1)->defaultValue(5)->end()
-                                ->scalarNode('soft_blacklist_time')->defaultValue('forever')->end()
-                                ->scalarNode('hard_blacklist_time')->defaultValue('forever')->end()
-                                ->booleanNode('force_send')->defaultFalse()->end()
-                            ->end()
+                ->arrayNode('identities')
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')
+                        ->children()
+                            ->booleanNode('dkim')->defaultValue(true)->end()
+                            ->booleanNode('feedback_forwarding')->defaultValue(true)->end()
+                            ->booleanNode('headers_in_notification')->defaultValue(true)->end()
+                            ->scalarNode('from_domain')->defaultNull()->end()
                         ->end()
-                    ->end()
-                ->end()
-                ->arrayNode('complaints')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->booleanNode('track')->defaultTrue()->end()
-                        ->scalarNode('topic')->defaultNull()->end()
-                        ->arrayNode('filter')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->booleanNode('blacklist_time')->defaultValue('forever')->end()
-                                ->booleanNode('force_send')->defaultFalse()->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
-                ->arrayNode('deliveries')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->booleanNode('track')->defaultTrue()->end()
-                        ->scalarNode('topic')->defaultNull()->end()
-                        ->end()
-                    ->end()
+                        ->append($this->bouncesNode())
+                        ->append($this->complaintsNode())
+                        ->append($this->deliveriesNode())
+                    ->end()->end()
                 ->end()
                 ->validate()
                     ->ifTrue(function (array $tree) {
                         return $this->validateConfiguration($tree);
                     })
                     ->then(function (array $tree) {
-                        return $tree;
+                        return $this->prepareConfiguration($tree);
                     })
                 ->end();
 
         return $treeBuilder;
+    }
+
+    /**
+     * Creates a tree builder handling the differences between SF4 and SF5.
+     *
+     * @param string $rootNodeName
+     *
+     * @return TreeBuilder
+     */
+    private function createTreeBuilder(string $rootNodeName): TreeBuilder
+    {
+        // Support Symfony 5.0
+        $treeBuilder = Kernel::VERSION_ID >= 40200
+            ? new TreeBuilder($rootNodeName)
+            : new TreeBuilder();
+
+        return $treeBuilder;
+    }
+
+    /**
+     * Creates a root node handling the differences between SF4 and SF5.
+     *
+     * @param TreeBuilder $treeBuilder
+     * @param string      $rootNodeName
+     *
+     * @return ArrayNodeDefinition|NodeDefinition
+     */
+    private function createRootNode(TreeBuilder $treeBuilder, string $rootNodeName)
+    {
+        $rootNode = Kernel::VERSION_ID >= 40200
+            ? $treeBuilder->getRootNode()
+            : $treeBuilder->root($rootNodeName);
+
+        return $rootNode;
+    }
+
+    /**
+     * @return ArrayNodeDefinition|NodeDefinition
+     */
+    private function bouncesNode()
+    {
+        $treeBuilder = $this->createTreeBuilder('bounces');
+        $rootNode    = $this->createRootNode($treeBuilder, 'bounces');
+
+        $rootNode
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->booleanNode('track')->defaultTrue()->end()
+                ->scalarNode('topic')->defaultNull()->end()
+                ->arrayNode('filter')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->booleanNode('soft_as_hard')->defaultFalse()->end()
+                        ->integerNode('max_bounces')->min(1)->defaultValue(5)->end()
+                        ->scalarNode('soft_blacklist_time')->defaultValue('forever')->end()
+                        ->scalarNode('hard_blacklist_time')->defaultValue('forever')->end()
+                        ->booleanNode('force_send')->defaultFalse()->end()
+                    ->end()
+                ->end()
+            ->end();
+
+        return $rootNode;
+    }
+
+    /**
+     * @return ArrayNodeDefinition|NodeDefinition
+     */
+    private function complaintsNode()
+    {
+        $treeBuilder = $this->createTreeBuilder('complaints');
+        $rootNode    = $this->createRootNode($treeBuilder, 'complaints');
+
+        $rootNode
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->booleanNode('track')->defaultTrue()->end()
+                ->scalarNode('topic')->defaultNull()->end()
+                ->arrayNode('filter')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('blacklist_time')->defaultValue('forever')->end()
+                        ->booleanNode('force_send')->defaultFalse()->end()
+                    ->end()
+                ->end()
+            ->end();
+
+        return $rootNode;
+    }
+
+    /**
+     * @return ArrayNodeDefinition|NodeDefinition
+     */
+    private function deliveriesNode()
+    {
+        $treeBuilder = $this->createTreeBuilder('deliveries');
+        $rootNode    = $this->createRootNode($treeBuilder, 'deliveries');
+
+        $rootNode
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->booleanNode('track')->defaultTrue()->end()
+                ->scalarNode('topic')->defaultNull()->end()
+            ->end();
+
+        return $rootNode;
     }
 
     /**
@@ -111,30 +186,226 @@ class Configuration implements ConfigurationInterface
      */
     private function validateConfiguration(array $tree): bool
     {
-        $this->validateType('bounces', $tree);
-        $this->validateType('complaints', $tree);
-        $this->validateType('deliveries', $tree);
+        if (count($tree['identities']) < 1) {
+            throw new InvalidConfigurationException('You have to configure at least one identity you want be managed. Please, set it in path "shq_aws_monitor.identities".');
+        }
+
+        foreach ($tree['identities'] as $identity => $config) {
+            $this->validateIdentity($identity, $config, $tree['identities']);
+        }
 
         return true;
     }
 
     /**
-     * @param string $type
-     * @param array  $tree
+     * @param string $identity
+     * @param array  $config
+     * @param array  $identities
      */
-    private function validateType(string $type, array $tree): void
+    private function validateIdentity(string $identity, array $config, array $identities): void
     {
-        $track = $tree[$type]['track'];
-        $topic = $tree[$type]['topic'];
+        $this->validateType($identity, 'bounces', $config['bounces'], $identities);
+        $this->validateType($identity, 'complaints', $config['complaints'], $identities);
+        $this->validateType($identity, 'deliveries', $config['deliveries'], $identities);
+    }
 
-        // If tracking is enabled and topic is null...
-        if (true === $track && null === $topic) {
-            throw new InvalidConfigurationException(sprintf('You have enabled the tracking of "%s" but you have not set the name of the topic to use. Please, set the name of the topic at path "%s.topic".', $type, $type));
-        }
+    /**
+     * @param string $identity
+     * @param string $type
+     * @param array  $typeConfig
+     * @param array  $identities
+     */
+    private function validateType(string $identity, string $type, array $typeConfig, array $identities): void
+    {
+        $track = $typeConfig['track'];
+        $topic = $typeConfig['topic'];
 
         // If tracking is disabled but the topic name is passed anyway...
         if (false === $track && null !== $topic) {
-            throw new InvalidConfigurationException(sprintf('You have not enabled the tracking of "%s" but you have anyway set the name of the topic. Either remove the name of the topic at path "%s.topic" or enabled the tracking of "%s" setting "%s.track" to "true".', $type, $type, $type, $type));
+            throw new InvalidConfigurationException(sprintf(
+                'You have not enabled the tracking of "%s" for identity "%s" but you have anyway set the name of its topic. Either remove the name of the topic at path "shq_aws_ses_monitor.identities.%s.%s.topic" or enabled the tracking setting "shq_aws_ses_monitor.identities.%s.%s.track" to "true".',
+                $type, $identity, $identity, $type, $identity, $type
+            ));
         }
+
+        if (null !== $topic) {
+            $this->validateTopic($identity, $type, $topic, $identities);
+        }
+    }
+
+    /**
+     * @param string $identity
+     * @param string $type
+     * @param string $topic
+     * @param array  $identities
+     */
+    private function validateTopic(string $identity, string $type, string $topic, array $identities): void
+    {
+        $currentPath      = sprintf('shq_aws_ses_monitor.identities.%s.$s.topic', $identity, $type);
+        $checkCurrentPath = sprintf('Check the configuration at path "%s".', $currentPath);
+        $wantsToUseDomain = 'use_domain' === $topic;
+
+        // If the identity isn't an email...
+        if (false === $this->isEmailIdentity($identity)) {
+            // It is almost sure a domain: a domain cannot set the "use_domain" value for topic
+            if ($wantsToUseDomain) {
+                throw new InvalidConfigurationException(sprintf('The identity "%s" is not an email. The value "use_domain" can be used only with email identities. %s', $identity, $checkCurrentPath));
+            }
+
+            // Is not an email and doesn't want to use the value "use_domain": we can exit the checks
+            return;
+        }
+
+        // Based on previous checks, this is an email identity: get its parts
+        $parts = $this->getEmailParts($identity);
+
+        // Check if the Domain identity was configured
+        if (false === array_search($parts['domain'], array_keys($identities))) {
+            throw new InvalidConfigurationException(sprintf('The domain "%s" of the email identity "%s" is NOT explicitly configured. You need to explicitly configure the domain identity "%s" to use its endpoint for the email identity "%s". %s', $parts['domain'], $identity, $parts['domain'], $identity, $checkCurrentPath));
+        }
+
+        // Check if the mailbox is a test one
+        if ($this->isTestEmail($parts['mailbox'])) {
+            if ($wantsToUseDomain) {
+                throw new InvalidConfigurationException(sprintf('The email identity "%s" is for testing on development machines purposes only. You cannot set it to use the domain topic that has to be used only in production. %s', $identity, $identity, $type, $checkCurrentPath));
+            }
+
+            // Check the topic used for this test email is not set for production identities
+            foreach ($identities as $otherIdentity => $otherConfig) {
+                // If this is isn't a production identity, it can also use the same endpoint of this one
+                if (false === $this->isProductionIdentity($otherIdentity)) {
+                    continue;
+                }
+
+                // It is a production identity: check the topics are not the same of this one
+                if ($otherConfig['bunces']['topic'] === $topic) {
+                    $bouncesPath = sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity);
+                    throw new InvalidConfigurationException(sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $bouncesPath));
+                } elseif ($otherConfig['complaints']['topic'] === $topic) {
+                    $complaintsPath = sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity);
+                    throw new InvalidConfigurationException(sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $complaintsPath));
+                } elseif ($otherConfig['deliveries']['topic'] === $topic) {
+                    $deliveriesPath = sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity);
+                    throw new InvalidConfigurationException(sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $deliveriesPath));
+                }
+            }
+        }
+    }
+
+    /**
+     * @param string $identity
+     *
+     * @return bool
+     */
+    private function isEmailIdentity(string $identity): bool
+    {
+        return (bool) strstr($identity, '@');
+    }
+
+    /**
+     * @param string $identity
+     *
+     * @return array
+     */
+    private function getEmailParts(string $identity): array
+    {
+        $parts = explode('@', $identity);
+
+        return [
+        'mailbox' => $parts[0],
+        'domain'  => $parts[1],
+        ];
+    }
+
+    /**
+     * @param string $mailbox
+     *
+     * @return bool
+     */
+    private function isTestEmail(string $mailbox): bool
+    {
+        return (bool) strstr($mailbox, 'test');
+    }
+
+    /**
+     * @param string $identity
+     *
+     * @return bool
+     */
+    private function isProductionIdentity(string $identity): bool
+    {
+        // If is not an email identity, then is for sure an identity to be used in production
+        if (false === $this->isEmailIdentity($identity)) {
+            return true;
+        }
+
+        // If is an Email Identity, we check if it is a test one
+        $parts = $this->getEmailParts($identity);
+
+        return $this->isTestEmail($parts['mailbox']);
+    }
+
+    /**
+     * @param array $tree
+     *
+     * @return array
+     */
+    private function prepareConfiguration(array $tree): array
+    {
+        foreach ($tree['identities'] as $identity => $config) {
+            $tree['identities'][$identity] = $this->prepareIdentity($tree['endpoint']['host'], $identity, $config);
+        }
+
+        return $tree;
+    }
+
+    /**
+     * @param string $host
+     * @param string $identity
+     * @param array  $config
+     *
+     * @return array
+     */
+    private function prepareIdentity(string $host, string $identity, array $config): array
+    {
+        $config['bounces']    = $this->prepareEndpoint($host, $identity, 'bounces', $config['bounces']);
+        $config['complaints'] = $this->prepareEndpoint($host, $identity, 'complaints', $config['complaints']);
+        $config['deliveries'] = $this->prepareEndpoint($host, $identity, 'deliveries', $config['deliveries']);
+
+        return $config;
+    }
+
+    /**
+     * @param string $host
+     * @param string $identity
+     * @param string $type
+     * @param array  $typeConfig
+     *
+     * @return array
+     */
+    private function prepareEndpoint(string $host, string $identity, string $type, array $typeConfig): array
+    {
+        if ($typeConfig['track'] && null === $typeConfig['topic']) {
+            $typeConfig['topic'] = $this->generateTopicName($host, $identity, $type);
+        }
+
+        return $typeConfig;
+    }
+
+    /**
+     * @param string $host
+     * @param string $identity
+     * @param string $type
+     *
+     * @return string
+     */
+    private function generateTopicName(string $host, string $identity, string $type): string
+    {
+        $env       = strstr($identity, 'test') ? 'dev' : 'prod';
+        $topicName = sprintf('%s-%s-ses-%s-%s', $host, $identity, $env, $type);
+        //$topicName = preg_replace('/[^A-Za-z0-9-_]/', '_', $topicName);
+        //$topicName = strtolower($topicName);
+
+        return $topicName;
     }
 }

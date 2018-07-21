@@ -17,6 +17,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin;
 
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\EmailStatusManager;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\IdentitiesStore;
 use Swift_Events_SendEvent;
 
 /**
@@ -28,24 +29,19 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     /** @var array $blacklisted */
     private $blacklisted;
 
-    /** @var array $bouncesConfig */
-    private $bouncesConfig;
-
-    /** @var array $complaintsConfig */
-    private $complaintsConfig;
-
     /** @var EmailStatusManager $emailStatusManager */
     private $emailStatusManager;
 
+    /** @var IdentitiesStore $identities */
+    private $identities;
+
     /**
      * @param EmailStatusManager $emailStatusManager
-     * @param array              $bouncesConfig      The configuration of bounces
-     * @param array              $complaintsConfig   The configuration of complaints
+     * @param IdentitiesStore    $identitiesStore
      */
-    public function __construct(EmailStatusManager $emailStatusManager, array $bouncesConfig, array $complaintsConfig)
+    public function __construct(EmailStatusManager $emailStatusManager, IdentitiesStore $identitiesStore)
     {
-        $this->bouncesConfig      = $bouncesConfig;
-        $this->complaintsConfig   = $complaintsConfig;
+        $this->identities         = $identitiesStore;
         $this->emailStatusManager = $emailStatusManager;
     }
 
@@ -121,11 +117,11 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
 
         $bouncesCount = $email->getHardBouncesCount();
 
-        if ($this->bouncesConfig['filter']['soft_as_hard']) {
+        if ($this->identities->findIdentity()['bounces']['filter']['soft_as_hard']) {
             $bouncesCount += $email->getSoftBouncesCount();
         }
 
-        if ($bouncesCount >= $this->bouncesConfig['filter']['max_bounces']) {
+        if ($bouncesCount >= $this->identities->findIdentity()['bounces']['filter']['max_bounces']) {
             return true;
         }
 
@@ -159,7 +155,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      */
     private function isBouncesTrackingEnabled(): bool
     {
-        return $this->bouncesConfig['track'];
+        return $this->identities->findIdentity()['bounces']['track'];
     }
 
     /**
@@ -167,7 +163,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      */
     private function areBouncesForced(): bool
     {
-        return $this->bouncesConfig['filter']['force_send'];
+        return $this->identities->findIdentity()['bounces']['filter']['force_send'];
     }
 
     /**
@@ -175,7 +171,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      */
     private function isComplaintsTrackingEnabled(): bool
     {
-        return $this->complaintsConfig['track'];
+        return $this->identities->findIdentity()['complaints']['track'];
     }
 
     /**
@@ -183,6 +179,6 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      */
     private function areComplaintsForced(): bool
     {
-        return $this->complaintsConfig['filter']['force_send'];
+        return $this->identities->findIdentity()['complaints']['filter']['force_send'];
     }
 }

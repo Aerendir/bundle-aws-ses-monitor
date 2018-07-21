@@ -24,7 +24,8 @@ class MonitorPluginBaseTest extends MonitorFilterPluginTestAbstract
 {
     public function testBeforeSendPerformedDoesntFilterIfNoRecipients()
     {
-        $filter = new MonitorFilterPlugin($this->mockEmailStatusManager, $this->getDefaultBouncesConfig(), $this->getDefaultComplaintsConfig());
+        $mockIdentities = $this->createMockIdentities($this->getDefaultBouncesConfig(), $this->getDefaultComplaintsConfig());
+        $filter         = new MonitorFilterPlugin($this->mockEmailStatusManager, $mockIdentities);
 
         $mockMessage = $this->createMock(\Swift_Message::class);
         $mockMessage->expects(self::once())->method('getTo')->willReturn(null);

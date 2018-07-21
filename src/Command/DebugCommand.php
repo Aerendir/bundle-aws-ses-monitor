@@ -88,8 +88,8 @@ class DebugCommand extends Command
         $this->fetchSubscriptionsData($section);
         $this->fetchTopicsData($section);
 
-        $data                                            = $this->awsDataProcessor->getProcessedData();
         $validationResults                               = [];
+        $data                                            = $this->awsDataProcessor->getProcessedData();
         $validationResults[AwsDataProcessor::ACCOUNT]    = $this->validateAccountData($data, $section);
         $validationResults[AwsDataProcessor::IDENTITIES] = $this->validateIdentitiesData($data, $section);
 

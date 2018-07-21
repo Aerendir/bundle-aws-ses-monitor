@@ -20,6 +20,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\EmailStatusManager;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\IdentitiesStore;
 
 /**
  * Abstract base class to test the monitor filter plugin.
@@ -36,6 +37,25 @@ class MonitorFilterPluginTestAbstract extends TestCase
     {
         $this->mockEmailStatusManager = $this->createMock(EmailStatusManager::class);
         $this->mockEmailStatusManager->method('loadEmailStatus')->will(self::returnValueMap($this->getEmailStatusMap()));
+    }
+
+    /**
+     * @param array $bouncesConfig
+     * @param array $complaintsConfig
+     *
+     * @return IdentitiesStore|MockObject
+     */
+    public function createMockIdentities(array $bouncesConfig, array $complaintsConfig)
+    {
+        $config = [
+            'bounces'    => $bouncesConfig,
+            'complaints' => $complaintsConfig,
+        ];
+
+        $mockIdentities = $this->createMock(IdentitiesStore::class);
+        $mockIdentities->method('findIdentity')->willReturn($config);
+
+        return $mockIdentities;
     }
 
     public function confirmNoOneRemoved()

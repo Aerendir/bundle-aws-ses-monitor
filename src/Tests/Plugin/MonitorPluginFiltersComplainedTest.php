@@ -42,8 +42,9 @@ class MonitorPluginFiltersComplainedTest extends MonitorFilterPluginTestAbstract
     {
         $complaintsConfig          = $this->getDefaultComplaintsConfig();
         $complaintsConfig['track'] = false;
+        $mockIdentities            = $this->createMockIdentities($this->bouncesConfig, $complaintsConfig);
 
-        $filter = new MonitorFilterPlugin($this->mockEmailStatusManager, $this->bouncesConfig, $complaintsConfig);
+        $filter = new MonitorFilterPlugin($this->mockEmailStatusManager, $mockIdentities);
 
         $message = $this->getDefaultMessage();
         $message->expects(self::once())->method('setTo')->willReturnCallback([$this, 'confirmNoOneRemoved']);
@@ -61,8 +62,9 @@ class MonitorPluginFiltersComplainedTest extends MonitorFilterPluginTestAbstract
     {
         $complaintsConfig                         = $this->getDefaultComplaintsConfig();
         $complaintsConfig['filter']['force_send'] = true;
+        $mockIdentities                           = $this->createMockIdentities($this->bouncesConfig, $complaintsConfig);
 
-        $filter = new MonitorFilterPlugin($this->mockEmailStatusManager, $this->bouncesConfig, $complaintsConfig);
+        $filter = new MonitorFilterPlugin($this->mockEmailStatusManager, $mockIdentities);
 
         $message = $this->getDefaultMessage();
         $message->expects(self::once())->method('setTo')->willReturnCallback([$this, 'confirmNoOneRemoved']);
@@ -79,8 +81,9 @@ class MonitorPluginFiltersComplainedTest extends MonitorFilterPluginTestAbstract
     public function testComplaintsAreRemoved()
     {
         $complaintsConfig = $this->getDefaultComplaintsConfig();
+        $mockIdentities   = $this->createMockIdentities($this->bouncesConfig, $complaintsConfig);
 
-        $filter = new MonitorFilterPlugin($this->mockEmailStatusManager, $this->bouncesConfig, $complaintsConfig);
+        $filter = new MonitorFilterPlugin($this->mockEmailStatusManager, $mockIdentities);
 
         $message = $this->getDefaultMessage();
         $message->expects(self::once())->method('setTo')->willReturnCallback([$this, 'confirmOnlyComplainedAreRemoved']);

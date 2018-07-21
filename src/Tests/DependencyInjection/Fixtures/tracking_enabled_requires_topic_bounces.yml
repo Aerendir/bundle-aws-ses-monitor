@@ -1,9 +1,0 @@
-shq_aws_ses_monitor:
-    mailers:
-        - default
-    endpoint:
-        host: localhost.local
-    complaints:
-        topic: 'dummy-complaints-topic'
-    deliveries:
-        topic: 'dummy-deliveries-topic'

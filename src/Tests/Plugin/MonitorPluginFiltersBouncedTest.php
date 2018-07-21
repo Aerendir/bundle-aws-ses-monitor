@@ -42,8 +42,9 @@ class MonitorPluginFiltersBouncedTest extends MonitorFilterPluginTestAbstract
     {
         $bouncesConfig          = $this->getDefaultBouncesConfig();
         $bouncesConfig['track'] = false;
+        $mockIdentities         = $this->createMockIdentities($bouncesConfig, $this->complaintsConfig);
 
-        $filter = new MonitorFilterPlugin($this->mockEmailStatusManager, $bouncesConfig, $this->complaintsConfig);
+        $filter = new MonitorFilterPlugin($this->mockEmailStatusManager, $mockIdentities);
 
         $message = $this->getDefaultMessage();
         $message->expects(self::once())->method('setTo')->willReturnCallback([$this, 'confirmNoOneRemoved']);
@@ -61,8 +62,9 @@ class MonitorPluginFiltersBouncedTest extends MonitorFilterPluginTestAbstract
     {
         $bouncesConfig                         = $this->getDefaultBouncesConfig();
         $bouncesConfig['filter']['force_send'] = true;
+        $mockIdentities                        = $this->createMockIdentities($bouncesConfig, $this->complaintsConfig);
 
-        $filter = new MonitorFilterPlugin($this->mockEmailStatusManager, $bouncesConfig, $this->complaintsConfig);
+        $filter = new MonitorFilterPlugin($this->mockEmailStatusManager, $mockIdentities);
 
         $message = $this->getDefaultMessage();
         $message->expects(self::once())->method('setTo')->willReturnCallback([$this, 'confirmNoOneRemoved']);
@@ -80,8 +82,9 @@ class MonitorPluginFiltersBouncedTest extends MonitorFilterPluginTestAbstract
     {
         $bouncesConfig                          = $this->getDefaultBouncesConfig();
         $bouncesConfig['filter']['max_bounces'] = 2;
+        $mockIdentities                         = $this->createMockIdentities($bouncesConfig, $this->complaintsConfig);
 
-        $filter = new MonitorFilterPlugin($this->mockEmailStatusManager, $bouncesConfig, $this->complaintsConfig);
+        $filter = new MonitorFilterPlugin($this->mockEmailStatusManager, $mockIdentities);
 
         $message = $this->getDefaultMessage();
         $message->expects(self::once())->method('setTo')->willReturnCallback([$this, 'confirmHardBouncedRemoved']);
@@ -99,8 +102,9 @@ class MonitorPluginFiltersBouncedTest extends MonitorFilterPluginTestAbstract
     {
         $bouncesConfig                           = $this->getDefaultBouncesConfig();
         $bouncesConfig['filter']['soft_as_hard'] = 2;
+        $mockIdentities                          = $this->createMockIdentities($bouncesConfig, $this->complaintsConfig);
 
-        $filter = new MonitorFilterPlugin($this->mockEmailStatusManager, $bouncesConfig, $this->complaintsConfig);
+        $filter = new MonitorFilterPlugin($this->mockEmailStatusManager, $mockIdentities);
 
         $message = $this->getDefaultMessage();
         $message->expects(self::once())->method('setTo')->willReturnCallback([$this, 'confirmHardBouncedRemoved']);

@@ -1,9 +1,5 @@
 shq_aws_ses_monitor:
     endpoint:
         host: localhost.local
-    bounces:
-        topic: 'dummy-bounces-topic'
-    complaints:
-        topic: 'dummy-complaints-topic'
-    deliveries:
-        topic: 'dummy-deliveries-topic'
+    identities:
+        serendipityhq.com: ~

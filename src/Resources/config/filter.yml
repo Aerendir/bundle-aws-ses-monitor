@@ -3,7 +3,4 @@ services:
         autowire: true
         autoconfigure: true
         public: false
-        bind:
-            $bouncesConfig: '%shq_aws_ses_monitor.bounces%'
-            $complaintsConfig: '%shq_aws_ses_monitor.complaints%'
     SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin\MonitorFilterPlugin: ~

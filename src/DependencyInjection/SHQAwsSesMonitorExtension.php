@@ -37,15 +37,13 @@ class SHQAwsSesMonitorExtension extends Extension
         // Set parameters in the container
         $container->setParameter('shq_aws_ses_monitor.endpoint', $config['endpoint']);
         $container->setParameter('shq_aws_ses_monitor.mailers', $config['mailers']);
-        $container->setParameter('shq_aws_ses_monitor.bounces', $config['bounces']);
-        $container->setParameter('shq_aws_ses_monitor.complaints', $config['complaints']);
-        $container->setParameter('shq_aws_ses_monitor.deliveries', $config['deliveries']);
+        $container->setParameter('shq_aws_ses_monitor.identities', $config['identities']);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
 
         // Enable the plugin if required
-        if ($config['bounces']['track'] || $config['complaints']['track']) {
+        if ($this->requiresFilter($config['identities'])) {
             $loader->load('filter.yml');
 
             $mailers = $config['mailers'];
@@ -54,5 +52,23 @@ class SHQAwsSesMonitorExtension extends Extension
                 $filter->addTag(sprintf('swiftmailer.%s.plugin', $mailer));
             }
         }
+    }
+
+    /**
+     * Checks if at least one identity requires the SwiftMailer filter.
+     *
+     * @param array $identities
+     *
+     * @return bool
+     */
+    private function requiresFilter(array $identities): bool
+    {
+        foreach ($identities as $identityConfig) {
+            if ($identityConfig['bounces']['track'] || $identityConfig['complaints']['track']) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
