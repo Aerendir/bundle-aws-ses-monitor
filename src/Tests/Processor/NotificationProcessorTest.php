@@ -13,7 +13,7 @@
  * @license   MIT License.
  */
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Service;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Processor;
 
 use Aws\Sns\Message;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,7 +24,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Handler\BounceNotificationHandler;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Handler\ComplaintNotificationHandler;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Handler\DeliveryNotificationHandler;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Helper\MessageHelper;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationProcessor;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor\NotificationProcessor;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\SnsTypes;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

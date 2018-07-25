@@ -15,6 +15,7 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection;
 
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\IdentityGuesser;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -27,11 +28,18 @@ use Symfony\Component\HttpKernel\Kernel;
  */
 class Configuration implements ConfigurationInterface
 {
+    const USE_DOMAIN = 'use_domain';
+
+    /** @var IdentityGuesser $identityGuesser */
+    private $identityGuesser;
+
     /**
      * {@inheritdoc}
      */
     public function getConfigTreeBuilder()
     {
+        $this->identityGuesser = new IdentityGuesser();
+
         $treeBuilder = $this->createTreeBuilder('shq_aws_ses_monitor');
         $rootNode    = $this->createRootNode($treeBuilder, 'shq_aws_ses_monitor');
 
@@ -56,6 +64,7 @@ class Configuration implements ConfigurationInterface
                             ->booleanNode('feedback_forwarding')->defaultValue(true)->end()
                             ->booleanNode('headers_in_notification')->defaultValue(true)->end()
                             ->scalarNode('from_domain')->defaultNull()->end()
+                            ->enumNode('on_mx_failure')->defaultValue('UseDefaultValue')->values(['UseDefaultValue', 'RejectMessage'])->end()
                         ->end()
                         ->append($this->bouncesNode())
                         ->append($this->complaintsNode())
@@ -190,6 +199,14 @@ class Configuration implements ConfigurationInterface
             throw new InvalidConfigurationException('You have to configure at least one identity you want be managed. Please, set it in path "shq_aws_monitor.identities".');
         }
 
+        // Ensure the identities are in lowercase as they are anyway transformed in lowercase by Amazon
+        // and we also need them in lowercase to make accurate checks on domain identities
+        foreach ($tree['identities'] as $identity => $config) {
+            $lowerIdentity = strtolower($identity);
+            unset($tree['identities'][$identity]);
+            $tree['identities'][$lowerIdentity] = $config;
+        }
+
         foreach ($tree['identities'] as $identity => $config) {
             $this->validateIdentity($identity, $config, $tree['identities']);
         }
@@ -241,15 +258,15 @@ class Configuration implements ConfigurationInterface
      */
     private function validateTopic(string $identity, string $type, string $topic, array $identities): void
     {
-        $currentPath      = sprintf('shq_aws_ses_monitor.identities.%s.$s.topic', $identity, $type);
+        $currentPath      = sprintf('shq_aws_ses_monitor.identities.%s.%s.topic', $identity, $type);
         $checkCurrentPath = sprintf('Check the configuration at path "%s".', $currentPath);
-        $wantsToUseDomain = 'use_domain' === $topic;
+        $wantsToUseDomain = self::USE_DOMAIN === $topic;
 
         // If the identity isn't an email...
-        if (false === $this->isEmailIdentity($identity)) {
+        if (false === $this->identityGuesser->isEmailIdentity($identity)) {
             // It is almost sure a domain: a domain cannot set the "use_domain" value for topic
             if ($wantsToUseDomain) {
-                throw new InvalidConfigurationException(sprintf('The identity "%s" is not an email. The value "use_domain" can be used only with email identities. %s', $identity, $checkCurrentPath));
+                throw new InvalidConfigurationException(sprintf('The identity "%s" is not an email. The value "%s" can be used only with email identities. %s', $identity, self::USE_DOMAIN, $checkCurrentPath));
             }
 
             // Is not an email and doesn't want to use the value "use_domain": we can exit the checks
@@ -257,23 +274,23 @@ class Configuration implements ConfigurationInterface
         }
 
         // Based on previous checks, this is an email identity: get its parts
-        $parts = $this->getEmailParts($identity);
+        $parts = $this->identityGuesser->getEmailParts($identity);
 
         // Check if the Domain identity was configured
-        if (false === array_search($parts['domain'], array_keys($identities))) {
-            throw new InvalidConfigurationException(sprintf('The domain "%s" of the email identity "%s" is NOT explicitly configured. You need to explicitly configure the domain identity "%s" to use its endpoint for the email identity "%s". %s', $parts['domain'], $identity, $parts['domain'], $identity, $checkCurrentPath));
+        if (false === array_key_exists($parts['domain'], $identities)) {
+            throw new InvalidConfigurationException(sprintf('The domain "%s" of the email identity "%s" is NOT explicitly configured. You need to explicitly configure the domain identity "%s" to use its topic for the email identity "%s". %s', $parts['domain'], $identity, $parts['domain'], $identity, $checkCurrentPath));
         }
 
         // Check if the mailbox is a test one
-        if ($this->isTestEmail($parts['mailbox'])) {
+        if ($this->identityGuesser->isTestEmail($parts['mailbox'])) {
             if ($wantsToUseDomain) {
-                throw new InvalidConfigurationException(sprintf('The email identity "%s" is for testing on development machines purposes only. You cannot set it to use the domain topic that has to be used only in production. %s', $identity, $identity, $type, $checkCurrentPath));
+                throw new InvalidConfigurationException(sprintf('The email identity "%s" is for testing on development machines purposes only. You cannot set it to use the domain\'s topic that has to be used only in production. %s', $identity, $identity, $type, $checkCurrentPath));
             }
 
             // Check the topic used for this test email is not set for production identities
             foreach ($identities as $otherIdentity => $otherConfig) {
                 // If this is isn't a production identity, it can also use the same endpoint of this one
-                if (false === $this->isProductionIdentity($otherIdentity)) {
+                if (false === $this->identityGuesser->isProductionIdentity($otherIdentity)) {
                     continue;
                 }
 
@@ -293,59 +310,6 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @param string $identity
-     *
-     * @return bool
-     */
-    private function isEmailIdentity(string $identity): bool
-    {
-        return (bool) strstr($identity, '@');
-    }
-
-    /**
-     * @param string $identity
-     *
-     * @return array
-     */
-    private function getEmailParts(string $identity): array
-    {
-        $parts = explode('@', $identity);
-
-        return [
-        'mailbox' => $parts[0],
-        'domain'  => $parts[1],
-        ];
-    }
-
-    /**
-     * @param string $mailbox
-     *
-     * @return bool
-     */
-    private function isTestEmail(string $mailbox): bool
-    {
-        return (bool) strstr($mailbox, 'test');
-    }
-
-    /**
-     * @param string $identity
-     *
-     * @return bool
-     */
-    private function isProductionIdentity(string $identity): bool
-    {
-        // If is not an email identity, then is for sure an identity to be used in production
-        if (false === $this->isEmailIdentity($identity)) {
-            return true;
-        }
-
-        // If is an Email Identity, we check if it is a test one
-        $parts = $this->getEmailParts($identity);
-
-        return $this->isTestEmail($parts['mailbox']);
-    }
-
-    /**
      * @param array $tree
      *
      * @return array
@@ -353,7 +317,11 @@ class Configuration implements ConfigurationInterface
     private function prepareConfiguration(array $tree): array
     {
         foreach ($tree['identities'] as $identity => $config) {
-            $tree['identities'][$identity] = $this->prepareIdentity($tree['endpoint']['host'], $identity, $config);
+            // We have to make them again lowercase as in validation the $tree was not modified
+            $lowerIdentity    = strtolower($identity);
+            $preparedIdentity = $this->prepareIdentity($tree['endpoint']['host'], $lowerIdentity, $config);
+            unset($tree['identities'][$identity]);
+            $tree['identities'][$lowerIdentity] = $preparedIdentity;
         }
 
         return $tree;
@@ -368,9 +336,9 @@ class Configuration implements ConfigurationInterface
      */
     private function prepareIdentity(string $host, string $identity, array $config): array
     {
-        $config['bounces']    = $this->prepareEndpoint($host, $identity, 'bounces', $config['bounces']);
-        $config['complaints'] = $this->prepareEndpoint($host, $identity, 'complaints', $config['complaints']);
-        $config['deliveries'] = $this->prepareEndpoint($host, $identity, 'deliveries', $config['deliveries']);
+        $config['bounces']    = $this->prepareNotification($host, $identity, 'bounces', $config['bounces']);
+        $config['complaints'] = $this->prepareNotification($host, $identity, 'complaints', $config['complaints']);
+        $config['deliveries'] = $this->prepareNotification($host, $identity, 'deliveries', $config['deliveries']);
 
         return $config;
     }
@@ -383,7 +351,7 @@ class Configuration implements ConfigurationInterface
      *
      * @return array
      */
-    private function prepareEndpoint(string $host, string $identity, string $type, array $typeConfig): array
+    private function prepareNotification(string $host, string $identity, string $type, array $typeConfig): array
     {
         if ($typeConfig['track'] && null === $typeConfig['topic']) {
             $typeConfig['topic'] = $this->generateTopicName($host, $identity, $type);
@@ -403,8 +371,6 @@ class Configuration implements ConfigurationInterface
     {
         $env       = strstr($identity, 'test') ? 'dev' : 'prod';
         $topicName = sprintf('%s-%s-ses-%s-%s', $host, $identity, $env, $type);
-        //$topicName = preg_replace('/[^A-Za-z0-9-_]/', '_', $topicName);
-        //$topicName = strtolower($topicName);
 
         return $topicName;
     }

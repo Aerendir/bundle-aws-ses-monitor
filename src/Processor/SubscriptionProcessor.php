@@ -13,7 +13,7 @@
  * @license   MIT License.
  */
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor;
 
 use Aws\Sns\SnsClient;
 use Doctrine\ORM\EntityManagerInterface;
@@ -62,7 +62,7 @@ class SubscriptionProcessor
         }
 
         /** @var Topic|null $topic */
-        $topic = $this->entityManager->getRepository(Topic::class)->findOneBy(['topicArn' => $message->offsetGet('TopicArn')]);
+        $topic = $this->entityManager->getRepository(Topic::class)->findOneBy(['arn' => $message->offsetGet('TopicArn')]);
 
         if (null === $topic) {
             return new Response('Topic not found', 404);
@@ -70,7 +70,7 @@ class SubscriptionProcessor
 
         $this->snsClient->confirmSubscription(
             [
-                'TopicArn' => $topic->getTopicArn(),
+                'TopicArn' => $topic->getArn(),
                 'Token'    => $message->offsetGet('Token'),
             ]
         );

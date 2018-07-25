@@ -56,11 +56,11 @@ class SnsManager
     public function createTopic(string $topicName): Topic
     {
         // create SNS topic
-        $topic          = ['Name' => $topicName];
-        $response       = $this->client->createTopic($topic);
-        $topicArn       = $response->get('TopicArn');
+        $topic    = ['Name' => $topicName];
+        $response = $this->client->createTopic($topic);
+        $topicArn = $response->get('TopicArn');
 
-        $topic = new Topic($topicArn);
+        $topic = new Topic($topicName, $topicArn);
 
         return $topic;
     }
@@ -70,17 +70,15 @@ class SnsManager
      *
      * Once set, the SNS topic will deliver all notification to this endpoint.
      *
-     * @param Topic $topic
+     * @param string $topicArn
      *
      * @return string|null
      */
-    public function setEndpoint(Topic $topic): ?string
+    public function setEndpoint(string $topicArn): ?string
     {
-        $subscription = $this->buildSubscription($topic);
+        $subscription = $this->buildSubscription($topicArn);
+        $response     = $this->client->subscribe($subscription);
 
-        $response = $this->client->subscribe($subscription);
-
-        // @todo Verify what information are in the response, when it returns null and what returns on success
         return $response->get('SubscriptionArn');
     }
 
@@ -93,16 +91,17 @@ class SnsManager
     }
 
     /**
-     * @param Topic $topic
+     * @param string $topicArn
      *
      * @return array
      */
-    private function buildSubscription(Topic $topic): array
+    private function buildSubscription(string $topicArn): array
     {
         return [
-            'TopicArn'   => $topic->getTopicArn(),
-            'Protocol'   => $this->endpointConfig['scheme'],
-            'Endpoint'   => $this->getEndpointUrl(),
+            'TopicArn'              => $topicArn,
+            'Protocol'              => $this->endpointConfig['scheme'],
+            'Endpoint'              => $this->getEndpointUrl(),
+            'ReturnSubscriptionArn' => true,
         ];
     }
 }

@@ -17,6 +17,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager;
 
 use Aws\Result;
 use Aws\Ses\SesClient;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\IdentityGuesser;
 
 /**
  * Manages the interaction with AWS SES.
@@ -26,12 +27,17 @@ class SesManager
     /** @var \Aws\Ses\SesClient $client */
     private $client;
 
+    /** @var IdentityGuesser $identityGuesser */
+    private $identityGuesser;
+
     /**
-     * @param SesClient $client
+     * @param IdentityGuesser $identityGuesser
+     * @param SesClient       $client
      */
-    public function __construct(SesClient $client)
+    public function __construct(IdentityGuesser $identityGuesser, SesClient $client)
     {
-        $this->client = $client;
+        $this->client          = $client;
+        $this->identityGuesser = $identityGuesser;
     }
 
     /**
@@ -65,5 +71,71 @@ class SesManager
                     'SnsTopic'         => $topicArn,
                 ]
             );
+    }
+
+    /**
+     * @param string $identity
+     * @param bool   $enabled
+     */
+    public function configureDkim(string $identity, bool $enabled): void
+    {
+        $this->client->setIdentityDkimEnabled([
+            'Identity'    => $identity,
+            'DkimEnabled' => $enabled,
+        ]);
+    }
+
+    /**
+     * @param string $identity
+     * @param bool   $enabled
+     */
+    public function configureFeedbackForwarding(string $identity, bool $enabled): void
+    {
+        $this->client->setIdentityFeedbackForwardingEnabled([
+            'Identity'          => $identity,
+            'ForwardingEnabled' => $enabled,
+        ]);
+    }
+
+    /**
+     * @param string      $identity
+     * @param string|null $domain
+     * @param string      $onMxFailure
+     */
+    public function configureFromDomain(string $identity, ?string $domain, string $onMxFailure): void
+    {
+        $this->client->setIdentityMailFromDomain([
+            'Identity'            => $identity,
+            'BehaviorOnMXFailure' => $onMxFailure,
+            'MailFromDomain'      => $domain,
+        ]);
+    }
+
+    /**
+     * @param string $identity
+     *
+     * @return string
+     */
+    public function verifyDomainIdentity(string $identity): string
+    {
+        $result = $this->client->verifyDomainIdentity(['Domain' => $identity]);
+
+        return $result->get('VerificationToken');
+    }
+
+    /**
+     * @param string $identity
+     */
+    public function verifyEmailIdentity(string $identity): void
+    {
+        $this->client->verifyEmailIdentity(['EmailAddress' => $identity]);
+    }
+
+    /**
+     * @return SesClient
+     */
+    public function getClient(): SesClient
+    {
+        return $this->client;
     }
 }

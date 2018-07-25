@@ -13,7 +13,7 @@
  * @license   MIT License.
  */
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Service;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Processor;
 
 use Aws\Sns\MessageValidator;
 use PHPUnit\Framework\MockObject\MockObject;

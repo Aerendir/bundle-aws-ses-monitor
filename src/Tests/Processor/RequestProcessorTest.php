@@ -13,12 +13,12 @@
  * @license   MIT License.
  */
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Service;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Processor;
 
 use PHPUnit\Framework\TestCase;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\NotificationProcessor;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\RequestProcessor;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\SubscriptionProcessor;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor\NotificationProcessor;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor\RequestProcessor;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor\SubscriptionProcessor;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\SnsTypes;
 use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\HttpFoundation\Request;

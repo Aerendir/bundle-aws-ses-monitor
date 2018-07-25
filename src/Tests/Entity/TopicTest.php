@@ -25,10 +25,14 @@ class TopicTest extends TestCase
 {
     public function testTopic()
     {
-        $test = ['topicArn' => 'arn:aws:sns:us-west-2:111122223333:TestTopic'];
+        $test = [
+            'name' => 'TestTopic',
+            'arn'  => 'arn:aws:sns:us-west-2:111122223333:TestTopic',
+        ];
 
-        $resource = new Topic($test['topicArn']);
+        $resource = new Topic($test['name'], $test['arn']);
 
-        self::assertSame($test['topicArn'], $resource->getTopicArn());
+        self::assertSame($test['name'], $resource->getName());
+        self::assertSame($test['arn'], $resource->getArn());
     }
 }

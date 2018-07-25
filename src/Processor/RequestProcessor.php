@@ -13,7 +13,7 @@
  * @license   MIT License.
  */
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor;
 
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\SnsTypes;
 use Symfony\Component\HttpFoundation\Request;

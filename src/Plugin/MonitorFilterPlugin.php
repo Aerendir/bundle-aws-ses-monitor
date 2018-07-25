@@ -15,9 +15,9 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin;
 
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\EmailStatusManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\IdentitiesStore;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\EmailStatusAnalyzer;
 use Swift_Events_SendEvent;
 
 /**
@@ -29,6 +29,9 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     /** @var array $blacklisted */
     private $blacklisted;
 
+    /** @var EmailStatusAnalyzer $emailStatusAnalyzer */
+    private $emailStatusAnalyzer;
+
     /** @var EmailStatusManager $emailStatusManager */
     private $emailStatusManager;
 
@@ -36,13 +39,15 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     private $identities;
 
     /**
-     * @param EmailStatusManager $emailStatusManager
-     * @param IdentitiesStore    $identitiesStore
+     * @param EmailStatusAnalyzer $emailStatusAnalyzer
+     * @param EmailStatusManager  $emailStatusManager
+     * @param IdentitiesStore     $identitiesStore
      */
-    public function __construct(EmailStatusManager $emailStatusManager, IdentitiesStore $identitiesStore)
+    public function __construct(EmailStatusAnalyzer $emailStatusAnalyzer, EmailStatusManager $emailStatusManager, IdentitiesStore $identitiesStore)
     {
-        $this->identities         = $identitiesStore;
-        $this->emailStatusManager = $emailStatusManager;
+        $this->emailStatusAnalyzer = $emailStatusAnalyzer;
+        $this->emailStatusManager  = $emailStatusManager;
+        $this->identities          = $identitiesStore;
     }
 
     /**
@@ -55,17 +60,18 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
         // Reset the blacklisted array
         $this->blacklisted = [];
         $message           = $event->getMessage();
+        $identity          = $message->getFrom();
 
         if (null !== $message->getTo()) {
-            $message->setTo($this->filterBlacklisted($message->getTo()));
+            $message->setTo($this->filterBlacklisted($identity, $message->getTo()));
         }
 
         if (null !== $message->getCc()) {
-            $message->setCc($this->filterBlacklisted($message->getCc()));
+            $message->setCc($this->filterBlacklisted($identity, $message->getCc()));
         }
 
         if (null !== $message->getBcc()) {
-            $message->setBcc($this->filterBlacklisted($message->getBcc()));
+            $message->setBcc($this->filterBlacklisted($identity, $message->getBcc()));
         }
     }
 
@@ -80,105 +86,24 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     }
 
     /**
-     * @param array $recipients
+     * @param string $identity
+     * @param array  $recipients
      *
      * @return array
      */
-    private function filterBlacklisted(array $recipients): array
+    private function filterBlacklisted(string $identity, array $recipients): array
     {
         $emails = array_keys($recipients);
 
         foreach ($emails as $email) {
             $emailStatus = $this->emailStatusManager->loadEmailStatus($email);
 
-            if (null !== $emailStatus && ($this->isBounced($emailStatus) || $this->isComplained($emailStatus))) {
+            if (null !== $emailStatus && false === $this->emailStatusAnalyzer->canReceiveMessages($emailStatus, $identity)) {
                 $this->blacklisted[] = $emailStatus->getAddress();
                 unset($recipients[$emailStatus->getAddress()]);
             }
         }
 
         return $recipients;
-    }
-
-    /**
-     * @param EmailStatus $email
-     *
-     * @return bool
-     */
-    private function isBounced(EmailStatus $email): bool
-    {
-        if (false === $this->isBouncesTrackingEnabled()) {
-            return false;
-        }
-
-        if (true === $this->areBouncesForced()) {
-            return false;
-        }
-
-        $bouncesCount = $email->getHardBouncesCount();
-
-        if ($this->identities->findIdentity()['bounces']['filter']['soft_as_hard']) {
-            $bouncesCount += $email->getSoftBouncesCount();
-        }
-
-        if ($bouncesCount >= $this->identities->findIdentity()['bounces']['filter']['max_bounces']) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @param EmailStatus $email
-     *
-     * @return bool
-     */
-    private function isComplained(EmailStatus $email): bool
-    {
-        if (false === $this->isComplaintsTrackingEnabled()) {
-            return false;
-        }
-
-        if (true === $this->areComplaintsForced()) {
-            return false;
-        }
-
-        if ($email->getComplaints()->count() >= 1) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @return bool
-     */
-    private function isBouncesTrackingEnabled(): bool
-    {
-        return $this->identities->findIdentity()['bounces']['track'];
-    }
-
-    /**
-     * @return bool
-     */
-    private function areBouncesForced(): bool
-    {
-        return $this->identities->findIdentity()['bounces']['filter']['force_send'];
-    }
-
-    /**
-     * @return bool
-     */
-    private function isComplaintsTrackingEnabled(): bool
-    {
-        return $this->identities->findIdentity()['complaints']['track'];
-    }
-
-    /**
-     * @return bool
-     */
-    private function areComplaintsForced(): bool
-    {
-        return $this->identities->findIdentity()['complaints']['filter']['force_send'];
     }
 }

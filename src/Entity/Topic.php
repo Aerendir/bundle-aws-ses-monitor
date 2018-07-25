@@ -35,16 +35,26 @@ class Topic
 
     /**
      * @var string
-     * @ORM\Column(name="topic_arn", type="string", length=296)
+     * @ORM\Column(name="name", type="string", length=296)
      */
-    private $topicArn;
+    private $name;
 
     /**
+     * @var string
+     * @ORM\Column(name="arn", type="string", length=296)
+     */
+    private $arn;
+
+    /**
+     * Topic constructor.
+     *
+     * @param string $topicName
      * @param string $topicArn
      */
-    public function __construct(string $topicArn)
+    public function __construct(string $topicName, string $topicArn)
     {
-        $this->setTopicArn($topicArn);
+        $this->name = $topicName;
+        $this->arn  = $topicArn;
     }
 
     /**
@@ -59,20 +69,16 @@ class Topic
     /**
      * @return string
      */
-    public function getTopicArn(): string
+    public function getName(): string
     {
-        return $this->topicArn;
+        return $this->name;
     }
 
     /**
-     * @param string $topicArn
-     *
-     * @return Topic
+     * @return string
      */
-    private function setTopicArn(string $topicArn): Topic
+    public function getArn(): string
     {
-        $this->topicArn = $topicArn;
-
-        return $this;
+        return $this->arn;
     }
 }

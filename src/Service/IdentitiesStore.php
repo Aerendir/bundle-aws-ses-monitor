@@ -17,6 +17,8 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
 
 /**
  * Contains all the configured identities.
+ *
+ * @internal
  */
 class IdentitiesStore
 {
@@ -33,9 +35,50 @@ class IdentitiesStore
 
     /**
      * @return array
+     *
+     * @internal
      */
-    public function findIdentity(): array
+    public function getIdentities(): array
     {
-        return [];
+        return $this->identities;
+    }
+
+    /**
+     * @param string      $identity
+     * @param string|null $attribute
+     *
+     * @return array|bool|int|string
+     *
+     * @internal
+     */
+    public function getIdentity(string $identity, ?string $attribute = null)
+    {
+        $return = $this->getIdentities()[$identity];
+
+        if (null !== $attribute) {
+            return $return[$attribute];
+        }
+
+        return $return;
+    }
+
+    /**
+     * @param string $identity
+     *
+     * @return bool
+     */
+    public function identityExists(string $identity): bool
+    {
+        return isset($this->getIdentities()[$identity]);
+    }
+
+    /**
+     * @return array
+     *
+     * @internal
+     */
+    public function getIdentitiesList(): array
+    {
+        return array_keys($this->identities);
     }
 }

@@ -13,7 +13,7 @@
  * @license   MIT License.
  */
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Service;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Processor;
 
 use Aws\Sns\Message;
 use Aws\Sns\SnsClient;
@@ -23,7 +23,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Topic;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Helper\MessageHelper;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\SubscriptionProcessor;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor\SubscriptionProcessor;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -86,7 +86,7 @@ class SubscriptionProcessorTest extends TestCase
         $mockTopicRepository
             ->expects(self::exactly(1))
             ->method('findOneBy')
-            ->with(['topicArn' => $testMessage['TopicArn']])
+            ->with(['arn' => $testMessage['TopicArn']])
             ->willReturn(null);
         $this->mockEntityManager->expects(self::exactly(1))->method('getRepository')->willReturn($mockTopicRepository);
 
@@ -115,13 +115,13 @@ class SubscriptionProcessorTest extends TestCase
         $this->mockMessageHelper->expects(self::exactly(1))->method('validateNotification')->willReturn(true);
 
         $mockTopic = $this->createMock(Topic::class);
-        $mockTopic->expects(self::exactly(1))->method('getTopicArn')->willReturn($testMessage['TopicArn']);
+        $mockTopic->expects(self::exactly(1))->method('getArn')->willReturn($testMessage['TopicArn']);
 
         $mockTopicRepository = $this->createMock(EntityRepository::class);
         $mockTopicRepository
             ->expects(self::exactly(1))
             ->method('findOneBy')
-            ->with(['topicArn' => $testMessage['TopicArn']])
+            ->with(['arn' => $testMessage['TopicArn']])
             ->willReturn($mockTopic);
 
         $this->mockEntityManager->expects(self::exactly(1))->method('getRepository')->willReturn($mockTopicRepository);
