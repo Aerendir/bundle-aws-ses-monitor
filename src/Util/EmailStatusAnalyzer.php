@@ -42,8 +42,9 @@ class EmailStatusAnalyzer
      */
     public function canReceiveMessages(EmailStatus $emailStatus, string $identity): bool
     {
-        $maxBounces = $this->monitor->findConfiguredIdentity($identity, 'bounces')['filter']['max_bounces'];
-        $softAsHard = $this->monitor->findConfiguredIdentity($identity, 'bounces')['filter']['soft_as_hard'];
+        $filter     = $this->monitor->findConfiguredIdentity($identity, 'bounces')['filter'];
+        $maxBounces = $filter['max_bounces'];
+        $softAsHard = $filter['soft_as_hard'];
 
         // If this email is bounces
         if ($this->isBounced($emailStatus, $maxBounces, $softAsHard)) {

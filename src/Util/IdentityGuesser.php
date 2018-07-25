@@ -84,10 +84,7 @@ class IdentityGuesser
             return true;
         }
 
-        // If is an Email Identity, we check if it is a test one
-        $parts = $this->getEmailParts($identity);
-
-        return $this->isTestEmail($parts['mailbox']);
+        return false === $this->isTestEmail($identity);
     }
 
     /**
@@ -99,6 +96,10 @@ class IdentityGuesser
      */
     public function isTestEmail(string $mailbox): bool
     {
+        if ($this->isEmailIdentity($mailbox)) {
+            $mailbox = $this->getEmailParts($mailbox)['mailbox'];
+        }
+
         return (bool) strstr($mailbox, self::TEST_MAILBOX);
     }
 }

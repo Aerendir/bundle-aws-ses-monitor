@@ -17,7 +17,6 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager;
 
 use Aws\Result;
 use Aws\Ses\SesClient;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\IdentityGuesser;
 
 /**
  * Manages the interaction with AWS SES.
@@ -27,21 +26,17 @@ class SesManager
     /** @var \Aws\Ses\SesClient $client */
     private $client;
 
-    /** @var IdentityGuesser $identityGuesser */
-    private $identityGuesser;
-
     /**
-     * @param IdentityGuesser $identityGuesser
-     * @param SesClient       $client
+     * @param SesClient $client
      */
-    public function __construct(IdentityGuesser $identityGuesser, SesClient $client)
+    public function __construct(SesClient $client)
     {
-        $this->client          = $client;
-        $this->identityGuesser = $identityGuesser;
+        $this->client = $client;
     }
 
     /**
      * @return Result
+     * @codeCoverageIgnore
      */
     public function listIdentities(): Result
     {
@@ -61,6 +56,7 @@ class SesManager
      * @param string $topicArn
      *
      * @see http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-email-2010-12-01.html#setidentitynotificationtopic
+     * @codeCoverageIgnore
      */
     public function setTopic(string $identity, string $notificationType, string $topicArn): void
     {
@@ -76,6 +72,7 @@ class SesManager
     /**
      * @param string $identity
      * @param bool   $enabled
+     * @codeCoverageIgnore
      */
     public function configureDkim(string $identity, bool $enabled): void
     {
@@ -88,6 +85,7 @@ class SesManager
     /**
      * @param string $identity
      * @param bool   $enabled
+     * @codeCoverageIgnore
      */
     public function configureFeedbackForwarding(string $identity, bool $enabled): void
     {
@@ -101,6 +99,7 @@ class SesManager
      * @param string      $identity
      * @param string|null $domain
      * @param string      $onMxFailure
+     * @codeCoverageIgnore
      */
     public function configureFromDomain(string $identity, ?string $domain, string $onMxFailure): void
     {
@@ -115,6 +114,7 @@ class SesManager
      * @param string $identity
      *
      * @return string
+     * @codeCoverageIgnore
      */
     public function verifyDomainIdentity(string $identity): string
     {
@@ -125,6 +125,7 @@ class SesManager
 
     /**
      * @param string $identity
+     * @codeCoverageIgnore
      */
     public function verifyEmailIdentity(string $identity): void
     {
