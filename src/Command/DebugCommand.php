@@ -27,8 +27,9 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Abstract class to perform common command tasks.
  * {@inheritdoc}
+ *
+ * @codeCoverageIgnore This command basically calls AWS and uses other classes already tested, so it is not testable.
  */
 class DebugCommand extends Command
 {

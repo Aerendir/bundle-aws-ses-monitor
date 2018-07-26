@@ -22,7 +22,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Controller to handle notifications.
  * {@inheritdoc}
  */
 class EndpointController extends Controller

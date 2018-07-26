@@ -69,18 +69,6 @@ class AwsDataProcessor
     /**
      * @param Result $result
      *
-     * @deprecated
-     */
-    public function processIdentities(Result $result): void
-    {
-        foreach ($result->get('Identities') as $identity) {
-            $this->data[self::IDENTITIES][$identity] = [];
-        }
-    }
-
-    /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processIdentitiesDkimAttributes(Result $result): void
