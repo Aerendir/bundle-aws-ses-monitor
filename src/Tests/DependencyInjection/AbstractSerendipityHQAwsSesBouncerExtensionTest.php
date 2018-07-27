@@ -62,27 +62,30 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         /*
          * Test bounces configuration
          */
-        self::assertTrue($this->container->getParameter('shq_aws_ses_monitor.bounces')['track']);
-        self::assertSame('dummy-bounces-topic', $this->container->getParameter('shq_aws_ses_monitor.bounces')['topic']);
-        self::assertFalse($this->container->getParameter('shq_aws_ses_monitor.bounces')['filter']['soft_as_hard']);
-        self::assertSame(5, $this->container->getParameter('shq_aws_ses_monitor.bounces')['filter']['max_bounces']);
-        self::assertSame('forever', $this->container->getParameter('shq_aws_ses_monitor.bounces')['filter']['soft_blacklist_time']);
-        self::assertSame('forever', $this->container->getParameter('shq_aws_ses_monitor.bounces')['filter']['hard_blacklist_time']);
-        self::assertFalse($this->container->getParameter('shq_aws_ses_monitor.bounces')['filter']['force_send']);
+        $bouncesConfig = $this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['bounces'];
+        self::assertTrue($bouncesConfig['track']);
+        self::assertSame('localhost.local-serendipityhq.com-ses-prod-bounces', $bouncesConfig['topic']);
+        self::assertFalse($bouncesConfig['filter']['soft_as_hard']);
+        self::assertSame(5, $bouncesConfig['filter']['max_bounces']);
+        self::assertSame('forever', $bouncesConfig['filter']['soft_blacklist_time']);
+        self::assertSame('forever', $bouncesConfig['filter']['hard_blacklist_time']);
+        self::assertFalse($bouncesConfig['filter']['force_send']);
 
         /*
          * Test complaints configuration
          */
-        self::assertTrue($this->container->getParameter('shq_aws_ses_monitor.complaints')['track']);
-        self::assertSame('dummy-complaints-topic', $this->container->getParameter('shq_aws_ses_monitor.complaints')['topic']);
-        self::assertSame('forever', $this->container->getParameter('shq_aws_ses_monitor.complaints')['filter']['blacklist_time']);
-        self::assertFalse($this->container->getParameter('shq_aws_ses_monitor.complaints')['filter']['force_send']);
+        $complaintsConfig = $this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['complaints'];
+        self::assertTrue($complaintsConfig['track']);
+        self::assertSame('localhost.local-serendipityhq.com-ses-prod-complaints', $complaintsConfig['topic']);
+        self::assertSame('forever', $complaintsConfig['filter']['blacklist_time']);
+        self::assertFalse($complaintsConfig['filter']['force_send']);
 
         /*
          * Test deliveries configuration
          */
-        self::assertTrue($this->container->getParameter('shq_aws_ses_monitor.deliveries')['track']);
-        self::assertSame('dummy-deliveries-topic', $this->container->getParameter('shq_aws_ses_monitor.deliveries')['topic']);
+        $deliveriesConfig = $this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['deliveries'];
+        self::assertTrue($deliveriesConfig['track']);
+        self::assertSame('localhost.local-serendipityhq.com-ses-prod-deliveries', $deliveriesConfig['topic']);
     }
 
     public function testTrackingDisabledDoesntRequireTopicBounces()
@@ -90,7 +93,7 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         $this->loadConfiguration($this->container, 'tracking_disabled_no_topic_bounces');
 
         self::expectException(InvalidConfigurationException::class);
-        self::expectExceptionMessage('You have not enabled the tracking of "bounces" but you have anyway set the name of the topic. Either remove the name of the topic at path "bounces.topic" or enabled the tracking of "bounces" setting "bounces.track" to "true"');
+        self::expectExceptionMessage('You have not enabled the tracking of "bounces" for identity "serendipityhq.com" but you have anyway set the name of its topic. Either remove the name of the topic at path "shq_aws_ses_monitor.identities.serendipityhq.com.bounces.topic" or enabled the tracking setting "shq_aws_ses_monitor.identities.serendipityhq.com.bounces.track" to "true".');
         $this->container->compile();
     }
 
@@ -99,7 +102,7 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         $this->loadConfiguration($this->container, 'tracking_disabled_no_topic_complaints');
 
         self::expectException(InvalidConfigurationException::class);
-        self::expectExceptionMessage('You have not enabled the tracking of "complaints" but you have anyway set the name of the topic. Either remove the name of the topic at path "complaints.topic" or enabled the tracking of "complaints" setting "complaints.track" to "true"');
+        self::expectExceptionMessage('You have not enabled the tracking of "complaints" for identity "serendipityhq.com" but you have anyway set the name of its topic. Either remove the name of the topic at path "shq_aws_ses_monitor.identities.serendipityhq.com.complaints.topic" or enabled the tracking setting "shq_aws_ses_monitor.identities.serendipityhq.com.complaints.track" to "true".');
         $this->container->compile();
     }
 
@@ -108,34 +111,7 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         $this->loadConfiguration($this->container, 'tracking_disabled_no_topic_deliveries');
 
         self::expectException(InvalidConfigurationException::class);
-        self::expectExceptionMessage('You have not enabled the tracking of "deliveries" but you have anyway set the name of the topic. Either remove the name of the topic at path "deliveries.topic" or enabled the tracking of "deliveries" setting "deliveries.track" to "true"');
-        $this->container->compile();
-    }
-
-    public function testTrackingEnabledRequiresTopicBounces()
-    {
-        $this->loadConfiguration($this->container, 'tracking_enabled_requires_topic_bounces');
-
-        self::expectException(InvalidConfigurationException::class);
-        self::expectExceptionMessage('You have enabled the tracking of "bounces" but you have not set the name of the topic to use. Please, set the name of the topic at path "bounces.topic".');
-        $this->container->compile();
-    }
-
-    public function testTrackingEnabledRequiresTopicComplaints()
-    {
-        $this->loadConfiguration($this->container, 'tracking_enabled_requires_topic_bounces');
-
-        self::expectException(InvalidConfigurationException::class);
-        self::expectExceptionMessage('You have enabled the tracking of "bounces" but you have not set the name of the topic to use. Please, set the name of the topic at path "bounces.topic".');
-        $this->container->compile();
-    }
-
-    public function testTrackingEnabledRequiresTopicDeliveries()
-    {
-        $this->loadConfiguration($this->container, 'tracking_enabled_requires_topic_bounces');
-
-        self::expectException(InvalidConfigurationException::class);
-        self::expectExceptionMessage('You have enabled the tracking of "bounces" but you have not set the name of the topic to use. Please, set the name of the topic at path "bounces.topic".');
+        self::expectExceptionMessage('You have not enabled the tracking of "deliveries" for identity "serendipityhq.com" but you have anyway set the name of its topic. Either remove the name of the topic at path "shq_aws_ses_monitor.identities.serendipityhq.com.deliveries.topic" or enabled the tracking setting "shq_aws_ses_monitor.identities.serendipityhq.com.deliveries.track" to "true".');
         $this->container->compile();
     }
 
@@ -144,8 +120,8 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         $this->loadConfiguration($this->container, 'tracking_disabled_for_both');
         $this->container->compile();
 
-        $bouncesConfig    = $this->container->getParameter('shq_aws_ses_monitor.bounces');
-        $complaintsConfig = $this->container->getParameter('shq_aws_ses_monitor.complaints');
+        $bouncesConfig    = $this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['bounces'];
+        $complaintsConfig = $this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['complaints'];
 
         self::assertFalse($bouncesConfig['track']);
         self::assertFalse($complaintsConfig['track']);
@@ -159,8 +135,9 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         $this->loadConfiguration($this->container, 'tracking_enabled_for_both');
         $this->container->compile();
 
-        $bouncesConfig    = $this->container->getParameter('shq_aws_ses_monitor.bounces');
-        $complaintsConfig = $this->container->getParameter('shq_aws_ses_monitor.complaints');
+        $bouncesConfig    = $this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['bounces'];
+        $complaintsConfig = $this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['complaints'];
+
         self::assertTrue($bouncesConfig['track']);
         self::assertTrue($complaintsConfig['track']);
 
@@ -173,8 +150,9 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         $this->loadConfiguration($this->container, 'tracking_enabled_for_bounces');
         $this->container->compile();
 
-        $bouncesConfig    = $this->container->getParameter('shq_aws_ses_monitor.bounces');
-        $complaintsConfig = $this->container->getParameter('shq_aws_ses_monitor.complaints');
+        $bouncesConfig    = $this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['bounces'];
+        $complaintsConfig = $this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['complaints'];
+
         self::assertTrue($bouncesConfig['track']);
         self::assertFalse($complaintsConfig['track']);
 
@@ -187,8 +165,9 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         $this->loadConfiguration($this->container, 'tracking_enabled_for_complaints');
         $this->container->compile();
 
-        $bouncesConfig    = $this->container->getParameter('shq_aws_ses_monitor.bounces');
-        $complaintsConfig = $this->container->getParameter('shq_aws_ses_monitor.complaints');
+        $bouncesConfig    = $this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['bounces'];
+        $complaintsConfig = $this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['complaints'];
+
         self::assertFalse($bouncesConfig['track']);
         self::assertTrue($complaintsConfig['track']);
 

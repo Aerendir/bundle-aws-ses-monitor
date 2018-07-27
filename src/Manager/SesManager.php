@@ -36,6 +36,7 @@ class SesManager
 
     /**
      * @return Result
+     * @codeCoverageIgnore
      */
     public function listIdentities(): Result
     {
@@ -55,6 +56,7 @@ class SesManager
      * @param string $topicArn
      *
      * @see http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-email-2010-12-01.html#setidentitynotificationtopic
+     * @codeCoverageIgnore
      */
     public function setTopic(string $identity, string $notificationType, string $topicArn): void
     {
@@ -65,5 +67,76 @@ class SesManager
                     'SnsTopic'         => $topicArn,
                 ]
             );
+    }
+
+    /**
+     * @param string $identity
+     * @param bool   $enabled
+     * @codeCoverageIgnore
+     */
+    public function configureDkim(string $identity, bool $enabled): void
+    {
+        $this->client->setIdentityDkimEnabled([
+            'Identity'    => $identity,
+            'DkimEnabled' => $enabled,
+        ]);
+    }
+
+    /**
+     * @param string $identity
+     * @param bool   $enabled
+     * @codeCoverageIgnore
+     */
+    public function configureFeedbackForwarding(string $identity, bool $enabled): void
+    {
+        $this->client->setIdentityFeedbackForwardingEnabled([
+            'Identity'          => $identity,
+            'ForwardingEnabled' => $enabled,
+        ]);
+    }
+
+    /**
+     * @param string      $identity
+     * @param string|null $domain
+     * @param string      $onMxFailure
+     * @codeCoverageIgnore
+     */
+    public function configureFromDomain(string $identity, ?string $domain, string $onMxFailure): void
+    {
+        $this->client->setIdentityMailFromDomain([
+            'Identity'            => $identity,
+            'BehaviorOnMXFailure' => $onMxFailure,
+            'MailFromDomain'      => $domain,
+        ]);
+    }
+
+    /**
+     * @param string $identity
+     *
+     * @return string
+     * @codeCoverageIgnore
+     */
+    public function verifyDomainIdentity(string $identity): string
+    {
+        $result = $this->client->verifyDomainIdentity(['Domain' => $identity]);
+
+        return $result->get('VerificationToken');
+    }
+
+    /**
+     * @param string $identity
+     * @codeCoverageIgnore
+     */
+    public function verifyEmailIdentity(string $identity): void
+    {
+        $this->client->verifyEmailIdentity(['EmailAddress' => $identity]);
+    }
+
+    /**
+     * @return SesClient
+     */
+    public function getClient(): SesClient
+    {
+        return $this->client;
     }
 }

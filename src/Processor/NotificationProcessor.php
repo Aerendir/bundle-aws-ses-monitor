@@ -13,7 +13,7 @@
  * @license   MIT License.
  */
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage;

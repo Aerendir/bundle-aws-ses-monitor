@@ -3,9 +3,9 @@ shq_aws_ses_monitor:
         - default
     endpoint:
         host: localhost.local
-    bounces:
-        track: false
-    complaints:
-        track: false
-    deliveries:
-        topic: 'dummy-deliveries-topic'
+    identities:
+        serendipityhq.com:
+            bounces:
+                track: false
+            complaints:
+                track: false

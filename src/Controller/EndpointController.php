@@ -16,13 +16,12 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\RequestProcessor;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor\RequestProcessor;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Controller to handle notifications.
  * {@inheritdoc}
  */
 class EndpointController extends Controller

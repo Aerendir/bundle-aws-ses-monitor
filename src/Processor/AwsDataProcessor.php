@@ -19,6 +19,8 @@ use Aws\Result;
 
 /**
  * Collects information from AWS SES and SNS and transforms them in a unique big array.
+ *
+ * @internal
  */
 class AwsDataProcessor
 {
@@ -32,6 +34,8 @@ class AwsDataProcessor
 
     /**
      * @param Result $result
+     *
+     * @internal
      */
     public function processAccountSendingEnabled(Result $result): void
     {
@@ -40,6 +44,8 @@ class AwsDataProcessor
 
     /**
      * @param Result $result
+     *
+     * @internal
      */
     public function processAccountSendQuota(Result $result): void
     {
@@ -52,6 +58,8 @@ class AwsDataProcessor
 
     /**
      * @param Result $result
+     *
+     * @internal
      */
     public function processAccountSendStatistics(Result $result): void
     {
@@ -60,16 +68,8 @@ class AwsDataProcessor
 
     /**
      * @param Result $result
-     */
-    public function processIdentities(Result $result): void
-    {
-        foreach ($result->get('Identities') as $identity) {
-            $this->data[self::IDENTITIES][$identity] = [];
-        }
-    }
-
-    /**
-     * @param Result $result
+     *
+     * @internal
      */
     public function processIdentitiesDkimAttributes(Result $result): void
     {
@@ -87,16 +87,28 @@ class AwsDataProcessor
 
     /**
      * @param Result $result
+     *
+     * @internal
      */
     public function processIdentitiesMailFromDomainAttributes(Result $result): void
     {
         foreach ($result->get('MailFromDomainAttributes') as $identity => $attribute) {
             $this->data[self::IDENTITIES][$identity]['mail_from']['on_mx_failure'] = $attribute['BehaviorOnMXFailure'];
+
+            if (isset($attribute['MailFromDomainStatus'])) {
+                $this->data[self::IDENTITIES][$identity]['mail_from']['status'] = $attribute['MailFromDomainStatus'];
+            }
+
+            if (isset($attribute['MailFromDomain'])) {
+                $this->data[self::IDENTITIES][$identity]['mail_from']['domain'] = $attribute['MailFromDomain'];
+            }
         }
     }
 
     /**
      * @param Result $result
+     *
+     * @internal
      */
     public function processIdentitiesNotificationAttributes(Result $result): void
     {
@@ -125,6 +137,8 @@ class AwsDataProcessor
 
     /**
      * @param Result $result
+     *
+     * @internal
      */
     public function processIdentitiesVerificationAttributes(Result $result): void
     {
@@ -139,21 +153,28 @@ class AwsDataProcessor
 
     /**
      * @param Result $result
+     *
+     * @internal
      */
     public function processSubscriptions(Result $result): void
     {
         foreach ($result->get('Subscriptions') as $subscription) {
-            $this->data[self::SUBSCRIPTIONS][$subscription['SubscriptionArn']] = [
-                'owner'     => $subscription['Owner'],
-                'protocol'  => $subscription['Protocol'],
-                'endpoint'  => $subscription['Endpoint'],
-                'topic_arn' => $subscription['TopicArn'],
-            ];
+            if ('PendingConfirmation' !== $subscription['SubscriptionArn']) {
+                $this->data[self::SUBSCRIPTIONS][$subscription['SubscriptionArn']] = [
+                    'subscription_arn' => $subscription['SubscriptionArn'],
+                    'owner'            => $subscription['Owner'],
+                    'protocol'         => $subscription['Protocol'],
+                    'endpoint'         => $subscription['Endpoint'],
+                    'topic_arn'        => $subscription['TopicArn'],
+                ];
+            }
         }
     }
 
     /**
      * @param Result $result
+     *
+     * @internal
      */
     public function processSubscriptionAttributes(Result $result): void
     {
@@ -169,6 +190,8 @@ class AwsDataProcessor
 
     /**
      * @param Result $result
+     *
+     * @internal
      */
     public function processTopics(Result $result): void
     {
@@ -179,12 +202,15 @@ class AwsDataProcessor
 
     /**
      * @param Result $result
+     *
+     * @internal
      */
     public function processTopicAttributes(Result $result): void
     {
         $attributes = $result->get('Attributes');
 
         $this->data[self::TOPICS][$attributes['TopicArn']] = [
+            'arn'                       => $attributes['TopicArn'],
             'display_name'              => $attributes['DisplayName'],
             'policy'                    => $attributes['Policy'],
             'owner'                     => $attributes['Owner'],
@@ -203,6 +229,8 @@ class AwsDataProcessor
      * On call, resets the internal array.
      *
      * @return array
+     *
+     * @internal
      */
     public function getProcessedData(): array
     {
