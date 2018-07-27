@@ -90,7 +90,7 @@ script:
     - if [[ $FULL_CHECK == true ]]; then ./bin/ask-insights; fi;
     # Lint the config files and templates
     # Perform static code analysis
-    - ./tools/phpstan analyse src -c phpstan.neon --level 0
+    - if [[ $FULL_CHECK == true ]]; then ./tools/phpstan analyse src -c phpstan.neon --level 0; fi;
     # - ./tools/phan --progress-bar --minimum-severity 0
     # simple-phpunit is the PHPUnit wrapper provided by the PHPUnit Bridge component and
     # it helps with testing legacy code and deprecations (composer require symfony/phpunit-bridge)
