@@ -23,6 +23,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\ConsoleSectionOutput;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * {@inheritdoc}
@@ -44,6 +45,12 @@ class ConsoleTest extends TestCase
 
     public function testCreateSection4()
     {
+        if (Kernel::MAJOR_VERSION < 4) {
+            self::markTestSkipped('To run only on SF4');
+
+            return;
+        }
+
         $resource            = new Console();
         $mockOutputInterface = $this->createMock(ConsoleOutput::class);
 
@@ -66,6 +73,12 @@ class ConsoleTest extends TestCase
 
     public function testOverwrite4()
     {
+        if (Kernel::MAJOR_VERSION < 4) {
+            self::markTestSkipped('To run only on SF4');
+
+            return;
+        }
+
         $resource            = new Console();
         $mockOutputInterface = $this->createMock(ConsoleSectionOutput::class);
         $testString          = 'Serendipity HQ is very awesome!';
@@ -89,6 +102,12 @@ class ConsoleTest extends TestCase
 
     public function testClear4()
     {
+        if (Kernel::MAJOR_VERSION < 4) {
+            self::markTestSkipped('To run only on SF4');
+
+            return;
+        }
+
         $resource            = new Console();
         $mockOutputInterface = $this->createMock(ConsoleSectionOutput::class);
 
@@ -109,6 +128,12 @@ class ConsoleTest extends TestCase
 
     public function testEnableFullLog4()
     {
+        if (Kernel::MAJOR_VERSION < 4) {
+            self::markTestSkipped('To run only on SF4');
+
+            return;
+        }
+
         $resource            = new Console();
         $mockOutputInterface = $this->createMock(ConsoleSectionOutput::class);
         $testString          = 'Serendipity HQ is very awesome!';

@@ -21,6 +21,7 @@
     "require": {
         "php": "^7.1",
         "aws/aws-php-sns-message-validator": "^1.5",
+        "aws/aws-sdk-php": "^3.52",
         "aws/aws-sdk-php-symfony": "^2.0",
         "doctrine/common": "^2.4",
         "doctrine/doctrine-bundle": "^1.7",
