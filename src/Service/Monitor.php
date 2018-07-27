@@ -92,7 +92,7 @@ class Monitor
      * @param OutputInterface $sectionBody
      * @param bool            $withAccount
      */
-    public function retrieve(OutputInterface $sectionTitle, OutputInterface $sectionBody, bool $withAccount = false)
+    public function retrieve(OutputInterface $sectionTitle, OutputInterface $sectionBody, bool $withAccount = false): void
     {
         $this->sectionTitle = $sectionTitle;
         $this->sectionBody  = $sectionBody;
@@ -143,18 +143,18 @@ class Monitor
 
         if (
             // If this is an Email Identity
-            $this->getIdentityGuesser()->isEmailIdentity($identity) &&
+            $this->getIdentityGuesser()->isEmailIdentity($searchingIdentity) &&
             // And it isn't explicitly configured
-            false === $this->configuredIdentities->identityExists($identity)
+            false === $this->configuredIdentities->identityExists($searchingIdentity)
         ) {
             // Find its domain identity
-            $parts = $this->getIdentityGuesser()->getEmailParts($identity);
+            $parts = $this->getIdentityGuesser()->getEmailParts($searchingIdentity);
 
             $searchingIdentity = $parts['domain'];
         }
 
         // If the identity is not explicitly configured (the Email one or its Domain)
-        if (false === $this->configuredIdentities->identityExists($identity)) {
+        if (false === $this->configuredIdentities->identityExists($searchingIdentity)) {
             $message = $this->getIdentityGuesser()->isEmailIdentity($identity)
                 ? sprintf('The Email Identity "%s" nor its Domain identity are configured.', $identity)
                 : sprintf('The Domain Identity "%s" is not configured.', $identity);
@@ -623,12 +623,15 @@ class Monitor
             try {
                 $subscriptionAttributes = $this->snsClient->getSubscriptionAttributes(['SubscriptionArn' => $subscription['SubscriptionArn']]);
                 $this->awsDataProcessor->processSubscriptionAttributes($subscriptionAttributes);
-            } catch (\Throwable $e) {
+            }
+            // @codeCoverageIgnoreStart
+            catch (\Throwable $e) {
                 // Do nothing for the moment
                 // This throws an error when the subscription doesn't exist.
                 // The problem is that all the subscriptions are returned by the previous call to list subscriptions.
                 // So, I have a call that returns me some subscriptions that don't exist. And this is a problem.
             }
+            // @codeCoverageIgnoreEnd
 
             $this->console->clear($this->sectionBody);
         }
