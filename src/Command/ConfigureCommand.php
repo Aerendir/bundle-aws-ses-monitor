@@ -35,8 +35,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ConfigureCommand extends Command
 {
-    const THICK = "<fg=green>\xE2\x9C\x94</>";
-    const CROSS = "<fg=magenta>\xE2\x9C\x96</>";
+    private const THICK = "<fg=green>\xE2\x9C\x94</>";
+    private const CROSS = "<fg=magenta>\xE2\x9C\x96</>";
 
     /** @var string $env */
     private $env;
@@ -91,12 +91,12 @@ class ConfigureCommand extends Command
         SnsManager $snsManager,
         Console $console
     ) {
-        $this->env              = $env;
-        $this->entityManager    = $entityManager;
-        $this->monitor          = $monitor;
-        $this->sesManager       = $sesManager;
-        $this->snsManager       = $snsManager;
-        $this->console          = $console;
+        $this->env           = $env;
+        $this->entityManager = $entityManager;
+        $this->monitor       = $monitor;
+        $this->sesManager    = $sesManager;
+        $this->snsManager    = $snsManager;
+        $this->console       = $console;
 
         parent::__construct();
     }
@@ -221,7 +221,7 @@ EOF
     /**
      * @param string $identity
      */
-    private function checkIdentityVerificationStatus(string $identity)
+    private function checkIdentityVerificationStatus(string $identity):void
     {
         // If the identity is not still verified (or doesn't exist at all)...
         $this->console->overwrite('Checking Identity verification status:', $this->sectionBody);
@@ -269,7 +269,7 @@ EOF
     /**
      * @param string $identity
      */
-    private function checkIdentityDkimConfiguration(string $identity)
+    private function checkIdentityDkimConfiguration(string $identity): void
     {
         // (Requires a verified identity) If the remote configuration is different than the local configuration...
         $this->console->overwrite('Checking DKIM configuration...', $this->sectionBody);
@@ -309,7 +309,7 @@ EOF
     /**
      * @param string $identity
      */
-    private function checkIdentityFromDomain(string $identity)
+    private function checkIdentityFromDomain(string $identity): void
     {
         // If the remote configuration is different than the local configuration...
         $this->console->overwrite('Checking "from domain"...', $this->sectionBody);
@@ -336,7 +336,7 @@ EOF
      * @param string $identity
      * @param string $type
      */
-    private function checkIdentityNotificationTopic(string $identity, string $type)
+    private function checkIdentityNotificationTopic(string $identity, string $type): void
     {
         $this->console->overwrite(sprintf('Checking notification topic for <comment>%s</comment> of identity <comment>%s</comment>...', $type, $identity), $this->sectionBody);
         $log = sprintf('Topic for notification of <comment>%s</comment> of identity <comment>%s</comment> is already set: skipping...', $type, $identity);

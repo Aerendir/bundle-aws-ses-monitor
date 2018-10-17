@@ -33,8 +33,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class DebugCommand extends Command
 {
-    const THICK = "<fg=green>\xE2\x9C\x94</>";
-    const CROSS = "<fg=red>\xE2\x9C\x96</>";
+    public const NAME = 'aws:ses:debug';
+    private const THICK = "<fg=green>\xE2\x9C\x94</>";
+    private const CROSS = "<fg=red>\xE2\x9C\x96</>";
 
     /** @var Console $console */
     private $console;
@@ -63,7 +64,7 @@ class DebugCommand extends Command
     protected function configure()
     {
         $this->setDescription('Debugs the aws ses configuration helping discovering errors and wrong settings.')
-             ->setName('aws:ses:debug')
+             ->setName(self::NAME)
              ->addOption('full-log', null, InputOption::VALUE_NONE, 'Shows logs line by line, without simply changing the current one.');
     }
 
