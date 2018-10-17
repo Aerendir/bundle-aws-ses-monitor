@@ -221,7 +221,7 @@ EOF
     /**
      * @param string $identity
      */
-    private function checkIdentityVerificationStatus(string $identity):void
+    private function checkIdentityVerificationStatus(string $identity): void
     {
         // If the identity is not still verified (or doesn't exist at all)...
         $this->console->overwrite('Checking Identity verification status:', $this->sectionBody);

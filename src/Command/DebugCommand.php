@@ -33,7 +33,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class DebugCommand extends Command
 {
-    public const NAME = 'aws:ses:debug';
+    public const NAME   = 'aws:ses:debug';
     private const THICK = "<fg=green>\xE2\x9C\x94</>";
     private const CROSS = "<fg=red>\xE2\x9C\x96</>";
 
