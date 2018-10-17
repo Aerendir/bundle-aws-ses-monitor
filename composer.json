@@ -37,6 +37,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.0",
+        "roave/security-advisories":"dev-master",
         "sensiolabs/security-checker": "^3.4|^4.1",
         "serendipity_hq/phpunit_helper": "*",
         "symfony/console": "^3.4|^4.1",
