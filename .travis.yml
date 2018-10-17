@@ -45,12 +45,20 @@ matrix:
         - php: 7.2
           env: DEPENDENCIES="symfony/lts:^3" SYMFONY_DEPRECATIONS_HELPER="weak_vendors"
 
+        # Test LTS versions. This makes sure we do not use Symfony packages with version greater
+        # than 3. Read more at https://github.com/symfony/lts
+        # Run without suppressing deprecations, but allowing failures
+        - php: 7.2
+          env: DEPENDENCIES="symfony/lts:^3"
+
         # Latest commit to master
         - php: 7.2
           env: STABILITY="dev"
     allow_failures:
         - php: 7.2
           env: STABILITY="dev"
+        - php: 7.2
+          env: DEPENDENCIES="symfony/lts:^3"
 
 before_install:
     - if [[ $COVERAGE != true ]]; then phpenv config-rm xdebug.ini || true; fi;
