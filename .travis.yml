@@ -41,8 +41,9 @@ matrix:
 
         # Test LTS versions. This makes sure we do not use Symfony packages with version greater
         # than 3. Read more at https://github.com/symfony/lts
+        # This will ignore deprecation notices
         - php: 7.2
-          env: DEPENDENCIES="symfony/lts:^3"
+          env: DEPENDENCIES="symfony/lts:^3" SYMFONY_DEPRECATIONS_HELPER="weak_vendors"
 
         # Latest commit to master
         - php: 7.2
