@@ -6,7 +6,7 @@
         <ini name="error_reporting" value="-16385"/>
     </php>
     <testsuites>
-        <testsuite name="SHQAwsSesMonitorBundle for the Symfony Framework">
+        <testsuite name="SerendipityHQAwsSesMonitorBundle for the Symfony Framework">
             <directory>./src/Tests</directory>
         </testsuite>
     </testsuites>

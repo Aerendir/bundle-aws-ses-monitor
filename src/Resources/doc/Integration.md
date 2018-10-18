@@ -16,8 +16,7 @@ Something like `ses-your_app-bounces-topic` may be better to avoid conflicts wit
 Set those names in your configuration:
 
 ```yaml
-SHQAwsSesMonitorBundle
-aws_seSHQAwsSesMonitorBundle    bounces:
+SHQAwsSesMonitorBundleAwsSesMonitorBundle    bounces:
         topic:
             name: ses-your_app-bounces-topic # OPTIONAL. Required only to use the configuration commands. 
             ...

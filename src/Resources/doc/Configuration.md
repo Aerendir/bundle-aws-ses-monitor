@@ -6,16 +6,35 @@ How to configure AWS SES Monitor Bundle
 The AWS SES Monitor Bundle uses the [`AWS SDK for PHP`](https://aws.amazon.com/it/documentation/sdk-for-php/)
  to connect and communicate with AWS API.
 
-The bundle creates an `Aws\SesClient` and an `Aws\SnsClient` that it uses to perform all tasks required to setup the environment on AWS.
+It is installed through the [`AwsBundle`](https://github.com/aws/aws-sdk-php-symfony) bundle.
 
-To access to AWS you need a pair of credentials. **Before continuing, if you have not already done it, [create this pair of credentials](https://aws.amazon.com/it/developers/access-keys/).**
+To access to AWS you need a pair of credentials.
 
-To use the bundle both on production and on development, you need two configuration files:
+**Before continuing, if you have not already done it, [create this pair of credentials](https://aws.amazon.com/it/developers/access-keys/).**
 
-1. `config/packages/dev/shq_aws_ses_monitor.yaml`
-2. `config/packages/prod/shq_aws_ses_monitor.yaml`
+The steps required to configure the `SHQAwsSesMonitorBundle` are those:
 
-*NOTE: If you are using Symfony Flex, those files will be created automatically toghter with the required parameters in the `.env` file.*
+1. Get a pair of credentials from AWS to access its cloud services (so, also SES and SNS used to handle the notifications about bounces, complaints and deliveries);
+2. Configure the AWS PHP SDK;
+3. Configure the `SHQAwsSesMonitorBundle`.
+
+*NOTE: If you are using Symfony Flex, the basic configuration files, environment variables and services will be created automatically.*
+
+So, if you don't have Flex installed, let's start by creating all the required files.
+
+Step 3: Create the configuration files and the environment variables (SF4)
+--------------------------------------------------------------------------
+
+To configure both `SHQAwsSesMonitorBundle` and `AwsBundle` we need to create the following files:
+
+1. Create two files named `shq_aws_ses_monitor.yaml`, one in `config` folder and one in `config/packages/dev`;
+2. Create two files named `aws.yaml`, one in `config/packages` folder and one in `config/packages/dev`;
+3. Add to both your `.env` and `.env.dist` files the environment variables `AWS_KEY` and `AWS_SECRET`.
+
+Remember: if you are using Flex all those files and variables are already created by the Flex recipes.
+
+Step 3: Configure AWS
+---------------------
 
 Step 3: Set the required environment variables and services
 -----------------------------------------------------------

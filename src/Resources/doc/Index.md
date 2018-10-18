@@ -5,11 +5,11 @@ AWS SES Monitor Bundle Documentation
 
 Using the bundle is really simple and in a matter of minutes you'll be able to manage bounces and complaints of e-mails sent through AWS SES.
 
-These are the steps required to make the bundle work:
+**These are the steps required to make the bundle work**:
 
 1. [Install and activate the bundle](Installation.md)
 2. [Configure the bundle](Configuration.md)
-3. [Configure AWS SES through Symfony's Console](Integration.md)
+3. [Configure AWS SES through the built-in commands](Integration.md)
 4. [Test the sending of e-mails](Test.md)
 5. [Using the information collected](Using.md)
 

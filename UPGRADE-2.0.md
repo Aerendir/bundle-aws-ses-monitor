@@ -15,11 +15,12 @@ But the migration from version 1.3 to the version 2.0 should be anyway easy if y
 
 The main changes involve the configuration settings, the renaming of a table and some modifications to the name of some methods and the removal of some others, so it is sufficient to
 
-1. Rename tables;
-2. Remove properties not still existent;
-3. Change the changed ones;
-4. Eventually add the new available ones;
-5. Update your code to use the new methods.
+1. Renamed bundle class;
+2. Rename tables;
+3. Remove properties not still existent;
+4. Change the changed ones;
+5. Eventually add the new available ones;
+6. Update your code to use the new methods.
 
 Then it is required to edit the databse to reflect the new namings: `EmailStatus` entity, in fact, was renamed to `EmailStatus` and so its table has to be renamed, too.
 
@@ -42,6 +43,34 @@ Those are the changes that will be applied:
   - REMOVE `EmailStatus::$deliveriesCount`: use `EmailStatus::getDeliveries()->count()` instead
 
 There should be no loss of data about emails and their statuses if you follow those steps.
+
+STEP 0: Rename the Bundle class
+-------------------------------
+
+To make [Flex](https://symfony.com/doc/current/setup/flex.html) able to auto-configure the bundle, we renamed the bundle class from `SHQAwsSesMonitorBundle` to `SerendipityHQAwsSesMonitorBundle`:
+rename it in your configuration files.
+
+If you are using SF^3:
+
+```php
+// app/AppKernel.php
+public function registerBundles()
+{
+    $bundles = array(
+        ...
+//        From this
+//        new SerendipityHQ\Bundle\SHQAwsSesMonitorBundle(),
+
+//        To this
+          new SerendipityHQ\Bundle\SerendipityHQAwsSesMonitorBundle(),
+        ...
+    );
+
+    ...
+
+    return $bundles;
+}
+```
 
 STEP 1: Update the Config
 -------------------------
