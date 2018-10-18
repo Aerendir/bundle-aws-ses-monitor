@@ -23,7 +23,8 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Util;
  */
 class IdentityGuesser
 {
-    const TEST_MAILBOX = 'test_aws';
+    /** @var string The name of the testing email Identity */
+    public const TEST_MAILBOX = 'test_aws';
 
     /**
      * @param string $identity

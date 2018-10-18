@@ -238,7 +238,7 @@ EOF
             $this->monitor->getIdentityGuesser()->isEmailIdentity($identity)
                 ? $this->addActionToTake(
                 $identity,
-                sprintf('A request to verify the email identity <comment>%s</comment> was just sent to amazon: check the email and click the confirmation link.', $identity)
+                sprintf('A request to verify the email identity <comment>%s</comment> was just sent from amazon to the email address: check the email\'s inbox and click the confirmation link.', $identity)
             )
                 : $this->addActionToTake(
                 $identity,

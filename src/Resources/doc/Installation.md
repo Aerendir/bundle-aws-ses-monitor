@@ -1,7 +1,7 @@
 *Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
 
-How to install AWS SES Monitor Bundle
-=====================================
+How to install SHQ AWS SES Monitor Bundle
+=========================================
 
 Before you start, we highly suggest you to install
 [Symfony Flex](https://symfony.com/doc/current/setup/flex.html): it will automate a lot
@@ -12,7 +12,18 @@ some time to [upgrade your Symfony app to support it](https://symfony.com/doc/cu
 
 Your life will be easier! 
 
-A note about AwsBundle
+A note about Flex
+-----------------
+
+If your app uses Symfony Flex, please, [configure it to use contrib recipes](https://github.com/symfony/recipes-contrib#symfony-recipes-contrib) running the following command:
+
+```console
+composer config extra.symfony.allow-contrib true
+```
+
+This will allow Flex to configure the `SHQAwsSesMonitorBundle` and the `AwsBundle`.
+
+A note about `AwsBundle`
 ----------------------
 
 This bundle requires the bundle [`AwsBundle`](https://github.com/aws/aws-sdk-php-symfony).
@@ -43,6 +54,15 @@ If you want to explicitly install only `SHQAwsSesMonitorBundle`, instead, run th
 ```console
 composer require serendipity_hq/aws-ses-monitor-bundle
 ```
+
+NOTE: The [PR to add this bundle to the Flex Contrib Recipes is still pending](https://github.com/symfony/recipes-contrib/pull/531), 
+so to make Flex able to use the recipe of this bundle, prepend the command `composer require` with
+`SYMFONY_ENDPOINT=https://flex.symfony.com/r/github.com/symfony/recipes-contrib/531 composer req serendipity_hq/aws-ses-monitor-bundle:^2.0`:
+
+```console
+SYMFONY_ENDPOINT=https://flex.symfony.com/r/github.com/symfony/recipes-contrib/531 composer require serendipity_hq/aws-ses-monitor-bundle aws/aws-sdk-php-symfony
+```
+
 
 The `AwsBundle` will be installed and configured anyway as a dependency.
 

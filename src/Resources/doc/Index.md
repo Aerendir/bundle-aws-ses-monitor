@@ -1,7 +1,7 @@
 *Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
 
-AWS SES Monitor Bundle Documentation
-====================================
+SHQ AWS SES Monitor Bundle Documentation
+========================================
 
 Using the bundle is really simple and in a matter of minutes you'll be able to manage bounces and complaints of e-mails sent through AWS SES.
 
@@ -9,7 +9,7 @@ Using the bundle is really simple and in a matter of minutes you'll be able to m
 
 1. [Install and activate the bundle](Installation.md)
 2. [Configure the bundle](Configuration.md)
-3. [Configure AWS SES through the built-in commands](Integration.md)
+3. [Configure AWS SES through the built-in commands (`dev` environment)](Integration-dev.md)
 4. [Test the sending of e-mails](Test.md)
 5. [Using the information collected](Using.md)
 
