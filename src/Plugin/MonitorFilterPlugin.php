@@ -16,7 +16,6 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin;
 
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\EmailStatusManager;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\IdentitiesStore;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\EmailStatusAnalyzer;
 use Swift_Events_SendEvent;
 
@@ -35,19 +34,14 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     /** @var EmailStatusManager $emailStatusManager */
     private $emailStatusManager;
 
-    /** @var IdentitiesStore $identities */
-    private $identities;
-
     /**
      * @param EmailStatusAnalyzer $emailStatusAnalyzer
      * @param EmailStatusManager  $emailStatusManager
-     * @param IdentitiesStore     $identitiesStore
      */
-    public function __construct(EmailStatusAnalyzer $emailStatusAnalyzer, EmailStatusManager $emailStatusManager, IdentitiesStore $identitiesStore)
+    public function __construct(EmailStatusAnalyzer $emailStatusAnalyzer, EmailStatusManager $emailStatusManager)
     {
         $this->emailStatusAnalyzer = $emailStatusAnalyzer;
         $this->emailStatusManager  = $emailStatusManager;
-        $this->identities          = $identitiesStore;
     }
 
     /**
@@ -60,18 +54,18 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
         // Reset the blacklisted array
         $this->blacklisted = [];
         $message           = $event->getMessage();
-        $identity          = $message->getFrom();
+        $identities        = $message->getFrom();
 
         if (null !== $message->getTo()) {
-            $message->setTo($this->filterBlacklisted($identity, $message->getTo()));
+            $message->setTo($this->filterBlacklisted($identities, $message->getTo()));
         }
 
         if (null !== $message->getCc()) {
-            $message->setCc($this->filterBlacklisted($identity, $message->getCc()));
+            $message->setCc($this->filterBlacklisted($identities, $message->getCc()));
         }
 
         if (null !== $message->getBcc()) {
-            $message->setBcc($this->filterBlacklisted($identity, $message->getBcc()));
+            $message->setBcc($this->filterBlacklisted($identities, $message->getBcc()));
         }
     }
 
@@ -86,21 +80,24 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
     }
 
     /**
-     * @param string $identity
+     * @param array $identities
      * @param array  $recipients
      *
      * @return array
      */
-    private function filterBlacklisted(string $identity, array $recipients): array
+    private function filterBlacklisted(array $identities, array $recipients): array
     {
         $emails = array_keys($recipients);
+        $fromIdentities = array_keys($identities);
 
         foreach ($emails as $email) {
             $emailStatus = $this->emailStatusManager->loadEmailStatus($email);
 
-            if (null !== $emailStatus && false === $this->emailStatusAnalyzer->canReceiveMessages($emailStatus, $identity)) {
-                $this->blacklisted[] = $emailStatus->getAddress();
-                unset($recipients[$emailStatus->getAddress()]);
+            foreach ($fromIdentities as $identity) {
+                if ( null !== $emailStatus && false === $this->emailStatusAnalyzer->canReceiveMessages( $emailStatus, $identity ) ) {
+                    $this->blacklisted[] = $emailStatus->getAddress();
+                    unset( $recipients[ $emailStatus->getAddress() ] );
+                }
             }
         }
 
