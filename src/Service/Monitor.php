@@ -142,10 +142,10 @@ class Monitor
         $searchingIdentity = $identity;
 
         if (
-            // If this is an Email Identity
-            $this->getIdentityGuesser()->isEmailIdentity($searchingIdentity) &&
-            // And it isn't explicitly configured
-            false === $this->configuredIdentities->identityExists($searchingIdentity)
+            // If this identity isn't explicitly configured
+            false === $this->configuredIdentities->identityExists($searchingIdentity) &&
+            // and it is an Email Identity
+            $this->getIdentityGuesser()->isEmailIdentity($searchingIdentity)
         ) {
             // Find its domain identity
             $parts = $this->getIdentityGuesser()->getEmailParts($searchingIdentity);
