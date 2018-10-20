@@ -410,6 +410,55 @@ So, make a Doctrine's migration and execute it:
 $ bin/console make:migration && bin/console doctrine:migrations:migrate
 ```
 
+Step 7: Configure Swiftmailer to use AWS SES
+--------------------------------------------
+
+The last step is to configure [Swiftmailer](https://symfony.com/doc/current/email.html) to instruct it to use AWS SES to send emails.
+
+If you haven't already installed it, [run this command](https://symfony.com/doc/current/email.html#installation):
+
+```console
+$ composer require symfony/swiftmailer-bundle
+```
+
+Open the file `.env` and find this block:
+
+```apacheconfig
+###> symfony/swiftmailer-bundle ###
+# For Gmail as a transport, use: "gmail://username:password@localhost"
+# For a generic SMTP server, use: "smtp://localhost:25?encryption=&auth_mode="
+# Delivery is disabled by default via "null://localhost"
+MAILER_URL=null://localhost
+###< symfony/swiftmailer-bundle ###
+```
+
+You need to change it to something like this:
+
+```apacheconfig
+###> symfony/swiftmailer-bundle ###
+# For Gmail as a transport, use: "gmail://username:password@localhost"
+# For a generic SMTP server, use: "smtp://localhost:25?encryption=&auth_mode="
+# Delivery is disabled by default via "null://localhost"
+MAILER_URL=smtp://email-smtp.eu-west-1.amazonaws.com:587?encryption=tls&username=YOUR-AWS-USERNAME&password=YOUR-AWS-PASSWORD
+###< symfony/swiftmailer-bundle ###
+```
+
+Let' break it in parts:
+
+```
+[smtp]://[email-smtp.eu-west-1.amazonaws.com]:[587]?encryption=tls&[username=YOUR-AWS-USERNAME]&[password=YOUR-AWS-PASSWORD]
+```
+
+- `smtp` is the protocol to use;
+- `email-smtp.eu-west-1.amazonaws.com`: is the SMTP host;
+- `587`: is the port;
+
+Then there are the username and password to use to connect via SMTP.
+
+You can find the host and the port in your AWS SES console in `Email Sending > SMTP Settings`.
+
+From that page you can create also a pait of credentials to use in the string required to configure Swiftmailer: follow the procedure, then set the pair in the Swiftmailer's configuration string. 
+
 Now that you have completed the configuration of the `SHQAwsSesMonitorBundle`, it is time to configure your AWS SES and AWS SNS accounts to integrate them.
 
 *Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*

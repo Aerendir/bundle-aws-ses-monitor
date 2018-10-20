@@ -10,7 +10,7 @@ Using the bundle is really simple and in a matter of minutes you'll be able to m
 1. [Install and activate the bundle](Installation.md)
 2. [Configure the bundle](Configuration.md)
 3. [Configure AWS SES through the built-in commands (`dev` environment)](Integration-dev.md)
-4. [Test the sending of e-mails](Test.md)
+4. [Test the sending of e-mails (`dev` environment)](Test-dev.md)
 5. [Using the information collected](Using.md)
 
 After you have done this, your app will automatically manage bounces, complaints and deliveries and your AWS SES account will be safe and never deactivated by Amazon.

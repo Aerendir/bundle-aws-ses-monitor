@@ -15,7 +15,7 @@ But stay calm as `SHQAwsSesMonitorBundle` will tell you exactly what you have to
 
 Let's start to integrate all the parts using our development machine (`dev` environment).
 
-Step 7: Install Ngrok
+Step 8: Install Ngrok
 ---------------------
 
 To test locally the integration between your app and AWS SES and AWS SNS, [you need to use a tunneling app](https://blogs.aws.amazon.com/php/post/Tx2CO24DVG9CAK0/Testing-Webhooks-Locally-for-Amazon-SNS).
@@ -66,7 +66,7 @@ NGROK_APP_HOST=b2dc2f69.ngrok.io
 
 Before we can start configuring AWS SES, we need to do one last thing: configure our domain.
 
-Step 8: Configure our domain for the email `test_aws`
+Step 9: Configure our domain for the email `test_aws`
 -----------------------------------------------------
 
 On development environment, the `SHQAwsSesMonitorBundle` will configure an Identity for the email `test_aws@example.com`.
@@ -88,7 +88,7 @@ Done?
 
 Well, we are now ready for the next step: configuring AWS SES and AWS SNS using the built-in command `aws:ses:configure`.
 
-Step 9: Run the command `aws:ses:configure` for the first time
+Step 10: Run the command `aws:ses:configure` for the first time
 --------------------------------------------------------------
 
 All starts with this simple command: `aws:ses:configure`.
@@ -156,11 +156,8 @@ Now the email Identity is verified and can be used to send emails:
 
 ![](http://www.serendipityhq.com/assets/open-source-projects/bundle-aws-ses-monitor/aws-ses-email-identities-verified-min.png "The verified email Identity on AWS SES")
 
-Now it's time to run *again* the command `aws:ses:configure`.
-
-Step 10: Run the command `aws:ses:configure` for the second time
-----------------------------------------------------------------
+Now it's time to test the bundle on our development machine.
 
 *Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
 
-([Go back to index](Index.md)) | Next step: [Test](Test.md)
+([Go back to index](Index.md)) | Next step: [Test (`dev` environment)](Test-dev.md)
