@@ -81,22 +81,22 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
 
     /**
      * @param array $identities
-     * @param array  $recipients
+     * @param array $recipients
      *
      * @return array
      */
     private function filterBlacklisted(array $identities, array $recipients): array
     {
-        $emails = array_keys($recipients);
+        $emails         = array_keys($recipients);
         $fromIdentities = array_keys($identities);
 
         foreach ($emails as $email) {
             $emailStatus = $this->emailStatusManager->loadEmailStatus($email);
 
             foreach ($fromIdentities as $identity) {
-                if ( null !== $emailStatus && false === $this->emailStatusAnalyzer->canReceiveMessages( $emailStatus, $identity ) ) {
+                if (null !== $emailStatus && false === $this->emailStatusAnalyzer->canReceiveMessages($emailStatus, $identity)) {
                     $this->blacklisted[] = $emailStatus->getAddress();
-                    unset( $recipients[ $emailStatus->getAddress() ] );
+                    unset($recipients[$emailStatus->getAddress()]);
                 }
             }
         }

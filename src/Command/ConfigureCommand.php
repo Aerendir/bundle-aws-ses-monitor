@@ -280,14 +280,14 @@ EOF
                 /** @var bool $dkimEnabled */
                 $dkimEnabled = $this->monitor->getConfiguredIdentity($identity, 'dkim');
 
-                /** @var null|array $tokens Tokens may be null if DKIM is not enabled or if this is an email Identity and its Domain Identity is not still verified. */
+                /** @var array|null $tokens Tokens may be null if DKIM is not enabled or if this is an email Identity and its Domain Identity is not still verified. */
                 $tokens = $this->monitor->getLiveIdentity($identity, 'dkim')['tokens'] ?? null;
 
                 // If there are no DKIM tokens, the action to take depends on the kind of this Identity
                 if (null === $tokens) {
                     // If this is a Domain identity, we can ask AWS SES to generate DKIM tokens to use to verify it
                     if (true === $this->monitor->getIdentityGuesser()->isDomainIdentity($identity)) {
-                        $this->sesManager->configureDkim( $identity, $dkimEnabled );
+                        $this->sesManager->configureDkim($identity, $dkimEnabled);
                         $this->addActionToTake($identity, 'The command asked Amazon SES to activate DKIM verification. Amazon is generating DKIM tokens. run again the command "bin/console aws:ses:configure" to get them or check the AWS SES console.');
 
                         return;
