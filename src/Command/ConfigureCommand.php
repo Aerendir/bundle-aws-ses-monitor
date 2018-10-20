@@ -35,9 +35,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ConfigureCommand extends Command
 {
-    private const THICK = "<fg=green>\xE2\x9C\x94</>";
-    private const CROSS = "<fg=magenta>\xE2\x9C\x96</>";
-
     /** @var string $env */
     private $env;
 
@@ -282,9 +279,26 @@ EOF
 
                 /** @var bool $dkimEnabled */
                 $dkimEnabled = $this->monitor->getConfiguredIdentity($identity, 'dkim');
-                $tokens      = $this->monitor->getLiveIdentity($identity, 'dkim')['tokens'];
 
-                $this->sesManager->configureDkim($identity, $dkimEnabled);
+                /** @var null|array $tokens Tokens may be null if DKIM is not enabled or if this is an email Identity and its Domain Identity is not still verified. */
+                $tokens = $this->monitor->getLiveIdentity($identity, 'dkim')['tokens'] ?? null;
+
+                // If there are no DKIM tokens, the action to take depends on the kind of this Identity
+                if (null === $tokens) {
+                    // If this is a Domain identity, we can ask AWS SES to generate DKIM tokens to use to verify it
+                    if (true === $this->monitor->getIdentityGuesser()->isDomainIdentity($identity)) {
+                        $this->sesManager->configureDkim( $identity, $dkimEnabled );
+                        $this->addActionToTake($identity, 'The command asked Amazon SES to activate DKIM verification. Amazon is generating DKIM tokens. run again the command "bin/console aws:ses:configure" to get them or check the AWS SES console.');
+
+                        return;
+                    }
+
+                    // If this is an email Identity, the absence of tokens means the domain to which it belongs to has not DKIM enabled: it must be enabled
+                    $this->addActionToTake($identity, 'This is an Email Identity: to activate DKIM verification you need to first activate it for the domain Identity this email belongs to.');
+
+                    return;
+                }
+
                 if (false === $this->monitor->liveIdentityDkimIsVerified($identity)) {
                     $this->addActionToTake(
                         $identity,
