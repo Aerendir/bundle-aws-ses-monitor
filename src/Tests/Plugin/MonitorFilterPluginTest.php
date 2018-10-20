@@ -21,7 +21,6 @@ use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\EmailStatusManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin\MonitorFilterPlugin;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\IdentitiesStore;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\EmailStatusAnalyzer;
 
 /**
@@ -29,11 +28,10 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\EmailStatusAnalyzer;
  */
 class MonitorFilterPluginTest extends TestCase
 {
-    public function testBeforeSendPerformedWithoutRecipientsDoesNothing()
+    public function testBeforeSendPerformedWithoutRecipientsDoesNothing(): void
     {
         $mockEmailStatusAnalyzer = $this->createMock(EmailStatusAnalyzer::class);
         $mockEmailStatusManager  = $this->createMock(EmailStatusManager::class);
-        $mockIdentities          = $this->createMock(IdentitiesStore::class);
         $mockMessage             = $this->createMock(\Swift_Message::class);
         $mockEvent               = $this->createMock(\Swift_Events_SendEvent::class);
 
@@ -43,18 +41,17 @@ class MonitorFilterPluginTest extends TestCase
         $mockMessage->expects(self::never())->method('setCc')->willReturn(null);
         $mockMessage->expects(self::never())->method('setBcc')->willReturn(null);
 
-        $resource = new MonitorFilterPlugin($mockEmailStatusAnalyzer, $mockEmailStatusManager, $mockIdentities);
+        $resource = new MonitorFilterPlugin($mockEmailStatusAnalyzer, $mockEmailStatusManager);
 
         $resource->beforeSendPerformed($mockEvent);
     }
 
-    public function testBeforeSendPerformedWithGetToRecipients()
+    public function testBeforeSendPerformedWithGetToRecipients(): void
     {
         $mockEmailStatusAnalyzer = $this->createMock(EmailStatusAnalyzer::class);
         $mockEmailStatusAnalyzer->expects(self::exactly(5))->method('canReceiveMessages')->willReturnCallback([$this, 'canReceiveMessages']);
         $mockEmailStatusManager = $this->createMock(EmailStatusManager::class);
         $mockEmailStatusManager->expects(self::exactly(5))->method('loadEmailStatus')->willReturnMap($this->getEmailStatusMap());
-        $mockIdentities = $this->createMock(IdentitiesStore::class);
         $mockEvent      = $this->createMock(\Swift_Events_SendEvent::class);
         $mockMessage    = $this->getMessageWithRecipients();
 
@@ -67,17 +64,16 @@ class MonitorFilterPluginTest extends TestCase
         $mockMessage->expects(self::never())->method('setCc');
         $mockMessage->expects(self::never())->method('setBcc');
 
-        $resource = new MonitorFilterPlugin($mockEmailStatusAnalyzer, $mockEmailStatusManager, $mockIdentities);
+        $resource = new MonitorFilterPlugin($mockEmailStatusAnalyzer, $mockEmailStatusManager);
 
         $resource->beforeSendPerformed($mockEvent);
         $resource->sendPerformed($mockEvent);
     }
 
-    public function testBeforeSendPerformedWithGetCcRecipients()
+    public function testBeforeSendPerformedWithGetCcRecipients(): void
     {
         $mockEmailStatusAnalyzer = $this->createMock(EmailStatusAnalyzer::class);
         $mockEmailStatusManager  = $this->createMock(EmailStatusManager::class);
-        $mockIdentities          = $this->createMock(IdentitiesStore::class);
         $mockEvent               = $this->createMock(\Swift_Events_SendEvent::class);
         $mockMessage             = $this->getMessageWithRecipients();
 
@@ -92,17 +88,16 @@ class MonitorFilterPluginTest extends TestCase
         $mockMessage->expects(self::once())->method('setCc');
         $mockMessage->expects(self::never())->method('setBcc');
 
-        $resource = new MonitorFilterPlugin($mockEmailStatusAnalyzer, $mockEmailStatusManager, $mockIdentities);
+        $resource = new MonitorFilterPlugin($mockEmailStatusAnalyzer, $mockEmailStatusManager);
 
         $resource->beforeSendPerformed($mockEvent);
         $resource->sendPerformed($mockEvent);
     }
 
-    public function testBeforeSendPerformedWithGetBccRecipients()
+    public function testBeforeSendPerformedWithGetBccRecipients(): void
     {
         $mockEmailStatusAnalyzer = $this->createMock(EmailStatusAnalyzer::class);
         $mockEmailStatusManager  = $this->createMock(EmailStatusManager::class);
-        $mockIdentities          = $this->createMock(IdentitiesStore::class);
         $mockEvent               = $this->createMock(\Swift_Events_SendEvent::class);
         $mockMessage             = $this->getMessageWithRecipients();
 
@@ -117,7 +112,7 @@ class MonitorFilterPluginTest extends TestCase
         $mockMessage->expects(self::never())->method('setCc');
         $mockMessage->expects(self::once())->method('setBcc');
 
-        $resource = new MonitorFilterPlugin($mockEmailStatusAnalyzer, $mockEmailStatusManager, $mockIdentities);
+        $resource = new MonitorFilterPlugin($mockEmailStatusAnalyzer, $mockEmailStatusManager);
 
         $resource->beforeSendPerformed($mockEvent);
         $resource->sendPerformed($mockEvent);
@@ -152,7 +147,7 @@ class MonitorFilterPluginTest extends TestCase
         throw new \RuntimeException('The email is not found: maybe you wrote it wrong in the tests.');
     }
 
-    public function confirmAllButSuccessAreBlacklisted()
+    public function confirmAllButSuccessAreBlacklisted(): void
     {
         $recipients = func_get_arg(0);
 
@@ -163,7 +158,7 @@ class MonitorFilterPluginTest extends TestCase
         self::assertContains('suppressed@example.com', $recipients);
     }
 
-    public function confirmAllButSuccessAreRemoved()
+    public function confirmAllButSuccessAreRemoved(): void
     {
         $recipients = func_get_arg(0);
         self::assertArrayNotHasKey('bounced@example.com', $recipients);
@@ -179,7 +174,7 @@ class MonitorFilterPluginTest extends TestCase
     private function getMessageWithRecipients()
     {
         $message = $this->createMock(\Swift_Message::class);
-        $message->expects(self::once())->method('getFrom')->willReturn('hello@serendipityhq.com');
+        $message->expects(self::once())->method('getFrom')->willReturn(['hello@serendipityhq.com']);
 
         return $message;
     }
