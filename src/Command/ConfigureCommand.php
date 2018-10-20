@@ -114,7 +114,7 @@ class ConfigureCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->console->enableFullLog($input->getOption('full-log'));
+        $this->console->enableFullLog((bool) $input->getOption('full-log'));
         $this->ioWriter = $this->console->createWriter($input, $output);
 
         $this->ioWriter->title('Configure AWS SES and SNS');
@@ -125,7 +125,7 @@ class ConfigureCommand extends Command
         }
 
         $this->initializeConfiguration($output);
-        $this->configureIdentities($input->getOption('force'));
+        $this->configureIdentities((bool) $input->getOption('force'));
         $this->configureTopics();
         $this->configureSubscriptions();
 

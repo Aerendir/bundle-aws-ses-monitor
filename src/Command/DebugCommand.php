@@ -75,7 +75,7 @@ class DebugCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->console->enableFullLog($input->getOption('full-log'));
+        $this->console->enableFullLog((bool) $input->getOption('full-log'));
 
         // Create the Input/Output writer
         $ioWriter = $this->console->createWriter($input, $output);
