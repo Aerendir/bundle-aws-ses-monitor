@@ -404,11 +404,15 @@ Step 6: Update your database scheme
 
 Now it's time to update your database to create the tables required by `SHQAwsSesMonitorBundle`.
 
-So, make a Doctrine's migration and execute it:
+Execute this Doctrine's command:
 
 ```console
-$ bin/console make:migration && bin/console doctrine:migrations:migrate
+$ bin/console doctrine:schema:update --force
 ```
+
+No need for a migration as we are going to create new tables related to `SHQAwsSesMonitor`.
+
+ATTENTION: If you modified any other Doctrine entity adding, removing or editing fields, this command will apply these modifications, too. In this case it is better to use migrations!
 
 Step 7: Configure Swiftmailer to use AWS SES
 --------------------------------------------
