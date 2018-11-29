@@ -43,9 +43,6 @@ class SnsManager
         $this->endpointConfig = $endpointConfig;
         $this->client         = $client;
         $this->router         = $router;
-
-        $this->router->getContext()->setHost($this->endpointConfig['host']);
-        $this->router->getContext()->setScheme($this->endpointConfig['scheme']);
     }
 
     /**
@@ -89,7 +86,23 @@ class SnsManager
      */
     public function getEndpointUrl(): string
     {
-        return $this->router->generate('_shq_aws_ses_monitor_endpoint', [], RouterInterface::ABSOLUTE_URL);
+        // Get the already set scheme and host
+        $originalScheme = $this->router->getContext()->getScheme();
+        $originalHost = $this->router->getContext()->getHost();
+
+        // Overwrite scheme and host
+        $this->router->getContext()->setHost($this->endpointConfig['host']);
+        $this->router->getContext()->setScheme($this->endpointConfig['scheme']);
+
+        // Generate the endpoint URL
+        $generatedEndpointUrl = $this->router->generate('_shq_aws_ses_monitor_endpoint', [], RouterInterface::ABSOLUTE_URL);
+
+        // Reset scheme and host to originals to avoid wrong behaviors in other parts of the app
+        $this->router->getContext()->setScheme($originalScheme);
+        $this->router->getContext()->setHost($originalHost);
+
+        // Return the generated endpoint URL
+        return $generatedEndpointUrl;
     }
 
     /**
