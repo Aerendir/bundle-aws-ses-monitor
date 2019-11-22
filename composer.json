@@ -42,7 +42,7 @@
         "serendipity_hq/phpunit_helper": "*",
         "symfony/console": "^3.4|^4.1",
         "symfony/var-dumper": "^3.4|^4.1",
-        "symfony/phpunit-bridge": "^3.4|^4.1"
+        "symfony/phpunit-bridge": "^3.4|^4.1|^5.0"
     },
     "autoload": {
         "psr-4": {
