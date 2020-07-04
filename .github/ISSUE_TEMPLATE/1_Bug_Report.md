@@ -1,7 +1,6 @@
 ---
 name: Bug Report
 about: Create a report to help us improve
-labels: [Type] Bug
 
 ---
 **Used Versions**
