@@ -4,14 +4,17 @@ about: RFC and ideas for new features and improvements
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+# Use case
+Is your feature request related to a problem? Please describe it.
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+# Possible solution
+Describe the solution you'd like. Indicate if it could break backward compatibility.
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+# Alternative solutions
+Describe alternatives you've considered
 
-**Additional context**
+# Current workaround
+If you found a way to work around the issue, please describe it.
+
+# Additional context
 Add any other context or screenshots about the feature request here.

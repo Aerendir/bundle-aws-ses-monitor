@@ -1,10 +1,9 @@
 ---
 name: Bug Report
 about: Create a report to help us improve
-labels: [Type] Bug
 
 ---
-**Used Versions**
+# Used Versions
 
 |    | Version
 | --- | ---
@@ -14,20 +13,20 @@ labels: [Type] Bug
 
 *If you know other versions are affected, please indicate them below:*
 
-**Describe the bug**
+# Description of the bug
 The more details, the better...
 
-**Steps to reproduce**
+## Steps to reproduce
 Steps to reproduce the behavior:
 1.
 2.
 3.
 
-**Expected behavior**
+# Expected behavior
 Which behavior did you expected?
 
-**Actual behavior**
+# Actual behavior
 What happened instead?
 
-**Additional context**
+# Additional context
 Add any other context about the problem here.
