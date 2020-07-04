@@ -35,10 +35,13 @@
     "config": {
         "sort-packages": true
     },
+    "conflict": {
+        "nikic/php-parser": "4.6.0"
+    },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.0",
         "roave/security-advisories":"dev-master",
-        "sensiolabs/security-checker": "^5.0.3",
+        "sensiolabs/security-checker": "^3.4|^4.1|^6.0",
         "serendipity_hq/phpunit_helper": "*",
         "symfony/console": "^3.4|^4.1",
         "symfony/var-dumper": "^3.4|^4.1",
