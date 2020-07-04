@@ -11,10 +11,23 @@ SHQ AWS SES MONITOR BUNDLE
 [![Latest Stable Version](https://poser.pugx.org/serendipity_hq/aws-ses-monitor-bundle/v/stable.png)](https://packagist.org/packages/serendipity_hq/aws-ses-monitor-bundle)
 [![Total Downloads](https://poser.pugx.org/serendipity_hq/aws-ses-monitor-bundle/downloads.svg)](https://packagist.org/packages/serendipity_hq/aws-ses-monitor-bundle)
 [![License](https://poser.pugx.org/serendipity_hq/aws-ses-monitor-bundle/license.svg)](https://packagist.org/packages/serendipity_hq/aws-ses-monitor-bundle)
-[![Code Climate](https://codeclimate.com/github/Aerendir/aws-ses-monitor-bundle/badges/gpa.svg)](https://codeclimate.com/github/Aerendir/aws-ses-monitor-bundle)
-[![Test Coverage](https://codeclimate.com/github/Aerendir/aws-ses-monitor-bundle/badges/coverage.svg)](https://codeclimate.com/github/Aerendir/aws-ses-monitor-bundle)
-[![Issue Count](https://codeclimate.com/github/Aerendir/aws-ses-monitor-bundle/badges/issue_count.svg)](https://codeclimate.com/github/Aerendir/aws-ses-monitor-bundle)
+
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_aws-ses-monitor-bundle&metric=coverage)](https://sonarcloud.io/dashboard?id=Aerendir_aws-ses-monitor-bundle)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_aws-ses-monitor-bundle&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=Aerendir_aws-ses-monitor-bundle)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_aws-ses-monitor-bundle&metric=alert_status)](https://sonarcloud.io/dashboard?id=Aerendir_aws-ses-monitor-bundle)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_aws-ses-monitor-bundle&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=Aerendir_aws-ses-monitor-bundle)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_aws-ses-monitor-bundle&metric=security_rating)](https://sonarcloud.io/dashboard?id=Aerendir_aws-ses-monitor-bundle)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_aws-ses-monitor-bundle&metric=sqale_index)](https://sonarcloud.io/dashboard?id=Aerendir_aws-ses-monitor-bundle)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_aws-ses-monitor-bundle&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=Aerendir_aws-ses-monitor-bundle)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/4c45c317-28c4-40ef-9a1b-01af44b77327/mini.png)](https://insight.sensiolabs.com/projects/4c45c317-28c4-40ef-9a1b-01af44b77327)
+
+![Phan](https://github.com/Aerendir/aws-ses-monitor-bundle/workflows/Phan/badge.svg)
+![PHPStan](https://github.com/Aerendir/aws-ses-monitor-bundle/workflows/PHPStan/badge.svg)
+![PSalm](https://github.com/Aerendir/aws-ses-monitor-bundle/workflows/PSalm/badge.svg)
+![PHPUnit](https://github.com/Aerendir/aws-ses-monitor-bundle/workflows/PHPunit/badge.svg)
+![Composer](https://github.com/Aerendir/aws-ses-monitor-bundle/workflows/Composer/badge.svg)
+![PHP CS Fixer](https://github.com/Aerendir/aws-ses-monitor-bundle/workflows/PHP%20CS%20Fixer/badge.svg)
+![Rector](https://github.com/Aerendir/aws-ses-monitor-bundle/workflows/Rector/badge.svg)
 
 AWS SES Monitor Bundle automates the filtering of [bounced and complained e-mails sent through AWS SES](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/best-practices-bounces-complaints.html).
 
