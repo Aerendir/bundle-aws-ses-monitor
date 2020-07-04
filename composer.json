@@ -21,16 +21,15 @@
     "require": {
         "php": "^7.1",
         "aws/aws-php-sns-message-validator": "^1.5",
-        "aws/aws-sdk-php": "^3.52",
         "aws/aws-sdk-php-symfony": "^2.0",
         "doctrine/common": "^2.4",
         "doctrine/doctrine-bundle": "^1.7",
         "doctrine/orm": "^2.5",
         "serendipity_hq/console-styles-bundle": "^1.1",
-        "symfony/framework-bundle": "^3.4|^4.1",
-        "symfony/http-kernel": "^3.4|^4.1",
+        "symfony/framework-bundle": "^3.0|^4.0|^5.0",
+        "symfony/http-kernel": "^3.0|^4.0|^5.0",
         "symfony/swiftmailer-bundle": "^3.0",
-        "symfony/yaml": "^3.4|^4.1"
+        "symfony/yaml": "^3.0|^4.0|^5.0"
     },
     "config": {
         "sort-packages": true
@@ -40,12 +39,14 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.0",
-        "roave/security-advisories":"dev-master",
+        "phpstan/phpstan": "^0.12.32",
+        "phpstan/phpstan-doctrine": "@stable",
+        "roave/security-advisories": "dev-master",
         "sensiolabs/security-checker": "^3.4|^4.1|^6.0",
         "serendipity_hq/phpunit_helper": "*",
-        "symfony/console": "^3.4|^4.1",
-        "symfony/var-dumper": "^3.4|^4.1",
-        "symfony/phpunit-bridge": "^3.4|^4.1"
+        "symfony/console": "^3.0|^4.0|^5.0",
+        "symfony/phpunit-bridge": "^3.0|^4.0|^5.0",
+        "symfony/var-dumper": "^3.0|^4.0|^5.0"
     },
     "autoload": {
         "psr-4": {
