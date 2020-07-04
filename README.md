@@ -19,7 +19,6 @@ SHQ AWS SES MONITOR BUNDLE
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_aws-ses-monitor-bundle&metric=security_rating)](https://sonarcloud.io/dashboard?id=Aerendir_aws-ses-monitor-bundle)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_aws-ses-monitor-bundle&metric=sqale_index)](https://sonarcloud.io/dashboard?id=Aerendir_aws-ses-monitor-bundle)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_aws-ses-monitor-bundle&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=Aerendir_aws-ses-monitor-bundle)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/4c45c317-28c4-40ef-9a1b-01af44b77327/mini.png)](https://insight.sensiolabs.com/projects/4c45c317-28c4-40ef-9a1b-01af44b77327)
 
 ![Phan](https://github.com/Aerendir/aws-ses-monitor-bundle/workflows/Phan/badge.svg)
 ![PHPStan](https://github.com/Aerendir/aws-ses-monitor-bundle/workflows/PHPStan/badge.svg)
