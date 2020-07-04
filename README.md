@@ -4,8 +4,8 @@
     </a>
 </p>
 
-AWS SES MONITOR BUNDLE
-======================
+SHQ AWS SES MONITOR BUNDLE
+==========================
 
 [![Latest Stable Version](https://poser.pugx.org/serendipity_hq/aws-ses-monitor-bundle/v/stable.png)](https://packagist.org/packages/serendipity_hq/aws-ses-monitor-bundle)
 [![Build Status](https://travis-ci.org/Aerendir/aws-ses-monitor-bundle.svg?branch=master)](https://travis-ci.org/Aerendir/aws-ses-monitor-bundle)
@@ -34,7 +34,7 @@ Using AWS SES Monitor Bundle you can, using the console of your Symfony's App, c
 
 The bundle exposes some endpoints called by AWS Simple Email Service when an e-mail is bounced or complained. When those endpoints are called, AWS SES Monitor Bundle persists these emails in the database.
 
-The SwiftMailer plugin included reads these e-mails and automatically disable the sending of e-mails to those addresses. 
+The SwiftMailer plugin included reads these e-mails and automatically disable the sending of e-mails to those addresses.
 
 The entire procedure is automated by the bundle in a really simple and easy way.
 
