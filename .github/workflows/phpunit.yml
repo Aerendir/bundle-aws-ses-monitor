@@ -29,9 +29,7 @@ jobs:
 
             - name: Run PHPunit
               run: |
-                  vendor/bin/simple-phpunit -v --debug
-              env:
-                  SYMFONY_DEPRECATIONS_HELPER: weak_vendors
+                  vendor/bin/simple-phpunit
 
             - name: Change paths in clover.xml
               run: |
