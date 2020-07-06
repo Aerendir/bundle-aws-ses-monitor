@@ -36,7 +36,7 @@ class RequestProcessorTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    public function setUp()
+    public function setUp():void
     {
         $mockResponse = $this->createMock(Response::class);
 

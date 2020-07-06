@@ -38,7 +38,7 @@ class MessageHelperTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    public function setUp()
+    public function setUp():void
     {
         $this->messageValidator = $this->createMock(MessageValidator::class);
         $this->messageHelper    = new MessageHelper($this->messageValidator);

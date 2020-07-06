@@ -55,7 +55,7 @@ class NotificationProcessorTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    public function setUp()
+    public function setUp():void
     {
         $this->bounceNotificationHandler   = $this->createMock(BounceNotificationHandler::class);
         $this->complaintNotificationHandler= $this->createMock(ComplaintNotificationHandler::class);

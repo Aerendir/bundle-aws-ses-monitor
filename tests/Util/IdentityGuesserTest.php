@@ -35,7 +35,7 @@ class IdentityGuesserTest extends TestCase
     /** @var string $productionMailbox */
     private $productionMailbox;
 
-    public function setUp()
+    public function setUp():void
     {
         $this->productionMailbox = 'hello';
         $this->domainIdentity    = 'serendipityhq.com';

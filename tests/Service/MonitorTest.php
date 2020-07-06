@@ -75,7 +75,7 @@ class MonitorTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    public function setUp()
+    public function setUp():void
     {
         $this->mockConfiguredIdentities = $this->createMock(IdentitiesStore::class);
         $this->mockAwsDataProcessor     = $this->createMock(AwsDataProcessor::class);

@@ -40,7 +40,7 @@ class SnsManagerTest extends TestCase
     /** @var SnsClient $client */
     private $client;
 
-    public function setUp()
+    public function setUp():void
     {
         $this->mockHandler = new MockHandler();
         $this->client      = new SnsClient([

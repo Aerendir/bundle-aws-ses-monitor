@@ -47,7 +47,7 @@ class SubscriptionProcessorTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    public function setUp()
+    public function setUp():void
     {
         $this->mockSnsClient     = $this->createMock(SnsClient::class);
         $this->mockEntityManager = $this->createMock(EntityManagerInterface::class);

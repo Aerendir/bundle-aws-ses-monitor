@@ -35,7 +35,7 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp():void
     {
         $this->extension = new SHQAwsSesMonitorExtension();
 
