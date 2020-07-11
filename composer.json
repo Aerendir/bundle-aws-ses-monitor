@@ -1,18 +1,14 @@
 {
-    "name": "serendipity_hq/aws-ses-monitor-bundle",
+    "name": "serendipity_hq/bundle-aws-ses-monitor",
     "type": "symfony-bundle",
     "description": "Symfony bundle to monitor AWS SES bounces, complaints and deliveries through SNS. Comes with a command to fully configure the topics and includes configurable SwiftMailer filter to avoid sending emails to bounced and complained emails.",
     "keywords": ["aws", "ses", "sns", "bounce", "complaints", "blacklist", "swiftmailer"],
-    "homepage": "https://github.com/Aerendir/aws-ses-monitor-bundle",
+    "homepage": "https://github.com/Aerendir/bundle-aws-ses-monitor",
     "license": "MIT",
     "support": {
         "issues": "https://github.com/Aerendir/aws-ses-monitor-bundle/issues"
     },
     "authors": [
-        {
-            "name": "Audrius Karabanovas",
-            "email": "audrius@karabanovas.net"
-        },
         {
             "name": "Adamo Aerendir Crespi",
             "email": "hello@aerendir.me"
