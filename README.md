@@ -1,20 +1,21 @@
 <p align="center">
     <a href="http://www.serendipityhq.com" target="_blank">
-        <img src="http://www.serendipityhq.com/assets/open-source-projects/Logo-SerendipityHQ-Icon-Text-Purple.png">
+        <img style="max-width: 350px" src="http://www.serendipityhq.com/assets/open-source-projects/Logo-SerendipityHQ-Icon-Text-Purple.png">
     </a>
 </p>
 
-SHQ AWS SES MONITOR BUNDLE
-==========================
+<h1 align="center">Serendipity HQ AWS SES Monitor Bundle</h1>
+<p align="center">AWS SES Monitor Bundle automates the filtering of <a href="http://docs.aws.amazon.com/ses/latest/DeveloperGuide/best-practices-bounces-complaints.html">bounced and complained e-mails sent through AWS SES</a>.</p>
+<p align="center">
+    <a href="https://github.com/Aerendir/bundle-aws-ses-monitor/releases"><img src="https://img.shields.io/packagist/v/serendipity_hq/bundle-aws-ses-monitor.svg?style=flat-square"></a>
+    <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"></a>
+    <a href="https://github.com/Aerendir/bundle-aws-ses-monitor/releases"><img src="https://img.shields.io/packagist/php-v/serendipity_hq/bundle-aws-ses-monitor?color=%238892BF&style=flat-square&logo=php" /></a>
+    <a title="Tested with Symfony ^3.4" href="https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev"><img title="Tested with Symfony ^3.4" src="https://img.shields.io/badge/Symfony-%5E3.4-333?style=flat-square&logo=symfony" /></a>
+    <a title="Tested with Symfony ^4.4" href="https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev"><img title="Tested with Symfony ^4.4" src="https://img.shields.io/badge/Symfony-%5E4.4-333?style=flat-square&logo=symfony" /></a>
+    <a title="Tested with Symfony ^5.0" href="https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev"><img title="Tested with Symfony ^5.0" src="https://img.shields.io/badge/Symfony-%5E5.0-333?style=flat-square&logo=symfony" /></a>
+</p>
 
-[![PHP from Packagist](https://img.shields.io/packagist/php-v/serendipity_hq/bundle-aws-ses-monitor?color=%238892BF)](https://packagist.org/packages/serendipity_hq/bundle-aws-ses-monitor)
-[![Tested with Symfony ^3.0](https://img.shields.io/badge/Symfony-%5E3.0-333)](https://github.com/Aerendir/bundle-aws-ses-monitor/actions)
-[![Tested with Symfony ^4.0](https://img.shields.io/badge/Symfony-%5E4.0-333)](https://github.com/Aerendir/bundle-aws-ses-monitor/actions)
-[![Tested with Symfony ^5.0](https://img.shields.io/badge/Symfony-%5E5.0-333)](https://github.com/Aerendir/bundle-aws-ses-monitor/actions)
-
-[![Latest Stable Version](https://poser.pugx.org/serendipity_hq/bundle-aws-ses-monitor/v/stable.png)](https://packagist.org/packages/serendipity_hq/bundle-aws-ses-monitor)
-[![Total Downloads](https://poser.pugx.org/serendipity_hq/bundle-aws-ses-monitor/downloads.svg)](https://packagist.org/packages/serendipity_hq/bundle-aws-ses-monitor)
-[![License](https://poser.pugx.org/serendipity_hq/bundle-aws-ses-monitor/license.svg)](https://packagist.org/packages/serendipity_hq/bundle-aws-ses-monitor)
+## Current Status
 
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_bundle-aws-ses-monitor&metric=coverage)](https://sonarcloud.io/dashboard?id=Aerendir_bundle-aws-ses-monitor)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_bundle-aws-ses-monitor&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=Aerendir_bundle-aws-ses-monitor)
@@ -24,15 +25,15 @@ SHQ AWS SES MONITOR BUNDLE
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_bundle-aws-ses-monitor&metric=sqale_index)](https://sonarcloud.io/dashboard?id=Aerendir_bundle-aws-ses-monitor)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_bundle-aws-ses-monitor&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=Aerendir_bundle-aws-ses-monitor)
 
-![Phan](https://github.com/Aerendir/bundle-aws-ses-monitor/workflows/Phan/badge.svg)
-![PHPStan](https://github.com/Aerendir/bundle-aws-ses-monitor/workflows/PHPStan/badge.svg)
-![PSalm](https://github.com/Aerendir/bundle-aws-ses-monitor/workflows/PSalm/badge.svg)
-![PHPUnit](https://github.com/Aerendir/bundle-aws-ses-monitor/workflows/PHPunit/badge.svg)
-![Composer](https://github.com/Aerendir/bundle-aws-ses-monitor/workflows/Composer/badge.svg)
-![PHP CS Fixer](https://github.com/Aerendir/bundle-aws-ses-monitor/workflows/PHP%20CS%20Fixer/badge.svg)
-![Rector](https://github.com/Aerendir/bundle-aws-ses-monitor/workflows/Rector/badge.svg)
+[![Phan](https://github.com/Aerendir/bundle-aws-ses-monitor/workflows/Phan/badge.svg)](https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev)
+[![PHPStan](https://github.com/Aerendir/bundle-aws-ses-monitor/workflows/PHPStan/badge.svg)](https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev)
+[![PSalm](https://github.com/Aerendir/bundle-aws-ses-monitor/workflows/PSalm/badge.svg)](https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev)
+[![PHPUnit](https://github.com/Aerendir/bundle-aws-ses-monitor/workflows/PHPunit/badge.svg)](https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev)
+[![Composer](https://github.com/Aerendir/bundle-aws-ses-monitor/workflows/Composer/badge.svg)](https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev)
+[![PHP CS Fixer](https://github.com/Aerendir/bundle-aws-ses-monitor/workflows/PHP%20CS%20Fixer/badge.svg)](https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev)
+[![Rector](https://github.com/Aerendir/bundle-aws-ses-monitor/workflows/Rector/badge.svg)](https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev)
 
-AWS SES Monitor Bundle automates the filtering of [bounced and complained e-mails sent through AWS SES](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/best-practices-bounces-complaints.html).
+## Features
 
 AWS SES can give you notifications about bounced or complained e-mails both [via e-mail](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications-via-email.html)
  or [via the AWS SNS service](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notifications-via-sns.html).
@@ -43,8 +44,7 @@ Managing these notifications it is possible to know to which e-mails we should n
 
 Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too! !
 
-How AWS SES Monitor Bundle integrates with AWS SNS
---------------------------------------------------
+### How AWS SES Monitor Bundle integrates with AWS SNS
 
 Using AWS SES Monitor Bundle you can, using the console of your Symfony's App, create in AWS Simple Notifications Service a topic for bounced emails and one for complained emails and automatically subscribe your app identity to that topics.
 
@@ -54,13 +54,6 @@ The SwiftMailer plugin included reads these e-mails and automatically disable th
 
 The entire procedure is automated by the bundle in a really simple and easy way.
 
-Requirements
-------------
-
-1. PHP ^7.1
-2. Symfony ^3.4|^4.1
-
-DOCUMENTATION
-=============
+## Documentation
 
 You can read how to install, configure, test and use AWS SES Monitor Bundle in the [documentation](src/Resources/doc/Index.md).
