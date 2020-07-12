@@ -6,6 +6,8 @@
  * after this file is read.
  */
 return [
+    'target_php_version' => '7.2',
+    'minimum_severity' => \Phan\Issue::SEVERITY_LOW,
 
     // A list of directories that should be parsed for class and
     // method information. After excluding the directories
@@ -15,7 +17,10 @@ return [
     // Thus, both first-party and third-party code being used by
     // your application should be included in this list.
     'directory_list' => [
-        'src', 'vendor'
+        'src',
+        'tests',
+        'vendor',
+        'vendor-bin/phpunit/vendor'
     ],
 
     // A directory list that defines files that will be excluded
@@ -30,12 +35,14 @@ return [
     //       should be added to both the `directory_list`
     //       and `exclude_analysis_directory_list` arrays.
     "exclude_analysis_directory_list" => [
-        'vendor', 'bin', 'build', 'docs', 'tools',
+        'vendor/',
+        'vendor-bin/phpunit/vendor',
+        'build/',
+        'docs/'
     ],
 
     'quick_mode' => false,
     'analyze_signature_compatibility' => true,
-    'minimum_severity' => 0,
     'allow_missing_properties' => false,
     'null_casts_as_any_type' => false,
     'null_casts_as_array' => false,
@@ -54,4 +61,9 @@ return [
     // can't be removed for whatever reason.
     // (e.g. '@Test\.php$@', or '@vendor/.*/(tests|Tests)/@')
     'exclude_file_regex' => '@^vendor/.*/(tests?|Tests?)/@',
+    'plugins' => [
+        'vendor-bin/phan/vendor/drenso/phan-extensions/Plugin/Annotation/SymfonyAnnotationPlugin.php',
+        'vendor-bin/phan/vendor/drenso/phan-extensions/Plugin/DocComment/InlineVarPlugin.php',
+        'vendor-bin/phan/vendor/drenso/phan-extensions/Plugin/DocComment/MethodPlugin.php'
+    ]
 ];
