@@ -4,5 +4,4 @@ vendor
 composer.lock
 build
 phpunit.xml
-.php_cs.cache
 .phpunit.result.cache
