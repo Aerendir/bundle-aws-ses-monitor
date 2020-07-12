@@ -1,7 +1,7 @@
 vendor
 /vendor-bin/**/vendor
+var
 !var/cache/.gitkeep
 composer.lock
 build
 phpunit.xml
-.phpunit.result.cache
