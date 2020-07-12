@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "php": "^7.1",
+        "php": "^7.2",
         "aws/aws-php-sns-message-validator": "^1.5",
         "aws/aws-sdk-php-symfony": "^2.0",
         "doctrine/common": "^2.4",
@@ -29,23 +29,10 @@
         "thecodingmachine/safe": "^1.0"
     },
     "require-dev": {
-        "drenso/phan-extensions": "@stable",
-        "friendsofphp/php-cs-fixer": "^2.0",
-        "phan/phan": "^3.0",
-        "phpstan/phpstan": "^0.12",
-        "phpstan/phpstan-doctrine": "@stable",
-        "phpstan/phpstan-phpunit": "@stable",
-        "phpstan/phpstan-symfony": "@stable",
-        "rector/rector": "^0.7",
+        "bamarni/composer-bin-plugin": "^1.4",
         "roave/security-advisories": "dev-master",
-        "sensiolabs/security-checker": "^3.4|^4.1|^6.0",
-        "serendipity_hq/phpunit_helper": "*",
         "symfony/console": "^3.0|^4.0|^5.0",
-        "symfony/phpunit-bridge": "^3.0|^4.0|^5.0",
-        "symfony/var-dumper": "^3.0|^4.0|^5.0",
-        "thecodingmachine/phpstan-safe-rule": "@stable",
-        "vimeo/psalm": "^3.12",
-        "weirdan/doctrine-psalm-plugin": "@stable"
+        "symfony/var-dumper": "^3.0|^4.0|^5.0"
     },
     "autoload": {
         "psr-4": {
@@ -59,6 +46,11 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "scripts": {
+        "bin": "echo 'bin not installed'",
+        "post-install-cmd": ["@composer bin all install --ansi"],
+        "post-update-cmd": ["@composer bin all update --ansi"]
     },
     "conflict": {
         "nikic/php-parser": "4.6.0"
