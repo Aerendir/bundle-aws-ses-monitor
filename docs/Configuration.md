@@ -1,4 +1,4 @@
-*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this included!*
 
 How to configure SHQ AWS SES Monitor Bundle
 ===========================================
@@ -108,7 +108,7 @@ aws:
 As you can see you have to simply use the name of the AWS cloud service you want to use and add its version: the `AwsBundle` takes care of the rest.
 
 Finally, configure the region from which you want your services have to run.
- 
+
 For example, as we are in Naples (Italy), we use the `eu-west-1` region instead of the pre-configured `us-east-1` one.
 
 Step 4: Configure `SHQAwsSesMonitorBundle`
@@ -292,7 +292,7 @@ As a general rule, we like to set the names of the topis following these three s
 
 So, following these rules, we always have two sets of topics for AWS SES: one for production and one for development.
 
-Do you remember what we said opening this section? An AWS Identity can subscribe to only one AWS SNS topic and each AWS SNS topic can have only one endpoint set: so, to differentiate the topics to use in `prod` from the topics to use on `dev`, we need different topics with different names and this will make us able to send emails through AWS SES both on `prod` and also from our `dev` machines, but using development identities (that we will configure in a bit). 
+Do you remember what we said opening this section? An AWS Identity can subscribe to only one AWS SNS topic and each AWS SNS topic can have only one endpoint set: so, to differentiate the topics to use in `prod` from the topics to use on `dev`, we need different topics with different names and this will make us able to send emails through AWS SES both on `prod` and also from our `dev` machines, but using development identities (that we will configure in a bit).
 So, our sets of topics appear like those:
 
 **Development topics** (set in the `.env` file)
@@ -461,10 +461,20 @@ Then there are the username and password to use to connect via SMTP.
 
 You can find the host and the port in your AWS SES console in `Email Sending > SMTP Settings`.
 
-From that page you can create also a pait of credentials to use in the string required to configure Swiftmailer: follow the procedure, then set the pair in the Swiftmailer's configuration string. 
+From that page you can create also a pait of credentials to use in the string required to configure Swiftmailer: follow the procedure, then set the pair in the Swiftmailer's configuration string.
 
 Now that you have completed the configuration of the `SHQAwsSesMonitorBundle`, it is time to configure your AWS SES and AWS SNS accounts to integrate them.
 
-*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
+<hr />
+<h3 align="center">
+    <b>Do you like this bundle?</b><br />
+    <b><a href="#js-repo-pjax-container">LEAVE A &#9733;</a></b>
+</h3>
+<p align="center">
+    or run<br />
+    <code>composer global require symfony/thanks && composer thanks</code><br />
+    to say thank you to all libraries you use in your current project, this included!
+</p>
+<hr />
 
 ([Go back to index](Index.md)) | Next step: [Integrate on `dev`](Integration-dev.md)

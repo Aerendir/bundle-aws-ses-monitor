@@ -1,4 +1,4 @@
-*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this included!*
 
 How to install SHQ AWS SES Monitor Bundle
 =========================================
@@ -10,7 +10,7 @@ of the boilerplate and configuration work.
 If you don't have Symfony Flex installed on your applicatioon, we suggest you to dedicate
 some time to [upgrade your Symfony app to support it](https://symfony.com/doc/current/setup/flex.html#upgrading-existing-applications-to-flex).
 
-Your life will be easier! 
+Your life will be easier!
 
 A note about Flex
 -----------------
@@ -55,7 +55,7 @@ If you want to explicitly install only `SHQAwsSesMonitorBundle`, instead, run th
 composer require serendipity_hq/aws-ses-monitor-bundle
 ```
 
-NOTE: The [PR to add this bundle to the Flex Contrib Recipes is still pending](https://github.com/symfony/recipes-contrib/pull/531), 
+NOTE: The [PR to add this bundle to the Flex Contrib Recipes is still pending](https://github.com/symfony/recipes-contrib/pull/531),
 so to make Flex able to use the recipe of this bundle, prepend the command `composer require` with
 `SYMFONY_ENDPOINT=https://flex.symfony.com/r/github.com/symfony/recipes-contrib/531 composer req serendipity_hq/aws-ses-monitor-bundle:^2.0`:
 
@@ -76,7 +76,7 @@ of this documentation: Flex will automatically register this bundle and the
 
 Flex will also create the configuration files required to make the two bundle work.
 
-If you don't have Flex installed (or want to understand what Flex did), continue reading. 
+If you don't have Flex installed (or want to understand what Flex did), continue reading.
 
 Step 2: Enable the `SHQAwsSesMonitorBundle` and the `AwsBundle`
 -------------------------------------------------------------------------
@@ -86,7 +86,7 @@ the use of this bundle will make sure you will configure the AWS access keys, co
 only once.
 
 So, enable the two bundles.
- 
+
 **If you are on SF^4**, add the following lines in the `config/bundles.php` file of your project:
 
 ```php
@@ -128,6 +128,16 @@ class AppKernel extends Kernel
 
 The bundles are configured: you can go to the next step.
 
-*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
+<hr />
+<h3 align="center">
+    <b>Do you like this bundle?</b><br />
+    <b><a href="#js-repo-pjax-container">LEAVE A &#9733;</a></b>
+</h3>
+<p align="center">
+    or run<br />
+    <code>composer global require symfony/thanks && composer thanks</code><br />
+    to say thank you to all libraries you use in your current project, this included!
+</p>
+<hr />
 
 ([Go back to index](Index.md)) | Next step: [Configure](Configuration.md)

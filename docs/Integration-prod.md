@@ -1,4 +1,4 @@
-*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this included!*
 
 How to integrate AWS SES Monitor Bundle with AWS SES and AWS SNS (on `prod` environment)
 ========================================================================================
@@ -110,8 +110,18 @@ Step 19: Wait... wait... wait...
 
 Once you added the `TXT` record to your DNS you have to simply wait: the time for your new record to propagate to all DNS servers may take up to 72 hours: once the DNS are propagated and Amazon has verified your ownership of the domain, you can go to the next step.
 
-So, in the mean time... Wait. Patiently! :)
+So, in the meantime... Wait. Patiently! :)
 
-*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
+<hr />
+<h3 align="center">
+    <b>Do you like this bundle?</b><br />
+    <b><a href="#js-repo-pjax-container">LEAVE A &#9733;</a></b>
+</h3>
+<p align="center">
+    or run<br />
+    <code>composer global require symfony/thanks && composer thanks</code><br />
+    to say thank you to all libraries you use in your current project, this included!
+</p>
+<hr />
 
 ([Go back to index](Index.md)) | Next step: [Using the information collected](Using.md)

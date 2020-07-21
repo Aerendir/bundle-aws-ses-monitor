@@ -1,4 +1,4 @@
-*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this included!*
 
 How to integrate SHQ AWS SES with your application
 ==================================================
@@ -18,7 +18,7 @@ Set those names in your configuration:
 ```yaml
 SHQAwsSesMonitorBundleAwsSesMonitorBundle    bounces:
         topic:
-            name: ses-your_app-bounces-topic # OPTIONAL. Required only to use the configuration commands. 
+            name: ses-your_app-bounces-topic # OPTIONAL. Required only to use the configuration commands.
             ...
     complaints:
         topic:
@@ -39,7 +39,7 @@ SHQAwsSesMonitorBundle
 shq_aws_ses_monitor:
     ...
     bounSHQAwsSesMonitorBundle
-            name: ses-your_app-bounces-topic # OPTIONAL. Required only to use the configuration commands. 
+            name: ses-your_app-bounces-topic # OPTIONAL. Required only to use the configuration commands.
             endpoint:
                 ...
                 host: yourapp.com # REQUIRED. The hostname of your project when in production.
@@ -93,6 +93,16 @@ What will happen:
 3. Your project url will be provided as HTTP or HTTPS (configuration) endpoint for AWS
 4. Automatic subscription confirmation will occur on AWS request to confirm (if your endpoint is reachable)
 
-*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
+<hr />
+<h3 align="center">
+    <b>Do you like this bundle?</b><br />
+    <b><a href="#js-repo-pjax-container">LEAVE A &#9733;</a></b>
+</h3>
+<p align="center">
+    or run<br />
+    <code>composer global require symfony/thanks && composer thanks</code><br />
+    to say thank you to all libraries you use in your current project, this included!
+</p>
+<hr />
 
 ([Go back to index](Index.md)) | Next step: [Test](Test.md)

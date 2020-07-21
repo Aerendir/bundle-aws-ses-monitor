@@ -1,4 +1,4 @@
-*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this included!*
 
 How to integrate AWS SES Monitor Bundle with AWS SES and AWS SNS (on `dev` environment)
 =======================================================================================
@@ -37,7 +37,7 @@ In console commands, this is like this:
 $ bin/console server:start
 
 [OK] Server listening on http://127.0.0.1:8000
-  
+
 ```
 
 The server started and is listening on the port `8000`: use it to start Ngrok:
@@ -119,7 +119,7 @@ When you run the command `aws:ses:configure` the bundle does the following thing
 
 And in fact, if you go to your AWS dashbard, you will see this:
 
-1. In AWS SES dashboard, the email Identity `test_aws@coommercio.com`, in a `pending verification` status; 
+1. In AWS SES dashboard, the email Identity `test_aws@coommercio.com`, in a `pending verification` status;
 ![](http://www.serendipityhq.com/assets/open-source-projects/bundle-aws-ses-monitor/aws-ses-email-identities-pending-min.png "The pending verification email Identity on AWS SES")
 2. In AWS SNS dashboard, in the Topics section, the Topics for each kind of notification the SES Identity may send (bounces, complaints and deliveries)
 ![](http://www.serendipityhq.com/assets/open-source-projects/bundle-aws-ses-monitor/aws-sns-topics-min.png "The topics created for the AWS SES email Identity")
@@ -158,6 +158,16 @@ Now the email Identity is verified and can be used to send emails:
 
 Now it's time to test the bundle on our development machine.
 
-*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this one too!*
+<hr />
+<h3 align="center">
+    <b>Do you like this bundle?</b><br />
+    <b><a href="#js-repo-pjax-container">LEAVE A &#9733;</a></b>
+</h3>
+<p align="center">
+    or run<br />
+    <code>composer global require symfony/thanks && composer thanks</code><br />
+    to say thank you to all libraries you use in your current project, this included!
+</p>
+<hr />
 
 ([Go back to index](Index.md)) | Next step: [Test (`dev` environment)](Test-dev.md)
