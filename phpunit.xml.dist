@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
-        cacheResultFile="var/cache/"
-        colors="true"
-        bootstrap="vendor/autoload.php"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+    cacheResultFile="var/cache/"
+    colors="true"
+    bootstrap="vendor/autoload.php"
 >
     <php>
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0"/>
