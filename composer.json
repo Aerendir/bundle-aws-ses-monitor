@@ -6,6 +6,7 @@
     "homepage": "https://github.com/Aerendir/bundle-aws-ses-monitor",
     "license": "MIT",
     "support": {
+        "docs": "https://github.com/Aerendir/bundle-aws-ses-monitor/tree/dev/docs",
         "issues": "https://github.com/Aerendir/bundle-aws-ses-monitor/issues"
     },
     "authors": [
