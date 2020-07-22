@@ -1,0 +1,1546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="3.12.2@7c7ebd068f8acaba211d4a2c707c4ba90874fa26">
+  <file src="src/Command/ConfigureCommand.php">
+    <MissingPropertyType occurrences="4">
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionTitle</code>
+      <code>$sectionTitle</code>
+      <code>$sectionBody</code>
+    </MissingPropertyType>
+    <MixedArgument occurrences="46">
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionTitle</code>
+      <code>$identity</code>
+      <code>$this-&gt;sectionTitle</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$tokens[0]</code>
+      <code>$tokens[1]</code>
+      <code>$tokens[2]</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$topicName</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$topic</code>
+      <code>$this-&gt;sectionTitle</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionTitle</code>
+      <code>$identity</code>
+      <code>$this-&gt;sectionTitle</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionTitle</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;scheduledTopics[$topicName]</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;scheduledTopics[$topicName]</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;scheduledTopics[$topicName]</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$identity</code>
+      <code>$parts['domain']</code>
+      <code>$topicName</code>
+      <code>$action</code>
+    </MixedArgument>
+    <MixedArrayAssignment occurrences="1">
+      <code>$this-&gt;actionsToTakeNow[$identity][]</code>
+    </MixedArrayAssignment>
+    <MixedAssignment occurrences="14">
+      <code>$this-&gt;allowedIdentities</code>
+      <code>$this-&gt;skippedIdentities</code>
+      <code>$identity</code>
+      <code>$topicName</code>
+      <code>$topic</code>
+      <code>$identity</code>
+      <code>$elapsed</code>
+      <code>$wait</code>
+      <code>$elapsed</code>
+      <code>$identity</code>
+      <code>$topicName</code>
+      <code>$topicName</code>
+      <code>$action</code>
+      <code>$identity</code>
+    </MixedAssignment>
+    <MixedOperand occurrences="4">
+      <code>$lastCall</code>
+      <code>$elapsed</code>
+      <code>$lastCall</code>
+      <code>$identity</code>
+    </MixedOperand>
+    <PossiblyInvalidArrayAccess occurrences="3">
+      <code>$this-&gt;monitor-&gt;getConfiguredIdentity($identity, $type)['topic']</code>
+      <code>$this-&gt;monitor-&gt;getConfiguredIdentity($identity, $type)['topic']</code>
+      <code>$this-&gt;monitor-&gt;getConfiguredIdentity($parts['domain'], $type)['topic']</code>
+    </PossiblyInvalidArrayAccess>
+    <PossiblyInvalidArrayOffset occurrences="3">
+      <code>$this-&gt;monitor-&gt;getConfiguredIdentity($identity, $type)['topic']</code>
+      <code>$this-&gt;monitor-&gt;getConfiguredIdentity($identity, $type)['topic']</code>
+      <code>$this-&gt;monitor-&gt;getConfiguredIdentity($parts['domain'], $type)['topic']</code>
+    </PossiblyInvalidArrayOffset>
+    <PossiblyNullArgument occurrences="2">
+      <code>$verificationToken</code>
+      <code>$topicName</code>
+    </PossiblyNullArgument>
+    <PossiblyNullArrayAccess occurrences="1">
+      <code>$this-&gt;monitor-&gt;getLiveTopic($topic)['arn']</code>
+    </PossiblyNullArrayAccess>
+    <PropertyNotSetInConstructor occurrences="3">
+      <code>$ioWriter</code>
+      <code>$allowedIdentities</code>
+      <code>$skippedIdentities</code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="src/Command/DebugCommand.php">
+    <InvalidReturnType occurrences="1">
+      <code>execute</code>
+    </InvalidReturnType>
+    <MissingPropertyType occurrences="2">
+      <code>$sectionTitle</code>
+      <code>$sectionBody</code>
+    </MissingPropertyType>
+    <MixedArgument occurrences="11">
+      <code>$this-&gt;sectionTitle</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionTitle</code>
+      <code>$this-&gt;sectionTitle</code>
+      <code>$identity</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$identity</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$this-&gt;sectionTitle</code>
+      <code>$this-&gt;sectionBody</code>
+      <code>$identity</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="2">
+      <code>$this-&gt;monitor-&gt;getAccount('quota')['sent_last_24_hours']</code>
+      <code>$this-&gt;monitor-&gt;getAccount('quota')['max_24_hour_send']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="4">
+      <code>$identity</code>
+      <code>$result</code>
+      <code>$results</code>
+      <code>$result</code>
+    </MixedAssignment>
+    <MoreSpecificImplementedParamType occurrences="1">
+      <code>$output</code>
+    </MoreSpecificImplementedParamType>
+  </file>
+  <file src="src/Command/SesSendTestEmailsCommand.php">
+    <MixedArgument occurrences="1">
+      <code>$fromAddress</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="1">
+      <code>$fromAddress</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="1">
+      <code>ask</code>
+    </MixedMethodCall>
+  </file>
+  <file src="src/Controller/EndpointController.php">
+    <DeprecatedClass occurrences="1">
+      <code>Controller</code>
+    </DeprecatedClass>
+  </file>
+  <file src="src/DependencyInjection/Configuration.php">
+    <DeprecatedMethod occurrences="1">
+      <code>root</code>
+    </DeprecatedMethod>
+    <MissingConstructor occurrences="1">
+      <code>$identityGuesser</code>
+    </MissingConstructor>
+    <MixedArgument occurrences="18">
+      <code>$tree['identities']</code>
+      <code>$identity</code>
+      <code>$config</code>
+      <code>$tree['identities']</code>
+      <code>$config['bounces']</code>
+      <code>$config['complaints']</code>
+      <code>$config['deliveries']</code>
+      <code>$topic</code>
+      <code>$parts['domain']</code>
+      <code>$parts['domain']</code>
+      <code>$parts['domain']</code>
+      <code>$parts['mailbox']</code>
+      <code>$identity</code>
+      <code>$tree['endpoint']['host']</code>
+      <code>$config</code>
+      <code>$config['bounces']</code>
+      <code>$config['complaints']</code>
+      <code>$config['deliveries']</code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>$otherIdentity</code>
+    </MixedArgumentTypeCoercion>
+    <MixedArrayAccess occurrences="6">
+      <code>$tree['identities'][$identity]</code>
+      <code>$otherConfig['bunces']</code>
+      <code>$otherConfig['complaints']</code>
+      <code>$otherConfig['deliveries']</code>
+      <code>$tree['endpoint']['host']</code>
+      <code>$tree['identities'][$identity]</code>
+    </MixedArrayAccess>
+    <MixedArrayAssignment occurrences="2">
+      <code>$tree['identities'][$lowerIdentity]</code>
+      <code>$tree['identities'][$lowerIdentity]</code>
+    </MixedArrayAssignment>
+    <MixedArrayOffset occurrences="2">
+      <code>$tree['identities'][$identity]</code>
+      <code>$tree['identities'][$identity]</code>
+    </MixedArrayOffset>
+    <MixedAssignment occurrences="7">
+      <code>$config</code>
+      <code>$tree['identities'][$lowerIdentity]</code>
+      <code>$config</code>
+      <code>$track</code>
+      <code>$topic</code>
+      <code>$otherConfig</code>
+      <code>$config</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="104">
+      <code>arrayNode</code>
+      <code>prototype</code>
+      <code>end</code>
+      <code>defaultValue</code>
+      <code>end</code>
+      <code>arrayNode</code>
+      <code>isRequired</code>
+      <code>children</code>
+      <code>scalarNode</code>
+      <code>defaultValue</code>
+      <code>end</code>
+      <code>scalarNode</code>
+      <code>isRequired</code>
+      <code>cannotBeEmpty</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>arrayNode</code>
+      <code>useAttributeAsKey</code>
+      <code>prototype</code>
+      <code>children</code>
+      <code>booleanNode</code>
+      <code>defaultValue</code>
+      <code>end</code>
+      <code>booleanNode</code>
+      <code>defaultValue</code>
+      <code>end</code>
+      <code>booleanNode</code>
+      <code>defaultValue</code>
+      <code>end</code>
+      <code>scalarNode</code>
+      <code>defaultNull</code>
+      <code>end</code>
+      <code>enumNode</code>
+      <code>defaultValue</code>
+      <code>values</code>
+      <code>end</code>
+      <code>end</code>
+      <code>append</code>
+      <code>append</code>
+      <code>append</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>validate</code>
+      <code>ifTrue</code>
+      <code>then</code>
+      <code>end</code>
+      <code>children</code>
+      <code>booleanNode</code>
+      <code>defaultTrue</code>
+      <code>end</code>
+      <code>scalarNode</code>
+      <code>defaultNull</code>
+      <code>end</code>
+      <code>arrayNode</code>
+      <code>addDefaultsIfNotSet</code>
+      <code>children</code>
+      <code>booleanNode</code>
+      <code>defaultFalse</code>
+      <code>end</code>
+      <code>integerNode</code>
+      <code>min</code>
+      <code>defaultValue</code>
+      <code>end</code>
+      <code>scalarNode</code>
+      <code>defaultValue</code>
+      <code>end</code>
+      <code>scalarNode</code>
+      <code>defaultValue</code>
+      <code>end</code>
+      <code>booleanNode</code>
+      <code>defaultFalse</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>children</code>
+      <code>booleanNode</code>
+      <code>defaultTrue</code>
+      <code>end</code>
+      <code>scalarNode</code>
+      <code>defaultNull</code>
+      <code>end</code>
+      <code>arrayNode</code>
+      <code>addDefaultsIfNotSet</code>
+      <code>children</code>
+      <code>scalarNode</code>
+      <code>defaultValue</code>
+      <code>end</code>
+      <code>booleanNode</code>
+      <code>defaultFalse</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>children</code>
+      <code>booleanNode</code>
+      <code>defaultTrue</code>
+      <code>end</code>
+      <code>scalarNode</code>
+      <code>defaultNull</code>
+      <code>end</code>
+      <code>end</code>
+    </MixedMethodCall>
+    <PossiblyUndefinedMethod occurrences="4">
+      <code>children</code>
+      <code>addDefaultsIfNotSet</code>
+      <code>addDefaultsIfNotSet</code>
+      <code>addDefaultsIfNotSet</code>
+    </PossiblyUndefinedMethod>
+  </file>
+  <file src="src/DependencyInjection/SHQAwsSesMonitorExtension.php">
+    <MixedArgument occurrences="2">
+      <code>$config['identities']</code>
+      <code>$mailer</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="2">
+      <code>$identityConfig['bounces']</code>
+      <code>$identityConfig['complaints']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="3">
+      <code>$mailers</code>
+      <code>$mailer</code>
+      <code>$identityConfig</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Entity/Bounce.php">
+    <MissingConstructor occurrences="1">
+      <code>$id</code>
+    </MissingConstructor>
+    <MixedArgument occurrences="8">
+      <code>$notification['bounce']['timestamp']</code>
+      <code>$notification['bounce']['bounceType']</code>
+      <code>$notification['bounce']['bounceSubType']</code>
+      <code>$notification['bounce']['feedbackId']</code>
+      <code>$notification['bounce']['reportingMta']</code>
+      <code>$bouncedRecipient['action']</code>
+      <code>$bouncedRecipient['status']</code>
+      <code>$bouncedRecipient['diagnosticCode']</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="5">
+      <code>$notification['bounce']['timestamp']</code>
+      <code>$notification['bounce']['bounceType']</code>
+      <code>$notification['bounce']['bounceSubType']</code>
+      <code>$notification['bounce']['feedbackId']</code>
+      <code>$notification['bounce']['reportingMta']</code>
+    </MixedArrayAccess>
+  </file>
+  <file src="src/Entity/Complaint.php">
+    <MissingConstructor occurrences="1">
+      <code>$id</code>
+    </MissingConstructor>
+    <MixedArgument occurrences="5">
+      <code>$notification['complaint']['timestamp']</code>
+      <code>$notification['complaint']['feedbackId']</code>
+      <code>$notification['complaint']['userAgent']</code>
+      <code>$notification['complaint']['complaintFeedbackType']</code>
+      <code>$notification['complaint']['arrivalDate']</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="5">
+      <code>$notification['complaint']['timestamp']</code>
+      <code>$notification['complaint']['feedbackId']</code>
+      <code>$notification['complaint']['userAgent']</code>
+      <code>$notification['complaint']['complaintFeedbackType']</code>
+      <code>$notification['complaint']['arrivalDate']</code>
+    </MixedArrayAccess>
+  </file>
+  <file src="src/Entity/Delivery.php">
+    <MissingConstructor occurrences="1">
+      <code>$id</code>
+    </MissingConstructor>
+    <MixedArgument occurrences="4">
+      <code>$notification['delivery']['timestamp']</code>
+      <code>$notification['delivery']['processingTimeMillis']</code>
+      <code>$notification['delivery']['smtpResponse']</code>
+      <code>$notification['delivery']['reportingMta']</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="4">
+      <code>$notification['delivery']['timestamp']</code>
+      <code>$notification['delivery']['processingTimeMillis']</code>
+      <code>$notification['delivery']['smtpResponse']</code>
+      <code>$notification['delivery']['reportingMta']</code>
+    </MixedArrayAccess>
+  </file>
+  <file src="src/Entity/EmailStatus.php">
+    <MissingClosureParamType occurrences="3">
+      <code>$key</code>
+      <code>$key</code>
+      <code>$key</code>
+    </MissingClosureParamType>
+    <MissingClosureReturnType occurrences="3">
+      <code>function (/** @noinspection PhpUnusedParameterInspection */ $key, Bounce $element) use ($bounce) {</code>
+      <code>function (/** @noinspection PhpUnusedParameterInspection */ $key, Complaint $element) use ($complaint) {</code>
+      <code>function (/** @noinspection PhpUnusedParameterInspection */ $key, Delivery $element) use ($delivery) {</code>
+    </MissingClosureReturnType>
+    <MixedArgumentTypeCoercion occurrences="3">
+      <code>exists</code>
+      <code>exists</code>
+      <code>exists</code>
+    </MixedArgumentTypeCoercion>
+    <PossiblyFalsePropertyAssignmentValue occurrences="1">
+      <code>mb_strtolower($email)</code>
+    </PossiblyFalsePropertyAssignmentValue>
+  </file>
+  <file src="src/Entity/MailMessage.php">
+    <MixedArgument occurrences="7">
+      <code>$mailMessageData['messageId']</code>
+      <code>$mailMessageData['timestamp']</code>
+      <code>$mailMessageData['source']</code>
+      <code>$mailMessageData['sourceArn']</code>
+      <code>$mailMessageData['sendingAccountId']</code>
+      <code>$mailMessageData['headers']</code>
+      <code>$mailMessageData['commonHeaders']</code>
+    </MixedArgument>
+    <PropertyNotSetInConstructor occurrences="5">
+      <code>$messageId</code>
+      <code>$sentOn</code>
+      <code>$sentFrom</code>
+      <code>$sourceArn</code>
+      <code>$sendingAccountId</code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="src/Entity/Topic.php">
+    <PropertyNotSetInConstructor occurrences="1">
+      <code>$id</code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="src/Handler/BounceNotificationHandler.php">
+    <MixedArgument occurrences="2">
+      <code>$bouncedRecipient['emailAddress']</code>
+      <code>$bouncedRecipient</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="2">
+      <code>$notification['bounce']['bouncedRecipients']</code>
+      <code>$bouncedRecipient['emailAddress']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="1">
+      <code>$bouncedRecipient</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Handler/ComplaintNotificationHandler.php">
+    <MixedArgument occurrences="1">
+      <code>$complainedRecipient['emailAddress']</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="2">
+      <code>$notification['complaint']['complainedRecipients']</code>
+      <code>$complainedRecipient['emailAddress']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="1">
+      <code>$complainedRecipient</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Handler/DeliveryNotificationHandler.php">
+    <MixedArgument occurrences="1">
+      <code>$recipient</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="1">
+      <code>$notification['delivery']['recipients']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="1">
+      <code>$recipient</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Helper/MessageHelper.php">
+    <MixedArgument occurrences="2">
+      <code>$data</code>
+      <code>$message-&gt;offsetGet('Message')</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="1">
+      <code>$data</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="1">
+      <code>array</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="1">
+      <code>json_decode($message-&gt;offsetGet('Message'), true)</code>
+    </MixedReturnStatement>
+  </file>
+  <file src="src/Manager/SesManager.php">
+    <MixedInferredReturnType occurrences="1">
+      <code>string</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="1">
+      <code>$result-&gt;get('VerificationToken')</code>
+    </MixedReturnStatement>
+    <NullableReturnStatement occurrences="1">
+      <code>$result-&gt;get('VerificationToken')</code>
+    </NullableReturnStatement>
+  </file>
+  <file src="src/Manager/SnsManager.php">
+    <MixedArgument occurrences="3">
+      <code>$topicArn</code>
+      <code>$this-&gt;endpointConfig['host']</code>
+      <code>$this-&gt;endpointConfig['scheme']</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="1">
+      <code>$topicArn</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="1">
+      <code>string|null</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="1">
+      <code>$response-&gt;get('SubscriptionArn')</code>
+    </MixedReturnStatement>
+    <PossiblyNullArgument occurrences="1">
+      <code>$topicArn</code>
+    </PossiblyNullArgument>
+  </file>
+  <file src="src/Plugin/MonitorFilterPlugin.php">
+    <MixedArgument occurrences="3">
+      <code>$identities</code>
+      <code>$identities</code>
+      <code>$identities</code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="2">
+      <code>$email</code>
+      <code>$identity</code>
+    </MixedArgumentTypeCoercion>
+    <MixedAssignment occurrences="1">
+      <code>$identities</code>
+    </MixedAssignment>
+    <PropertyNotSetInConstructor occurrences="1">
+      <code>$blacklisted</code>
+    </PropertyNotSetInConstructor>
+    <RedundantConditionGivenDocblockType occurrences="3">
+      <code>null !== $message-&gt;getTo()</code>
+      <code>null !== $message-&gt;getCc()</code>
+      <code>null !== $message-&gt;getBcc()</code>
+    </RedundantConditionGivenDocblockType>
+  </file>
+  <file src="src/Processor/AwsDataProcessor.php">
+    <MixedArrayAccess occurrences="16">
+      <code>$attributes['RawMessageDelivery']</code>
+      <code>$attributes['SubscriptionArn']</code>
+      <code>$attributes['EffectiveDeliveryPolicy']</code>
+      <code>$attributes['SubscriptionArn']</code>
+      <code>$attributes['PendingConfirmation']</code>
+      <code>$attributes['ConfirmationWasAuthenticated']</code>
+      <code>$attributes['SubscriptionArn']</code>
+      <code>$attributes['TopicArn']</code>
+      <code>$attributes['DisplayName']</code>
+      <code>$attributes['Policy']</code>
+      <code>$attributes['Owner']</code>
+      <code>$attributes['EffectiveDeliveryPolicy']</code>
+      <code>$attributes['SubscriptionsConfirmed']</code>
+      <code>$attributes['SubscriptionsDeleted']</code>
+      <code>$attributes['SubscriptionsPending']</code>
+      <code>$attributes['TopicArn']</code>
+    </MixedArrayAccess>
+    <MixedArrayAssignment occurrences="7">
+      <code>$this-&gt;data[self::ACCOUNT]['enabled']</code>
+      <code>$this-&gt;data[self::ACCOUNT]['quota']</code>
+      <code>$this-&gt;data[self::ACCOUNT]['stats']</code>
+      <code>$this-&gt;data[self::SUBSCRIPTIONS][$attributes['SubscriptionArn']]</code>
+      <code>$this-&gt;data[self::SUBSCRIPTIONS][$attributes['SubscriptionArn']]</code>
+      <code>$this-&gt;data[self::SUBSCRIPTIONS][$attributes['SubscriptionArn']]</code>
+      <code>$this-&gt;data[self::TOPICS][$attributes['TopicArn']]</code>
+    </MixedArrayAssignment>
+    <MixedArrayOffset occurrences="4">
+      <code>$this-&gt;data[self::SUBSCRIPTIONS][$attributes['SubscriptionArn']]</code>
+      <code>$this-&gt;data[self::SUBSCRIPTIONS][$attributes['SubscriptionArn']]</code>
+      <code>$this-&gt;data[self::SUBSCRIPTIONS][$attributes['SubscriptionArn']]</code>
+      <code>$this-&gt;data[self::TOPICS][$attributes['TopicArn']]</code>
+    </MixedArrayOffset>
+    <MixedAssignment occurrences="2">
+      <code>$attributes</code>
+      <code>$attributes</code>
+    </MixedAssignment>
+    <PossiblyNullArrayAccess occurrences="16">
+      <code>$attributes['RawMessageDelivery']</code>
+      <code>$attributes['SubscriptionArn']</code>
+      <code>$attributes['EffectiveDeliveryPolicy']</code>
+      <code>$attributes['SubscriptionArn']</code>
+      <code>$attributes['PendingConfirmation']</code>
+      <code>$attributes['ConfirmationWasAuthenticated']</code>
+      <code>$attributes['SubscriptionArn']</code>
+      <code>$attributes['TopicArn']</code>
+      <code>$attributes['DisplayName']</code>
+      <code>$attributes['Policy']</code>
+      <code>$attributes['Owner']</code>
+      <code>$attributes['EffectiveDeliveryPolicy']</code>
+      <code>$attributes['SubscriptionsConfirmed']</code>
+      <code>$attributes['SubscriptionsDeleted']</code>
+      <code>$attributes['SubscriptionsPending']</code>
+      <code>$attributes['TopicArn']</code>
+    </PossiblyNullArrayAccess>
+    <PossiblyNullArrayOffset occurrences="4">
+      <code>$this-&gt;data[self::SUBSCRIPTIONS]</code>
+      <code>$this-&gt;data[self::SUBSCRIPTIONS]</code>
+      <code>$this-&gt;data[self::SUBSCRIPTIONS]</code>
+      <code>$this-&gt;data[self::TOPICS]</code>
+    </PossiblyNullArrayOffset>
+    <PossiblyNullIterator occurrences="6">
+      <code>$result-&gt;get('DkimAttributes')</code>
+      <code>$result-&gt;get('MailFromDomainAttributes')</code>
+      <code>$result-&gt;get('NotificationAttributes')</code>
+      <code>$result-&gt;get('VerificationAttributes')</code>
+      <code>$result-&gt;get('Subscriptions')</code>
+      <code>$result-&gt;get('Topics')</code>
+    </PossiblyNullIterator>
+  </file>
+  <file src="src/Processor/NotificationProcessor.php">
+    <MixedArgument occurrences="1">
+      <code>$mailMessageData</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="1">
+      <code>$mailMessageData['messageId']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="1">
+      <code>$mailMessageData</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Service/IdentitiesStore.php">
+    <MixedArrayAccess occurrences="1">
+      <code>$return[$attribute]</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="1">
+      <code>$return</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="1">
+      <code>array|bool|int|string</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="2">
+      <code>$return[$attribute]</code>
+      <code>$return</code>
+    </MixedReturnStatement>
+  </file>
+  <file src="src/Service/Monitor.php">
+    <InvalidArrayOffset occurrences="1">
+      <code>$topicConfig['topic']</code>
+    </InvalidArrayOffset>
+    <MixedArgument occurrences="8">
+      <code>$searchingIdentity</code>
+      <code>$identity</code>
+      <code>$identity</code>
+      <code>$this-&gt;liveData[AwsDataProcessor::IDENTITIES]</code>
+      <code>$topicArn</code>
+      <code>$this-&gt;liveData[AwsDataProcessor::TOPICS]</code>
+      <code>$topicArn</code>
+      <code>$identity</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="9">
+      <code>$return[$attributes]</code>
+      <code>$this-&gt;liveData[AwsDataProcessor::IDENTITIES][$identity]</code>
+      <code>$return[$attributes]</code>
+      <code>$this-&gt;liveData[AwsDataProcessor::TOPICS][$topicArn]</code>
+      <code>$config['filter']['force_send']</code>
+      <code>$config['filter']['force_send']</code>
+      <code>$this-&gt;getLiveIdentity($identity, 'notifications')[$type]['include_headers']</code>
+      <code>$subscription['topic_arn']</code>
+      <code>$subscription['topic_arn']</code>
+    </MixedArrayAccess>
+    <MixedArrayOffset occurrences="1">
+      <code>$this-&gt;liveData[AwsDataProcessor::TOPICS][$topicArn]</code>
+    </MixedArrayOffset>
+    <MixedAssignment occurrences="11">
+      <code>$return</code>
+      <code>$searchingIdentity</code>
+      <code>$identity</code>
+      <code>$allowed[]</code>
+      <code>$skipped[]</code>
+      <code>$return</code>
+      <code>$topicArn</code>
+      <code>$topicArn</code>
+      <code>$identity</code>
+      <code>$subscription</code>
+      <code>$subscription</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="8">
+      <code>array</code>
+      <code>array|null</code>
+      <code>bool</code>
+      <code>bool</code>
+      <code>bool</code>
+      <code>bool</code>
+      <code>bool</code>
+      <code>array|null</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="9">
+      <code>$return[$attributes]</code>
+      <code>$return</code>
+      <code>$this-&gt;liveData[AwsDataProcessor::TOPICS][$topicArn]</code>
+      <code>$config['track']</code>
+      <code>$config['filter']['force_send']</code>
+      <code>$config['track']</code>
+      <code>$config['filter']['force_send']</code>
+      <code>$this-&gt;getLiveIdentity($identity, 'notifications')[$type]['include_headers']</code>
+      <code>$subscription</code>
+    </MixedReturnStatement>
+    <PossiblyInvalidArrayAccess occurrences="6">
+      <code>$config['track']</code>
+      <code>$config['filter']</code>
+      <code>$config['track']</code>
+      <code>$config['filter']</code>
+      <code>$topicConfig['track']</code>
+      <code>$topicConfig['topic']</code>
+    </PossiblyInvalidArrayAccess>
+    <PossiblyInvalidArrayOffset occurrences="5">
+      <code>$config['track']</code>
+      <code>$config['filter']</code>
+      <code>$config['track']</code>
+      <code>$config['filter']</code>
+      <code>$topicConfig['track']</code>
+    </PossiblyInvalidArrayOffset>
+    <PossiblyNullArrayAccess occurrences="1">
+      <code>$subscription['endpoint']</code>
+    </PossiblyNullArrayAccess>
+    <PossiblyNullIterator occurrences="2">
+      <code>$subscriptions-&gt;get('Subscriptions')</code>
+      <code>$topics-&gt;get('Topics')</code>
+    </PossiblyNullIterator>
+    <PropertyNotSetInConstructor occurrences="3">
+      <code>$liveData</code>
+      <code>$sectionTitle</code>
+      <code>$sectionBody</code>
+    </PropertyNotSetInConstructor>
+    <RedundantCondition occurrences="1">
+      <code>$ignoreEnv || $this-&gt;getIdentityGuesser()-&gt;isTestEmail($identity)</code>
+    </RedundantCondition>
+    <TypeDoesNotContainType occurrences="1">
+      <code>$ignoreEnv</code>
+    </TypeDoesNotContainType>
+  </file>
+  <file src="src/Util/Console.php">
+    <MixedInferredReturnType occurrences="1">
+      <code>ConsoleSectionOutput|OutputInterface</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="1"/>
+  </file>
+  <file src="src/Util/EmailStatusAnalyzer.php">
+    <MixedArgument occurrences="2">
+      <code>$maxBounces</code>
+      <code>$softAsHard</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="2">
+      <code>$filter['max_bounces']</code>
+      <code>$filter['soft_as_hard']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="3">
+      <code>$filter</code>
+      <code>$maxBounces</code>
+      <code>$softAsHard</code>
+    </MixedAssignment>
+    <PossiblyInvalidArrayAccess occurrences="1">
+      <code>$this-&gt;monitor-&gt;findConfiguredIdentity($identity, 'bounces')['filter']</code>
+    </PossiblyInvalidArrayAccess>
+    <PossiblyInvalidArrayOffset occurrences="1">
+      <code>$this-&gt;monitor-&gt;findConfiguredIdentity($identity, 'bounces')['filter']</code>
+    </PossiblyInvalidArrayOffset>
+  </file>
+  <file src="src/Util/IdentityGuesser.php">
+    <MixedArgument occurrences="1">
+      <code>$mailbox</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="1">
+      <code>$mailbox</code>
+    </MixedAssignment>
+  </file>
+  <file src="tests/Command/SesSendTestEmailsCommandTest.php">
+    <DeprecatedClass occurrences="1">
+      <code>$command</code>
+    </DeprecatedClass>
+    <InternalMethod occurrences="1">
+      <code>will</code>
+    </InternalMethod>
+  </file>
+  <file src="tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php">
+    <MissingParamType occurrences="1">
+      <code>$resource</code>
+    </MissingParamType>
+    <MissingReturnType occurrences="1">
+      <code>loadConfiguration</code>
+    </MissingReturnType>
+    <MixedArrayAccess occurrences="34">
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.endpoint')['scheme']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.endpoint')['host']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
+      <code>$bouncesConfig['track']</code>
+      <code>$bouncesConfig['topic']</code>
+      <code>$bouncesConfig['filter']</code>
+      <code>$bouncesConfig['filter']</code>
+      <code>$bouncesConfig['filter']</code>
+      <code>$bouncesConfig['filter']</code>
+      <code>$bouncesConfig['filter']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
+      <code>$complaintsConfig['track']</code>
+      <code>$complaintsConfig['topic']</code>
+      <code>$complaintsConfig['filter']</code>
+      <code>$complaintsConfig['filter']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
+      <code>$deliveriesConfig['track']</code>
+      <code>$deliveriesConfig['topic']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
+      <code>$bouncesConfig['track']</code>
+      <code>$complaintsConfig['track']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
+      <code>$bouncesConfig['track']</code>
+      <code>$complaintsConfig['track']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
+      <code>$bouncesConfig['track']</code>
+      <code>$complaintsConfig['track']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
+      <code>$bouncesConfig['track']</code>
+      <code>$complaintsConfig['track']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="11">
+      <code>$bouncesConfig</code>
+      <code>$complaintsConfig</code>
+      <code>$deliveriesConfig</code>
+      <code>$bouncesConfig</code>
+      <code>$complaintsConfig</code>
+      <code>$bouncesConfig</code>
+      <code>$complaintsConfig</code>
+      <code>$bouncesConfig</code>
+      <code>$complaintsConfig</code>
+      <code>$bouncesConfig</code>
+      <code>$complaintsConfig</code>
+    </MixedAssignment>
+  </file>
+  <file src="tests/DependencyInjection/YamlAwsSesMonitorBundleExtensionTest.php">
+    <MissingParamType occurrences="1">
+      <code>$resource</code>
+    </MissingParamType>
+    <MixedOperand occurrences="1">
+      <code>$resource</code>
+    </MixedOperand>
+  </file>
+  <file src="tests/Entity/ComplaintTest.php">
+    <PossiblyNullReference occurrences="1">
+      <code>format</code>
+    </PossiblyNullReference>
+  </file>
+  <file src="tests/Entity/EmailStatusTest.php">
+    <InternalMethod occurrences="12">
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+    </InternalMethod>
+  </file>
+  <file src="tests/Handler/BounceNotificationHandlerTest.php">
+    <InternalMethod occurrences="1">
+      <code>willReturn</code>
+    </InternalMethod>
+    <RedundantCondition occurrences="1">
+      <code>assertInstanceOf</code>
+    </RedundantCondition>
+  </file>
+  <file src="tests/Handler/ComplaintNotificationHandlerTest.php">
+    <InternalMethod occurrences="1">
+      <code>willReturn</code>
+    </InternalMethod>
+    <RedundantCondition occurrences="1">
+      <code>assertInstanceOf</code>
+    </RedundantCondition>
+  </file>
+  <file src="tests/Handler/DeliveryNotificationHandlerTest.php">
+    <InternalMethod occurrences="1">
+      <code>willReturn</code>
+    </InternalMethod>
+    <RedundantCondition occurrences="1">
+      <code>assertInstanceOf</code>
+    </RedundantCondition>
+  </file>
+  <file src="tests/Helper/MessageHelperTest.php">
+    <InternalMethod occurrences="2">
+      <code>willReturn</code>
+      <code>willReturn</code>
+    </InternalMethod>
+    <InvalidPropertyAssignmentValue occurrences="1">
+      <code>'{"Type":"Notification","MessageId":"06639ad4-ee6a-5401-8006-c9173fd8f941","TopicArn":"arn:aws:sns:eu-west-1:159321217982:tbme-dev-ses-bounces-topic","Message":"{\"notificationType\":\"Bounce\",\"bounce\":{\"bounceType\":\"Permanent\",\"bounceSubType\":\"Suppressed\",\"bouncedRecipients\":[{\"emailAddress\":\"suppressionlist@simulator.amazonses.com\",\"action\":\"failed\",\"status\":\"5.1.1\",\"diagnosticCode\":\"Amazon SES has suppressed sending to this address because it has a recent history of bouncing as an invalid address. For more information about how to remove an address from the suppression list, see the Amazon SES Developer Guide: http://docs.aws.amazon.com/ses/latest/DeveloperGuide/remove-from-suppressionlist.html \"}],\"timestamp\":\"2018-07-14T10:24:50.776Z\",\"feedbackId\":\"010201649852581b-c3ef3128-b920-4dfa-aaf9-b9af96e9e0ed-000000\",\"reportingMTA\":\"dns; amazonses.com\"},\"mail\":{\"timestamp\":\"2018-07-14T10:24:48.000Z\",\"source\":\"ciao@trustback.me\",\"sourceArn\":\"arn:aws:ses:eu-west-1:159321217982:identity/trustback.me\",\"sourceIp\":\"93.149.148.51\",\"sendingAccountId\":\"159321217982\",\"messageId\":\"0102016498525570-510337dc-eb7d-4acf-8ac8-07ae4b0417f1-000000\",\"destination\":[\"suppressionlist@simulator.amazonses.com\"]}}","Timestamp":"2018-07-14T10:24:50.794Z","SignatureVersion":"1","Signature":"aIAZOurxPd5k5YvXe1KmXfAgcZjJKFLBCKvstx82vuOj6Fz+t17jIIdW7oHVgzGQpby64kK9i82UcQvBUwT9b3Qgd69IxFcFf5lEMsYmHvQ2ohSuc+Ed1hKWSQUO4sZvrIaIWirgV1lKZ48BIzjjFphEoRvI5l9UHItU36Bj7Kx/I1FNQ6i0l+/bEM6RVGN8xvM/h8bG3o5kbYMhtoAmnUKQ067lV2STIXII/fMnDEqCW5fxfB3TykpNUC4RsrsLqcJlKBEkvPx1e8K6nwNXggC6iTnr3H5cV98dOwK6w/6WDMMcZIDFWXlKXXxdSyIn04N12GhStk67VodLwZ6XAA==","SigningCertURL":"https://sns.eu-west-1.amazonaws.com/SimpleNotificationService-eaea6120e66ea12e88dcd8bcbddca752.pem","UnsubscribeURL":"https://sns.eu-west-1.amazonaws.com/?Action=Unsubscribe&amp;SubscriptionArn=arn:aws:sns:eu-west-1:159321217982:tbme-dev-ses-bounces-topic:1df5a19c-a852-41c1-829c-c4fa528422f9"}'</code>
+    </InvalidPropertyAssignmentValue>
+    <MissingReturnType occurrences="1">
+      <code>testMessageHelper</code>
+    </MissingReturnType>
+    <MixedArgument occurrences="2">
+      <code>$message</code>
+      <code>$message</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="2">
+      <code>$message</code>
+      <code>$message</code>
+    </MixedAssignment>
+    <PossiblyFalseArgument occurrences="2">
+      <code>$message</code>
+      <code>$message</code>
+    </PossiblyFalseArgument>
+  </file>
+  <file src="tests/Manager/EmailStatusManagerTest.php">
+    <InternalMethod occurrences="8">
+      <code>method</code>
+      <code>method</code>
+      <code>with</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+    </InternalMethod>
+    <RedundantCondition occurrences="2">
+      <code>assertInstanceOf</code>
+      <code>assertInstanceOf</code>
+    </RedundantCondition>
+  </file>
+  <file src="tests/Manager/SnsManagerTest.php">
+    <InternalMethod occurrences="6">
+      <code>method</code>
+      <code>with</code>
+      <code>method</code>
+      <code>with</code>
+      <code>method</code>
+      <code>willReturn</code>
+    </InternalMethod>
+    <MissingPropertyType occurrences="1">
+      <code>$testEndpointConfig</code>
+    </MissingPropertyType>
+    <MixedArgument occurrences="2">
+      <code>$this-&gt;testEndpointConfig</code>
+      <code>$this-&gt;testEndpointConfig</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="2">
+      <code>$this-&gt;testEndpointConfig['host']</code>
+      <code>$this-&gt;testEndpointConfig['scheme']</code>
+    </MixedArrayAccess>
+    <PossiblyInvalidArgument occurrences="2">
+      <code>$this-&gt;createMockRouter()</code>
+      <code>$this-&gt;createMockRouter()</code>
+    </PossiblyInvalidArgument>
+    <RedundantCondition occurrences="1">
+      <code>assertInstanceOf</code>
+    </RedundantCondition>
+    <TooManyArguments occurrences="1">
+      <code>append</code>
+    </TooManyArguments>
+  </file>
+  <file src="tests/Plugin/MonitorFilterPluginTest.php">
+    <InternalMethod occurrences="45">
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturnCallback</code>
+      <code>method</code>
+      <code>willReturnMap</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturnCallback</code>
+      <code>method</code>
+      <code>willReturnCallback</code>
+      <code>method</code>
+      <code>willReturnMap</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturnCallback</code>
+      <code>method</code>
+      <code>willReturnCallback</code>
+      <code>method</code>
+      <code>willReturnMap</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturnCallback</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+    </InternalMethod>
+    <MixedArgument occurrences="5">
+      <code>$recipients</code>
+      <code>$recipients</code>
+      <code>$recipients</code>
+      <code>$recipients</code>
+      <code>$recipients</code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="3">
+      <code>$this-&gt;getEmailStatusMap()</code>
+      <code>$this-&gt;getEmailStatusMap()</code>
+      <code>$this-&gt;getEmailStatusMap()</code>
+    </MixedArgumentTypeCoercion>
+    <MixedAssignment occurrences="2">
+      <code>$recipients</code>
+      <code>$recipients</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="30">
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturnCallback</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturnCallback</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturnCallback</code>
+      <code>method</code>
+      <code>method</code>
+    </MixedMethodCall>
+    <PossiblyFalseArgument occurrences="5">
+      <code>$recipients</code>
+      <code>$recipients</code>
+      <code>$recipients</code>
+      <code>$recipients</code>
+      <code>$recipients</code>
+    </PossiblyFalseArgument>
+    <PossiblyUndefinedMethod occurrences="18">
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+    </PossiblyUndefinedMethod>
+  </file>
+  <file src="tests/Processor/AwsDataProcessorTest.php">
+    <InternalMethod occurrences="32">
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturnMap</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+    </InternalMethod>
+    <MixedArgument occurrences="8">
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']['dkim']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']['mail_from']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']['mail_from']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']['notifications']['bounces']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']['notifications']['complaints']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']['notifications']['deliveries']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']['verification']</code>
+      <code>$result[AwsDataProcessor::SUBSCRIPTIONS]</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="53">
+      <code>$result[AwsDataProcessor::ACCOUNT]['enabled']</code>
+      <code>$result[AwsDataProcessor::ACCOUNT]['quota']</code>
+      <code>$result[AwsDataProcessor::ACCOUNT]['quota']</code>
+      <code>$result[AwsDataProcessor::ACCOUNT]['quota']</code>
+      <code>$result[AwsDataProcessor::ACCOUNT]['stats']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']</code>
+      <code>$result[AwsDataProcessor::SUBSCRIPTIONS][$test['serendipityhq.com']['SubscriptionArn']]</code>
+      <code>$result[AwsDataProcessor::SUBSCRIPTIONS][$test['serendipityhq.com']['SubscriptionArn']]</code>
+      <code>$result[AwsDataProcessor::SUBSCRIPTIONS][$test['serendipityhq.com']['SubscriptionArn']]</code>
+      <code>$result[AwsDataProcessor::SUBSCRIPTIONS][$test['serendipityhq.com']['SubscriptionArn']]</code>
+      <code>$result[AwsDataProcessor::SUBSCRIPTIONS][$test['serendipityhq.com']['SubscriptionArn']]</code>
+      <code>$result[AwsDataProcessor::SUBSCRIPTIONS][$test['SubscriptionArn']]</code>
+      <code>$result[AwsDataProcessor::SUBSCRIPTIONS][$test['SubscriptionArn']]</code>
+      <code>$result[AwsDataProcessor::SUBSCRIPTIONS][$test['SubscriptionArn']]</code>
+      <code>$result[AwsDataProcessor::SUBSCRIPTIONS][$test['SubscriptionArn']]</code>
+      <code>$result[AwsDataProcessor::TOPICS][$test[0]['TopicArn']]</code>
+      <code>$result[AwsDataProcessor::TOPICS][$test['TopicArn']]</code>
+      <code>$result[AwsDataProcessor::TOPICS][$test['TopicArn']]</code>
+      <code>$result[AwsDataProcessor::TOPICS][$test['TopicArn']]</code>
+      <code>$result[AwsDataProcessor::TOPICS][$test['TopicArn']]</code>
+      <code>$result[AwsDataProcessor::TOPICS][$test['TopicArn']]</code>
+      <code>$result[AwsDataProcessor::TOPICS][$test['TopicArn']]</code>
+      <code>$result[AwsDataProcessor::TOPICS][$test['TopicArn']]</code>
+      <code>$result[AwsDataProcessor::TOPICS][$test['TopicArn']]</code>
+    </MixedArrayAccess>
+  </file>
+  <file src="tests/Processor/NotificationProcessorTest.php">
+    <InternalMethod occurrences="34">
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+    </InternalMethod>
+    <RedundantCondition occurrences="4">
+      <code>assertInstanceOf</code>
+      <code>assertInstanceOf</code>
+      <code>assertInstanceOf</code>
+      <code>assertInstanceOf</code>
+    </RedundantCondition>
+  </file>
+  <file src="tests/Processor/RequestProcessorTest.php">
+    <InternalMethod occurrences="20">
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+    </InternalMethod>
+    <RedundantCondition occurrences="3">
+      <code>assertInstanceOf</code>
+      <code>assertInstanceOf</code>
+      <code>assertInstanceOf</code>
+    </RedundantCondition>
+  </file>
+  <file src="tests/Processor/SubscriptionProcessorTest.php">
+    <InternalMethod occurrences="31">
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>will</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+    </InternalMethod>
+    <MissingClosureParamType occurrences="1">
+      <code>$key</code>
+    </MissingClosureParamType>
+    <MixedArrayOffset occurrences="1">
+      <code>$testMessage[$key]</code>
+    </MixedArrayOffset>
+    <RedundantCondition occurrences="3">
+      <code>assertInstanceOf</code>
+      <code>assertInstanceOf</code>
+      <code>assertInstanceOf</code>
+    </RedundantCondition>
+  </file>
+  <file src="tests/Service/MonitorTest.php">
+    <MixedAssignment occurrences="2">
+      <code>$result</code>
+      <code>$result</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="51">
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+    </MixedMethodCall>
+    <PossiblyInvalidArgument occurrences="6">
+      <code>$this-&gt;mockSectionTitle</code>
+      <code>$this-&gt;mockSectionBody</code>
+      <code>$this-&gt;mockSectionTitle</code>
+      <code>$this-&gt;mockSectionBody</code>
+      <code>$this-&gt;mockSectionTitle</code>
+      <code>$this-&gt;mockSectionBody</code>
+    </PossiblyInvalidArgument>
+    <PossiblyUndefinedMethod occurrences="25">
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+    </PossiblyUndefinedMethod>
+    <TooManyArguments occurrences="11">
+      <code>append</code>
+      <code>append</code>
+      <code>append</code>
+      <code>append</code>
+      <code>append</code>
+      <code>append</code>
+      <code>append</code>
+      <code>append</code>
+      <code>append</code>
+      <code>append</code>
+      <code>append</code>
+    </TooManyArguments>
+  </file>
+  <file src="tests/Util/ConsoleTest.php">
+    <InternalMethod occurrences="12">
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>method</code>
+      <code>method</code>
+      <code>with</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>with</code>
+      <code>method</code>
+      <code>method</code>
+    </InternalMethod>
+    <RedundantCondition occurrences="1">
+      <code>assertInstanceOf</code>
+    </RedundantCondition>
+  </file>
+  <file src="tests/Util/EmailStatusAnalyzerTest.php">
+    <InternalMethod occurrences="111">
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>with</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>method</code>
+      <code>willReturn</code>
+    </InternalMethod>
+  </file>
+</files>
