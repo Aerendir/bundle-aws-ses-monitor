@@ -1,16 +1,12 @@
 <?php
 
 /*
- * This file is part of the SHQAwsSesBundle.
+ * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2015 - 2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2015 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager;
@@ -88,7 +84,7 @@ class SnsManager
     {
         // Get the already set scheme and host
         $originalScheme = $this->router->getContext()->getScheme();
-        $originalHost = $this->router->getContext()->getHost();
+        $originalHost   = $this->router->getContext()->getHost();
 
         // Overwrite scheme and host
         $this->router->getContext()->setHost($this->endpointConfig['host']);
