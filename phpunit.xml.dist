@@ -27,6 +27,6 @@
     </filter>
     <logging>
         <log type="coverage-html" target="./var/coverage/html" lowUpperBound="35" highLowerBound="70" />
-        <log type="coverage-clover" target="var/coverage/clover.xml"/>
+        <log type="coverage-clover" target="./var/coverage/clover.xml"/>
     </logging>
 </phpunit>
