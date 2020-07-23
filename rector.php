@@ -11,26 +11,6 @@ declare(strict_types = 1);
  * file that was distributed with this source code.
  */
 
-use Rector\TypeDeclaration\Rector\ClassMethod\AddArrayReturnDocTypeRector;
-use Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector;
-use Rector\SOLID\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector;
-use Rector\SOLID\Rector\Property\AddFalseDefaultToBoolPropertyRector;
-use Rector\Privatization\Rector\MethodCall\PrivatizeLocalGetterToPropertyRector;
-use Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector;
-use Rector\Php56\Rector\FunctionLike\AddDefaultValueForUndefinedVariableRector;
-use Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector;
-use Rector\DeadCode\Rector\Class_\RemoveUnusedClassesRector;
-use Rector\CodingStyle\Rector\Use_\RemoveUnusedAliasRector;
-use Rector\CodingStyle\Rector\Throw_\AnnotateThrowablesRector;
-use Rector\CodingStyle\Rector\Switch_\BinarySwitchToIfElseRector;
-use Rector\CodingStyle\Rector\Identical\IdenticalFalseToBooleanNotRector;
-use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
-use Rector\CodingStyle\Rector\ClassMethod\RemoveDoubleUnderscoreInMethodNameRector;
-use Rector\CodingStyle\Rector\ClassMethod\NewlineBeforeNewAssignSetRector;
-use Rector\CodingStyle\Rector\Class_\AddArrayDefaultToArrayPropertyRector;
-use Rector\CodeQuality\Rector\Identical\SimplifyBoolIdenticalTrueRector;
-use Rector\CodeQuality\Rector\Concat\JoinStringConcatRector;
-use Rector\CodeQuality\Rector\Catch_\ThrowWithPreviousExceptionRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Rector\Core\Configuration\Option;
 use Rector\Set\ValueObject\SetList;
@@ -52,8 +32,8 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::CONSTRUCTOR_INJECTIN_TO_ACTION_INJECTION,
             SetList::CODE_QUALITY,
             SetList::CODING_STYLE,
-            SetList::DEAD_CLASSES,
-            SetList::DEAD_CODE,
+            // SetList::DEAD_CLASSES,
+            // SetList::DEAD_CODE,
             SetList::MONOLOG_20,
             SetList::PHP_DI_DECOUPLE,
             SetList::SWIFTMAILER_60,
@@ -124,26 +104,30 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
     $parameters->set(
         Option::EXCLUDE_RECTORS,
         [
-            ThrowWithPreviousExceptionRector::class,
-            JoinStringConcatRector::class,
-            SimplifyBoolIdenticalTrueRector::class,
-            AddArrayDefaultToArrayPropertyRector::class,
-            NewlineBeforeNewAssignSetRector::class,
-            RemoveDoubleUnderscoreInMethodNameRector::class,
-            EncapsedStringsToSprintfRector::class,
-            IdenticalFalseToBooleanNotRector::class,
-            BinarySwitchToIfElseRector::class,
-            AnnotateThrowablesRector::class,
-            RemoveUnusedAliasRector::class,
-            RemoveUnusedClassesRector::class,
-            RenamePropertyToMatchTypeRector::class,
-            AddDefaultValueForUndefinedVariableRector::class, // Maybe good one day
-            PrivatizeLocalOnlyMethodRector::class,
-            PrivatizeLocalGetterToPropertyRector::class,
-            AddFalseDefaultToBoolPropertyRector::class,
-            UseInterfaceOverImplementationInConstructorRector::class,
-            AddArrayParamDocTypeRector::class,
-            AddArrayReturnDocTypeRector::class,
+            Rector\TypeDeclaration\Rector\ClassMethod\AddArrayReturnDocTypeRector::class,
+            Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector::class,
+            Rector\SOLID\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector::class,
+            Rector\SOLID\Rector\Property\AddFalseDefaultToBoolPropertyRector::class,
+            Rector\Privatization\Rector\MethodCall\PrivatizeLocalGetterToPropertyRector::class,
+            Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector::class,
+            Rector\Php56\Rector\FunctionLike\AddDefaultValueForUndefinedVariableRector::class, // Maybe good one day
+            Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector::class,
+            Rector\DeadCode\Rector\Class_\RemoveUnusedClassesRector::class,
+            Rector\CodingStyle\Rector\Use_\RemoveUnusedAliasRector::class,
+            Rector\CodingStyle\Rector\Throw_\AnnotateThrowablesRector::class,
+            Rector\CodingStyle\Rector\Switch_\BinarySwitchToIfElseRector::class,
+            Rector\CodingStyle\Rector\Identical\IdenticalFalseToBooleanNotRector::class,
+            Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector::class,
+            Rector\CodingStyle\Rector\ClassMethod\RemoveDoubleUnderscoreInMethodNameRector::class,
+            Rector\CodingStyle\Rector\ClassMethod\NewlineBeforeNewAssignSetRector::class,
+            Rector\CodingStyle\Rector\Class_\AddArrayDefaultToArrayPropertyRector::class,
+            Rector\CodeQuality\Rector\Identical\SimplifyBoolIdenticalTrueRector::class,
+            Rector\CodeQuality\Rector\Concat\JoinStringConcatRector::class,
+            Rector\CodeQuality\Rector\Catch_\ThrowWithPreviousExceptionRector::class,
+
+            // Bugged
+            Rector\TypeDeclaration\Rector\Property\PropertyTypeDeclarationRector::class,
+            Rector\PHPUnit\Rector\MethodCall\GetMockBuilderGetMockToCreateMockRector::class,
         ]
     );
 };
