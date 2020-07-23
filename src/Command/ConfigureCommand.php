@@ -99,8 +99,8 @@ class ConfigureCommand extends Command
      */
     protected function configure()
     {
+        $this->setName('aws:ses:configure');
         $this->setDescription('Configures the identities on AWS SES and their topics.')
-             ->setName('aws:ses:configure')
             ->addOption('force', null, InputOption::VALUE_NONE, 'Forces the configuration of production identities, too.')
             ->addOption('full-log', null, InputOption::VALUE_NONE, 'Shows logs line by line, without simply changing the current one.');
     }

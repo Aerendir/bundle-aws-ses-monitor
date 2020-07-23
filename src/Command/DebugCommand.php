@@ -59,8 +59,8 @@ class DebugCommand extends Command
      */
     protected function configure()
     {
+        $this->setName(self::NAME);
         $this->setDescription('Debugs the aws ses configuration helping discovering errors and wrong settings.')
-             ->setName(self::NAME)
              ->addOption('full-log', null, InputOption::VALUE_NONE, 'Shows logs line by line, without simply changing the current one.');
     }
 
