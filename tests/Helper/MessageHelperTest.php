@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Processor;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Helper;
 
 use Aws\Sns\MessageValidator;
 use PHPUnit\Framework\MockObject\MockObject;

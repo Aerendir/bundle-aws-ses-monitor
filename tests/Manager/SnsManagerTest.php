@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Util;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Manager;
 
 use Aws\MockHandler;
 use Aws\Result;

@@ -9,10 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Processor;
 
 use Aws\Result;
 use PHPUnit\Framework\TestCase;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor\AwsDataProcessor;
 
 /**
  * {@inheritdoc}

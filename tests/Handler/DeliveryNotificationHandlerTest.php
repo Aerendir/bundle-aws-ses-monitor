@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Processor;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Handler;
 
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;

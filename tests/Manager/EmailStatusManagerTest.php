@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Processor;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Util;
+namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Service;
 
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\IdentitiesStore;
