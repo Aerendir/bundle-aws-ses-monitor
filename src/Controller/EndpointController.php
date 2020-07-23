@@ -13,14 +13,14 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor\RequestProcessor;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * {@inheritdoc}
  */
-class EndpointController extends Controller
+class EndpointController extends AbstractController
 {
     /**
      * @param Request                $request
