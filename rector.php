@@ -32,8 +32,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::CONSTRUCTOR_INJECTIN_TO_ACTION_INJECTION,
             SetList::CODE_QUALITY,
             SetList::CODING_STYLE,
-            // SetList::DEAD_CLASSES,
-            // SetList::DEAD_CODE,
             SetList::MONOLOG_20,
             SetList::PHP_DI_DECOUPLE,
             SetList::SWIFTMAILER_60,
