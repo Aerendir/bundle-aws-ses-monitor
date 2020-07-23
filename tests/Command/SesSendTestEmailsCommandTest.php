@@ -43,10 +43,10 @@ class SesSendTestEmailsCommandTest extends TestCase
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();
-        self::assertContains('Sending an email from test@example.com to success@simulator.amazonses.com', $output);
-        self::assertContains('Sending an email from test@example.com to bounce@simulator.amazonses.com', $output);
-        self::assertContains('Sending an email from test@example.com to ooto@simulator.amazonses.com', $output);
-        self::assertContains('Sending an email from test@example.com to complaint@simulator.amazonses.com', $output);
-        self::assertContains('Sending an email from test@example.com to suppressionlist@simulator.amazonses.com', $output);
+        self::assertStringContainsString('Sending an email from test@example.com to success@simulator.amazonses.com', $output);
+        self::assertStringContainsString('Sending an email from test@example.com to bounce@simulator.amazonses.com', $output);
+        self::assertStringContainsString('Sending an email from test@example.com to ooto@simulator.amazonses.com', $output);
+        self::assertStringContainsString('Sending an email from test@example.com to complaint@simulator.amazonses.com', $output);
+        self::assertStringContainsString('Sending an email from test@example.com to suppressionlist@simulator.amazonses.com', $output);
     }
 }
