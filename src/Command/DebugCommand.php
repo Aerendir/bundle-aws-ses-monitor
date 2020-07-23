@@ -25,7 +25,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * {@inheritdoc}
  *
- * @codeCoverageIgnore This command basically calls AWS and uses other classes already tested, so it is not testable.
+ * @ codeCoverageIgnore This command basically calls AWS and uses other classes already tested, so it is not testable.
  */
 class DebugCommand extends Command
 {

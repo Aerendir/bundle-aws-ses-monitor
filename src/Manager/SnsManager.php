@@ -66,7 +66,6 @@ class SnsManager
      * @param string $topicArn
      *
      * @return string|null
-     * @codeCoverageIgnore
      */
     public function setEndpoint(string $topicArn): ?string
     {
@@ -78,7 +77,6 @@ class SnsManager
 
     /**
      * @return string
-     * @codeCoverageIgnore
      */
     public function getEndpointUrl(): string
     {
@@ -105,7 +103,7 @@ class SnsManager
      * @param string $topicArn
      *
      * @return array
-     * @codeCoverageIgnore
+     * @ codeCoverageIgnore
      */
     private function buildSubscription(string $topicArn): array
     {

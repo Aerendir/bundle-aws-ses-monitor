@@ -32,7 +32,7 @@ class SesManager
 
     /**
      * @return Result
-     * @codeCoverageIgnore
+     * @ codeCoverageIgnore
      */
     public function listIdentities(): Result
     {
@@ -52,7 +52,7 @@ class SesManager
      * @param string $topicArn
      *
      * @see http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-email-2010-12-01.html#setidentitynotificationtopic
-     * @codeCoverageIgnore
+     * @ codeCoverageIgnore
      */
     public function setTopic(string $identity, string $notificationType, string $topicArn): void
     {
@@ -68,7 +68,7 @@ class SesManager
     /**
      * @param string $identity
      * @param bool   $enabled
-     * @codeCoverageIgnore
+     * @ codeCoverageIgnore
      */
     public function configureDkim(string $identity, bool $enabled): void
     {
@@ -81,7 +81,7 @@ class SesManager
     /**
      * @param string $identity
      * @param bool   $enabled
-     * @codeCoverageIgnore
+     * @ codeCoverageIgnore
      */
     public function configureFeedbackForwarding(string $identity, bool $enabled): void
     {
@@ -95,7 +95,7 @@ class SesManager
      * @param string      $identity
      * @param string|null $domain
      * @param string      $onMxFailure
-     * @codeCoverageIgnore
+     * @ codeCoverageIgnore
      */
     public function configureFromDomain(string $identity, ?string $domain, string $onMxFailure): void
     {
@@ -110,7 +110,7 @@ class SesManager
      * @param string $identity
      *
      * @return string
-     * @codeCoverageIgnore
+     * @ codeCoverageIgnore
      */
     public function verifyDomainIdentity(string $identity): string
     {
@@ -121,7 +121,7 @@ class SesManager
 
     /**
      * @param string $identity
-     * @codeCoverageIgnore
+     * @ codeCoverageIgnore
      */
     public function verifyEmailIdentity(string $identity): void
     {

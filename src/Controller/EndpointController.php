@@ -28,7 +28,7 @@ class EndpointController extends AbstractController
      * @param EntityManagerInterface $entityManager
      *
      * @return Response
-     * @codeCoverageIgnore
+     * @ codeCoverageIgnore
      */
     public function endpoint(Request $request, RequestProcessor $processor, EntityManagerInterface $entityManager): Response
     {

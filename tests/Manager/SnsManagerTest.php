@@ -14,6 +14,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Manager;
 use Aws\MockHandler;
 use Aws\Result;
 use Aws\Sns\SnsClient;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Topic;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\SnsManager;
@@ -76,16 +77,16 @@ class SnsManagerTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|RouterInterface
+     * @return MockObject|RouterInterface
      */
     private function createMockRouter()
     {
         $mockContext = $this->createMock(RequestContext::class);
         $mockRouter  = $this->createMock(RouterInterface::class);
 
-        $mockContext->expects(self::once())->method('setHost')->with($this->testEndpointConfig['host']);
-        $mockContext->expects(self::once())->method('setScheme')->with($this->testEndpointConfig['scheme']);
-        $mockRouter->expects(self::exactly(2))->method('getContext')->willReturn($mockContext);
+        $mockContext->expects(self::never())->method('setHost')->with($this->testEndpointConfig['host']);
+        $mockContext->expects(self::never())->method('setScheme')->with($this->testEndpointConfig['scheme']);
+        $mockRouter->expects(self::never())->method('getContext')->willReturn($mockContext);
 
         return $mockRouter;
     }
