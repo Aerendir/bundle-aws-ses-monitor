@@ -31,13 +31,8 @@ parameters:
 			path: src/Command/ConfigureCommand.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\ConfigureCommand\\:\\:configure\\(\\) has no return typehint specified\\.$#"
+			message: "#^Strict comparison using \\=\\=\\= between false and string will always evaluate to false\\.$#"
 			count: 1
-			path: src/Command/ConfigureCommand.php
-
-		-
-			message: "#^Function sprintf is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\sprintf;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 35
 			path: src/Command/ConfigureCommand.php
 
 		-
@@ -56,32 +51,12 @@ parameters:
 			path: src/Command/ConfigureCommand.php
 
 		-
-			message: "#^Function preg_replace is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\preg_replace;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 1
-			path: src/Command/ConfigureCommand.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function strtolower expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/Command/ConfigureCommand.php
-
-		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\DebugCommand\\:\\:\\$sectionTitle has no typehint specified\\.$#"
 			count: 1
 			path: src/Command/DebugCommand.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\DebugCommand\\:\\:\\$sectionBody has no typehint specified\\.$#"
-			count: 1
-			path: src/Command/DebugCommand.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\DebugCommand\\:\\:configure\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Command/DebugCommand.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\DebugCommand\\:\\:execute\\(\\) should return int but return statement is missing\\.$#"
 			count: 1
 			path: src/Command/DebugCommand.php
 
@@ -96,34 +71,9 @@ parameters:
 			path: src/Command/DebugCommand.php
 
 		-
-			message: "#^Function sprintf is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\sprintf;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 1
-			path: src/Command/DebugCommand.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\DebugCommand\\:\\:showData\\(\\) has parameter \\$validationResults with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Command/DebugCommand.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\SesSendTestEmailsCommand\\:\\:configure\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Command/SesSendTestEmailsCommand.php
-
-		-
-			message: "#^Function sprintf is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\sprintf;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 1
-			path: src/Command/SesSendTestEmailsCommand.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\DependencyInjection\\\\SHQAwsSesMonitorExtension\\:\\:load\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/DependencyInjection/SHQAwsSesMonitorExtension.php
-
-		-
-			message: "#^Function sprintf is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\sprintf;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 1
-			path: src/DependencyInjection/SHQAwsSesMonitorExtension.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\DependencyInjection\\\\SHQAwsSesMonitorExtension\\:\\:requiresFilter\\(\\) has parameter \\$identities with no value type specified in iterable type array\\.$#"
@@ -261,11 +211,6 @@ parameters:
 			path: src/Helper/MessageHelper.php
 
 		-
-			message: "#^Function json_decode is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\json_decode;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 2
-			path: src/Helper/MessageHelper.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Helper\\\\MessageHelper\\:\\:validateNotification\\(\\) has parameter \\$message with no value type specified in iterable type Aws\\\\Sns\\\\Message\\.$#"
 			count: 1
 			path: src/Helper/MessageHelper.php
@@ -391,11 +336,6 @@ parameters:
 			path: src/Processor/NotificationProcessor.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\SHQAwsSesMonitorBundle\\:\\:build\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/SHQAwsSesMonitorBundle.php
-
-		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\IdentitiesStore\\:\\:\\$identities type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Service/IdentitiesStore.php
@@ -428,11 +368,6 @@ parameters:
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\Monitor\\:\\:findConfiguredIdentity\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/Service/Monitor.php
-
-		-
-			message: "#^Function sprintf is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\sprintf;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 4
 			path: src/Service/Monitor.php
 
 		-
@@ -511,16 +446,6 @@ parameters:
 			path: src/Util/IdentityGuesser.php
 
 		-
-			message: "#^Function sprintf is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\sprintf;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 1
-			path: src/Util/IdentityGuesser.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Command\\\\SesSendTestEmailsCommandTest\\:\\:testExecute\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Command/SesSendTestEmailsCommandTest.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\AbstractSerendipityHQAwsSesBouncerExtensionTest\\:\\:testDefaultConfig\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php
@@ -576,39 +501,14 @@ parameters:
 			path: tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\YamlAwsSesMonitorBundleExtensionTest\\:\\:loadConfiguration\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/DependencyInjection/YamlAwsSesMonitorBundleExtensionTest.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\YamlAwsSesMonitorBundleExtensionTest\\:\\:loadConfiguration\\(\\) has parameter \\$resource with no typehint specified\\.$#"
 			count: 1
 			path: tests/DependencyInjection/YamlAwsSesMonitorBundleExtensionTest.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Entity\\\\BounceTest\\:\\:testBounce\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Entity/BounceTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Entity\\\\ComplaintTest\\:\\:testComplaint\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Entity/ComplaintTest.php
-
-		-
 			message: "#^Cannot call method format\\(\\) on DateTime\\|null\\.$#"
 			count: 1
 			path: tests/Entity/ComplaintTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Entity\\\\DeliveryTest\\:\\:testDelivery\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Entity/DeliveryTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Entity\\\\EmailStatusTest\\:\\:testBounces\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Entity/EmailStatusTest.php
 
 		-
 			message: "#^You should use assertCount\\(\\$expectedCount, \\$variable\\) instead of assertSame\\(\\$expectedCount, \\$variable\\-\\>count\\(\\)\\)\\.$#"
@@ -621,21 +521,6 @@ parameters:
 			path: tests/Entity/EmailStatusTest.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Entity\\\\EmailStatusTest\\:\\:testComplaints\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Entity/EmailStatusTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Entity\\\\EmailStatusTest\\:\\:testDeliveries\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Entity/EmailStatusTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Entity\\\\MailMessageTest\\:\\:testTopic\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Entity/MailMessageTest.php
-
-		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
 			path: tests/Entity/MailMessageTest.php
@@ -646,84 +531,9 @@ parameters:
 			path: tests/Entity/MailMessageTest.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Entity\\\\TopicTest\\:\\:testTopic\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Entity/TopicTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\BounceNotificationHandlerTest\\:\\:testProcessNotification\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Handler/BounceNotificationHandlerTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\ComplaintNotificationHandlerTest\\:\\:testProcessNotification\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Handler/ComplaintNotificationHandlerTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\DeliveryNotificationHandlerTest\\:\\:testProcessNotification\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Handler/DeliveryNotificationHandlerTest.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\MessageHelperTest\\:\\:\\$data \\(array\\) does not accept default value of type string\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Helper\\\\MessageHelperTest\\:\\:testMessageHelper\\(\\) return type has no value type specified in iterable type Aws\\\\Sns\\\\Message\\.$#"
 			count: 1
 			path: tests/Helper/MessageHelperTest.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\MessageHelperTest\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/Helper/MessageHelperTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\MessageHelperTest\\:\\:testMessageHelper\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Helper/MessageHelperTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\MessageHelperTest\\:\\:testValidateNotification\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Helper/MessageHelperTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\MessageHelperTest\\:\\:testExtractMessageData\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Helper/MessageHelperTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\EmailStatusManagerTest\\:\\:testCreateEmailStatus\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Manager/EmailStatusManagerTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\EmailStatusManagerTest\\:\\:testLoadEmailStatus\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Manager/EmailStatusManagerTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\EmailStatusManagerTest\\:\\:testLoadOrCreateEmaillStatus\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Manager/EmailStatusManagerTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\SesManagerTest\\:\\:testGetClient\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Manager/SesManagerTest.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\SnsManagerTest\\:\\:\\$testEndpointConfig has no typehint specified\\.$#"
-			count: 1
-			path: tests/Manager/SnsManagerTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\SnsManagerTest\\:\\:testGetClient\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Manager/SnsManagerTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\SnsManagerTest\\:\\:testCreateTopic\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Manager/SnsManagerTest.php
 
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
@@ -741,169 +551,14 @@ parameters:
 			path: tests/Plugin/MonitorFilterPluginTest.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessorTest\\:\\:testProcessAccountSendingEnabled\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/AwsDataProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessorTest\\:\\:testProcessAccountSendQuota\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/AwsDataProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessorTest\\:\\:testProcessAccountSendStatistics\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/AwsDataProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessorTest\\:\\:testProcessIdentitiesDkimAttributes\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/AwsDataProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessorTest\\:\\:testProcessIdentitiesMailFromDomainAttributes\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/AwsDataProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessorTest\\:\\:testProcessIdentitiesNotificationAttributes\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/AwsDataProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessorTest\\:\\:testProcessIdentitiesVerificationAttributes\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/AwsDataProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessorTest\\:\\:testProcessSubscriptions\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/AwsDataProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessorTest\\:\\:testProcessSubscriptionAttributes\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/AwsDataProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessorTest\\:\\:testProcessTopics\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/AwsDataProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessorTest\\:\\:testProcessTopicAttributes\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/AwsDataProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\NotificationProcessorTest\\:\\:testMessageMustBeValid\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/NotificationProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\NotificationProcessorTest\\:\\:testNotificationTypeMustExist\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/NotificationProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\NotificationProcessorTest\\:\\:testSubscriptionSuccessImmediatelyReturns\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/NotificationProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\NotificationProcessorTest\\:\\:testBounceHandling\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/NotificationProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\NotificationProcessorTest\\:\\:testComplaintHandling\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/NotificationProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\NotificationProcessorTest\\:\\:testDeliveryHandling\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/NotificationProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\NotificationProcessorTest\\:\\:testUnknownMessageTypeReturnsErrorResponse\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/NotificationProcessorTest.php
-
-		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
 			path: tests/Processor/NotificationProcessorTest.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\NotificationProcessorTest\\:\\:configureLoadOrCreateMailMessage\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/NotificationProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\RequestProcessorTest\\:\\:testMethodMustBePost\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/RequestProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\RequestProcessorTest\\:\\:testSnsTypeHeaderMustBeSet\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/RequestProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\RequestProcessorTest\\:\\:testUnknownSnsTypeHeaderThrowAnException\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/RequestProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\RequestProcessorTest\\:\\:testNotificationProcessing\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/RequestProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\RequestProcessorTest\\:\\:testSubscriptionConfirmationProcessing\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/RequestProcessorTest.php
-
-		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\SubscriptionProcessorTest\\:\\:\\$subscriptionProcessor has no typehint specified\\.$#"
 			count: 1
 			path: tests/Processor/SubscriptionProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\SubscriptionProcessorTest\\:\\:testMessageMustBeValid\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/SubscriptionProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\SubscriptionProcessorTest\\:\\:testTopicMustExist\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/SubscriptionProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\SubscriptionProcessorTest\\:\\:testOkResponse\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Processor/SubscriptionProcessorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\IdentitiesStoreTest\\:\\:testIdentitiesStore\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Service/IdentitiesStoreTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\IdentitiesStoreTest\\:\\:testGetIdentity\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Service/IdentitiesStoreTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\IdentitiesStoreTest\\:\\:testIdentityExists\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Service/IdentitiesStoreTest.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:\\$mockEnv has no typehint specified\\.$#"
-			count: 1
-			path: tests/Service/MonitorTest.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:\\$mockConfiguredIdentities has no typehint specified\\.$#"
@@ -951,76 +606,6 @@ parameters:
 			path: tests/Service/MonitorTest.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:testRetrieveWithoutAccount\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Service/MonitorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:testRetrieveWithAccount\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Service/MonitorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:testGetAccount\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Service/MonitorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:testGetAccountWithAttribute\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Service/MonitorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:testGetConfiguredIdentity\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Service/MonitorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:testFindConfiguredIdentityEmailNotConfiguredButItsDomainIs\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Service/MonitorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:testFindConfiguredIdentityEmailNotConfiguredAndItsDomainIsntTooThrowsException\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Service/MonitorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:testFindConfiguredIdentityDomainNotConfiguredThrowsException\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Service/MonitorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:testGetIdentityGuesser\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Service/MonitorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:callRetrieve\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Service/MonitorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:configureSesClient\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Service/MonitorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:configureSnsClient\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Service/MonitorTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\ConsoleTest\\:\\:testCreateWriter\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/ConsoleTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\ConsoleTest\\:\\:testCreateSection4\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/ConsoleTest.php
-
-		-
 			message: "#^Comparison operation \"\\<\" between 5 and 4 is always false\\.$#"
 			count: 4
 			path: tests/Util/ConsoleTest.php
@@ -1029,124 +614,4 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 4
 			path: tests/Util/ConsoleTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\ConsoleTest\\:\\:testCreateSection3\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/ConsoleTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\ConsoleTest\\:\\:testOverwrite4\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/ConsoleTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\ConsoleTest\\:\\:testOverwrite3\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/ConsoleTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\ConsoleTest\\:\\:testClear4\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/ConsoleTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\ConsoleTest\\:\\:testClear3\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/ConsoleTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\ConsoleTest\\:\\:testEnableFullLog4\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/ConsoleTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\EmailStatusAnalyzerTest\\:\\:testIsComplained\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/EmailStatusAnalyzerTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\EmailStatusAnalyzerTest\\:\\:testIsBouncedHard\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/EmailStatusAnalyzerTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\EmailStatusAnalyzerTest\\:\\:testIsBouncedWith\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/EmailStatusAnalyzerTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\EmailStatusAnalyzerTest\\:\\:testIsBouncedNot\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/EmailStatusAnalyzerTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\EmailStatusAnalyzerTest\\:\\:testBouncedCannnotReceiveMessages\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/EmailStatusAnalyzerTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\EmailStatusAnalyzerTest\\:\\:testBouncedCanReceiveMessagesWithTrackingDisabled\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/EmailStatusAnalyzerTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\EmailStatusAnalyzerTest\\:\\:testBouncedCanReceiveMessagesWithSendingForced\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/EmailStatusAnalyzerTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\EmailStatusAnalyzerTest\\:\\:testComplainedCannnotReceiveMessages\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/EmailStatusAnalyzerTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\EmailStatusAnalyzerTest\\:\\:testComplainedCanReceiveMessagesWithTrackingDisabled\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/EmailStatusAnalyzerTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\EmailStatusAnalyzerTest\\:\\:testComplainedCanReceiveMessagesWithSendingForced\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/EmailStatusAnalyzerTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\EmailStatusAnalyzerTest\\:\\:testHealthyCanReceiveMessages\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/EmailStatusAnalyzerTest.php
-
-		-
-			message: "#^Function sprintf is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\sprintf;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 2
-			path: tests/Util/IdentityGuesserTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\IdentityGuesserTest\\:\\:testGetEmailParts\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/IdentityGuesserTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\IdentityGuesserTest\\:\\:testGetEmailPartsAcceptsOnlyEmailIdentities\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/IdentityGuesserTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\IdentityGuesserTest\\:\\:testIsEmailIdentity\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/IdentityGuesserTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\IdentityGuesserTest\\:\\:testIsDomainIdentity\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/IdentityGuesserTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\IdentityGuesserTest\\:\\:testIsTestEmail\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/IdentityGuesserTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Util\\\\IdentityGuesserTest\\:\\:testIsProductionIdentity\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/Util/IdentityGuesserTest.php
 
