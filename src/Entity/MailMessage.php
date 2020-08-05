@@ -164,10 +164,8 @@ class MailMessage
 
     /**
      * @param Bounce $bounce
-     *
-     * @return MailMessage
      */
-    public function addBounce(Bounce $bounce): MailMessage
+    public function addBounce(Bounce $bounce): self
     {
         $this->bounces->add($bounce);
 
@@ -176,10 +174,8 @@ class MailMessage
 
     /**
      * @param Complaint $complaint
-     *
-     * @return MailMessage
      */
-    public function addComplaint(Complaint $complaint): MailMessage
+    public function addComplaint(Complaint $complaint): self
     {
         $this->complaints->add($complaint);
 
@@ -188,10 +184,8 @@ class MailMessage
 
     /**
      * @param Delivery $delivery
-     *
-     * @return MailMessage
      */
-    public function addDelivery(Delivery $delivery): MailMessage
+    public function addDelivery(Delivery $delivery): self
     {
         $this->deliveries->add($delivery);
 
@@ -282,10 +276,8 @@ class MailMessage
      * @param string $messageId
      *
      * @internal
-     *
-     * @return MailMessage
      */
-    public function setMessageId(string $messageId): MailMessage
+    public function setMessageId(string $messageId): self
     {
         $this->messageId = $messageId;
 
@@ -296,10 +288,8 @@ class MailMessage
      * @param \DateTime $sentOn
      *
      * @internal
-     *
-     * @return MailMessage
      */
-    public function setSentOn(\DateTime $sentOn): MailMessage
+    public function setSentOn(\DateTime $sentOn): self
     {
         $this->sentOn = $sentOn;
 
@@ -310,10 +300,8 @@ class MailMessage
      * @param string $sentFrom
      *
      * @internal
-     *
-     * @return MailMessage
      */
-    public function setSentFrom(string $sentFrom): MailMessage
+    public function setSentFrom(string $sentFrom): self
     {
         $this->sentFrom = $sentFrom;
 
@@ -324,10 +312,8 @@ class MailMessage
      * @param string $sourceArn
      *
      * @internal
-     *
-     * @return MailMessage
      */
-    public function setSourceArn(string $sourceArn): MailMessage
+    public function setSourceArn(string $sourceArn): self
     {
         $this->sourceArn = $sourceArn;
 
@@ -338,10 +324,8 @@ class MailMessage
      * @param string $sendingAccountId
      *
      * @internal
-     *
-     * @return MailMessage
      */
-    public function setSendingAccountId(string $sendingAccountId): MailMessage
+    public function setSendingAccountId(string $sendingAccountId): self
     {
         $this->sendingAccountId = $sendingAccountId;
 
@@ -352,10 +336,8 @@ class MailMessage
      * @param string $headers
      *
      * @internal
-     *
-     * @return MailMessage
      */
-    public function setHeaders(string $headers): MailMessage
+    public function setHeaders(string $headers): self
     {
         $this->headers = $headers;
 
@@ -366,10 +348,8 @@ class MailMessage
      * @param string $commonHeaders
      *
      * @internal
-     *
-     * @return MailMessage
      */
-    public function setCommonHeaders(string $commonHeaders): MailMessage
+    public function setCommonHeaders(string $commonHeaders): self
     {
         $this->commonHeaders = $commonHeaders;
 

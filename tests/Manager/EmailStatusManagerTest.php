@@ -20,9 +20,14 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\EmailStatusManager;
 /**
  * {@inheritdoc}
  */
-class EmailStatusManagerTest extends TestCase
+final class EmailStatusManagerTest extends TestCase
 {
-    public function testCreateEmailStatus()
+    /**
+     * ! ! ! Upper and lower case letters ! ! !
+     * @var string
+     */
+    private const TEST_EMAIL = 'Test@serEndipItyhq.com';
+    public function testCreateEmailStatus(): void
     {
         $mockEntityManager = $this->createMock(EntityManagerInterface::class);
         $mockEntityManager->expects(self::exactly(1))->method('persist');
@@ -33,10 +38,8 @@ class EmailStatusManagerTest extends TestCase
         self::assertInstanceOf(EmailStatus::class, $result);
     }
 
-    public function testLoadEmailStatus()
+    public function testLoadEmailStatus(): void
     {
-        // ! ! ! Upper and lower case letters ! ! !
-        $testEmail                 = 'Test@serEndipItyhq.com';
         $mockEmailStatusRepository = $this->createMock(EntityRepository::class);
         $mockEmailStatusRepository
             ->expects(self::exactly(1))
@@ -45,12 +48,11 @@ class EmailStatusManagerTest extends TestCase
             ->with(self::equalTo(['address' => 'test@serendipityhq.com']));
         $mockEntityManager = $this->createMock(EntityManagerInterface::class);
         $mockEntityManager->expects(self::exactly(1))->method('getRepository')->willReturn($mockEmailStatusRepository);
-
         $emailStatusManager = new EmailStatusManager($mockEntityManager);
-        $emailStatusManager->loadEmailStatus($testEmail);
+        $emailStatusManager->loadEmailStatus(self::TEST_EMAIL);
     }
 
-    public function testLoadOrCreateEmaillStatus()
+    public function testLoadOrCreateEmaillStatus(): void
     {
         $mockEmailStatusRepository = $this->createMock(EntityRepository::class);
         $mockEmailStatusRepository

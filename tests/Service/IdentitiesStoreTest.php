@@ -17,9 +17,9 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\IdentitiesStore;
 /**
  * {@inheritdoc}
  */
-class IdentitiesStoreTest extends TestCase
+final class IdentitiesStoreTest extends TestCase
 {
-    public function testIdentitiesStore()
+    public function testIdentitiesStore(): void
     {
         $testIdentities = [
             'serendipityhq.com'       => [],
@@ -29,10 +29,10 @@ class IdentitiesStoreTest extends TestCase
         $resource = new IdentitiesStore($testIdentities);
 
         self::assertEquals($testIdentities, $resource->getIdentities());
-        self::assertEquals(array_keys($testIdentities), $resource->getIdentitiesList());
+        self::assertEquals(\array_keys($testIdentities), $resource->getIdentitiesList());
     }
 
-    public function testGetIdentity()
+    public function testGetIdentity(): void
     {
         $testIdentities = [
             'serendipityhq.com'       => ['attribute' => 'awesome'],
@@ -45,7 +45,7 @@ class IdentitiesStoreTest extends TestCase
         self::assertEquals($testIdentities['serendipityhq.com']['attribute'], $resource->getIdentity('serendipityhq.com', 'attribute'));
     }
 
-    public function testIdentityExists()
+    public function testIdentityExists(): void
     {
         $testIdentities = [
             'serendipityhq.com'       => ['attribute' => 'awesome'],

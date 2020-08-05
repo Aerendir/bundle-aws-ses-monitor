@@ -18,15 +18,51 @@ use Aws\Result;
  *
  * @internal
  */
-class AwsDataProcessor
+final class AwsDataProcessor
 {
+    /**
+     * @var string
+     */
     const ACCOUNT       = 'account';
+    /**
+     * @var string
+     */
     const IDENTITIES    = 'identities';
+    /**
+     * @var string
+     */
     const SUBSCRIPTIONS = 'subscriptions';
+    /**
+     * @var string
+     */
     const TOPICS        = 'topics';
 
     /** @var array */
     private $data = [];
+    /**
+     * @var string
+     */
+    private const MAIL_FROM = 'mail_from';
+    /**
+     * @var string
+     */
+    private const NOTIFICATIONS = 'notifications';
+    /**
+     * @var string
+     */
+    private const INCLUDE_HEADERS = 'include_headers';
+    /**
+     * @var string
+     */
+    private const TOPIC = 'topic';
+    /**
+     * @var string
+     */
+    private const SUBSCRIPTION_ARN = 'SubscriptionArn';
+    /**
+     * @var string
+     */
+    private const TOPIC_ARN = 'TopicArn';
 
     /**
      * @param Result $result
@@ -89,14 +125,14 @@ class AwsDataProcessor
     public function processIdentitiesMailFromDomainAttributes(Result $result): void
     {
         foreach ($result->get('MailFromDomainAttributes') as $identity => $attribute) {
-            $this->data[self::IDENTITIES][$identity]['mail_from']['on_mx_failure'] = $attribute['BehaviorOnMXFailure'];
+            $this->data[self::IDENTITIES][$identity][self::MAIL_FROM]['on_mx_failure'] = $attribute['BehaviorOnMXFailure'];
 
             if (isset($attribute['MailFromDomainStatus'])) {
-                $this->data[self::IDENTITIES][$identity]['mail_from']['status'] = $attribute['MailFromDomainStatus'];
+                $this->data[self::IDENTITIES][$identity][self::MAIL_FROM]['status'] = $attribute['MailFromDomainStatus'];
             }
 
             if (isset($attribute['MailFromDomain'])) {
-                $this->data[self::IDENTITIES][$identity]['mail_from']['domain'] = $attribute['MailFromDomain'];
+                $this->data[self::IDENTITIES][$identity][self::MAIL_FROM]['domain'] = $attribute['MailFromDomain'];
             }
         }
     }
@@ -109,24 +145,24 @@ class AwsDataProcessor
     public function processIdentitiesNotificationAttributes(Result $result): void
     {
         foreach ($result->get('NotificationAttributes') as $identity => $attribute) {
-            $this->data[self::IDENTITIES][$identity]['notifications'] = [
+            $this->data[self::IDENTITIES][$identity][self::NOTIFICATIONS] = [
                 'forwarding_enabled' => $attribute['ForwardingEnabled'],
-                'bounces'            => ['include_headers' => $attribute['HeadersInBounceNotificationsEnabled']],
-                'complaints'         => ['include_headers' => $attribute['HeadersInComplaintNotificationsEnabled']],
-                'deliveries'         => ['include_headers' => $attribute['HeadersInDeliveryNotificationsEnabled']],
+                'bounces'            => [self::INCLUDE_HEADERS => $attribute['HeadersInBounceNotificationsEnabled']],
+                'complaints'         => [self::INCLUDE_HEADERS => $attribute['HeadersInComplaintNotificationsEnabled']],
+                'deliveries'         => [self::INCLUDE_HEADERS => $attribute['HeadersInDeliveryNotificationsEnabled']],
             ];
 
             // Thoses fields are not present if the identity was not set to send notification to a SNS topic
             if (isset($attribute['BounceTopic'])) {
-                $this->data[self::IDENTITIES][$identity]['notifications']['bounces']['topic'] = $attribute['BounceTopic'];
+                $this->data[self::IDENTITIES][$identity][self::NOTIFICATIONS]['bounces'][self::TOPIC] = $attribute['BounceTopic'];
             }
 
             if (isset($attribute['ComplaintTopic'])) {
-                $this->data[self::IDENTITIES][$identity]['notifications']['complaints']['topic'] = $attribute['ComplaintTopic'];
+                $this->data[self::IDENTITIES][$identity][self::NOTIFICATIONS]['complaints'][self::TOPIC] = $attribute['ComplaintTopic'];
             }
 
             if (isset($attribute['DeliveryTopic'])) {
-                $this->data[self::IDENTITIES][$identity]['notifications']['deliveries']['topic'] = $attribute['DeliveryTopic'];
+                $this->data[self::IDENTITIES][$identity][self::NOTIFICATIONS]['deliveries'][self::TOPIC] = $attribute['DeliveryTopic'];
             }
         }
     }
@@ -155,13 +191,13 @@ class AwsDataProcessor
     public function processSubscriptions(Result $result): void
     {
         foreach ($result->get('Subscriptions') as $subscription) {
-            if ('PendingConfirmation' !== $subscription['SubscriptionArn']) {
-                $this->data[self::SUBSCRIPTIONS][$subscription['SubscriptionArn']] = [
-                    'subscription_arn' => $subscription['SubscriptionArn'],
+            if ('PendingConfirmation' !== $subscription[self::SUBSCRIPTION_ARN]) {
+                $this->data[self::SUBSCRIPTIONS][$subscription[self::SUBSCRIPTION_ARN]] = [
+                    'subscription_arn' => $subscription[self::SUBSCRIPTION_ARN],
                     'owner'            => $subscription['Owner'],
                     'protocol'         => $subscription['Protocol'],
                     'endpoint'         => $subscription['Endpoint'],
-                    'topic_arn'        => $subscription['TopicArn'],
+                    'topic_arn'        => $subscription[self::TOPIC_ARN],
                 ];
             }
         }
@@ -176,9 +212,9 @@ class AwsDataProcessor
     {
         $attributes = $result->get('Attributes');
 
-        $this->data[self::SUBSCRIPTIONS][$attributes['SubscriptionArn']]['raw_message_delivery']      = $attributes['RawMessageDelivery'];
-        $this->data[self::SUBSCRIPTIONS][$attributes['SubscriptionArn']]['effective_delivery_policy'] = $attributes['EffectiveDeliveryPolicy'];
-        $this->data[self::SUBSCRIPTIONS][$attributes['SubscriptionArn']]['confirmation']              = [
+        $this->data[self::SUBSCRIPTIONS][$attributes[self::SUBSCRIPTION_ARN]]['raw_message_delivery']      = $attributes['RawMessageDelivery'];
+        $this->data[self::SUBSCRIPTIONS][$attributes[self::SUBSCRIPTION_ARN]]['effective_delivery_policy'] = $attributes['EffectiveDeliveryPolicy'];
+        $this->data[self::SUBSCRIPTIONS][$attributes[self::SUBSCRIPTION_ARN]]['confirmation']              = [
             'pending'           => $attributes['PendingConfirmation'],
             'was_authenticated' => $attributes['ConfirmationWasAuthenticated'],
         ];
@@ -192,7 +228,7 @@ class AwsDataProcessor
     public function processTopics(Result $result): void
     {
         foreach ($result->get('Topics') as $topic) {
-            $this->data[self::TOPICS][$topic['TopicArn']] = [];
+            $this->data[self::TOPICS][$topic[self::TOPIC_ARN]] = [];
         }
     }
 
@@ -205,8 +241,8 @@ class AwsDataProcessor
     {
         $attributes = $result->get('Attributes');
 
-        $this->data[self::TOPICS][$attributes['TopicArn']] = [
-            'arn'                       => $attributes['TopicArn'],
+        $this->data[self::TOPICS][$attributes[self::TOPIC_ARN]] = [
+            'arn'                       => $attributes[self::TOPIC_ARN],
             'display_name'              => $attributes['DisplayName'],
             'policy'                    => $attributes['Policy'],
             'owner'                     => $attributes['Owner'],

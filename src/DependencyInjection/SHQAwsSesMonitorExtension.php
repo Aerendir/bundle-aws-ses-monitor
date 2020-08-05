@@ -20,12 +20,12 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 /**
  * {@inheritdoc}
  */
-class SHQAwsSesMonitorExtension extends Extension
+final class SHQAwsSesMonitorExtension extends Extension
 {
     /**
      * {@inheritdoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
         $config        = $this->processConfiguration($configuration, $configs);
@@ -45,7 +45,7 @@ class SHQAwsSesMonitorExtension extends Extension
             $mailers = $config['mailers'];
             $filter  = $container->getDefinition(MonitorFilterPlugin::class);
             foreach ($mailers as $mailer) {
-                $filter->addTag(sprintf('swiftmailer.%s.plugin', $mailer));
+                $filter->addTag(\Safe\sprintf('swiftmailer.%s.plugin', $mailer));
             }
         }
     }

@@ -18,9 +18,9 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor\AwsDataProcessor;
 /**
  * {@inheritdoc}
  */
-class AwsDataProcessorTest extends TestCase
+final class AwsDataProcessorTest extends TestCase
 {
-    public function testProcessAccountSendingEnabled()
+    public function testProcessAccountSendingEnabled(): void
     {
         $testValue  = true;
         $mockResult = $this->createMock(Result::class);
@@ -34,7 +34,7 @@ class AwsDataProcessorTest extends TestCase
         self::assertEquals($testValue, $result[AwsDataProcessor::ACCOUNT]['enabled']);
     }
 
-    public function testProcessAccountSendQuota()
+    public function testProcessAccountSendQuota(): void
     {
         $test = [
             'Max24HourSend'   => 1,
@@ -58,7 +58,7 @@ class AwsDataProcessorTest extends TestCase
         self::assertEquals($test['SentLast24Hours'], $result[AwsDataProcessor::ACCOUNT]['quota']['sent_last_24_hours']);
     }
 
-    public function testProcessAccountSendStatistics()
+    public function testProcessAccountSendStatistics(): void
     {
         $test = [
             [
@@ -87,7 +87,7 @@ class AwsDataProcessorTest extends TestCase
         self::assertEquals($test, $result[AwsDataProcessor::ACCOUNT]['stats']);
     }
 
-    public function testProcessIdentitiesDkimAttributes()
+    public function testProcessIdentitiesDkimAttributes(): void
     {
         $test = [
             'serendipityhq.com' => [
@@ -117,7 +117,7 @@ class AwsDataProcessorTest extends TestCase
         self::assertArrayNotHasKey('tokens', $result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']['dkim']);
     }
 
-    public function testProcessIdentitiesMailFromDomainAttributes()
+    public function testProcessIdentitiesMailFromDomainAttributes(): void
     {
         $test = [
             'serendipityhq.com' => [
@@ -146,7 +146,7 @@ class AwsDataProcessorTest extends TestCase
         self::assertArrayNotHasKey('domain', $result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']['mail_from']);
     }
 
-    public function testProcessIdentitiesNotificationAttributes()
+    public function testProcessIdentitiesNotificationAttributes(): void
     {
         $test = [
             'serendipityhq.com' => [
@@ -190,7 +190,7 @@ class AwsDataProcessorTest extends TestCase
         self::assertArrayNotHasKey('topic', $result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']['notifications']['deliveries']);
     }
 
-    public function testProcessIdentitiesVerificationAttributes()
+    public function testProcessIdentitiesVerificationAttributes(): void
     {
         $test = [
             'serendipityhq.com' => [
@@ -216,7 +216,7 @@ class AwsDataProcessorTest extends TestCase
         self::assertArrayNotHasKey('token', $result[AwsDataProcessor::IDENTITIES]['hello@serendipityhq.com']['verification']);
     }
 
-    public function testProcessSubscriptions()
+    public function testProcessSubscriptions(): void
     {
         $test = [
             'serendipityhq.com' => [
@@ -247,7 +247,7 @@ class AwsDataProcessorTest extends TestCase
         self::assertArrayNotHasKey('PendingConfirmation', $result[AwsDataProcessor::SUBSCRIPTIONS]);
     }
 
-    public function testProcessSubscriptionAttributes()
+    public function testProcessSubscriptionAttributes(): void
     {
         $test = [
             'SubscriptionArn'              => 'subscription:arn:12345',
@@ -270,7 +270,7 @@ class AwsDataProcessorTest extends TestCase
         self::assertEquals($test['ConfirmationWasAuthenticated'], $result[AwsDataProcessor::SUBSCRIPTIONS][$test['SubscriptionArn']]['confirmation']['was_authenticated']);
     }
 
-    public function testProcessTopics()
+    public function testProcessTopics(): void
     {
         $test = [
             ['TopicArn' => 'topic:arn:12345'],
@@ -286,7 +286,7 @@ class AwsDataProcessorTest extends TestCase
         self::assertEmpty($result[AwsDataProcessor::TOPICS][$test[0]['TopicArn']]);
     }
 
-    public function testProcessTopicAttributes()
+    public function testProcessTopicAttributes(): void
     {
         $test = [
             'TopicArn'                => 'topic:arn:12345',

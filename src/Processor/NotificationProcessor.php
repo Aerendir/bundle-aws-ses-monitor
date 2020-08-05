@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Processes the request from AWS SNS handling it with the right handler.
  */
-class NotificationProcessor
+final class NotificationProcessor
 {
     /** @var BounceNotificationHandler $bounceNotificationHandler */
     private $bounceNotificationHandler;
@@ -40,6 +40,10 @@ class NotificationProcessor
 
     /** @var MessageHelper $messageHelper */
     private $messageHelper;
+    /**
+     * @var string
+     */
+    private const NOTIFICATION_TYPE = 'notificationType';
 
     /**
      * @param BounceNotificationHandler    $bounceNotificationHandler
@@ -77,16 +81,16 @@ class NotificationProcessor
 
         $notificationData = $this->messageHelper->extractMessageData($message);
 
-        if (false === isset($notificationData['notificationType'])) {
+        if (false === isset($notificationData[self::NOTIFICATION_TYPE])) {
             return new Response('Missed NotificationType.', 403);
         }
 
-        if (SnsTypes::MESSAGE_TYPE_SUBSCRIPTION_SUCCESS === $notificationData['notificationType']) {
+        if (SnsTypes::MESSAGE_TYPE_SUBSCRIPTION_SUCCESS === $notificationData[self::NOTIFICATION_TYPE]) {
             return new Response('OK', 200);
         }
 
         $mailMessage = $this->loadOrCreateMailMessage($notificationData);
-        switch ($notificationData['notificationType']) {
+        switch ($notificationData[self::NOTIFICATION_TYPE]) {
             case SnsTypes::MESSAGE_TYPE_BOUNCE:
                 return $this->bounceNotificationHandler->processNotification($notificationData, $mailMessage);
             case SnsTypes::MESSAGE_TYPE_COMPLAINT:

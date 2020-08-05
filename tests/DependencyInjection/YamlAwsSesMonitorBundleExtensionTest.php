@@ -18,12 +18,12 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 /**
  * {@inheritdoc}
  */
-class YamlAwsSesMonitorBundleExtensionTest extends AbstractSerendipityHQAwsSesBouncerExtensionTest
+final class YamlAwsSesMonitorBundleExtensionTest extends AbstractSerendipityHQAwsSesBouncerExtensionTest
 {
     /**
      * {@inheritdoc}
      */
-    protected function loadConfiguration(ContainerBuilder $container, $resource)
+    protected function loadConfiguration(ContainerBuilder $container, $resource): void
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/Fixtures/'));
         $loader->load($resource . '.yml');

@@ -17,7 +17,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Util;
  *
  * @internal
  */
-class IdentityGuesser
+final class IdentityGuesser
 {
     /** @var string The name of the testing email Identity */
     public const TEST_MAILBOX = 'test_aws';
@@ -34,10 +34,10 @@ class IdentityGuesser
         // Here we explicitly check for email as this way it intercepts also wrong
         // $identities like, for example, "an_identity" that is not an email not a domain
         if (false === $this->isEmailIdentity($identity)) {
-            throw new \InvalidArgumentException(sprintf('The value "%s" is not an Email identity.', $identity));
+            throw new \InvalidArgumentException(\Safe\sprintf('The value "%s" is not an Email identity.', $identity));
         }
 
-        $parts = explode('@', $identity);
+        $parts = \explode('@', $identity);
 
         return [
             'mailbox' => $parts[0],
@@ -64,7 +64,7 @@ class IdentityGuesser
      */
     public function isEmailIdentity(string $identity): bool
     {
-        return (bool) strstr($identity, '@');
+        return (bool) \strstr($identity, '@');
     }
 
     /**
@@ -97,6 +97,6 @@ class IdentityGuesser
             $mailbox = $this->getEmailParts($mailbox)['mailbox'];
         }
 
-        return (bool) strstr($mailbox, self::TEST_MAILBOX);
+        return (bool) \strstr($mailbox, self::TEST_MAILBOX);
     }
 }

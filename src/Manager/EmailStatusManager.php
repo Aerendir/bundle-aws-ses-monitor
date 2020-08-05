@@ -17,7 +17,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
 /**
  * Manages EmailStatus entities.
  */
-class EmailStatusManager
+final class EmailStatusManager
 {
     /** @var EntityManagerInterface $entityManager */
     private $entityManager;
@@ -51,7 +51,7 @@ class EmailStatusManager
     public function loadEmailStatus(string $emailAddress): ?EmailStatus
     {
         /** @var EmailStatus|null $email */
-        $email = $this->entityManager->getRepository(EmailStatus::class)->findOneBy(['address' => mb_strtolower($emailAddress)]);
+        $email = $this->entityManager->getRepository(EmailStatus::class)->findOneBy(['address' => \mb_strtolower($emailAddress)]);
 
         return $email;
     }

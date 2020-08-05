@@ -17,7 +17,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\Monitor;
 /**
  * Helps to analyze an EmailStatus to understand if it is bounced, complained or healthy.
  */
-class EmailStatusAnalyzer
+final class EmailStatusAnalyzer
 {
     /** @var Monitor $monitor */
     private $monitor;
@@ -42,35 +42,26 @@ class EmailStatusAnalyzer
         $maxBounces = $filter['max_bounces'];
         $softAsHard = $filter['soft_as_hard'];
 
-        // If this email is bounces
+        // If this email is bounced
         if ($this->isBounced($emailStatus, $maxBounces, $softAsHard)) {
             // But bounced emails tracking is disabled
             if (false === $this->monitor->bouncesTrackingIsEnabled($identity)) {
                 return true;
             }
-
             // Or anyway the sending to bounced emails is forced
-            if (true === $this->monitor->bouncesSendingIsForced($identity)) {
-                return true;
-            }
-
-            // This email is bounced and cannot receive messages
-            return false;
+            // if 'false', This email is bounced and cannot receive messages
+            return true === $this->monitor->bouncesSendingIsForced($identity);
         }
+
         // If this email is complained
-        elseif ($this->isComplained($emailStatus)) {
+        if ($this->isComplained($emailStatus)) {
             // But complained emails tracking is disabled
             if (false === $this->monitor->complaintsTrackingIsEnabled($identity)) {
                 return true;
             }
-
             // Or anyway the sending to complained emails is forced
-            if (true === $this->monitor->complaintsSendingIsForced($identity)) {
-                return true;
-            }
-
-            // This email is complained and cannot receive messages
-            return false;
+            // If 'false', this email is complained and cannot receive messages
+            return true === $this->monitor->complaintsSendingIsForced($identity);
         }
 
         // This email is not bounced nor complained: can receive messages
@@ -91,12 +82,7 @@ class EmailStatusAnalyzer
         if ($softAsHard) {
             $bouncesCount += $emailStatus->getSoftBouncesCount();
         }
-
-        if ($bouncesCount >= $maxBounces) {
-            return true;
-        }
-
-        return false;
+        return $bouncesCount >= $maxBounces;
     }
 
     /**

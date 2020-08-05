@@ -17,10 +17,14 @@ use Aws\Ses\SesClient;
 /**
  * Manages the interaction with AWS SES.
  */
-class SesManager
+final class SesManager
 {
     /** @var \Aws\Ses\SesClient $client */
     private $client;
+    /**
+     * @var string
+     */
+    private const IDENTITY = 'Identity';
 
     /**
      * @param SesClient $client
@@ -58,7 +62,7 @@ class SesManager
     {
         $this->client->setIdentityNotificationTopic(
                 [
-                    'Identity'         => $identity,
+                    self::IDENTITY         => $identity,
                     'NotificationType' => $notificationType,
                     'SnsTopic'         => $topicArn,
                 ]
@@ -73,7 +77,7 @@ class SesManager
     public function configureDkim(string $identity, bool $enabled): void
     {
         $this->client->setIdentityDkimEnabled([
-            'Identity'    => $identity,
+            self::IDENTITY    => $identity,
             'DkimEnabled' => $enabled,
         ]);
     }
@@ -86,7 +90,7 @@ class SesManager
     public function configureFeedbackForwarding(string $identity, bool $enabled): void
     {
         $this->client->setIdentityFeedbackForwardingEnabled([
-            'Identity'          => $identity,
+            self::IDENTITY          => $identity,
             'ForwardingEnabled' => $enabled,
         ]);
     }
@@ -100,7 +104,7 @@ class SesManager
     public function configureFromDomain(string $identity, ?string $domain, string $onMxFailure): void
     {
         $this->client->setIdentityMailFromDomain([
-            'Identity'            => $identity,
+            self::IDENTITY            => $identity,
             'BehaviorOnMXFailure' => $onMxFailure,
             'MailFromDomain'      => $domain,
         ]);

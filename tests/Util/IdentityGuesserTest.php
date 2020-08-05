@@ -17,7 +17,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\IdentityGuesser;
 /**
  * {@inheritdoc}
  */
-class IdentityGuesserTest extends TestCase
+final class IdentityGuesserTest extends TestCase
 {
     /** @var string $testIdentity */
     private $testIdentity;
@@ -31,15 +31,15 @@ class IdentityGuesserTest extends TestCase
     /** @var string $productionMailbox */
     private $productionMailbox;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->productionMailbox = 'hello';
         $this->domainIdentity    = 'serendipityhq.com';
-        $this->testIdentity      = sprintf('%s@s%s', IdentityGuesser::TEST_MAILBOX, $this->domainIdentity);
-        $this->emailIdentity     = sprintf('%s@%s', $this->productionMailbox, $this->domainIdentity);
+        $this->testIdentity      = \Safe\sprintf('%s@s%s', IdentityGuesser::TEST_MAILBOX, $this->domainIdentity);
+        $this->emailIdentity     = \Safe\sprintf('%s@%s', $this->productionMailbox, $this->domainIdentity);
     }
 
-    public function testGetEmailParts()
+    public function testGetEmailParts(): void
     {
         $resource = new IdentityGuesser();
         $result   = $resource->getEmailParts($this->emailIdentity);
@@ -51,14 +51,14 @@ class IdentityGuesserTest extends TestCase
         self::assertEquals($this->domainIdentity, $result['domain']);
     }
 
-    public function testGetEmailPartsAcceptsOnlyEmailIdentities()
+    public function testGetEmailPartsAcceptsOnlyEmailIdentities(): void
     {
         $resource = new IdentityGuesser();
         self::expectException(\InvalidArgumentException::class);
         $resource->getEmailParts($this->domainIdentity);
     }
 
-    public function testIsEmailIdentity()
+    public function testIsEmailIdentity(): void
     {
         $resource = new IdentityGuesser();
 
@@ -66,7 +66,7 @@ class IdentityGuesserTest extends TestCase
         self::assertTrue($resource->isEmailIdentity($this->emailIdentity));
     }
 
-    public function testIsDomainIdentity()
+    public function testIsDomainIdentity(): void
     {
         $resource = new IdentityGuesser();
 
@@ -74,7 +74,7 @@ class IdentityGuesserTest extends TestCase
         self::assertFalse($resource->isDomainIdentity($this->emailIdentity));
     }
 
-    public function testIsTestEmail()
+    public function testIsTestEmail(): void
     {
         $resource = new IdentityGuesser();
 
@@ -82,7 +82,7 @@ class IdentityGuesserTest extends TestCase
         self::assertFalse($resource->isTestEmail($this->emailIdentity));
     }
 
-    public function testIsProductionIdentity()
+    public function testIsProductionIdentity(): void
     {
         $resource = new IdentityGuesser();
 

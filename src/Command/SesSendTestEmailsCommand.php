@@ -23,10 +23,21 @@ use Symfony\Component\Console\Question\Question;
  *
  * {@inheritdoc}
  */
-class SesSendTestEmailsCommand extends Command
+final class SesSendTestEmailsCommand extends Command
 {
+    protected static $defaultName = 'aws:ses:monitor:test:swiftmailer';
     /** @var \Swift_Mailer $mailer */
     private $mailer;
+    /**
+     * @var string[]
+     */
+    private const EMAIL_ADDRESSES = [
+        'success@simulator.amazonses.com',
+        'bounce@simulator.amazonses.com',
+        'ooto@simulator.amazonses.com',
+        'complaint@simulator.amazonses.com',
+        'suppressionlist@simulator.amazonses.com',
+    ];
 
     /**
      * @param \Swift_Mailer $mailer
@@ -41,12 +52,11 @@ class SesSendTestEmailsCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDescription(
             'Sends test emails through SwiftMailer to the addresses provided by AWS SES.'
         );
-        $this->setName('aws:ses:monitor:test:swiftmailer');
     }
 
     /**
@@ -57,24 +67,14 @@ class SesSendTestEmailsCommand extends Command
      *
      * @return int 0 if everything went fine, or an error code
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $emailAddresses = [
-            'success@simulator.amazonses.com',
-            'bounce@simulator.amazonses.com',
-            'ooto@simulator.amazonses.com',
-            'complaint@simulator.amazonses.com',
-            'suppressionlist@simulator.amazonses.com',
-        ];
-
         $question = new Question('<question>Please, enter the from email address to use:</question>');
-
         $fromAddress = $this->getHelper('question')->ask($input, $output, $question);
-
         $sents = [];
-        foreach ($emailAddresses as $toAddress) {
+        foreach (self::EMAIL_ADDRESSES as $toAddress) {
             $message = $this->createMessage($fromAddress, $toAddress);
-            $output->writeln(sprintf('<info>Sending an email from <comment>%s</comment> to <comment>%s</comment></info>', $fromAddress, $toAddress));
+            $output->writeln(\Safe\sprintf('<info>Sending an email from <comment>%s</comment> to <comment>%s</comment></info>', $fromAddress, $toAddress));
             $result = $this->mailer->send($message);
 
             $tag           = 'fg=green';
@@ -89,11 +89,9 @@ class SesSendTestEmailsCommand extends Command
 
             $sents[] = '<' . $tag . '>' . $outputMessage . '</>';
         }
-
         foreach ($sents as $sent) {
             $output->writeln($sent);
         }
-
         return 0;
     }
 

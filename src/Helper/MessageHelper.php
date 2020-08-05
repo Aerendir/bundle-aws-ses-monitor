@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @internal
  */
-class MessageHelper
+final class MessageHelper
 {
     /** @var MessageValidator $messageValidator */
     private $messageValidator;
@@ -44,7 +44,7 @@ class MessageHelper
     {
         /** @var string $content */
         $content = $request->getContent();
-        $data    = json_decode($content, true);
+        $data    = \Safe\json_decode($content, true);
 
         return new Message($data);
     }
@@ -70,6 +70,6 @@ class MessageHelper
      */
     public function extractMessageData(Message $message): array
     {
-        return json_decode($message->offsetGet('Message'), true);
+        return \Safe\json_decode($message->offsetGet('Message'), true);
     }
 }

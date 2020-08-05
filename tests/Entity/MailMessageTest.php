@@ -20,9 +20,9 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage;
 /**
  * Tests the MailMessage entity.
  */
-class MailMessageTest extends TestCase
+final class MailMessageTest extends TestCase
 {
-    public function testTopic()
+    public function testTopic(): void
     {
         $test = [
             'messageId'           => 'test-message-id',

@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * {@inheritdoc}
  */
-class EndpointController extends AbstractController
+final class EndpointController extends AbstractController
 {
     /**
      * @param Request                $request

@@ -26,7 +26,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * {@inheritdoc}
  */
-class SubscriptionProcessorTest extends TestCase
+final class SubscriptionProcessorTest extends TestCase
 {
     /** @var SubscriptionProcessor $requestProcessor */
     private $subscriptionProcessor;
@@ -43,7 +43,7 @@ class SubscriptionProcessorTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->mockSnsClient     = $this->createMock(SnsClient::class);
         $this->mockEntityManager = $this->createMock(EntityManagerInterface::class);
@@ -54,7 +54,7 @@ class SubscriptionProcessorTest extends TestCase
         );
     }
 
-    public function testMessageMustBeValid()
+    public function testMessageMustBeValid(): void
     {
         $mockRequest    = $this->createMock(Request::class);
         $mockNsnMessage = $this->createMock(Message::class);
@@ -68,7 +68,7 @@ class SubscriptionProcessorTest extends TestCase
         self::assertEquals(403, $response->getStatusCode());
     }
 
-    public function testTopicMustExist()
+    public function testTopicMustExist(): void
     {
         $testMessage    = ['TopicArn' => 'dummy:topic:arn', 'Token' => 'dUMmyT0k3N'];
         $mockRequest    = $this->createMock(Request::class);
@@ -93,7 +93,7 @@ class SubscriptionProcessorTest extends TestCase
         self::assertEquals(404, $response->getStatusCode());
     }
 
-    public function testOkResponse()
+    public function testOkResponse(): void
     {
         $testMessage    = ['TopicArn' => 'dummy:topic:arn', 'Token' => 'dUMmyT0k3N'];
         $mockRequest    = $this->createMock(Request::class);
@@ -105,7 +105,7 @@ class SubscriptionProcessorTest extends TestCase
                 self::equalTo('TopicArn'),
                 self::equalTo('Token')
             ))
-            ->will(self::returnCallback(function ($key) use ($testMessage) { return $testMessage[$key]; }));
+            ->will(self::returnCallback(function ($key) use ($testMessage): string { return $testMessage[$key]; }));
 
         $this->mockMessageHelper->expects(self::exactly(1))->method('buildMessageFromRequest')->willReturn($mockNsnMessage);
         $this->mockMessageHelper->expects(self::exactly(1))->method('validateNotification')->willReturn(true);

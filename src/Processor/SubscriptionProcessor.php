@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Handles the confirmation of the subscription.
  */
-class SubscriptionProcessor
+final class SubscriptionProcessor
 {
     /** @var SnsClient $snsClient */
     private $snsClient;

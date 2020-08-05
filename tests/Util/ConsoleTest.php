@@ -24,9 +24,9 @@ use Symfony\Component\HttpKernel\Kernel;
 /**
  * {@inheritdoc}
  */
-class ConsoleTest extends TestCase
+final class ConsoleTest extends TestCase
 {
-    public function testCreateWriter()
+    public function testCreateWriter(): void
     {
         $resource            = new Console();
         $mockInputInterface  = $this->createMock(InputInterface::class);
@@ -39,7 +39,7 @@ class ConsoleTest extends TestCase
         self::assertInstanceOf(SerendipityHQStyle::class, $result);
     }
 
-    public function testCreateSection4()
+    public function testCreateSection4(): void
     {
         if (Kernel::MAJOR_VERSION < 4) {
             self::markTestSkipped('To run only on SF4');
@@ -56,7 +56,7 @@ class ConsoleTest extends TestCase
         self::assertInstanceOf(ConsoleSectionOutput::class, $result);
     }
 
-    public function testCreateSection3()
+    public function testCreateSection3(): void
     {
         $resource            = new Console();
         $mockOutputInterface = $this->createMock(OutputInterface::class);
@@ -67,7 +67,7 @@ class ConsoleTest extends TestCase
         self::assertSame($mockOutputInterface, $result);
     }
 
-    public function testOverwrite4()
+    public function testOverwrite4(): void
     {
         if (Kernel::MAJOR_VERSION < 4) {
             self::markTestSkipped('To run only on SF4');
@@ -85,7 +85,7 @@ class ConsoleTest extends TestCase
         $resource->overwrite($testString, $mockOutputInterface);
     }
 
-    public function testOverwrite3()
+    public function testOverwrite3(): void
     {
         $resource            = new Console();
         $mockOutputInterface = $this->createMock(OutputInterface::class);
@@ -96,7 +96,7 @@ class ConsoleTest extends TestCase
         $resource->overwrite($testString, $mockOutputInterface);
     }
 
-    public function testClear4()
+    public function testClear4(): void
     {
         if (Kernel::MAJOR_VERSION < 4) {
             self::markTestSkipped('To run only on SF4');
@@ -112,7 +112,7 @@ class ConsoleTest extends TestCase
         $resource->clear($mockOutputInterface);
     }
 
-    public function testClear3()
+    public function testClear3(): void
     {
         $resource            = new Console();
         $mockOutputInterface = $this->createMock(OutputInterface::class);
@@ -122,7 +122,7 @@ class ConsoleTest extends TestCase
         $resource->clear($mockOutputInterface);
     }
 
-    public function testEnableFullLog4()
+    public function testEnableFullLog4(): void
     {
         if (Kernel::MAJOR_VERSION < 4) {
             self::markTestSkipped('To run only on SF4');

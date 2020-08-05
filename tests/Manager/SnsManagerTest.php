@@ -24,9 +24,12 @@ use Symfony\Component\Routing\RouterInterface;
 /**
  * {@inheritdoc}
  */
-class SnsManagerTest extends TestCase
+final class SnsManagerTest extends TestCase
 {
-    private $testEndpointConfig = [
+    /**
+     * @var string[]
+     */
+    private const TEST_ENDPOINT_CONFIG = [
         'scheme' => 'https',
         'host'   => 'serendipityhq.com',
     ];
@@ -36,8 +39,15 @@ class SnsManagerTest extends TestCase
 
     /** @var SnsClient $client */
     private $client;
+    /**
+     * @var string[]
+     */
+    private const TEST = [
+        'name' => 'topic-name',
+        'arn'  => 'the-topic-arn',
+    ];
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->mockHandler = new MockHandler();
         $this->client      = new SnsClient([
@@ -51,29 +61,22 @@ class SnsManagerTest extends TestCase
         ]);
     }
 
-    public function testGetClient()
+    public function testGetClient(): void
     {
         $mockClient  = $this->createMock(SnsClient::class);
 
-        new SnsManager($this->testEndpointConfig, $mockClient, $this->createMockRouter());
+        new SnsManager(self::TEST_ENDPOINT_CONFIG, $mockClient, $this->createMockRouter());
     }
 
-    public function testCreateTopic()
+    public function testCreateTopic(): void
     {
-        $test = [
-            'name' => 'topic-name',
-            'arn'  => 'the-topic-arn',
-        ];
-
-        $mockResult = new Result(['TopicArn' => $test['arn']]);
+        $mockResult = new Result(['TopicArn' => self::TEST['arn']]);
         $this->mockHandler->append($mockResult);
-
-        $resource = new SnsManager($this->testEndpointConfig, $this->client, $this->createMockRouter());
-        $result   = $resource->createTopic($test['name']);
-
+        $resource = new SnsManager(self::TEST_ENDPOINT_CONFIG, $this->client, $this->createMockRouter());
+        $result   = $resource->createTopic(self::TEST['name']);
         self::assertInstanceOf(Topic::class, $result);
-        self::assertEquals($test['name'], $result->getName());
-        self::assertEquals($test['arn'], $result->getArn());
+        self::assertEquals(self::TEST['name'], $result->getName());
+        self::assertEquals(self::TEST['arn'], $result->getArn());
     }
 
     /**
@@ -84,8 +87,8 @@ class SnsManagerTest extends TestCase
         $mockContext = $this->createMock(RequestContext::class);
         $mockRouter  = $this->createMock(RouterInterface::class);
 
-        $mockContext->expects(self::never())->method('setHost')->with($this->testEndpointConfig['host']);
-        $mockContext->expects(self::never())->method('setScheme')->with($this->testEndpointConfig['scheme']);
+        $mockContext->expects(self::never())->method('setHost')->with(self::TEST_ENDPOINT_CONFIG['host']);
+        $mockContext->expects(self::never())->method('setScheme')->with(self::TEST_ENDPOINT_CONFIG['scheme']);
         $mockRouter->expects(self::never())->method('getContext')->willReturn($mockContext);
 
         return $mockRouter;

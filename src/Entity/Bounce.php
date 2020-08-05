@@ -23,21 +23,48 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Bounce
 {
-    /** Hard bounces and subtypes */
+    /** Hard bounces and subtypes
+     * @var string */
     const TYPE_PERMANENT       = 'Permanent';
+    /**
+     * @var string
+     */
     const TYPE_PERM_GENERAL    = 'General';
+    /**
+     * @var string
+     */
     const TYPE_PERM_NOEMAIL    = 'NoEmail';
+    /**
+     * @var string
+     */
     const TYPE_PERM_SUPPRESSED = 'Suppressed';
 
-    /** Soft bunces and subtypes */
+    /** Soft bunces and subtypes
+     * @var string */
     const TYPE_TRANSIENT            = 'Transient';
+    /**
+     * @var string
+     */
     const TYPE_TRANS_GENERAL        = 'General';
+    /**
+     * @var string
+     */
     const TYPE_TRANS_BOXFULL        = 'MailboxFull';
+    /**
+     * @var string
+     */
     const TYPE_TRANS_TOOLARGE       = 'MessageTooLarge';
+    /**
+     * @var string
+     */
     const TYPE_TRANS_CONTREJECTED   = 'ContentRejected';
+    /**
+     * @var string
+     */
     const TYPE_TRANS_ATTACHREJECTED = 'AttachmentRejected';
 
-    /** Undetermined bounces */
+    /** Undetermined bounces
+     * @var string */
     const TYPE_UNDETERMINED = 'Undetermined';
 
     /**
@@ -139,6 +166,10 @@ class Bounce
      * @ORM\Column(name="diagnostic_code", type="text", nullable=true)
      */
     private $diagnosticCode;
+    /**
+     * @var string
+     */
+    private const BOUNCE = 'bounce';
 
     /**
      * @param EmailStatus $email
@@ -151,15 +182,15 @@ class Bounce
     public static function create(EmailStatus $email, MailMessage $mailMessage, array $bouncedRecipient, array $notification): Bounce
     {
         $bounce = (new self())
-            ->setBouncedOn(new \DateTime($notification['bounce']['timestamp']))
-            ->setType(($notification['bounce']['bounceType']))
-            ->setSubType(($notification['bounce']['bounceSubType']))
-            ->setFeedbackId($notification['bounce']['feedbackId'])
+            ->setBouncedOn(new \DateTime($notification[self::BOUNCE]['timestamp']))
+            ->setType(($notification[self::BOUNCE]['bounceType']))
+            ->setSubType(($notification[self::BOUNCE]['bounceSubType']))
+            ->setFeedbackId($notification[self::BOUNCE]['feedbackId'])
             ->setMailMessage($mailMessage)
             ->setEmailStatus($email);
 
-        if (isset($notification['bounce']['reportingMta'])) {
-            $bounce->setReportingMta($notification['bounce']['reportingMta']);
+        if (isset($notification[self::BOUNCE]['reportingMta'])) {
+            $bounce->setReportingMta($notification[self::BOUNCE]['reportingMta']);
         }
 
         if (isset($bouncedRecipient['action'])) {
@@ -276,10 +307,8 @@ class Bounce
 
     /**
      * @param EmailStatus $emailStatus
-     *
-     * @return Bounce
      */
-    private function setEmailStatus(EmailStatus $emailStatus): Bounce
+    private function setEmailStatus(EmailStatus $emailStatus): self
     {
         $this->emailStatus = $emailStatus;
         $emailStatus->addBounce($this);
@@ -289,10 +318,8 @@ class Bounce
 
     /**
      * @param string $type
-     *
-     * @return Bounce
      */
-    private function setType(string $type): Bounce
+    private function setType(string $type): self
     {
         $this->type = $type;
 
@@ -301,10 +328,8 @@ class Bounce
 
     /**
      * @param string $subType
-     *
-     * @return Bounce
      */
-    private function setSubType(string $subType): Bounce
+    private function setSubType(string $subType): self
     {
         $this->subType = $subType;
 
@@ -313,10 +338,8 @@ class Bounce
 
     /**
      * @param string $feedbackId
-     *
-     * @return Bounce
      */
-    private function setFeedbackId(string $feedbackId): Bounce
+    private function setFeedbackId(string $feedbackId): self
     {
         $this->feedbackId = $feedbackId;
 
@@ -325,10 +348,8 @@ class Bounce
 
     /**
      * @param string $reportingMta
-     *
-     * @return Bounce
      */
-    private function setReportingMta(string $reportingMta): Bounce
+    private function setReportingMta(string $reportingMta): self
     {
         $this->reportingMta = $reportingMta;
 
@@ -337,10 +358,8 @@ class Bounce
 
     /**
      * @param string $action
-     *
-     * @return Bounce
      */
-    private function setAction(string $action): Bounce
+    private function setAction(string $action): self
     {
         $this->action = $action;
 
@@ -349,10 +368,8 @@ class Bounce
 
     /**
      * @param string $status
-     *
-     * @return Bounce
      */
-    private function setStatus(string $status): Bounce
+    private function setStatus(string $status): self
     {
         $this->status = $status;
 
@@ -361,10 +378,8 @@ class Bounce
 
     /**
      * @param string $diagnosticCode
-     *
-     * @return Bounce
      */
-    private function setDiagnosticCode(string $diagnosticCode): Bounce
+    private function setDiagnosticCode(string $diagnosticCode): self
     {
         $this->diagnosticCode = $diagnosticCode;
 
@@ -373,10 +388,8 @@ class Bounce
 
     /**
      * @param \DateTime $bouncedOn
-     *
-     * @return Bounce
      */
-    private function setBouncedOn(\DateTime $bouncedOn): Bounce
+    private function setBouncedOn(\DateTime $bouncedOn): self
     {
         $this->bouncedOn = $bouncedOn;
 
@@ -385,10 +398,8 @@ class Bounce
 
     /**
      * @param MailMessage $mailMessage
-     *
-     * @return Bounce
      */
-    private function setMailMessage(MailMessage $mailMessage)
+    private function setMailMessage(MailMessage $mailMessage): self
     {
         $this->mailMessage = $mailMessage;
         $this->mailMessage->addBounce($this);

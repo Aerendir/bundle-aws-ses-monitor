@@ -19,9 +19,9 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage;
 /**
  * Tests the Bounce entity.
  */
-class BounceTest extends TestCase
+final class BounceTest extends TestCase
 {
-    public function testBounce()
+    public function testBounce(): void
     {
         $test     = [
             'email'            => $this->createMock(EmailStatus::class),

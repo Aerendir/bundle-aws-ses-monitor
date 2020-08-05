@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Handles notifications of compalined emails.
  * {@inheritdoc}
  */
-class ComplaintNotificationHandler extends AbstractNotification
+final class ComplaintNotificationHandler extends AbstractNotification
 {
     /**
      * @param array       $notification

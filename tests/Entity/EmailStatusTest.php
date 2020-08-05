@@ -21,9 +21,9 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
 /**
  * Tests the EmailStatus entity.
  */
-class EmailStatusTest extends TestCase
+final class EmailStatusTest extends TestCase
 {
-    public function testBounces()
+    public function testBounces(): void
     {
         $testEmail = 'test@example.com';
 
@@ -62,7 +62,7 @@ class EmailStatusTest extends TestCase
         self::assertSame(1, $resource->getSoftBouncesCount(), 'The total soft bounces count is wrong.');
     }
 
-    public function testComplaints()
+    public function testComplaints(): void
     {
         $testEmail = 'test@example.com';
 
@@ -96,7 +96,7 @@ class EmailStatusTest extends TestCase
         self::assertSame(2, $resource->getComplaints()->count());
     }
 
-    public function testDeliveries()
+    public function testDeliveries(): void
     {
         $testEmail = 'test@example.com';
 

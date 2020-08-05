@@ -16,7 +16,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
  *
  * @internal
  */
-class IdentitiesStore
+final class IdentitiesStore
 {
     /** @var array $identities */
     private $identities;
@@ -75,6 +75,6 @@ class IdentitiesStore
      */
     public function getIdentitiesList(): array
     {
-        return array_keys($this->identities);
+        return \array_keys($this->identities);
     }
 }

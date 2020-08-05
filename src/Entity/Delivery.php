@@ -81,6 +81,10 @@ class Delivery
      * @ORM\Column(name="reporting_mta", type="string", nullable=true)
      */
     private $reportingMta;
+    /**
+     * @var string
+     */
+    private const DELIVERY = 'delivery';
 
     /**
      * @param EmailStatus $email
@@ -92,14 +96,14 @@ class Delivery
     public static function create(EmailStatus $email, MailMessage $mailMessage, array $notification): Delivery
     {
         $delivery = (new self())
-            ->setDeliveredOn(new \DateTime($notification['delivery']['timestamp']))
-            ->setProcessingTimeMillis($notification['delivery']['processingTimeMillis'])
-            ->setSmtpResponse($notification['delivery']['smtpResponse'])
+            ->setDeliveredOn(new \DateTime($notification[self::DELIVERY]['timestamp']))
+            ->setProcessingTimeMillis($notification[self::DELIVERY]['processingTimeMillis'])
+            ->setSmtpResponse($notification[self::DELIVERY]['smtpResponse'])
             ->setMailMessage($mailMessage)
             ->setEmailStatus($email);
 
-        if (isset($notification['delivery']['reportingMta'])) {
-            $delivery->setReportingMta($notification['delivery']['reportingMta']);
+        if (isset($notification[self::DELIVERY]['reportingMta'])) {
+            $delivery->setReportingMta($notification[self::DELIVERY]['reportingMta']);
         }
 
         return $delivery;
@@ -164,10 +168,8 @@ class Delivery
 
     /**
      * @param EmailStatus $emailStatus
-     *
-     * @return Delivery
      */
-    private function setEmailStatus(EmailStatus $emailStatus): Delivery
+    private function setEmailStatus(EmailStatus $emailStatus): self
     {
         $this->emailStatus = $emailStatus;
         $emailStatus->addDelivery($this);
@@ -177,10 +179,8 @@ class Delivery
 
     /**
      * @param MailMessage $mailMessage
-     *
-     * @return Delivery
      */
-    private function setMailMessage(MailMessage $mailMessage): Delivery
+    private function setMailMessage(MailMessage $mailMessage): self
     {
         $this->mailMessage = $mailMessage;
         $this->mailMessage->addDelivery($this);
@@ -190,10 +190,8 @@ class Delivery
 
     /**
      * @param \DateTime $deliveredOn
-     *
-     * @return Delivery
      */
-    private function setDeliveredOn(\DateTime $deliveredOn): Delivery
+    private function setDeliveredOn(\DateTime $deliveredOn): self
     {
         $this->deliveredOn = $deliveredOn;
 
@@ -202,10 +200,8 @@ class Delivery
 
     /**
      * @param int $processingTimeMillis
-     *
-     * @return Delivery
      */
-    private function setProcessingTimeMillis(int $processingTimeMillis): Delivery
+    private function setProcessingTimeMillis(int $processingTimeMillis): self
     {
         $this->processingTimeMillis = $processingTimeMillis;
 
@@ -214,10 +210,8 @@ class Delivery
 
     /**
      * @param string $smtpResponse
-     *
-     * @return Delivery
      */
-    private function setSmtpResponse(string $smtpResponse): Delivery
+    private function setSmtpResponse(string $smtpResponse): self
     {
         $this->smtpResponse = $smtpResponse;
 
@@ -226,10 +220,8 @@ class Delivery
 
     /**
      * @param string $reportingMta
-     *
-     * @return Delivery
      */
-    private function setReportingMta(string $reportingMta): Delivery
+    private function setReportingMta(string $reportingMta): self
     {
         $this->reportingMta = $reportingMta;
 

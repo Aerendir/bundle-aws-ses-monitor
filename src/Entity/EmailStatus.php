@@ -89,7 +89,7 @@ class EmailStatus
      */
     public function __construct(string $email)
     {
-        $this->address    = mb_strtolower($email);
+        $this->address    = \mb_strtolower($email);
         $this->bounces    = new ArrayCollection();
         $this->complaints = new ArrayCollection();
         $this->deliveries = new ArrayCollection();
@@ -178,14 +178,13 @@ class EmailStatus
     /**
      * @param Bounce $bounce
      *
-     * @return EmailStatus
      *
      * @internal
      */
-    public function addBounce(Bounce $bounce): EmailStatus
+    public function addBounce(Bounce $bounce): self
     {
         // Add only if not already added to avoid circular references
-        $predictate = function (/** @noinspection PhpUnusedParameterInspection */ $key, Bounce $element) use ($bounce) {
+        $predictate = function (/** @noinspection PhpUnusedParameterInspection */ $key, Bounce $element) use ($bounce): bool {
             return $element->getFeedbackId() === $bounce->getFeedbackId();
         };
 
@@ -210,14 +209,13 @@ class EmailStatus
     /**
      * @param Complaint $complaint
      *
-     * @return EmailStatus
      *
      * @internal
      */
-    public function addComplaint(Complaint $complaint): EmailStatus
+    public function addComplaint(Complaint $complaint): self
     {
         // Add only if not already added to avoid circular references
-        $predictate = function (/** @noinspection PhpUnusedParameterInspection */ $key, Complaint $element) use ($complaint) {
+        $predictate = function (/** @noinspection PhpUnusedParameterInspection */ $key, Complaint $element) use ($complaint): bool {
             return $element->getFeedbackId() === $complaint->getFeedbackId();
         };
 
@@ -233,14 +231,13 @@ class EmailStatus
     /**
      * @param Delivery $delivery
      *
-     * @return EmailStatus
      *
      * @internal
      */
-    public function addDelivery(Delivery $delivery): EmailStatus
+    public function addDelivery(Delivery $delivery): self
     {
         // Add only if not already added to avoid circular references
-        $predictate = function (/** @noinspection PhpUnusedParameterInspection */ $key, Delivery $element) use ($delivery) {
+        $predictate = function (/** @noinspection PhpUnusedParameterInspection */ $key, Delivery $element) use ($delivery): bool {
             // A Delivery doesn't have a feedbackId, so we rely on timestamp that should be sufficient to get identity uniqueness
             return $element->getDeliveredOn()->getTimestamp() === $delivery->getDeliveredOn()->getTimestamp();
         };

@@ -27,10 +27,17 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @ codeCoverageIgnore This command basically calls AWS and uses other classes already tested, so it is not testable.
  */
-class DebugCommand extends Command
+final class DebugCommand extends Command
 {
-    public const NAME   = 'aws:ses:debug';
+    protected static $defaultName = 'aws:ses:debug';
+
+    /**
+     * @var string
+     */
     private const THICK = "<fg=green>\xE2\x9C\x94</>";
+    /**
+     * @var string
+     */
     private const CROSS = "<fg=red>\xE2\x9C\x96</>";
 
     /** @var Console $console */
@@ -42,6 +49,10 @@ class DebugCommand extends Command
     private $sectionTitle;
 
     private $sectionBody;
+    /**
+     * @var string
+     */
+    private const TABLE_CELL_COLSPAN = 'colspan';
 
     /**
      * @param Console $console
@@ -57,9 +68,8 @@ class DebugCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
-        $this->setName(self::NAME);
         $this->setDescription('Debugs the aws ses configuration helping discovering errors and wrong settings.')
              ->addOption('full-log', null, InputOption::VALUE_NONE, 'Shows logs line by line, without simply changing the current one.');
     }
@@ -69,7 +79,7 @@ class DebugCommand extends Command
      *
      * @param ConsoleOutput&OutputInterface $output
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->console->enableFullLog((bool) $input->getOption('full-log'));
 
@@ -93,6 +103,7 @@ class DebugCommand extends Command
         $this->console->clear($this->sectionBody);
         $this->console->clear($this->sectionTitle);
         $table->render();
+        return 0;
     }
 
     /**
@@ -130,7 +141,7 @@ class DebugCommand extends Command
         $results = [];
 
         foreach ($this->monitor->getConfiguredIdentitiesList(true)['allowed'] as $identity) {
-            $this->console->overwrite(sprintf('Validating identity <comment>%s</comment>', $identity), $this->sectionBody);
+            $this->console->overwrite(\Safe\sprintf('Validating identity <comment>%s</comment>', $identity), $this->sectionBody);
 
             // Does the identity exists on AWS?
             $results[$identity][] = ['   Created on AWS', $this->monitor->liveIdentityExists($identity) ? self::THICK : self::CROSS];
@@ -169,19 +180,19 @@ class DebugCommand extends Command
     {
         $table = new Table($this->sectionBody);
         $table->setHeaders([
-            [new TableCell('Results', ['colspan' => 2])],
+            [new TableCell('Results', [self::TABLE_CELL_COLSPAN => 2])],
         ]);
 
         $this->console->overwrite('Processing Account results', $this->sectionBody);
-        $table->addRow([new TableCell('<success>ACCOUNT</success>', ['colspan' => 2])]);
+        $table->addRow([new TableCell('<success>ACCOUNT</success>', [self::TABLE_CELL_COLSPAN => 2])]);
         foreach ($validationResults[AwsDataProcessor::ACCOUNT] as $result) {
             $table->addRow($result);
         }
 
         $this->console->overwrite('Processing Identities results', $this->sectionBody);
-        $table->addRow([new TableCell('<success>IDENTITIES</success>', ['colspan' => 2])]);
+        $table->addRow([new TableCell('<success>IDENTITIES</success>', [self::TABLE_CELL_COLSPAN => 2])]);
         foreach ($validationResults[AwsDataProcessor::IDENTITIES] as $identity => $results) {
-            $table->addRow([new TableCell($identity, ['colspan' => 2])]);
+            $table->addRow([new TableCell($identity, [self::TABLE_CELL_COLSPAN => 2])]);
             foreach ($results as $result) {
                 $table->addRow($result);
             }

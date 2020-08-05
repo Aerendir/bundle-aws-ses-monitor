@@ -18,9 +18,9 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\SesManager;
 /**
  * {@inheritdoc}
  */
-class SesManagerTest extends TestCase
+final class SesManagerTest extends TestCase
 {
-    public function testGetClient()
+    public function testGetClient(): void
     {
         $mockClient = $this->createMock(SesClient::class);
 

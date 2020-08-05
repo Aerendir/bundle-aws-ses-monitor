@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Handles notifications of delivered emails.
  * {@inheritdoc}
  */
-class DeliveryNotificationHandler extends AbstractNotification
+final class DeliveryNotificationHandler extends AbstractNotification
 {
     /**
      * @param array       $notification

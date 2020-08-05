@@ -20,9 +20,9 @@ use Symfony\Component\Console\Tester\CommandTester;
 /**
  * {@inheritdoc}
  */
-class SesSendTestEmailsCommandTest extends TestCase
+final class SesSendTestEmailsCommandTest extends TestCase
 {
-    public function testExecute()
+    public function testExecute(): void
     {
         $application = new Application();
         $mockMailer  = self::getMockBuilder(\Swift_Mailer::class)->disableOriginalConstructor()->getMock();

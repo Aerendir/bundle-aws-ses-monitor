@@ -18,7 +18,7 @@ use Symfony\Component\Routing\RouterInterface;
 /**
  * Manages the interaction with AWS SNS.
  */
-class SnsManager
+final class SnsManager
 {
     /** @var array $endpointConfig */
     private $endpointConfig;
@@ -53,9 +53,7 @@ class SnsManager
         $response = $this->client->createTopic($topic);
         $topicArn = $response->get('TopicArn');
 
-        $topic = new Topic($topicName, $topicArn);
-
-        return $topic;
+        return new Topic($topicName, $topicArn);
     }
 
     /**

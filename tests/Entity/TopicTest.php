@@ -17,18 +17,19 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Topic;
 /**
  * Tests the Topic entity.
  */
-class TopicTest extends TestCase
+final class TopicTest extends TestCase
 {
-    public function testTopic()
+    /**
+     * @var string[]
+     */
+    private const TEST = [
+        'name' => 'TestTopic',
+        'arn'  => 'arn:aws:sns:us-west-2:111122223333:TestTopic',
+    ];
+    public function testTopic(): void
     {
-        $test = [
-            'name' => 'TestTopic',
-            'arn'  => 'arn:aws:sns:us-west-2:111122223333:TestTopic',
-        ];
-
-        $resource = new Topic($test['name'], $test['arn']);
-
-        self::assertSame($test['name'], $resource->getName());
-        self::assertSame($test['arn'], $resource->getArn());
+        $resource = new Topic(self::TEST['name'], self::TEST['arn']);
+        self::assertSame(self::TEST['name'], $resource->getName());
+        self::assertSame(self::TEST['arn'], $resource->getArn());
     }
 }

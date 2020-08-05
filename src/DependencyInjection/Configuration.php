@@ -22,17 +22,52 @@ use Symfony\Component\HttpKernel\Kernel;
 /**
  * {@inheritdoc}
  */
-class Configuration implements ConfigurationInterface
+final class Configuration implements ConfigurationInterface
 {
+    /**
+     * @var string
+     */
     const USE_DOMAIN = 'use_domain';
 
     /** @var IdentityGuesser $identityGuesser */
     private $identityGuesser;
+    /**
+     * @var string
+     */
+    private const BOUNCES = 'bounces';
+    /**
+     * @var string
+     */
+    private const TRACK = 'track';
+    /**
+     * @var string
+     */
+    private const TOPIC = 'topic';
+    /**
+     * @var string
+     */
+    private const FOREVER = 'forever';
+    /**
+     * @var string
+     */
+    private const COMPLAINTS = 'complaints';
+    /**
+     * @var string
+     */
+    private const DELIVERIES = 'deliveries';
+    /**
+     * @var string
+     */
+    private const IDENTITIES = 'identities';
+    /**
+     * @var string
+     */
+    private const DOMAIN = 'domain';
 
     /**
      * {@inheritdoc}
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): \Symfony\Component\Config\Definition\Builder\TreeBuilder
     {
         $this->identityGuesser = new IdentityGuesser();
 
@@ -104,35 +139,33 @@ class Configuration implements ConfigurationInterface
      *
      * @return ArrayNodeDefinition|NodeDefinition
      */
-    private function createRootNode(TreeBuilder $treeBuilder, string $rootNodeName)
+    private function createRootNode(TreeBuilder $treeBuilder, string $rootNodeName): \Symfony\Component\Config\Definition\Builder\NodeDefinition
     {
-        $rootNode = Kernel::VERSION_ID >= 40200
+        return Kernel::VERSION_ID >= 40200
             ? $treeBuilder->getRootNode()
             : $treeBuilder->root($rootNodeName);
-
-        return $rootNode;
     }
 
     /**
      * @return ArrayNodeDefinition|NodeDefinition
      */
-    private function bouncesNode()
+    private function bouncesNode(): \Symfony\Component\Config\Definition\Builder\NodeDefinition
     {
-        $treeBuilder = $this->createTreeBuilder('bounces');
-        $rootNode    = $this->createRootNode($treeBuilder, 'bounces');
+        $treeBuilder = $this->createTreeBuilder(self::BOUNCES);
+        $rootNode    = $this->createRootNode($treeBuilder, self::BOUNCES);
 
         $rootNode
             ->addDefaultsIfNotSet()
             ->children()
-                ->booleanNode('track')->defaultTrue()->end()
-                ->scalarNode('topic')->defaultNull()->end()
+                ->booleanNode(self::TRACK)->defaultTrue()->end()
+                ->scalarNode(self::TOPIC)->defaultNull()->end()
                 ->arrayNode('filter')
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->booleanNode('soft_as_hard')->defaultFalse()->end()
                         ->integerNode('max_bounces')->min(1)->defaultValue(5)->end()
-                        ->scalarNode('soft_blacklist_time')->defaultValue('forever')->end()
-                        ->scalarNode('hard_blacklist_time')->defaultValue('forever')->end()
+                        ->scalarNode('soft_blacklist_time')->defaultValue(self::FOREVER)->end()
+                        ->scalarNode('hard_blacklist_time')->defaultValue(self::FOREVER)->end()
                         ->booleanNode('force_send')->defaultFalse()->end()
                     ->end()
                 ->end()
@@ -144,20 +177,20 @@ class Configuration implements ConfigurationInterface
     /**
      * @return ArrayNodeDefinition|NodeDefinition
      */
-    private function complaintsNode()
+    private function complaintsNode(): \Symfony\Component\Config\Definition\Builder\NodeDefinition
     {
-        $treeBuilder = $this->createTreeBuilder('complaints');
-        $rootNode    = $this->createRootNode($treeBuilder, 'complaints');
+        $treeBuilder = $this->createTreeBuilder(self::COMPLAINTS);
+        $rootNode    = $this->createRootNode($treeBuilder, self::COMPLAINTS);
 
         $rootNode
             ->addDefaultsIfNotSet()
             ->children()
-                ->booleanNode('track')->defaultTrue()->end()
-                ->scalarNode('topic')->defaultNull()->end()
+                ->booleanNode(self::TRACK)->defaultTrue()->end()
+                ->scalarNode(self::TOPIC)->defaultNull()->end()
                 ->arrayNode('filter')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('blacklist_time')->defaultValue('forever')->end()
+                        ->scalarNode('blacklist_time')->defaultValue(self::FOREVER)->end()
                         ->booleanNode('force_send')->defaultFalse()->end()
                     ->end()
                 ->end()
@@ -169,16 +202,16 @@ class Configuration implements ConfigurationInterface
     /**
      * @return ArrayNodeDefinition|NodeDefinition
      */
-    private function deliveriesNode()
+    private function deliveriesNode(): \Symfony\Component\Config\Definition\Builder\NodeDefinition
     {
-        $treeBuilder = $this->createTreeBuilder('deliveries');
-        $rootNode    = $this->createRootNode($treeBuilder, 'deliveries');
+        $treeBuilder = $this->createTreeBuilder(self::DELIVERIES);
+        $rootNode    = $this->createRootNode($treeBuilder, self::DELIVERIES);
 
         $rootNode
             ->addDefaultsIfNotSet()
             ->children()
-                ->booleanNode('track')->defaultTrue()->end()
-                ->scalarNode('topic')->defaultNull()->end()
+                ->booleanNode(self::TRACK)->defaultTrue()->end()
+                ->scalarNode(self::TOPIC)->defaultNull()->end()
             ->end();
 
         return $rootNode;
@@ -191,20 +224,20 @@ class Configuration implements ConfigurationInterface
      */
     private function validateConfiguration(array $tree): bool
     {
-        if (count($tree['identities']) < 1) {
+        if ((\is_array($tree[self::IDENTITIES]) || $tree[self::IDENTITIES] instanceof \Countable ? \count($tree[self::IDENTITIES]) : 0) < 1) {
             throw new InvalidConfigurationException('You have to configure at least one identity you want be managed. Please, set it in path "shq_aws_monitor.identities".');
         }
 
         // Ensure the identities are in lowercase as they are anyway transformed in lowercase by Amazon
         // and we also need them in lowercase to make accurate checks on domain identities
-        foreach ($tree['identities'] as $identity => $config) {
-            $lowerIdentity = strtolower($identity);
-            unset($tree['identities'][$identity]);
-            $tree['identities'][$lowerIdentity] = $config;
+        foreach ($tree[self::IDENTITIES] as $identity => $config) {
+            $lowerIdentity = \strtolower($identity);
+            unset($tree[self::IDENTITIES][$identity]);
+            $tree[self::IDENTITIES][$lowerIdentity] = $config;
         }
 
-        foreach ($tree['identities'] as $identity => $config) {
-            $this->validateIdentity($identity, $config, $tree['identities']);
+        foreach ($tree[self::IDENTITIES] as $identity => $config) {
+            $this->validateIdentity($identity, $config, $tree[self::IDENTITIES]);
         }
 
         return true;
@@ -217,9 +250,9 @@ class Configuration implements ConfigurationInterface
      */
     private function validateIdentity(string $identity, array $config, array $identities): void
     {
-        $this->validateType($identity, 'bounces', $config['bounces'], $identities);
-        $this->validateType($identity, 'complaints', $config['complaints'], $identities);
-        $this->validateType($identity, 'deliveries', $config['deliveries'], $identities);
+        $this->validateType($identity, self::BOUNCES, $config[self::BOUNCES], $identities);
+        $this->validateType($identity, self::COMPLAINTS, $config[self::COMPLAINTS], $identities);
+        $this->validateType($identity, self::DELIVERIES, $config[self::DELIVERIES], $identities);
     }
 
     /**
@@ -230,12 +263,12 @@ class Configuration implements ConfigurationInterface
      */
     private function validateType(string $identity, string $type, array $typeConfig, array $identities): void
     {
-        $track = $typeConfig['track'];
-        $topic = $typeConfig['topic'];
+        $track = $typeConfig[self::TRACK];
+        $topic = $typeConfig[self::TOPIC];
 
         // If tracking is disabled but the topic name is passed anyway...
         if (false === $track && null !== $topic) {
-            throw new InvalidConfigurationException(sprintf('You have not enabled the tracking of "%s" for identity "%s" but you have anyway set the name of its topic. Either remove the name of the topic at path "shq_aws_ses_monitor.identities.%s.%s.topic" or enabled the tracking setting "shq_aws_ses_monitor.identities.%s.%s.track" to "true".', $type, $identity, $identity, $type, $identity, $type));
+            throw new InvalidConfigurationException(\Safe\sprintf('You have not enabled the tracking of "%s" for identity "%s" but you have anyway set the name of its topic. Either remove the name of the topic at path "shq_aws_ses_monitor.identities.%s.%s.topic" or enabled the tracking setting "shq_aws_ses_monitor.identities.%s.%s.track" to "true".', $type, $identity, $identity, $type, $identity, $type));
         }
 
         if (null !== $topic) {
@@ -251,15 +284,15 @@ class Configuration implements ConfigurationInterface
      */
     private function validateTopic(string $identity, string $type, string $topic, array $identities): void
     {
-        $currentPath      = sprintf('shq_aws_ses_monitor.identities.%s.%s.topic', $identity, $type);
-        $checkCurrentPath = sprintf('Check the configuration at path "%s".', $currentPath);
+        $currentPath      = \Safe\sprintf('shq_aws_ses_monitor.identities.%s.%s.topic', $identity, $type);
+        $checkCurrentPath = \Safe\sprintf('Check the configuration at path "%s".', $currentPath);
         $wantsToUseDomain = self::USE_DOMAIN === $topic;
 
         // If the identity isn't an email...
         if (false === $this->identityGuesser->isEmailIdentity($identity)) {
             // It is almost sure a domain: a domain cannot set the "use_domain" value for topic
             if ($wantsToUseDomain) {
-                throw new InvalidConfigurationException(sprintf('The identity "%s" is not an email. The value "%s" can be used only with email identities. %s', $identity, self::USE_DOMAIN, $checkCurrentPath));
+                throw new InvalidConfigurationException(\Safe\sprintf('The identity "%s" is not an email. The value "%s" can be used only with email identities. %s', $identity, self::USE_DOMAIN, $checkCurrentPath));
             }
 
             // Is not an email and doesn't want to use the value "use_domain": we can exit the checks
@@ -270,14 +303,14 @@ class Configuration implements ConfigurationInterface
         $parts = $this->identityGuesser->getEmailParts($identity);
 
         // Check if the Domain identity was configured
-        if (false === array_key_exists($parts['domain'], $identities)) {
-            throw new InvalidConfigurationException(sprintf('The domain "%s" of the email identity "%s" is NOT explicitly configured. You need to explicitly configure the domain identity "%s" to use its topic for the email identity "%s". %s', $parts['domain'], $identity, $parts['domain'], $identity, $checkCurrentPath));
+        if (false === \array_key_exists($parts[self::DOMAIN], $identities)) {
+            throw new InvalidConfigurationException(\Safe\sprintf('The domain "%s" of the email identity "%s" is NOT explicitly configured. You need to explicitly configure the domain identity "%s" to use its topic for the email identity "%s". %s', $parts[self::DOMAIN], $identity, $parts[self::DOMAIN], $identity, $checkCurrentPath));
         }
 
         // Check if the mailbox is a test one
         if ($this->identityGuesser->isTestEmail($parts['mailbox'])) {
             if ($wantsToUseDomain) {
-                throw new InvalidConfigurationException(sprintf('The email identity "%s" is for testing on development machines purposes only. You cannot set it to use the domain\'s topic that has to be used only in production. %s', $identity, $identity, $type, $checkCurrentPath));
+                throw new InvalidConfigurationException(\Safe\sprintf('The email identity "%s" is for testing on development machines purposes only. You cannot set it to use the domain\'s topic that has to be used only in production. %s', $identity, $identity, $type, $checkCurrentPath));
             }
 
             // Check the topic used for this test email is not set for production identities
@@ -286,17 +319,21 @@ class Configuration implements ConfigurationInterface
                 if (false === $this->identityGuesser->isProductionIdentity($otherIdentity)) {
                     continue;
                 }
+                if ($otherConfig['bunces'][self::TOPIC] === $topic) {
+                    $bouncesPath = \Safe\sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity);
+                    throw new InvalidConfigurationException(\Safe\sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $bouncesPath));
+                }
 
                 // It is a production identity: check the topics are not the same of this one
-                if ($otherConfig['bunces']['topic'] === $topic) {
-                    $bouncesPath = sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity);
-                    throw new InvalidConfigurationException(sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $bouncesPath));
-                } elseif ($otherConfig['complaints']['topic'] === $topic) {
-                    $complaintsPath = sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity);
-                    throw new InvalidConfigurationException(sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $complaintsPath));
-                } elseif ($otherConfig['deliveries']['topic'] === $topic) {
-                    $deliveriesPath = sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity);
-                    throw new InvalidConfigurationException(sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $deliveriesPath));
+                if ($otherConfig[self::COMPLAINTS][self::TOPIC] === $topic) {
+                    $complaintsPath = \Safe\sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity);
+                    throw new InvalidConfigurationException(\Safe\sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $complaintsPath));
+                }
+
+                // It is a production identity: check the topics are not the same of this one
+                if ($otherConfig[self::DELIVERIES][self::TOPIC] === $topic) {
+                    $deliveriesPath = \Safe\sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity);
+                    throw new InvalidConfigurationException(\Safe\sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $deliveriesPath));
                 }
             }
         }
@@ -309,12 +346,12 @@ class Configuration implements ConfigurationInterface
      */
     private function prepareConfiguration(array $tree): array
     {
-        foreach ($tree['identities'] as $identity => $config) {
+        foreach ($tree[self::IDENTITIES] as $identity => $config) {
             // We have to make them again lowercase as in validation the $tree was not modified
-            $lowerIdentity    = strtolower($identity);
+            $lowerIdentity    = \strtolower($identity);
             $preparedIdentity = $this->prepareIdentity($tree['endpoint']['host'], $lowerIdentity, $config);
-            unset($tree['identities'][$identity]);
-            $tree['identities'][$lowerIdentity] = $preparedIdentity;
+            unset($tree[self::IDENTITIES][$identity]);
+            $tree[self::IDENTITIES][$lowerIdentity] = $preparedIdentity;
         }
 
         return $tree;
@@ -329,9 +366,9 @@ class Configuration implements ConfigurationInterface
      */
     private function prepareIdentity(string $host, string $identity, array $config): array
     {
-        $config['bounces']    = $this->prepareNotification($host, $identity, 'bounces', $config['bounces']);
-        $config['complaints'] = $this->prepareNotification($host, $identity, 'complaints', $config['complaints']);
-        $config['deliveries'] = $this->prepareNotification($host, $identity, 'deliveries', $config['deliveries']);
+        $config[self::BOUNCES]    = $this->prepareNotification($host, $identity, self::BOUNCES, $config[self::BOUNCES]);
+        $config[self::COMPLAINTS] = $this->prepareNotification($host, $identity, self::COMPLAINTS, $config[self::COMPLAINTS]);
+        $config[self::DELIVERIES] = $this->prepareNotification($host, $identity, self::DELIVERIES, $config[self::DELIVERIES]);
 
         return $config;
     }
@@ -346,8 +383,8 @@ class Configuration implements ConfigurationInterface
      */
     private function prepareNotification(string $host, string $identity, string $type, array $typeConfig): array
     {
-        if ($typeConfig['track'] && null === $typeConfig['topic']) {
-            $typeConfig['topic'] = $this->generateTopicName($host, $identity, $type);
+        if ($typeConfig[self::TRACK] && null === $typeConfig[self::TOPIC]) {
+            $typeConfig[self::TOPIC] = $this->generateTopicName($host, $identity, $type);
         }
 
         return $typeConfig;
@@ -362,9 +399,8 @@ class Configuration implements ConfigurationInterface
      */
     private function generateTopicName(string $host, string $identity, string $type): string
     {
-        $env       = strstr($identity, 'test') ? 'dev' : 'prod';
-        $topicName = sprintf('%s-%s-ses-%s-%s', $host, $identity, $env, $type);
+        $env       = \strstr($identity, 'test') ? 'dev' : 'prod';
 
-        return $topicName;
+        return \Safe\sprintf('%s-%s-ses-%s-%s', $host, $identity, $env, $type);
     }
 }

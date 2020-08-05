@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 /**
  * Processes the request from AWS SNS handling it with the right handler.
  */
-class RequestProcessor
+final class RequestProcessor
 {
     /** @var NotificationProcessor $snsNotificationProcessor */
     private $snsNotificationProcessor;

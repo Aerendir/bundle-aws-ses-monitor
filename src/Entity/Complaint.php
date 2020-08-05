@@ -23,25 +23,31 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Complaint
 {
-    /** Indicates unsolicited email or some other kind of email abuse. */
+    /** Indicates unsolicited email or some other kind of email abuse.
+     * @var string */
     const TYPE_ABUSE = 'abuse';
 
-    /** Email authentication failure report. */
+    /** Email authentication failure report.
+     * @var string */
     const TYPE_AUTH_FAILURE = 'auth-failure';
 
-    /** Indicates some kind of fraud or phishing activity. */
+    /** Indicates some kind of fraud or phishing activity.
+     * @var string */
     const TYPE_FRAUD = 'fraud';
 
     /**
      * Indicates that the entity providing the report does not consider the message to be spam.
      * This may be used to correct a message that was incorrectly tagged or categorized as spam.
+     * @var string
      */
     const TYPE_NOT_SPAM = 'not-spam';
 
-    /** Indicates any other feedback that does not fit into other registered types. */
+    /** Indicates any other feedback that does not fit into other registered types.
+     * @var string */
     const TYPE_OTHER = 'other';
 
-    /** Reports that a virus is found in the originating message. */
+    /** Reports that a virus is found in the originating message.
+     * @var string */
     const TYPE_VIRUS = 'virus';
 
     /**
@@ -117,6 +123,10 @@ class Complaint
      * @ORM\Column(name="arrival_date", type="datetime", nullable=true)
      */
     private $arrivalDate;
+    /**
+     * @var string
+     */
+    private const COMPLAINT = 'complaint';
 
     /**
      * @param EmailStatus $email
@@ -128,21 +138,21 @@ class Complaint
     public static function create(EmailStatus $email, MailMessage $mailMessage, array $notification): Complaint
     {
         $complaint = (new self())
-            ->setComplainedOn(new \DateTime($notification['complaint']['timestamp']))
-            ->setFeedbackId($notification['complaint']['feedbackId'])
+            ->setComplainedOn(new \DateTime($notification[self::COMPLAINT]['timestamp']))
+            ->setFeedbackId($notification[self::COMPLAINT]['feedbackId'])
             ->setMailMessage($mailMessage)
             ->setEmailStatus($email);
 
-        if (isset($notification['complaint']['userAgent'])) {
-            $complaint->setUserAgent($notification['complaint']['userAgent']);
+        if (isset($notification[self::COMPLAINT]['userAgent'])) {
+            $complaint->setUserAgent($notification[self::COMPLAINT]['userAgent']);
         }
 
-        if (isset($notification['complaint']['complaintFeedbackType'])) {
-            $complaint->setComplaintFeedbackType($notification['complaint']['complaintFeedbackType']);
+        if (isset($notification[self::COMPLAINT]['complaintFeedbackType'])) {
+            $complaint->setComplaintFeedbackType($notification[self::COMPLAINT]['complaintFeedbackType']);
         }
 
-        if (isset($notification['complaint']['arrivalDate'])) {
-            $complaint->setArrivalDate(new \DateTime($notification['complaint']['arrivalDate']));
+        if (isset($notification[self::COMPLAINT]['arrivalDate'])) {
+            $complaint->setArrivalDate(new \DateTime($notification[self::COMPLAINT]['arrivalDate']));
         }
 
         return $complaint;
@@ -215,10 +225,8 @@ class Complaint
 
     /**
      * @param EmailStatus $emailStatus
-     *
-     * @return Complaint
      */
-    private function setEmailStatus(EmailStatus $emailStatus): Complaint
+    private function setEmailStatus(EmailStatus $emailStatus): self
     {
         $this->emailStatus = $emailStatus;
         $emailStatus->addComplaint($this);
@@ -228,10 +236,8 @@ class Complaint
 
     /**
      * @param MailMessage $mailMessage
-     *
-     * @return Complaint
      */
-    private function setMailMessage(MailMessage $mailMessage): Complaint
+    private function setMailMessage(MailMessage $mailMessage): self
     {
         $this->mailMessage = $mailMessage;
         $this->mailMessage->addComplaint($this);
@@ -241,10 +247,8 @@ class Complaint
 
     /**
      * @param \DateTime $complainedOn
-     *
-     * @return Complaint
      */
-    private function setComplainedOn(\DateTime $complainedOn): Complaint
+    private function setComplainedOn(\DateTime $complainedOn): self
     {
         $this->complainedOn = $complainedOn;
 
@@ -253,10 +257,8 @@ class Complaint
 
     /**
      * @param string $feedbackId
-     *
-     * @return Complaint
      */
-    private function setFeedbackId(string $feedbackId): Complaint
+    private function setFeedbackId(string $feedbackId): self
     {
         $this->feedbackId = $feedbackId;
 
@@ -265,10 +267,8 @@ class Complaint
 
     /**
      * @param string $userAgent
-     *
-     * @return Complaint
      */
-    private function setUserAgent(string $userAgent): Complaint
+    private function setUserAgent(string $userAgent): self
     {
         $this->userAgent = $userAgent;
 
@@ -277,10 +277,8 @@ class Complaint
 
     /**
      * @param string $complaintFeedbackType
-     *
-     * @return Complaint
      */
-    private function setComplaintFeedbackType(string $complaintFeedbackType): Complaint
+    private function setComplaintFeedbackType(string $complaintFeedbackType): self
     {
         $this->complaintFeedbackType = $complaintFeedbackType;
 
@@ -289,10 +287,8 @@ class Complaint
 
     /**
      * @param \DateTime $arrivalDate
-     *
-     * @return Complaint
      */
-    private function setArrivalDate(\DateTime $arrivalDate): Complaint
+    private function setArrivalDate(\DateTime $arrivalDate): self
     {
         $this->arrivalDate = $arrivalDate;
 

@@ -23,7 +23,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @internal
  */
-class Console
+final class Console
 {
     /** @var bool $fullLog If true, the sections are not used and lines are wrote one by one. */
     private $fullLog = false;
@@ -69,7 +69,7 @@ class Console
      */
     public function createSection($output)
     {
-        return method_exists($output, 'section') && false === $this->fullLog
+        return \method_exists($output, 'section') && false === $this->fullLog
             ? $output->section()
             : $output;
     }
@@ -82,7 +82,7 @@ class Console
      */
     public function overwrite(string $line, $output): void
     {
-        method_exists($output, 'overwrite') && false === $this->fullLog
+        \method_exists($output, 'overwrite') && false === $this->fullLog
             ? $output->overwrite($line)
             : $output->writeln($line);
     }
@@ -94,7 +94,7 @@ class Console
      */
     public function clear($output): void
     {
-        if (method_exists($output, 'clear') && false === $this->fullLog) {
+        if (\method_exists($output, 'clear') && false === $this->fullLog) {
             $output->clear();
         }
     }

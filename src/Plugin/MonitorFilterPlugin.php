@@ -19,7 +19,7 @@ use Swift_Events_SendEvent;
  * The SwiftMailer plugin.
  * {@inheritdoc}
  */
-class MonitorFilterPlugin implements \Swift_Events_SendListener
+final class MonitorFilterPlugin implements \Swift_Events_SendListener
 {
     /** @var array $blacklisted */
     private $blacklisted;
@@ -72,7 +72,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      */
     public function sendPerformed(Swift_Events_SendEvent $evt): void
     {
-        $evt->setFailedRecipients(array_unique($this->blacklisted));
+        $evt->setFailedRecipients(\array_unique($this->blacklisted));
     }
 
     /**
@@ -83,8 +83,8 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      */
     private function filterBlacklisted(array $identities, array $recipients): array
     {
-        $emails         = array_keys($recipients);
-        $fromIdentities = array_keys($identities);
+        $emails         = \array_keys($recipients);
+        $fromIdentities = \array_keys($identities);
 
         foreach ($emails as $email) {
             $emailStatus = $this->emailStatusManager->loadEmailStatus($email);

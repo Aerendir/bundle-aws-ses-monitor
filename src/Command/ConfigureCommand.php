@@ -29,8 +29,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @ codeCoverageIgnore This command basically calls AWS and uses other classes already tested, so it is not testable.
  */
-class ConfigureCommand extends Command
+final class ConfigureCommand extends Command
 {
+    protected static $defaultName = 'aws:ses:configure';
     /** @var string $env */
     private $env;
 
@@ -67,6 +68,14 @@ class ConfigureCommand extends Command
 
     /** @var array $scheduledTopics The topics to create */
     private $scheduledTopics = [];
+    /**
+     * @var string
+     */
+    private const FORCE = 'force';
+    /**
+     * @var string
+     */
+    private const TOPIC = 'topic';
 
     /**
      * @param string                 $env
@@ -97,31 +106,30 @@ class ConfigureCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
-        $this->setName('aws:ses:configure');
         $this->setDescription('Configures the identities on AWS SES and their topics.')
-            ->addOption('force', null, InputOption::VALUE_NONE, 'Forces the configuration of production identities, too.')
+            ->addOption(self::FORCE, null, InputOption::VALUE_NONE, 'Forces the configuration of production identities, too.')
             ->addOption('full-log', null, InputOption::VALUE_NONE, 'Shows logs line by line, without simply changing the current one.');
     }
 
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->console->enableFullLog((bool) $input->getOption('full-log'));
         $this->ioWriter = $this->console->createWriter($input, $output);
 
         $this->ioWriter->title('Configure AWS SES and SNS');
-        $this->ioWriter->writeln(sprintf('Starting to configure identities for environment <comment>%s</comment>', $this->env));
+        $this->ioWriter->writeln(\Safe\sprintf('Starting to configure identities for environment <comment>%s</comment>', $this->env));
 
         if (false === $this->canProceed($input)) {
             return 0;
         }
 
         $this->initializeConfiguration($output);
-        $this->configureIdentities((bool) $input->getOption('force'));
+        $this->configureIdentities((bool) $input->getOption(self::FORCE));
         $this->configureTopics();
         $this->configureSubscriptions();
 
@@ -146,7 +154,7 @@ class ConfigureCommand extends Command
     private function canProceed(InputInterface $input): bool
     {
         // Be sure the dev wants to configure production identities from dev env
-        if ('prod' !== $this->env && $input->getOption('force')) {
+        if ('prod' !== $this->env && $input->getOption(self::FORCE)) {
             $this->ioWriter->caution(
                 <<<EOF
 The --force option is very risky:
@@ -198,7 +206,7 @@ EOF
      */
     private function configureIdentity(string $identity): void
     {
-        $this->console->overwrite(sprintf('Configuring identity <comment>%s</comment>', $identity), $this->sectionTitle);
+        $this->console->overwrite(\Safe\sprintf('Configuring identity <comment>%s</comment>', $identity), $this->sectionTitle);
 
         $this->checkIdentityVerificationStatus($identity);
         $this->checkIdentityDkimConfiguration($identity);
@@ -218,9 +226,9 @@ EOF
     {
         // If the identity is not still verified (or doesn't exist at all)...
         $this->console->overwrite('Checking Identity verification status:', $this->sectionBody);
-        $log = sprintf('Identity <comment>%s</comment> is already verified: skipping...', $identity);
+        $log = \Safe\sprintf('Identity <comment>%s</comment> is already verified: skipping...', $identity);
         if (false === $this->monitor->liveIdentityIsVerified($identity)) {
-            $this->console->overwrite(sprintf('Identity <comment>%s</comment> is not still verified: requesting verification...', $identity), $this->sectionBody);
+            $this->console->overwrite(\Safe\sprintf('Identity <comment>%s</comment> is not still verified: requesting verification...', $identity), $this->sectionBody);
             // Guess if this is an Email identity or a domain identity
             $verificationToken = null;
             $this->monitor->getIdentityGuesser()->isEmailIdentity($identity)
@@ -231,11 +239,11 @@ EOF
             $this->monitor->getIdentityGuesser()->isEmailIdentity($identity)
                 ? $this->addActionToTake(
                 $identity,
-                sprintf('A request to verify the email identity <comment>%s</comment> was just sent from amazon to the email address: check the email\'s inbox and click the confirmation link.', $identity)
+                \Safe\sprintf("A request to verify the email identity <comment>%s</comment> was just sent from amazon to the email address: check the email's inbox and click the confirmation link.", $identity)
             )
                 : $this->addActionToTake(
                 $identity,
-                sprintf(
+                \Safe\sprintf(
                     "A request to verify the domain identity <comment>%s</comment> was just sent to amazon.\n"
                     . "You now need to add a TXT record to the DNS settings of your domain.\n"
                     . "Here the details:\n\n"
@@ -254,7 +262,7 @@ EOF
                 )
             );
 
-            $log = sprintf('Verification requested for identity <comment>%s</comment>', $identity);
+            $log = \Safe\sprintf('Verification requested for identity <comment>%s</comment>', $identity);
         }
         $this->console->overwrite($log, $this->sectionBody);
     }
@@ -266,12 +274,12 @@ EOF
     {
         // (Requires a verified identity) If the remote configuration is different than the local configuration...
         $this->console->overwrite('Checking DKIM configuration...', $this->sectionBody);
-        $log = sprintf('Identity <comment>%s</comment> is not still verified: cannot synch dkim enabling', $identity);
+        $log = \Safe\sprintf('Identity <comment>%s</comment> is not still verified: cannot synch dkim enabling', $identity);
         if ($this->monitor->liveIdentityIsVerified($identity)) {
-            $log = sprintf('DKIM enabling for identity <comment>%s</comment> is already in synch: skipping...', $identity);
+            $log = \Safe\sprintf('DKIM enabling for identity <comment>%s</comment> is already in synch: skipping...', $identity);
             if (false === $this->monitor->dkimEnabledIsInSync($identity)) {
                 // Synch them
-                $this->console->overwrite(sprintf('DKIM enabling for identity <comment>%s</comment> is not in synch: synching...', $identity), $this->sectionBody);
+                $this->console->overwrite(\Safe\sprintf('DKIM enabling for identity <comment>%s</comment> is not in synch: synching...', $identity), $this->sectionBody);
 
                 /** @var bool $dkimEnabled */
                 $dkimEnabled = $this->monitor->getConfiguredIdentity($identity, 'dkim');
@@ -298,7 +306,7 @@ EOF
                 if (false === $this->monitor->liveIdentityDkimIsVerified($identity)) {
                     $this->addActionToTake(
                         $identity,
-                        sprintf(
+                        \Safe\sprintf(
                             "To enable DKIM signing for identity <comment>%s</comment>, the records below must be entered in your DNS settings.\n"
                             . "AWS will automatically detect the presence of these records, and allow DKIM signing at that time.\n"
                             . 'Note that verification of these settings may take up to 72 hours.'
@@ -310,7 +318,7 @@ EOF
                         )
                     );
                 }
-                $log = sprintf('DKIM enabling for identity <comment>%s</comment> is now in synch', $identity);
+                $log = \Safe\sprintf('DKIM enabling for identity <comment>%s</comment> is now in synch', $identity);
             }
         }
         $this->console->overwrite($log, $this->sectionBody);
@@ -323,11 +331,11 @@ EOF
     {
         // If the remote configuration is different than the local configuration...
         $this->console->overwrite('Checking "from domain"...', $this->sectionBody);
-        $log = sprintf('The "from domain" of identity <comment>%s</comment> is already in synch: skipping...', $identity);
+        $log = \Safe\sprintf('The "from domain" of identity <comment>%s</comment> is already in synch: skipping...', $identity);
         if (false === $this->monitor->fromDomainIsInSync($identity)) {
-            $this->console->overwrite(sprintf('The "from domain" of identity <comment>%s</comment> is not in synch: synching...', $identity), $this->sectionBody);
+            $this->console->overwrite(\Safe\sprintf('The "from domain" of identity <comment>%s</comment> is not in synch: synching...', $identity), $this->sectionBody);
 
-            $log = sprintf('The "from domain" of identity <comment>%s</comment> cannot be synched as its domain identity is not verified.', $identity);
+            $log = \Safe\sprintf('The "from domain" of identity <comment>%s</comment> cannot be synched as its domain identity is not verified.', $identity);
             if ($this->monitor->fromDomainCanBeSynched($identity)) {
                 /** @var string $domain */
                 $domain = $this->monitor->getConfiguredIdentity($identity, 'from_domain');
@@ -336,7 +344,7 @@ EOF
                 $onMxFailure = $this->monitor->getConfiguredIdentity($identity, 'on_mx_failure');
 
                 $this->sesManager->configureFromDomain($identity, $domain, $onMxFailure);
-                $log = sprintf('The "from domain" of identity <comment>%s</comment> is now in synch', $identity);
+                $log = \Safe\sprintf('The "from domain" of identity <comment>%s</comment> is now in synch', $identity);
             }
         }
         $this->console->overwrite($log, $this->sectionBody);
@@ -348,13 +356,13 @@ EOF
      */
     private function checkIdentityNotificationTopic(string $identity, string $type): void
     {
-        $this->console->overwrite(sprintf('Checking notification topic for <comment>%s</comment> of identity <comment>%s</comment>...', $type, $identity), $this->sectionBody);
-        $log = sprintf('Topic for notification of <comment>%s</comment> of identity <comment>%s</comment> is already set: skipping...', $type, $identity);
+        $this->console->overwrite(\Safe\sprintf('Checking notification topic for <comment>%s</comment> of identity <comment>%s</comment>...', $type, $identity), $this->sectionBody);
+        $log = \Safe\sprintf('Topic for notification of <comment>%s</comment> of identity <comment>%s</comment> is already set: skipping...', $type, $identity);
         if ($this->monitor->requiresTopicConfiguration($identity, $type)) {
-            $this->console->overwrite(sprintf('Topic for notification of <comment>%s</comment> of identity <comment>%s</comment> is not set: scheduling it...', $type, $identity), $this->sectionBody);
-            $topicName               = $this->monitor->getConfiguredIdentity($identity, $type)['topic'];
+            $this->console->overwrite(\Safe\sprintf('Topic for notification of <comment>%s</comment> of identity <comment>%s</comment> is not set: scheduling it...', $type, $identity), $this->sectionBody);
+            $topicName               = $this->monitor->getConfiguredIdentity($identity, $type)[self::TOPIC];
             $this->scheduledTopics[] = $this->normalizeTopicName($topicName);
-            $log                     = sprintf('Topic <comment>%s</comment> for notification of <comment>%s</comment> of identity <comment>%s</comment> scheduled...', $topicName, $type, $identity);
+            $log                     = \Safe\sprintf('Topic <comment>%s</comment> for notification of <comment>%s</comment> of identity <comment>%s</comment> scheduled...', $topicName, $type, $identity);
         }
         $this->console->overwrite($log, $this->sectionBody);
     }
@@ -365,7 +373,7 @@ EOF
     private function configureTopics(): void
     {
         // 2. Create topics
-        $topics = array_unique($this->scheduledTopics);
+        $topics = \array_unique($this->scheduledTopics);
         foreach ($topics as $topic) {
             $this->configureTopic($topic);
         }
@@ -376,20 +384,20 @@ EOF
      */
     private function configureTopic(string $topic): void
     {
-        $this->console->overwrite(sprintf('Configuring topic <comment>%s</comment>', $topic), $this->sectionTitle);
+        $this->console->overwrite(\Safe\sprintf('Configuring topic <comment>%s</comment>', $topic), $this->sectionTitle);
 
         if ($this->monitor->liveTopicExists($this->normalizeTopicName($topic))) {
-            $this->console->overwrite(sprintf('Topic <comment>%s</comment> already exists: skipping...', $topic), $this->sectionBody);
+            $this->console->overwrite(\Safe\sprintf('Topic <comment>%s</comment> already exists: skipping...', $topic), $this->sectionBody);
             $this->scheduledTopics[$topic] = $this->monitor->getLiveTopic($topic)['arn'];
 
             return;
         }
 
-        $this->console->overwrite(sprintf('Creating topic <comment>%s</comment>...', $topic), $this->sectionBody);
+        $this->console->overwrite(\Safe\sprintf('Creating topic <comment>%s</comment>...', $topic), $this->sectionBody);
         $topicEntity                   = $this->snsManager->createTopic($topic);
         $this->scheduledTopics[$topic] = $topicEntity->getArn();
         $this->entityManager->persist($topicEntity);
-        $this->console->overwrite(sprintf('Topic <comment>%s</comment> created: <comment>%s</comment>', $topic, $topicEntity->getArn()), $this->sectionBody);
+        $this->console->overwrite(\Safe\sprintf('Topic <comment>%s</comment> created: <comment>%s</comment>', $topic, $topicEntity->getArn()), $this->sectionBody);
 
         $this->console->clear($this->sectionTitle);
     }
@@ -410,7 +418,7 @@ EOF
      */
     private function configureSubscription(string $identity): void
     {
-        $this->console->overwrite(sprintf('Configuring subscriptions of identity <comment>%s</comment>', $identity), $this->sectionTitle);
+        $this->console->overwrite(\Safe\sprintf('Configuring subscriptions of identity <comment>%s</comment>', $identity), $this->sectionTitle);
 
         $this->subscribeIdentityToTopic($identity, SnsTypes::MESSAGE_TYPE_BOUNCE);
         $this->subscribeIdentityToTopic($identity, SnsTypes::MESSAGE_TYPE_COMPLAINT);
@@ -455,34 +463,34 @@ EOF
             default:
                 throw new \RuntimeException('Unrecognized message type. This should never happen: investigate further!');
         }
-        $this->console->overwrite(sprintf('Checking subscription to topic <comment>%s</comment> for notifications of <comment>%s</comment>...', $topicName, $notificationType), $this->sectionBody);
+        $this->console->overwrite(\Safe\sprintf('Checking subscription to topic <comment>%s</comment> for notifications of <comment>%s</comment>...', $topicName, $notificationType), $this->sectionBody);
 
-        $log = sprintf('Identity <comment>%s</comment> is already subscribed to topic <comment>%s</comment> for notifications of <comment>%s</comment>: skipping', $identity, $topicName, $notificationType);
+        $log = \Safe\sprintf('Identity <comment>%s</comment> is already subscribed to topic <comment>%s</comment> for notifications of <comment>%s</comment>: skipping', $identity, $topicName, $notificationType);
         if ($this->monitor->identityRequiresTopicSubscription($identity, $notificationType)) {
-            $this->console->overwrite(sprintf('Identity <comment>%s</comment> is not yet subscribed to topic <comment>%s</comment> for notifications of <comment>%s</comment>: subscribing...', $identity, $topicName, $notificationType), $this->sectionBody);
+            $this->console->overwrite(\Safe\sprintf('Identity <comment>%s</comment> is not yet subscribed to topic <comment>%s</comment> for notifications of <comment>%s</comment>: subscribing...', $identity, $topicName, $notificationType), $this->sectionBody);
 
             // Wait 1 second to avoid throttling errors
-            $elapsed = microtime(true) - $lastCall;
+            $elapsed = \microtime(true) - $lastCall;
             while ($elapsed < 0.1000000) {
                 $wait = 0.1000000 - $elapsed;
-                usleep((int) $wait * 10000000);
-                $elapsed = microtime(true) - $lastCall;
+                \usleep((int) $wait * 10000000);
+                $elapsed = \microtime(true) - $lastCall;
             }
 
             $this->sesManager->setTopic($identity, $messageType, $this->scheduledTopics[$topicName]);
-            $lastCall = microtime(true);
-            $log      = sprintf('Identity <comment>%s</comment> subscribed to topic <comment>%s</comment> for notifications of <comment>%s</comment>', $identity, $topicName, $notificationType);
+            $lastCall = \microtime(true);
+            $log      = \Safe\sprintf('Identity <comment>%s</comment> subscribed to topic <comment>%s</comment> for notifications of <comment>%s</comment>', $identity, $topicName, $notificationType);
         }
         $this->console->overwrite($log, $this->sectionBody);
 
-        $this->console->overwrite(sprintf('Checking endpoint in subscription to topic <comment>%s</comment> for notifications of <comment>%s</comment>...', $topicName, $notificationType), $this->sectionBody);
+        $this->console->overwrite(\Safe\sprintf('Checking endpoint in subscription to topic <comment>%s</comment> for notifications of <comment>%s</comment>...', $topicName, $notificationType), $this->sectionBody);
         $currentEndpoint = $this->snsManager->getEndpointUrl();
-        $log             = sprintf('Endpoint <comment>%s</comment> in subscription to topic is correct.', $currentEndpoint);
+        $log             = \Safe\sprintf('Endpoint <comment>%s</comment> in subscription to topic is correct.', $currentEndpoint);
         if (false === $this->monitor->subscriptionEndpointIsInSynch($this->scheduledTopics[$topicName], $currentEndpoint)) {
             $this->console->overwrite('Endpoint is not in synch: synching it...', $this->sectionBody);
-            $this->console->overwrite(sprintf('Subscribing App\'s endpoint to the topic <comment>%s</comment>', $topicName), $this->sectionBody);
+            $this->console->overwrite(\Safe\sprintf("Subscribing App's endpoint to the topic <comment>%s</comment>", $topicName), $this->sectionBody);
             $this->snsManager->setEndpoint($this->scheduledTopics[$topicName]);
-            $log = sprintf('Endpoint set to current <comment>%s</comment>: now in synch.', $currentEndpoint);
+            $log = \Safe\sprintf('Endpoint set to current <comment>%s</comment>: now in synch.', $currentEndpoint);
         }
         $this->console->overwrite($log, $this->sectionBody);
     }
@@ -503,10 +511,9 @@ EOF
      */
     private function normalizeTopicName(string $topicName): string
     {
-        $topicName = preg_replace('/[^A-Za-z0-9-_]/', '_', $topicName);
-        $topicName = strtolower($topicName);
+        $topicName = \Safe\preg_replace('#[^A-Za-z0-9-_]#', '_', $topicName);
 
-        return $topicName;
+        return \strtolower($topicName);
     }
 
     /**
@@ -522,7 +529,7 @@ EOF
             $identity = $parts['domain'];
         }
 
-        return sprintf('Name: <comment>%s._domainkey.%s</comment>; Type: <comment>CNAME</comment>; Value: <comment>%s.dkim.amazonses.com</comment>;', $token, $identity, $token);
+        return \Safe\sprintf('Name: <comment>%s._domainkey.%s</comment>; Type: <comment>CNAME</comment>; Value: <comment>%s.dkim.amazonses.com</comment>;', $token, $identity, $token);
     }
 
     /**
@@ -533,11 +540,11 @@ EOF
      */
     private function getTopicName(string $identity, string $type): string
     {
-        $topicName = $this->monitor->getConfiguredIdentity($identity, $type)['topic'];
+        $topicName = $this->monitor->getConfiguredIdentity($identity, $type)[self::TOPIC];
 
         if (Configuration::USE_DOMAIN === $topicName) {
             $parts     = $this->monitor->getIdentityGuesser()->getEmailParts($identity);
-            $topicName = $this->monitor->getConfiguredIdentity($parts['domain'], $type)['topic'];
+            $topicName = $this->monitor->getConfiguredIdentity($parts['domain'], $type)[self::TOPIC];
         }
 
         return $this->normalizeTopicName($topicName);
@@ -552,8 +559,8 @@ EOF
             $this->ioWriter->warningLine('There are pending actions.');
             $this->ioWriter->writeln('You have to take the actions listed below, then run again the command <comment>bin/console aws:ses:configure</comment> to complete the configuration.');
 
-            foreach (array_keys($this->actionsToTakeNow) as $identity) {
-                $this->ioWriter->warningLineNoBg(sprintf('Actions to take to complete configuration of identity "%s":', $identity));
+            foreach (\array_keys($this->actionsToTakeNow) as $identity) {
+                $this->ioWriter->warningLineNoBg(\Safe\sprintf('Actions to take to complete configuration of identity "%s":', $identity));
                 foreach ($this->actionsToTakeNow[$identity] as $action) {
                     $this->ioWriter->writeln($action);
                 }

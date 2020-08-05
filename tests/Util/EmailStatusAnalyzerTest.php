@@ -20,9 +20,9 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\EmailStatusAnalyzer;
 /**
  * {@inheritdoc}
  */
-class EmailStatusAnalyzerTest extends TestCase
+final class EmailStatusAnalyzerTest extends TestCase
 {
-    public function testIsComplained()
+    public function testIsComplained(): void
     {
         $mockMonitor     = $this->createMock(Monitor::class);
         $mockEmailStatus = $this->createMock(EmailStatus::class);
@@ -36,7 +36,7 @@ class EmailStatusAnalyzerTest extends TestCase
         self::assertTrue($resource->isComplained($mockEmailStatus));
     }
 
-    public function testIsBouncedHard()
+    public function testIsBouncedHard(): void
     {
         $mockMonitor     = $this->createMock(Monitor::class);
         $mockEmailStatus = $this->createMock(EmailStatus::class);
@@ -48,7 +48,7 @@ class EmailStatusAnalyzerTest extends TestCase
         self::assertTrue($resource->isBounced($mockEmailStatus, 1, false));
     }
 
-    public function testIsBouncedWith()
+    public function testIsBouncedWith(): void
     {
         $mockMonitor     = $this->createMock(Monitor::class);
         $mockEmailStatus = $this->createMock(EmailStatus::class);
@@ -61,7 +61,7 @@ class EmailStatusAnalyzerTest extends TestCase
         self::assertTrue($resource->isBounced($mockEmailStatus, 2, true));
     }
 
-    public function testIsBouncedNot()
+    public function testIsBouncedNot(): void
     {
         $mockMonitor     = $this->createMock(Monitor::class);
         $mockEmailStatus = $this->createMock(EmailStatus::class);
@@ -73,7 +73,7 @@ class EmailStatusAnalyzerTest extends TestCase
         self::assertFalse($resource->isBounced($mockEmailStatus, 1, false));
     }
 
-    public function testBouncedCannnotReceiveMessages()
+    public function testBouncedCannnotReceiveMessages(): void
     {
         $testIdentity    = 'hello@serendipityhq.com';
         $mockMonitor     = $this->createMock(Monitor::class);
@@ -96,7 +96,7 @@ class EmailStatusAnalyzerTest extends TestCase
         self::assertFalse($resource->canReceiveMessages($mockEmailStatus, $testIdentity));
     }
 
-    public function testBouncedCanReceiveMessagesWithTrackingDisabled()
+    public function testBouncedCanReceiveMessagesWithTrackingDisabled(): void
     {
         $testIdentity    = 'hello@serendipityhq.com';
         $mockMonitor     = $this->createMock(Monitor::class);
@@ -119,7 +119,7 @@ class EmailStatusAnalyzerTest extends TestCase
         self::assertTrue($resource->canReceiveMessages($mockEmailStatus, $testIdentity));
     }
 
-    public function testBouncedCanReceiveMessagesWithSendingForced()
+    public function testBouncedCanReceiveMessagesWithSendingForced(): void
     {
         $testIdentity    = 'hello@serendipityhq.com';
         $mockMonitor     = $this->createMock(Monitor::class);
@@ -142,7 +142,7 @@ class EmailStatusAnalyzerTest extends TestCase
         self::assertTrue($resource->canReceiveMessages($mockEmailStatus, $testIdentity));
     }
 
-    public function testComplainedCannnotReceiveMessages()
+    public function testComplainedCannnotReceiveMessages(): void
     {
         $testIdentity    = 'hello@serendipityhq.com';
         $mockMonitor     = $this->createMock(Monitor::class);
@@ -169,7 +169,7 @@ class EmailStatusAnalyzerTest extends TestCase
         self::assertFalse($resource->canReceiveMessages($mockEmailStatus, $testIdentity));
     }
 
-    public function testComplainedCanReceiveMessagesWithTrackingDisabled()
+    public function testComplainedCanReceiveMessagesWithTrackingDisabled(): void
     {
         $testIdentity    = 'hello@serendipityhq.com';
         $mockMonitor     = $this->createMock(Monitor::class);
@@ -196,7 +196,7 @@ class EmailStatusAnalyzerTest extends TestCase
         self::assertTrue($resource->canReceiveMessages($mockEmailStatus, $testIdentity));
     }
 
-    public function testComplainedCanReceiveMessagesWithSendingForced()
+    public function testComplainedCanReceiveMessagesWithSendingForced(): void
     {
         $testIdentity    = 'hello@serendipityhq.com';
         $mockMonitor     = $this->createMock(Monitor::class);
@@ -223,7 +223,7 @@ class EmailStatusAnalyzerTest extends TestCase
         self::assertTrue($resource->canReceiveMessages($mockEmailStatus, $testIdentity));
     }
 
-    public function testHealthyCanReceiveMessages()
+    public function testHealthyCanReceiveMessages(): void
     {
         $testIdentity    = 'hello@serendipityhq.com';
         $mockMonitor     = $this->createMock(Monitor::class);

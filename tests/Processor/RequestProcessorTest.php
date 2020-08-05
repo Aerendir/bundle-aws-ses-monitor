@@ -24,7 +24,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 /**
  * {@inheritdoc}
  */
-class RequestProcessorTest extends TestCase
+final class RequestProcessorTest extends TestCase
 {
     /** @var RequestProcessor $requestProcessor */
     private $requestProcessor;
@@ -32,7 +32,7 @@ class RequestProcessorTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $mockResponse = $this->createMock(Response::class);
 
@@ -45,7 +45,7 @@ class RequestProcessorTest extends TestCase
         $this->requestProcessor = new RequestProcessor($mockNotificationProcessor, $mockSubscriptionProcessor);
     }
 
-    public function testMethodMustBePost()
+    public function testMethodMustBePost(): void
     {
         $mockRequest = $this->createMock(Request::class);
         $mockRequest->expects(self::exactly(1))->method('isMethod')->willReturn(false);
@@ -56,7 +56,7 @@ class RequestProcessorTest extends TestCase
         self::assertEquals(405, $response->getStatusCode());
     }
 
-    public function testSnsTypeHeaderMustBeSet()
+    public function testSnsTypeHeaderMustBeSet(): void
     {
         $mockRequest = $this->createMock(Request::class);
         $mockRequest->expects(self::exactly(1))->method('isMethod')->willReturn(true);
@@ -70,7 +70,7 @@ class RequestProcessorTest extends TestCase
         $this->requestProcessor->processRequest($mockRequest);
     }
 
-    public function testUnknownSnsTypeHeaderThrowAnException()
+    public function testUnknownSnsTypeHeaderThrowAnException(): void
     {
         $mockRequest = $this->createMock(Request::class);
         $mockRequest->expects(self::exactly(1))->method('isMethod')->willReturn(true);
@@ -84,7 +84,7 @@ class RequestProcessorTest extends TestCase
         $this->requestProcessor->processRequest($mockRequest);
     }
 
-    public function testNotificationProcessing()
+    public function testNotificationProcessing(): void
     {
         $mockRequest = $this->createMock(Request::class);
         $mockRequest->expects(self::exactly(1))->method('isMethod')->willReturn(true);
@@ -99,7 +99,7 @@ class RequestProcessorTest extends TestCase
         self::assertInstanceOf(Response::class, $result);
     }
 
-    public function testSubscriptionConfirmationProcessing()
+    public function testSubscriptionConfirmationProcessing(): void
     {
         $mockRequest = $this->createMock(Request::class);
         $mockRequest->expects(self::exactly(1))->method('isMethod')->willReturn(true);

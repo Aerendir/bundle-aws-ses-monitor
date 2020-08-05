@@ -27,10 +27,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * {@inheritdoc}
  */
-class MonitorTest extends TestCase
+final class MonitorTest extends TestCase
 {
     /** @var string $env */
-    private $mockEnv = 'prod';
+    private const MOCK_ENV = 'prod';
 
     /** @var IdentitiesStore|MockObject $configuredIdentities */
     private $mockConfiguredIdentities;
@@ -71,7 +71,7 @@ class MonitorTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->mockConfiguredIdentities = $this->createMock(IdentitiesStore::class);
         $this->mockAwsDataProcessor     = $this->createMock(AwsDataProcessor::class);
@@ -99,7 +99,7 @@ class MonitorTest extends TestCase
         ]);
 
         $this->resource = new Monitor(
-            $this->mockEnv,
+            self::MOCK_ENV,
             $this->mockAwsDataProcessor,
             $this->mockConsole,
             $this->mockConfiguredIdentities,
@@ -113,7 +113,7 @@ class MonitorTest extends TestCase
         $this->mockSectionBody  = $this->createMock(OutputInterface::class);
     }
 
-    public function testRetrieveWithoutAccount()
+    public function testRetrieveWithoutAccount(): void
     {
         $this->configureSesClient();
         $this->configureSnsClient();
@@ -128,7 +128,7 @@ class MonitorTest extends TestCase
         $this->resource->retrieve($this->mockSectionTitle, $this->mockSectionBody, false);
     }
 
-    public function testRetrieveWithAccount()
+    public function testRetrieveWithAccount(): void
     {
         $this->configureSesClient(true);
         $this->configureSnsClient();
@@ -147,7 +147,7 @@ class MonitorTest extends TestCase
         $this->resource->retrieve($this->mockSectionTitle, $this->mockSectionBody, true);
     }
 
-    public function testGetAccount()
+    public function testGetAccount(): void
     {
         $test = [
             'enabled' => true,
@@ -161,7 +161,7 @@ class MonitorTest extends TestCase
         self::assertEquals($test, $result);
     }
 
-    public function testGetAccountWithAttribute()
+    public function testGetAccountWithAttribute(): void
     {
         $test = [
             'enabled' => true,
@@ -175,7 +175,7 @@ class MonitorTest extends TestCase
         self::assertEquals($test['quota'], $result);
     }
 
-    public function testGetConfiguredIdentity()
+    public function testGetConfiguredIdentity(): void
     {
         $test = [
             'hello@serendipityhq.com' => [],
@@ -195,7 +195,7 @@ class MonitorTest extends TestCase
      * 2. Is not explicitly configured
      * 3. Its domain identity is configured
      */
-    public function testFindConfiguredIdentityEmailNotConfiguredButItsDomainIs()
+    public function testFindConfiguredIdentityEmailNotConfiguredButItsDomainIs(): void
     {
         $test = [
             'serendipityhq.com' => ['called!'],
@@ -225,7 +225,7 @@ class MonitorTest extends TestCase
      * 2. Is not explicitly configured
      * 3. Its domain identity is NOT configured
      */
-    public function testFindConfiguredIdentityEmailNotConfiguredAndItsDomainIsntTooThrowsException()
+    public function testFindConfiguredIdentityEmailNotConfiguredAndItsDomainIsntTooThrowsException(): void
     {
         // 1. Is an Email
         $this->mockIdentityGuesser->expects(self::exactly(2))->method('isEmailIdentity')->with('hello@serendipityhq.com')->willReturn(true);
@@ -250,7 +250,7 @@ class MonitorTest extends TestCase
      * 2. Is not explicitly configured
      * 3. Its domain identity is NOT configured
      */
-    public function testFindConfiguredIdentityDomainNotConfiguredThrowsException()
+    public function testFindConfiguredIdentityDomainNotConfiguredThrowsException(): void
     {
         // 1. Is an Email
         $this->mockIdentityGuesser->expects(self::exactly(2))->method('isEmailIdentity')->with('serendipityhq.com')->willReturn(false);
@@ -263,12 +263,12 @@ class MonitorTest extends TestCase
         $this->resource->findConfiguredIdentity('serendipityhq.com');
     }
 
-    public function testGetIdentityGuesser()
+    public function testGetIdentityGuesser(): void
     {
         self::assertSame($this->mockIdentityGuesser, $this->resource->getIdentityGuesser());
     }
 
-    private function callRetrieve()
+    private function callRetrieve(): void
     {
         $this->configureSesClient();
         $this->configureSnsClient();
@@ -279,7 +279,7 @@ class MonitorTest extends TestCase
     /**
      * @param bool $withAccount
      */
-    private function configureSesClient($withAccount = false)
+    private function configureSesClient(bool $withAccount = false): void
     {
         if ($withAccount) {
             $mockGetAccountSendingEnabled = new Result(['Enabled' => true]);
@@ -302,7 +302,7 @@ class MonitorTest extends TestCase
         $this->mockSesClientHandler->append($mockGetIdentityVerificationAttributes);
     }
 
-    private function configureSnsClient()
+    private function configureSnsClient(): void
     {
         $mockListTopics = new Result(['Topics' => [
             [

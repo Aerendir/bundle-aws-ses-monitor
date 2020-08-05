@@ -28,7 +28,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * {@inheritdoc}
  */
-class NotificationProcessorTest extends TestCase
+final class NotificationProcessorTest extends TestCase
 {
     /** @var NotificationProcessor $notificationProcessor */
     private $notificationProcessor;
@@ -51,7 +51,7 @@ class NotificationProcessorTest extends TestCase
     /**
      * {@inheritdoc}
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->bounceNotificationHandler   = $this->createMock(BounceNotificationHandler::class);
         $this->complaintNotificationHandler= $this->createMock(ComplaintNotificationHandler::class);
@@ -68,7 +68,7 @@ class NotificationProcessorTest extends TestCase
         );
     }
 
-    public function testMessageMustBeValid()
+    public function testMessageMustBeValid(): void
     {
         $mockRequest    = $this->createMock(Request::class);
         $mockNsnMessage = $this->createMock(Message::class);
@@ -82,7 +82,7 @@ class NotificationProcessorTest extends TestCase
         self::assertEquals(403, $response->getStatusCode());
     }
 
-    public function testNotificationTypeMustExist()
+    public function testNotificationTypeMustExist(): void
     {
         $mockRequest    = $this->createMock(Request::class);
         $mockNsnMessage = $this->createMock(Message::class);
@@ -97,7 +97,7 @@ class NotificationProcessorTest extends TestCase
         self::assertEquals(403, $response->getStatusCode());
     }
 
-    public function testSubscriptionSuccessImmediatelyReturns()
+    public function testSubscriptionSuccessImmediatelyReturns(): void
     {
         $mockRequest    = $this->createMock(Request::class);
         $mockNsnMessage = $this->createMock(Message::class);
@@ -114,7 +114,7 @@ class NotificationProcessorTest extends TestCase
         self::assertEquals(200, $response->getStatusCode());
     }
 
-    public function testBounceHandling()
+    public function testBounceHandling(): void
     {
         $mockResponse = $this->initializeSwitch(SnsTypes::MESSAGE_TYPE_BOUNCE);
         $mockRequest  = $this->createMock(Request::class);
@@ -123,7 +123,7 @@ class NotificationProcessorTest extends TestCase
         self::assertSame($mockResponse, $response);
     }
 
-    public function testComplaintHandling()
+    public function testComplaintHandling(): void
     {
         $mockResponse = $this->initializeSwitch(SnsTypes::MESSAGE_TYPE_COMPLAINT);
         $mockRequest  = $this->createMock(Request::class);
@@ -132,7 +132,7 @@ class NotificationProcessorTest extends TestCase
         self::assertSame($mockResponse, $response);
     }
 
-    public function testDeliveryHandling()
+    public function testDeliveryHandling(): void
     {
         $mockResponse = $this->initializeSwitch(SnsTypes::MESSAGE_TYPE_DELIVERY);
         $mockRequest  = $this->createMock(Request::class);
@@ -141,7 +141,7 @@ class NotificationProcessorTest extends TestCase
         self::assertSame($mockResponse, $response);
     }
 
-    public function testUnknownMessageTypeReturnsErrorResponse()
+    public function testUnknownMessageTypeReturnsErrorResponse(): void
     {
         $this->initializeSwitch('dummy_message');
         $mockRequest = $this->createMock(Request::class);
@@ -200,7 +200,7 @@ class NotificationProcessorTest extends TestCase
     /**
      * @param string $messageId
      */
-    private function configureLoadOrCreateMailMessage(string $messageId)
+    private function configureLoadOrCreateMailMessage(string $messageId): void
     {
         $mockMailMessageRepository = $this->createMock(EntityRepository::class);
         $mockMailMessageRepository

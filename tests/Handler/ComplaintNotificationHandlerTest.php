@@ -21,37 +21,36 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * {@inheritdoc}
  */
-class ComplaintNotificationHandlerTest extends TestCase
+final class ComplaintNotificationHandlerTest extends TestCase
 {
-    public function testProcessNotification()
-    {
-        $test = [
-            'complaint' => [
-                'complainedRecipients' => [
-                    [
-                        'emailAddress'   => 'test_recipient@example.com',
-                        'status'         => 'status',
-                        'diagnosticCode' => 'diagnostic code',
-                        'action'         => 'the action to take',
-                    ],
+    /**
+     * @var string[][]|string[][][][]
+     */
+    private const TEST = [
+        'complaint' => [
+            'complainedRecipients' => [
+                [
+                    'emailAddress'   => 'test_recipient@example.com',
+                    'status'         => 'status',
+                    'diagnosticCode' => 'diagnostic code',
+                    'action'         => 'the action to take',
                 ],
-                'timestamp'             => '2016-08-01 00:00:00',
-                'userAgent'             => 'the user agent',
-                'complaintFeedbackType' => 'complaint feedback type',
-                'feedbackId'            => 'the id of the feedback',
-                'arrivalDate'           => '2016-08-01 00:00:00',
             ],
-        ];
-
+            'timestamp'             => '2016-08-01 00:00:00',
+            'userAgent'             => 'the user agent',
+            'complaintFeedbackType' => 'complaint feedback type',
+            'feedbackId'            => 'the id of the feedback',
+            'arrivalDate'           => '2016-08-01 00:00:00',
+        ],
+    ];
+    public function testProcessNotification(): void
+    {
         $mockEmailStatus  = $this->createMock(EmailStatus::class);
         $mockMailMessage  = $this->createMock(MailMessage::class);
         $mockEmailManager = $this->createMock(EmailStatusManager::class);
         $mockEmailManager->method('loadOrCreateEmailStatus')->willReturn($mockEmailStatus);
-
         $resource = new ComplaintNotificationHandler($mockEmailManager);
-
-        $response = $resource->processNotification($test, $mockMailMessage);
-
+        $response = $resource->processNotification(self::TEST, $mockMailMessage);
         self::assertInstanceOf(Response::class, $response);
     }
 }

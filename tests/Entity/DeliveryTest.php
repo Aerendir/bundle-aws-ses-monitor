@@ -19,9 +19,9 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage;
 /**
  * Tests the Delivery entity.
  */
-class DeliveryTest extends TestCase
+final class DeliveryTest extends TestCase
 {
-    public function testDelivery()
+    public function testDelivery(): void
     {
         $test     = [
             'email'                => $this->createMock(EmailStatus::class),

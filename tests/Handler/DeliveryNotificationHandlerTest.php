@@ -21,31 +21,30 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * {@inheritdoc}
  */
-class DeliveryNotificationHandlerTest extends TestCase
+final class DeliveryNotificationHandlerTest extends TestCase
 {
-    public function testProcessNotification()
-    {
-        $test = [
-            'delivery' => [
-                'recipients' => [
-                    'test_recipient@example.com',
-                ],
-                'timestamp'            => '2016-08-01 00:00:00',
-                'processingTimeMillis' => 1234,
-                'smtpResponse'         => 'smtp response',
-                'reportingMta'         => 'reporting MTA',
+    /**
+     * @var int[][]|string[][]|string[][][]
+     */
+    private const TEST = [
+        'delivery' => [
+            'recipients' => [
+                'test_recipient@example.com',
             ],
-        ];
-
+            'timestamp'            => '2016-08-01 00:00:00',
+            'processingTimeMillis' => 1234,
+            'smtpResponse'         => 'smtp response',
+            'reportingMta'         => 'reporting MTA',
+        ],
+    ];
+    public function testProcessNotification(): void
+    {
         $mockEmailStatus  = $this->createMock(EmailStatus::class);
         $mockMailMessage  = $this->createMock(MailMessage::class);
         $mockEmailManager = $this->createMock(EmailStatusManager::class);
         $mockEmailManager->method('loadOrCreateEmailStatus')->willReturn($mockEmailStatus);
-
         $resource = new DeliveryNotificationHandler($mockEmailManager);
-
-        $response = $resource->processNotification($test, $mockMailMessage);
-
+        $response = $resource->processNotification(self::TEST, $mockMailMessage);
         self::assertInstanceOf(Response::class, $response);
     }
 }

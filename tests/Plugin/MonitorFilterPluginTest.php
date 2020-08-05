@@ -22,7 +22,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\EmailStatusAnalyzer;
 /**
  * {@inheritdoc}
  */
-class MonitorFilterPluginTest extends TestCase
+final class MonitorFilterPluginTest extends TestCase
 {
     public function testBeforeSendPerformedWithoutRecipientsDoesNothing(): void
     {
@@ -45,18 +45,24 @@ class MonitorFilterPluginTest extends TestCase
     public function testBeforeSendPerformedWithGetToRecipients(): void
     {
         $mockEmailStatusAnalyzer = $this->createMock(EmailStatusAnalyzer::class);
-        $mockEmailStatusAnalyzer->expects(self::exactly(5))->method('canReceiveMessages')->willReturnCallback([$this, 'canReceiveMessages']);
+        $mockEmailStatusAnalyzer->expects(self::exactly(5))->method('canReceiveMessages')->willReturnCallback(function () : bool {
+            return $this->canReceiveMessages();
+        });
         $mockEmailStatusManager = $this->createMock(EmailStatusManager::class);
         $mockEmailStatusManager->expects(self::exactly(5))->method('loadEmailStatus')->willReturnMap($this->getEmailStatusMap());
         $mockEvent      = $this->createMock(\Swift_Events_SendEvent::class);
         $mockMessage    = $this->getMessageWithRecipients();
 
         $mockEvent->expects(self::once())->method('getMessage')->willReturn($mockMessage);
-        $mockEvent->expects(self::once())->method('setFailedRecipients')->willReturnCallback([$this, 'confirmAllButSuccessAreBlacklisted']);
+        $mockEvent->expects(self::once())->method('setFailedRecipients')->willReturnCallback(function () : void {
+            $this->confirmAllButSuccessAreBlacklisted();
+        });
         $mockMessage->expects(self::exactly(2))->method('getTo')->willReturn($this->getRecipients());
         $mockMessage->expects(self::exactly(1))->method('getCc')->willReturn(null);
         $mockMessage->expects(self::exactly(1))->method('getBcc')->willReturn(null);
-        $mockMessage->expects(self::once())->method('setTo')->willReturnCallback([$this, 'confirmAllButSuccessAreRemoved']);
+        $mockMessage->expects(self::once())->method('setTo')->willReturnCallback(function () : void {
+            $this->confirmAllButSuccessAreRemoved();
+        });
         $mockMessage->expects(self::never())->method('setCc');
         $mockMessage->expects(self::never())->method('setBcc');
 
@@ -73,14 +79,20 @@ class MonitorFilterPluginTest extends TestCase
         $mockEvent               = $this->createMock(\Swift_Events_SendEvent::class);
         $mockMessage             = $this->getMessageWithRecipients();
 
-        $mockEmailStatusAnalyzer->expects(self::exactly(5))->method('canReceiveMessages')->willReturnCallback([$this, 'canReceiveMessages']);
+        $mockEmailStatusAnalyzer->expects(self::exactly(5))->method('canReceiveMessages')->willReturnCallback(function () : bool {
+            return $this->canReceiveMessages();
+        });
         $mockEmailStatusManager->expects(self::exactly(5))->method('loadEmailStatus')->willReturnMap($this->getEmailStatusMap());
         $mockEvent->expects(self::once())->method('getMessage')->willReturn($mockMessage);
-        $mockEvent->expects(self::once())->method('setFailedRecipients')->willReturnCallback([$this, 'confirmAllButSuccessAreBlacklisted']);
+        $mockEvent->expects(self::once())->method('setFailedRecipients')->willReturnCallback(function () : void {
+            $this->confirmAllButSuccessAreBlacklisted();
+        });
         $mockMessage->expects(self::exactly(1))->method('getTo')->willReturn(null);
         $mockMessage->expects(self::exactly(2))->method('getCc')->willReturn($this->getRecipients());
         $mockMessage->expects(self::exactly(1))->method('getBcc')->willReturn(null);
-        $mockMessage->expects(self::never())->method('setTo')->willReturnCallback([$this, 'confirmAllButSuccessAreRemoved']);
+        $mockMessage->expects(self::never())->method('setTo')->willReturnCallback(function () : void {
+            $this->confirmAllButSuccessAreRemoved();
+        });
         $mockMessage->expects(self::once())->method('setCc');
         $mockMessage->expects(self::never())->method('setBcc');
 
@@ -97,14 +109,20 @@ class MonitorFilterPluginTest extends TestCase
         $mockEvent               = $this->createMock(\Swift_Events_SendEvent::class);
         $mockMessage             = $this->getMessageWithRecipients();
 
-        $mockEmailStatusAnalyzer->expects(self::exactly(5))->method('canReceiveMessages')->willReturnCallback([$this, 'canReceiveMessages']);
+        $mockEmailStatusAnalyzer->expects(self::exactly(5))->method('canReceiveMessages')->willReturnCallback(function () : bool {
+            return $this->canReceiveMessages();
+        });
         $mockEmailStatusManager->expects(self::exactly(5))->method('loadEmailStatus')->willReturnMap($this->getEmailStatusMap());
         $mockEvent->expects(self::once())->method('getMessage')->willReturn($mockMessage);
-        $mockEvent->expects(self::once())->method('setFailedRecipients')->willReturnCallback([$this, 'confirmAllButSuccessAreBlacklisted']);
+        $mockEvent->expects(self::once())->method('setFailedRecipients')->willReturnCallback(function () : void {
+            $this->confirmAllButSuccessAreBlacklisted();
+        });
         $mockMessage->expects(self::exactly(1))->method('getTo')->willReturn(null);
         $mockMessage->expects(self::exactly(1))->method('getCc')->willReturn(null);
         $mockMessage->expects(self::exactly(2))->method('getBcc')->willReturn($this->getRecipients());
-        $mockMessage->expects(self::never())->method('setTo')->willReturnCallback([$this, 'confirmAllButSuccessAreRemoved']);
+        $mockMessage->expects(self::never())->method('setTo')->willReturnCallback(function () : void {
+            $this->confirmAllButSuccessAreRemoved();
+        });
         $mockMessage->expects(self::never())->method('setCc');
         $mockMessage->expects(self::once())->method('setBcc');
 
@@ -120,7 +138,7 @@ class MonitorFilterPluginTest extends TestCase
     public function canReceiveMessages(): bool
     {
         /** @var EmailStatus $emailStatus */
-        $emailStatus = func_get_arg(0);
+        $emailStatus = \func_get_arg(0);
 
         switch ($emailStatus->getAddress()) {
             case 'bounced@example.com':
@@ -145,7 +163,7 @@ class MonitorFilterPluginTest extends TestCase
 
     public function confirmAllButSuccessAreBlacklisted(): void
     {
-        $recipients = func_get_arg(0);
+        $recipients = \func_get_arg(0);
 
         self::assertContains('bounced@example.com', $recipients);
         self::assertContains('complained@example.com', $recipients);
@@ -156,7 +174,7 @@ class MonitorFilterPluginTest extends TestCase
 
     public function confirmAllButSuccessAreRemoved(): void
     {
-        $recipients = func_get_arg(0);
+        $recipients = \func_get_arg(0);
         self::assertArrayNotHasKey('bounced@example.com', $recipients);
         self::assertArrayNotHasKey('complained@example.com', $recipients);
         self::assertArrayNotHasKey('ooto@example.com', $recipients);
