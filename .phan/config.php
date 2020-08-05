@@ -60,7 +60,8 @@ return [
     // directories/files, unanalyzable files, or files that
     // can't be removed for whatever reason.
     // (e.g. '@Test\.php$@', or '@vendor/.*/(tests|Tests)/@')
-    'exclude_file_regex' => '@(^vendor/(jetbrains|vimeo|.*/(tests?|Tests?))/)|(^vendor-bin/phpunit/vendor/bin/\.phpunit)@',
+    'exclude_file_regex' => '@(^vendor/(jetbrains|vimeo|.*/(tests?|Tests?))/)|(^vendor-bin/phpunit/vendor/bin/\.phpunit)@'
+    ,
     'plugins' => [
         'vendor-bin/phan/vendor/drenso/phan-extensions/Plugin/Annotation/SymfonyAnnotationPlugin.php',
         'vendor-bin/phan/vendor/drenso/phan-extensions/Plugin/DocComment/InlineVarPlugin.php',

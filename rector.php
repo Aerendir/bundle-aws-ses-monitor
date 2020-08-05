@@ -126,6 +126,7 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             // Bugged
             Rector\TypeDeclaration\Rector\Property\PropertyTypeDeclarationRector::class,
             Rector\PHPUnit\Rector\MethodCall\GetMockBuilderGetMockToCreateMockRector::class,
+            Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector::class, // The class works well, but it is not ignored (see: tests/Plugin/MonitorFilterPluginTest.php
         ]
     );
 };
