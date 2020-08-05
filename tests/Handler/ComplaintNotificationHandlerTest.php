@@ -43,6 +43,7 @@ final class ComplaintNotificationHandlerTest extends TestCase
             'arrivalDate'           => '2016-08-01 00:00:00',
         ],
     ];
+
     public function testProcessNotification(): void
     {
         $mockEmailStatus  = $this->createMock(EmailStatus::class);

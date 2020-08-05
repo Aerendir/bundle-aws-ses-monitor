@@ -23,7 +23,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Bounce
 {
-    /** Hard bounces and subtypes
+    /** Hard bounces and subtypes.
      * @var string */
     const TYPE_PERMANENT       = 'Permanent';
     /**
@@ -39,7 +39,7 @@ class Bounce
      */
     const TYPE_PERM_SUPPRESSED = 'Suppressed';
 
-    /** Soft bunces and subtypes
+    /** Soft bunces and subtypes.
      * @var string */
     const TYPE_TRANSIENT            = 'Transient';
     /**
@@ -63,9 +63,13 @@ class Bounce
      */
     const TYPE_TRANS_ATTACHREJECTED = 'AttachmentRejected';
 
-    /** Undetermined bounces
+    /** Undetermined bounces.
      * @var string */
     const TYPE_UNDETERMINED = 'Undetermined';
+    /**
+     * @var string
+     */
+    private const BOUNCE = 'bounce';
 
     /**
      * @var int
@@ -166,10 +170,6 @@ class Bounce
      * @ORM\Column(name="diagnostic_code", type="text", nullable=true)
      */
     private $diagnosticCode;
-    /**
-     * @var string
-     */
-    private const BOUNCE = 'bounce';
 
     /**
      * @param EmailStatus $email

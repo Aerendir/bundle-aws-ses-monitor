@@ -43,6 +43,7 @@ final class BounceNotificationHandlerTest extends TestCase
             'reportingMta'  => 'the MTA that reported the bounce',
         ],
     ];
+
     public function testProcessNotification(): void
     {
         $mockEmailStatus  = $this->createMock(EmailStatus::class);

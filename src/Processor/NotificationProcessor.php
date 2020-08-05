@@ -26,6 +26,10 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class NotificationProcessor
 {
+    /**
+     * @var string
+     */
+    private const NOTIFICATION_TYPE = 'notificationType';
     /** @var BounceNotificationHandler $bounceNotificationHandler */
     private $bounceNotificationHandler;
 
@@ -40,10 +44,6 @@ final class NotificationProcessor
 
     /** @var MessageHelper $messageHelper */
     private $messageHelper;
-    /**
-     * @var string
-     */
-    private const NOTIFICATION_TYPE = 'notificationType';
 
     /**
      * @param BounceNotificationHandler    $bounceNotificationHandler

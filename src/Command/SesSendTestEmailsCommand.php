@@ -25,9 +25,6 @@ use Symfony\Component\Console\Question\Question;
  */
 final class SesSendTestEmailsCommand extends Command
 {
-    protected static $defaultName = 'aws:ses:monitor:test:swiftmailer';
-    /** @var \Swift_Mailer $mailer */
-    private $mailer;
     /**
      * @var string[]
      */
@@ -38,6 +35,9 @@ final class SesSendTestEmailsCommand extends Command
         'complaint@simulator.amazonses.com',
         'suppressionlist@simulator.amazonses.com',
     ];
+    protected static $defaultName = 'aws:ses:monitor:test:swiftmailer';
+    /** @var \Swift_Mailer $mailer */
+    private $mailer;
 
     /**
      * @param \Swift_Mailer $mailer
@@ -69,9 +69,9 @@ final class SesSendTestEmailsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $question = new Question('<question>Please, enter the from email address to use:</question>');
+        $question    = new Question('<question>Please, enter the from email address to use:</question>');
         $fromAddress = $this->getHelper('question')->ask($input, $output, $question);
-        $sents = [];
+        $sents       = [];
         foreach (self::EMAIL_ADDRESSES as $toAddress) {
             $message = $this->createMessage($fromAddress, $toAddress);
             $output->writeln(\Safe\sprintf('<info>Sending an email from <comment>%s</comment> to <comment>%s</comment></info>', $fromAddress, $toAddress));
@@ -92,6 +92,7 @@ final class SesSendTestEmailsCommand extends Command
         foreach ($sents as $sent) {
             $output->writeln($sent);
         }
+
         return 0;
     }
 

@@ -82,6 +82,7 @@ final class EmailStatusAnalyzer
         if ($softAsHard) {
             $bouncesCount += $emailStatus->getSoftBouncesCount();
         }
+
         return $bouncesCount >= $maxBounces;
     }
 

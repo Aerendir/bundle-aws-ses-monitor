@@ -29,8 +29,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class DebugCommand extends Command
 {
-    protected static $defaultName = 'aws:ses:debug';
-
     /**
      * @var string
      */
@@ -39,6 +37,11 @@ final class DebugCommand extends Command
      * @var string
      */
     private const CROSS = "<fg=red>\xE2\x9C\x96</>";
+    /**
+     * @var string
+     */
+    private const TABLE_CELL_COLSPAN = 'colspan';
+    protected static $defaultName    = 'aws:ses:debug';
 
     /** @var Console $console */
     private $console;
@@ -49,10 +52,6 @@ final class DebugCommand extends Command
     private $sectionTitle;
 
     private $sectionBody;
-    /**
-     * @var string
-     */
-    private const TABLE_CELL_COLSPAN = 'colspan';
 
     /**
      * @param Console $console
@@ -103,6 +102,7 @@ final class DebugCommand extends Command
         $this->console->clear($this->sectionBody);
         $this->console->clear($this->sectionTitle);
         $table->render();
+
         return 0;
     }
 

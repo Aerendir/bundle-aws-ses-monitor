@@ -38,6 +38,7 @@ class Complaint
     /**
      * Indicates that the entity providing the report does not consider the message to be spam.
      * This may be used to correct a message that was incorrectly tagged or categorized as spam.
+     *
      * @var string
      */
     const TYPE_NOT_SPAM = 'not-spam';
@@ -49,6 +50,10 @@ class Complaint
     /** Reports that a virus is found in the originating message.
      * @var string */
     const TYPE_VIRUS = 'virus';
+    /**
+     * @var string
+     */
+    private const COMPLAINT = 'complaint';
 
     /**
      * @var int
@@ -123,10 +128,6 @@ class Complaint
      * @ORM\Column(name="arrival_date", type="datetime", nullable=true)
      */
     private $arrivalDate;
-    /**
-     * @var string
-     */
-    private const COMPLAINT = 'complaint';
 
     /**
      * @param EmailStatus $email

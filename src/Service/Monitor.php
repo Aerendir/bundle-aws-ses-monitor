@@ -26,6 +26,34 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class Monitor
 {
+    /**
+     * @var string
+     */
+    private const DOMAIN = 'domain';
+    /**
+     * @var string
+     */
+    private const TRACK = 'track';
+    /**
+     * @var string
+     */
+    private const DKIM = 'dkim';
+    /**
+     * @var string
+     */
+    private const TOPIC = 'topic';
+    /**
+     * @var string
+     */
+    private const IDENTITIES = 'Identities';
+    /**
+     * @var string
+     */
+    private const SUBSCRIPTION_ARN = 'SubscriptionArn';
+    /**
+     * @var string
+     */
+    private const TOPIC_ARN = 'TopicArn';
     /** @var string $env */
     private $env;
 
@@ -55,34 +83,6 @@ final class Monitor
 
     /** @var OutputInterface $sectionBody */
     private $sectionBody;
-    /**
-     * @var string
-     */
-    private const DOMAIN = 'domain';
-    /**
-     * @var string
-     */
-    private const TRACK = 'track';
-    /**
-     * @var string
-     */
-    private const DKIM = 'dkim';
-    /**
-     * @var string
-     */
-    private const TOPIC = 'topic';
-    /**
-     * @var string
-     */
-    private const IDENTITIES = 'Identities';
-    /**
-     * @var string
-     */
-    private const SUBSCRIPTION_ARN = 'SubscriptionArn';
-    /**
-     * @var string
-     */
-    private const TOPIC_ARN = 'TopicArn';
 
     /**
      * @param string           $env
@@ -517,6 +517,7 @@ final class Monitor
         if (null === $subscription) {
             false;
         }
+
         return $subscription['endpoint'] === $currentEndpoint;
     }
 

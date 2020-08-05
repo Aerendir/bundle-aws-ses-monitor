@@ -24,9 +24,11 @@ final class EmailStatusManagerTest extends TestCase
 {
     /**
      * ! ! ! Upper and lower case letters ! ! !
+     *
      * @var string
      */
     private const TEST_EMAIL = 'Test@serEndipItyhq.com';
+
     public function testCreateEmailStatus(): void
     {
         $mockEntityManager = $this->createMock(EntityManagerInterface::class);

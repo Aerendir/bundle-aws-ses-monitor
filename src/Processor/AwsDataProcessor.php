@@ -36,9 +36,6 @@ final class AwsDataProcessor
      * @var string
      */
     const TOPICS        = 'topics';
-
-    /** @var array */
-    private $data = [];
     /**
      * @var string
      */
@@ -63,6 +60,9 @@ final class AwsDataProcessor
      * @var string
      */
     private const TOPIC_ARN = 'TopicArn';
+
+    /** @var array */
+    private $data = [];
 
     /**
      * @param Result $result

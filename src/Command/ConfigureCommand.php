@@ -31,6 +31,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class ConfigureCommand extends Command
 {
+    /**
+     * @var string
+     */
+    private const FORCE = 'force';
+    /**
+     * @var string
+     */
+    private const TOPIC           = 'topic';
     protected static $defaultName = 'aws:ses:configure';
     /** @var string $env */
     private $env;
@@ -68,14 +76,6 @@ final class ConfigureCommand extends Command
 
     /** @var array $scheduledTopics The topics to create */
     private $scheduledTopics = [];
-    /**
-     * @var string
-     */
-    private const FORCE = 'force';
-    /**
-     * @var string
-     */
-    private const TOPIC = 'topic';
 
     /**
      * @param string                 $env

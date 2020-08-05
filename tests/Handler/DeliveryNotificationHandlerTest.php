@@ -37,6 +37,7 @@ final class DeliveryNotificationHandlerTest extends TestCase
             'reportingMta'         => 'reporting MTA',
         ],
     ];
+
     public function testProcessNotification(): void
     {
         $mockEmailStatus  = $this->createMock(EmailStatus::class);

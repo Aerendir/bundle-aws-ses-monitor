@@ -33,12 +33,6 @@ final class SnsManagerTest extends TestCase
         'scheme' => 'https',
         'host'   => 'serendipityhq.com',
     ];
-
-    /** @var MockHandler $mockHandler */
-    private $mockHandler;
-
-    /** @var SnsClient $client */
-    private $client;
     /**
      * @var string[]
      */
@@ -46,6 +40,12 @@ final class SnsManagerTest extends TestCase
         'name' => 'topic-name',
         'arn'  => 'the-topic-arn',
     ];
+
+    /** @var MockHandler $mockHandler */
+    private $mockHandler;
+
+    /** @var SnsClient $client */
+    private $client;
 
     protected function setUp(): void
     {

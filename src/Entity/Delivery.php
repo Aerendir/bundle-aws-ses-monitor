@@ -24,6 +24,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Delivery
 {
     /**
+     * @var string
+     */
+    private const DELIVERY = 'delivery';
+    /**
      * @var int
      * @ORM\Column(name="id", type="integer", unique=true)
      * @ORM\Id
@@ -81,10 +85,6 @@ class Delivery
      * @ORM\Column(name="reporting_mta", type="string", nullable=true)
      */
     private $reportingMta;
-    /**
-     * @var string
-     */
-    private const DELIVERY = 'delivery';
 
     /**
      * @param EmailStatus $email

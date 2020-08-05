@@ -178,7 +178,6 @@ class EmailStatus
     /**
      * @param Bounce $bounce
      *
-     *
      * @internal
      */
     public function addBounce(Bounce $bounce): self
@@ -209,7 +208,6 @@ class EmailStatus
     /**
      * @param Complaint $complaint
      *
-     *
      * @internal
      */
     public function addComplaint(Complaint $complaint): self
@@ -230,7 +228,6 @@ class EmailStatus
 
     /**
      * @param Delivery $delivery
-     *
      *
      * @internal
      */

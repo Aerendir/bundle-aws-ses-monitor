@@ -26,6 +26,7 @@ final class TopicTest extends TestCase
         'name' => 'TestTopic',
         'arn'  => 'arn:aws:sns:us-west-2:111122223333:TestTopic',
     ];
+
     public function testTopic(): void
     {
         $resource = new Topic(self::TEST['name'], self::TEST['arn']);
