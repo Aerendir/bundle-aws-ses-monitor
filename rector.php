@@ -20,7 +20,10 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
 
     $parameters->set(Option::PHP_VERSION_FEATURES, '7.2');
 
-    $parameters->set(Option::PATHS, [__DIR__ . '/src', __DIR__ . '/tests']);
+    $parameters->set(Option::PATHS, [
+        __DIR__ . '/src',
+        __DIR__ . '/tests'
+    ]);
 
     $parameters->set(Option::AUTOLOAD_PATHS, [__DIR__ . '/vendor-bin/phpunit/vendor/autoload.php']);
 
@@ -65,7 +68,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::PHPUNIT_SPECIFIC_METHOD,
             SetList::PHPUNIT_YIELD_DATA_PROVIDER,
             SetList::UNWRAP_COMPAT,
-            SetList::PRIVATIZATION,
             SetList::SOLID,
             SetList::SYMFONY_26,
             SetList::SYMFONY_28,
@@ -80,7 +82,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::SYMFONY_43,
             SetList::SYMFONY_44,
             SetList::SYMFONY_50,
-            SetList::SYMFONY50_TYPES,
             SetList::SYMFONY_CODE_QUALITY,
             SetList::SYMFONY_CONSTRUCTOR_INJECTION,
             SetList::SYMFONY_PHPUNIT,
