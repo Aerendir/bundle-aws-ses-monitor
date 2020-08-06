@@ -83,6 +83,7 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::SYMFONY_43,
             SetList::SYMFONY_44,
             SetList::SYMFONY_50,
+            SetList::SYMFONY_50_TYPES,
             SetList::SYMFONY_CODE_QUALITY,
             SetList::SYMFONY_CONSTRUCTOR_INJECTION,
             SetList::SYMFONY_PHPUNIT,
