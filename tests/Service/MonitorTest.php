@@ -108,7 +108,6 @@ final class MonitorTest extends TestCase
             $this->mockSnsClient
         );
 
-        // We mock OutputInterface to make tests pass with SF3.4
         $this->mockSectionTitle = $this->createMock(OutputInterface::class);
         $this->mockSectionBody  = $this->createMock(OutputInterface::class);
     }

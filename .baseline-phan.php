@@ -10,7 +10,7 @@
 return [
     // # Issue statistics:
     // PhanAccessMethodInternal : 250+ occurrences
-    // PhanRedefinedClassReference : 160+ occurrences
+    // PhanRedefinedClassReference : 180+ occurrences
     // PhanUnreferencedPublicMethod : 100+ occurrences
     // PhanTypeMismatchArgument : 80+ occurrences
     // PhanAccessClassConstantInternal : 70+ occurrences
