@@ -112,8 +112,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             Rector\CodingStyle\Rector\Switch_\BinarySwitchToIfElseRector::class,
             Rector\CodingStyle\Rector\Throw_\AnnotateThrowablesRector::class,
             Rector\CodingStyle\Rector\Use_\RemoveUnusedAliasRector::class,
-            Rector\DeadCode\Rector\Class_\RemoveUnusedClassesRector::class,
-            Rector\Naming\Rector\Class_\RenamePropertyToMatchTypeRector::class,
             Rector\Php56\Rector\FunctionLike\AddDefaultValueForUndefinedVariableRector::class, // Maybe good one day
             Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector::class,
             Rector\PHPUnit\Rector\ClassMethod\AddDoesNotPerformAssertionToNonAssertingTestRector::class,
