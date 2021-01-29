@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="3.18.2@19aa905f7c3c7350569999a93c40ae91ae4e1626">
+<files psalm-version="4.4.1@9fd7a7d885b3a216cff8dec9d8c21a132f275224">
   <file src="src/Command/ConfigureCommand.php">
     <DeprecatedMethod occurrences="9">
       <code>caution</code>
@@ -120,7 +120,8 @@
       <code>$this-&gt;monitor-&gt;getAccount('quota')['max_24_hour_send']</code>
       <code>$this-&gt;monitor-&gt;getAccount('quota')['sent_last_24_hours']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="4">
+    <MixedAssignment occurrences="5">
+      <code>$identity</code>
       <code>$identity</code>
       <code>$result</code>
       <code>$result</code>
@@ -145,7 +146,7 @@
     <MissingConstructor occurrences="1">
       <code>$identityGuesser</code>
     </MissingConstructor>
-    <MixedArgument occurrences="15">
+    <MixedArgument occurrences="16">
       <code>$config</code>
       <code>$config</code>
       <code>$config[self::BOUNCES]</code>
@@ -154,6 +155,7 @@
       <code>$config[self::COMPLAINTS]</code>
       <code>$config[self::DELIVERIES]</code>
       <code>$config[self::DELIVERIES]</code>
+      <code>$identity</code>
       <code>$identity</code>
       <code>$identity</code>
       <code>$parts['mailbox']</code>
@@ -181,10 +183,13 @@
       <code>$tree[self::IDENTITIES][$identity]</code>
       <code>$tree[self::IDENTITIES][$identity]</code>
     </MixedArrayOffset>
-    <MixedAssignment occurrences="7">
+    <MixedAssignment occurrences="10">
       <code>$config</code>
       <code>$config</code>
       <code>$config</code>
+      <code>$identity</code>
+      <code>$identity</code>
+      <code>$identity</code>
       <code>$otherConfig</code>
       <code>$topic</code>
       <code>$track</code>
@@ -798,8 +803,16 @@
     <MissingParamType occurrences="1">
       <code>$resource</code>
     </MissingParamType>
-    <MissingReturnType occurrences="1">
+    <MissingReturnType occurrences="9">
       <code>loadConfiguration</code>
+      <code>testDefaultConfig</code>
+      <code>testTrackingDisabledDoesntRequireTopicBounces</code>
+      <code>testTrackingDisabledDoesntRequireTopicComplaints</code>
+      <code>testTrackingDisabledDoesntRequireTopicDeliveries</code>
+      <code>testTrackingDisabledForBothConfigFilterIsNotLoaded</code>
+      <code>testTrackingEnabledForBothConfigFilterIsLoaded</code>
+      <code>testTrackingEnabledForBouncesOnlyConfigFilterIsLoaded</code>
+      <code>testTrackingEnabledForComplaintsOnlyConfigFilterIsLoaded</code>
     </MissingReturnType>
     <MixedArrayAccess occurrences="32">
       <code>$bouncesConfig['filter']</code>

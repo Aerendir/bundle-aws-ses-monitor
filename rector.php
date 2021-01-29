@@ -26,7 +26,9 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
         __DIR__ . '/tests'
     ]);
 
-    $parameters->set(Option::AUTOLOAD_PATHS, [__DIR__ . '/vendor-bin/phpunit/vendor/autoload.php']);
+    $parameters->set(Option::AUTOLOAD_PATHS, [
+        __DIR__ . '/vendor-bin/phpunit/vendor/autoload.php'
+    ]);
 
     $parameters->set(
         Option::SETS,
