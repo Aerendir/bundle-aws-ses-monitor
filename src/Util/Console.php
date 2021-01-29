@@ -67,7 +67,7 @@ final class Console
      *
      * @internal
      */
-    public function createSection(ConsoleOutput $output): ConsoleSectionOutput
+    public function createSection(OutputInterface $output): ConsoleSectionOutput
     {
         return \method_exists($output, 'section') && false === $this->fullLog
             ? $output->section()
@@ -80,7 +80,7 @@ final class Console
      *
      * @internal
      */
-    public function overwrite(string $line, ConsoleOutput $output): void
+    public function overwrite(string $line, OutputInterface $output): void
     {
         \method_exists($output, 'overwrite') && false === $this->fullLog
             ? $output->overwrite($line)
@@ -92,7 +92,7 @@ final class Console
      *
      * @internal
      */
-    public function clear(ConsoleOutput $output): void
+    public function clear(OutputInterface $output): void
     {
         if (\method_exists($output, 'clear') && false === $this->fullLog) {
             $output->clear();

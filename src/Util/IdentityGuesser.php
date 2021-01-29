@@ -22,6 +22,12 @@ final class IdentityGuesser
     /** @var string The name of the testing email Identity */
     public const TEST_MAILBOX = 'test_aws';
 
+    /** @var string */
+    public const MAILBOX = 'mailbox';
+
+    /** @var string */
+    public const DOMAIN = 'domain';
+
     /**
      * @param string $identity
      *
@@ -40,8 +46,8 @@ final class IdentityGuesser
         $parts = \explode('@', $identity);
 
         return [
-            'mailbox' => $parts[0],
-            'domain'  => $parts[1],
+            self::MAILBOX => $parts[0],
+            self::DOMAIN  => $parts[1],
         ];
     }
 

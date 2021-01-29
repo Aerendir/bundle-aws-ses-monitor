@@ -59,7 +59,7 @@ final class ConsoleTest extends TestCase
     public function testCreateSection3(): void
     {
         $resource            = new Console();
-        $mockOutputInterface = $this->createMock(OutputInterface::class);
+        $mockOutputInterface = $this->createMock(ConsoleSectionOutput::class);
 
         // The mocked OutputInterface doesn't have the "::section()" method
         $result = $resource->createSection($mockOutputInterface);

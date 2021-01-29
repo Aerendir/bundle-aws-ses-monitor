@@ -29,10 +29,6 @@ final class Monitor
     /**
      * @var string
      */
-    private const DOMAIN = 'domain';
-    /**
-     * @var string
-     */
     private const TRACK = 'track';
     /**
      * @var string
@@ -174,7 +170,7 @@ final class Monitor
             // Find its domain identity
             $parts = $this->getIdentityGuesser()->getEmailParts($searchingIdentity);
 
-            $searchingIdentity = $parts[self::DOMAIN];
+            $searchingIdentity = $parts[IdentityGuesser::DOMAIN];
         }
 
         // If the identity is not explicitly configured (the Email one or its Domain)

@@ -201,20 +201,24 @@ final class MonitorTest extends TestCase
         ];
 
         // 1. Is an Email
-        $this->mockIdentityGuesser->expects(self::at(0))->method('isEmailIdentity')->with('hello@serendipityhq.com')->willReturn(true);
+        $this->mockIdentityGuesser->method('isEmailIdentity')->with('hello@serendipityhq.com')->willReturn(true);
 
-        // 2. Is not explicitly configured
-        $this->mockConfiguredIdentities->expects(self::at(0))->method('identityExists')->with('hello@serendipityhq.com')->willReturn(false);
+        $this->mockConfiguredIdentities
+            ->method('identityExists')
+            ->withConsecutive(
+                // 2. Is not explicitly configured
+                ['hello@serendipityhq.com'],
+                // 3. Its Domain identity is configured
+                ['serendipityhq.com']
+            )
+            ->willReturnOnConsecutiveCalls(false, true);
 
-        $this->mockIdentityGuesser->expects(self::once())->method('getEmailParts')->with('hello@serendipityhq.com')->willReturn(['domain' => 'serendipityhq.com']);
+        $this->mockIdentityGuesser->method('getEmailParts')->with('hello@serendipityhq.com')->willReturn([IdentityGuesser::DOMAIN => 'serendipityhq.com']);
 
-        // 3. Its Domain identity is configured
-        $this->mockConfiguredIdentities->expects(self::at(1))->method('identityExists')->with('serendipityhq.com')->willReturn(true);
-
-        $this->mockConfiguredIdentities->expects(self::once())->method('getIdentity')->with('serendipityhq.com')->willReturn($test['serendipityhq.com']);
+        $this->mockConfiguredIdentities->method('getIdentity')->with('serendipityhq.com')->willReturn('serendipityhq.com');
         $result = $this->resource->findConfiguredIdentity('hello@serendipityhq.com');
 
-        self::assertEquals($test['serendipityhq.com'], $result);
+        self::assertEquals('serendipityhq.com', $result);
     }
 
     /**
@@ -227,15 +231,19 @@ final class MonitorTest extends TestCase
     public function testFindConfiguredIdentityEmailNotConfiguredAndItsDomainIsntTooThrowsException(): void
     {
         // 1. Is an Email
-        $this->mockIdentityGuesser->expects(self::exactly(2))->method('isEmailIdentity')->with('hello@serendipityhq.com')->willReturn(true);
+        $this->mockIdentityGuesser->method('isEmailIdentity')->with('hello@serendipityhq.com')->willReturn(true);
 
-        // 2. Is not explicitly configured
-        $this->mockConfiguredIdentities->expects(self::at(0))->method('identityExists')->with('hello@serendipityhq.com')->willReturn(false);
+        $this->mockConfiguredIdentities
+            ->method('identityExists')
+            ->withConsecutive(
+                // 2. Is not explicitly configured
+                ['hello@serendipityhq.com'],
+                // 3. Its Domain identity is NOT configured
+                ['serendipityhq.com']
+            )
+            ->willReturnOnConsecutiveCalls(false, false);
 
-        $this->mockIdentityGuesser->expects(self::once())->method('getEmailParts')->with('hello@serendipityhq.com')->willReturn(['domain' => 'serendipityhq.com']);
-
-        // 3. Its Domain identity is NOT configured
-        $this->mockConfiguredIdentities->expects(self::at(1))->method('identityExists')->with('serendipityhq.com')->willReturn(false);
+        $this->mockIdentityGuesser->method('getEmailParts')->with('hello@serendipityhq.com')->willReturn(['domain' => 'serendipityhq.com']);
 
         self::expectException(\InvalidArgumentException::class);
         self::expectExceptionMessage('The Email Identity "hello@serendipityhq.com" nor its Domain identity are configured.');
@@ -252,10 +260,10 @@ final class MonitorTest extends TestCase
     public function testFindConfiguredIdentityDomainNotConfiguredThrowsException(): void
     {
         // 1. Is an Email
-        $this->mockIdentityGuesser->expects(self::exactly(2))->method('isEmailIdentity')->with('serendipityhq.com')->willReturn(false);
+        $this->mockIdentityGuesser->method('isEmailIdentity')->with('serendipityhq.com')->willReturn(false);
 
         // 2. Is not explicitly configured
-        $this->mockConfiguredIdentities->expects(self::at(0))->method('identityExists')->with('serendipityhq.com')->willReturn(false);
+        $this->mockConfiguredIdentities->method('identityExists')->with('serendipityhq.com')->willReturn(false);
 
         self::expectException(\InvalidArgumentException::class);
         self::expectExceptionMessage('The Domain Identity "serendipityhq.com" is not configured.');
