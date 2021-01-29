@@ -9,7 +9,7 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ubuntu-latest]
-                php: ['7.4']
+                php: ['7.3', '7.4', '8.0']
         name: PHP ${{ matrix.php }} on ${{ matrix.os }}
         steps:
             - name: Checkout
@@ -20,7 +20,6 @@ jobs:
               with:
                   php-version: ${{ matrix.php }}
                   coverage: pcov
-                  tools: prestissimo
                   extensions: ast
 
             - name: Install Composer deps
@@ -29,14 +28,14 @@ jobs:
 
             - name: Run PHPunit
               run: |
-                  vendor/bin/phpunit
+                  vendor/bin/phpunit --coverage-clover var/coverage/clover.xml
 
             - name: Change paths in clover.xml
               run: |
-                sed -i 's+/home/runner/work/bundle-aws-ses-monitor/bundle-aws-ses-monitor+/github/workspace+g' ./var/coverage/clover.xml
+                  sed -i 's+/home/runner/work/bundle-stripe/bundle-stripe+/github/workspace+g' ./var/coverage/clover.xml
 
             - name: Sonarcloud
               uses: sonarsource/sonarcloud-github-action@master
               env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

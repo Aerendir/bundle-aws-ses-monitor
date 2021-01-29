@@ -9,7 +9,7 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ubuntu-latest]
-                php: ['7.4']
+                php: ['7.3', '7.4', '8.0']
         name: PHP ${{ matrix.php }} on ${{ matrix.os }}
         steps:
             - name: Checkout
@@ -20,7 +20,7 @@ jobs:
               with:
                   php-version: ${{ matrix.php }}
                   coverage: none # disable xdebug, pcov
-                  tools: prestissimo, symfony
+                  tools: symfony
                   extensions: ast
 
             - name: Install Composer deps
@@ -30,4 +30,4 @@ jobs:
             - name: Run Composer
               run: |
                   symfony security:check
-                  composer validate --strict
+                  composer validate --strict --no-check-lock
