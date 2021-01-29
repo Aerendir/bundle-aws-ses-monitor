@@ -21,9 +21,9 @@ return [
     // PhanDeprecatedFunction : 10+ occurrences
     // PhanPluginUnreachableCode : 5 occurrences
     // PhanReadOnlyPrivateProperty : 4 occurrences
-    // PhanUndeclaredMethod : 4 occurrences
     // PhanUndeclaredProperty : 4 occurrences
     // PhanRedefinedExtendedClass : 3 occurrences
+    // PhanUndeclaredMethod : 3 occurrences
     // PhanUnusedClosureParameter : 3 occurrences
     // ConstReferenceConstNotFound : 2 occurrences
     // PhanTypeNoPropertiesForeach : 2 occurrences
@@ -31,7 +31,6 @@ return [
     // PhanUnreferencedClosure : 2 occurrences
     // PhanUnusedVariable : 2 occurrences
     // PhanNoopNew : 1 occurrence
-    // PhanParamTooFew : 1 occurrence
     // PhanTypeMismatchDeclaredParamNullable : 1 occurrence
     // PhanTypeMismatchDeclaredReturn : 1 occurrence
     // PhanUnreferencedPrivateProperty : 1 occurrence
@@ -44,7 +43,7 @@ return [
         'src/Command/DebugCommand.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanDeprecatedFunction', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass'],
         'src/Command/SesSendTestEmailsCommand.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass'],
         'src/Controller/EndpointController.php' => ['PhanRedefinedClassReference', 'PhanUnreferencedPublicMethod'],
-        'src/DependencyInjection/Configuration.php' => ['PhanAccessMethodInternal', 'PhanParamTooFew', 'PhanTypeNoPropertiesForeach', 'PhanUndeclaredMethod', 'PhanUnreferencedClosure'],
+        'src/DependencyInjection/Configuration.php' => ['PhanAccessMethodInternal', 'PhanTypeNoPropertiesForeach', 'PhanUndeclaredMethod', 'PhanUnreferencedClosure'],
         'src/Entity/Bounce.php' => ['PhanReadOnlyPrivateProperty', 'PhanUnreferencedPublicClassConstant', 'PhanUnreferencedPublicMethod'],
         'src/Entity/Complaint.php' => ['PhanReadOnlyPrivateProperty', 'PhanUnreferencedPublicClassConstant', 'PhanUnreferencedPublicMethod'],
         'src/Entity/Delivery.php' => ['PhanReadOnlyPrivateProperty', 'PhanUnreferencedPublicMethod'],
