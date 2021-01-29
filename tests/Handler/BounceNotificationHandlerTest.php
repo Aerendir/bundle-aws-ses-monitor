@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
 final class BounceNotificationHandlerTest extends TestCase
 {
     /**
-     * @var string[][]|string[][][][]
+     * @var array<string, array<string, array<int, array<string, string>>|string>>
      */
     private const TEST = [
         'bounce' => [

@@ -60,7 +60,7 @@ class Complaint
      *
      * @ORM\Column(name="id", type="integer", unique=true)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue()
      */
     private $id;
 
@@ -247,9 +247,9 @@ class Complaint
     }
 
     /**
-     * @param \DateTime $complainedOn
+     * @param \DateTimeInterface $complainedOn
      */
-    private function setComplainedOn(\DateTime $complainedOn): self
+    private function setComplainedOn(\DateTimeInterface $complainedOn): self
     {
         $this->complainedOn = $complainedOn;
 
@@ -287,9 +287,9 @@ class Complaint
     }
 
     /**
-     * @param \DateTime $arrivalDate
+     * @param \DateTimeInterface $arrivalDate
      */
-    private function setArrivalDate(\DateTime $arrivalDate): self
+    private function setArrivalDate(\DateTimeInterface $arrivalDate): self
     {
         $this->arrivalDate = $arrivalDate;
 

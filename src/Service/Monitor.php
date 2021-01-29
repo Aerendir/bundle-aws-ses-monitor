@@ -349,8 +349,7 @@ final class Monitor
      */
     public function liveIdentityDkimIsEnabled(string $identity): bool
     {
-        return
-            $this->liveIdentityExists($identity) && $this->getLiveIdentity($identity, self::DKIM)['enabled'];
+        return $this->liveIdentityExists($identity) && $this->getLiveIdentity($identity, self::DKIM)['enabled'];
     }
 
     /**
@@ -515,7 +514,7 @@ final class Monitor
     {
         $subscription = $this->getTopicSubscriptions($topicArn);
         if (null === $subscription) {
-            false;
+            return false;
         }
 
         return $subscription['endpoint'] === $currentEndpoint;

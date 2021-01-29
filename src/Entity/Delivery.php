@@ -31,7 +31,7 @@ class Delivery
      * @var int
      * @ORM\Column(name="id", type="integer", unique=true)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue()
      */
     private $id;
 
@@ -189,9 +189,9 @@ class Delivery
     }
 
     /**
-     * @param \DateTime $deliveredOn
+     * @param \DateTimeInterface $deliveredOn
      */
-    private function setDeliveredOn(\DateTime $deliveredOn): self
+    private function setDeliveredOn(\DateTimeInterface $deliveredOn): self
     {
         $this->deliveredOn = $deliveredOn;
 

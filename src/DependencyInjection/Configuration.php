@@ -67,7 +67,7 @@ final class Configuration implements ConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getConfigTreeBuilder(): \Symfony\Component\Config\Definition\Builder\TreeBuilder
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $this->identityGuesser = new IdentityGuesser();
 
@@ -139,7 +139,7 @@ final class Configuration implements ConfigurationInterface
      *
      * @return ArrayNodeDefinition|NodeDefinition
      */
-    private function createRootNode(TreeBuilder $treeBuilder, string $rootNodeName): \Symfony\Component\Config\Definition\Builder\NodeDefinition
+    private function createRootNode(TreeBuilder $treeBuilder, string $rootNodeName): NodeDefinition
     {
         return Kernel::VERSION_ID >= 40200
             ? $treeBuilder->getRootNode()
@@ -149,7 +149,7 @@ final class Configuration implements ConfigurationInterface
     /**
      * @return ArrayNodeDefinition|NodeDefinition
      */
-    private function bouncesNode(): \Symfony\Component\Config\Definition\Builder\NodeDefinition
+    private function bouncesNode(): NodeDefinition
     {
         $treeBuilder = $this->createTreeBuilder(self::BOUNCES);
         $rootNode    = $this->createRootNode($treeBuilder, self::BOUNCES);
@@ -177,7 +177,7 @@ final class Configuration implements ConfigurationInterface
     /**
      * @return ArrayNodeDefinition|NodeDefinition
      */
-    private function complaintsNode(): \Symfony\Component\Config\Definition\Builder\NodeDefinition
+    private function complaintsNode(): NodeDefinition
     {
         $treeBuilder = $this->createTreeBuilder(self::COMPLAINTS);
         $rootNode    = $this->createRootNode($treeBuilder, self::COMPLAINTS);
@@ -202,7 +202,7 @@ final class Configuration implements ConfigurationInterface
     /**
      * @return ArrayNodeDefinition|NodeDefinition
      */
-    private function deliveriesNode(): \Symfony\Component\Config\Definition\Builder\NodeDefinition
+    private function deliveriesNode(): NodeDefinition
     {
         $treeBuilder = $this->createTreeBuilder(self::DELIVERIES);
         $rootNode    = $this->createRootNode($treeBuilder, self::DELIVERIES);

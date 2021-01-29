@@ -76,7 +76,7 @@ class Bounce
      *
      * @ORM\Column(name="id", type="integer", unique=true)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue()
      */
     private $id;
 
@@ -387,9 +387,9 @@ class Bounce
     }
 
     /**
-     * @param \DateTime $bouncedOn
+     * @param \DateTimeInterface $bouncedOn
      */
-    private function setBouncedOn(\DateTime $bouncedOn): self
+    private function setBouncedOn(\DateTimeInterface $bouncedOn): self
     {
         $this->bouncedOn = $bouncedOn;
 

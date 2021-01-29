@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
 final class DeliveryNotificationHandlerTest extends TestCase
 {
     /**
-     * @var int[][]|string[][]|string[][][]
+     * @var array<string, array<string, int|string|string[]>>
      */
     private const TEST = [
         'delivery' => [

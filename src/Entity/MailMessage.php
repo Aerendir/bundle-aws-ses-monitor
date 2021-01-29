@@ -285,11 +285,11 @@ class MailMessage
     }
 
     /**
-     * @param \DateTime $sentOn
+     * @param \DateTimeInterface $sentOn
      *
      * @internal
      */
-    public function setSentOn(\DateTime $sentOn): self
+    public function setSentOn(\DateTimeInterface $sentOn): self
     {
         $this->sentOn = $sentOn;
 
