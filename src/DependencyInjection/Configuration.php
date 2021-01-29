@@ -71,8 +71,8 @@ final class Configuration implements ConfigurationInterface
     {
         $this->identityGuesser = new IdentityGuesser();
 
-        $treeBuilder = $this->createTreeBuilder('shq_aws_ses_monitor');
-        $rootNode    = $this->createRootNode($treeBuilder, 'shq_aws_ses_monitor');
+        $treeBuilder = new TreeBuilder('shq_aws_ses_monitor');
+        $rootNode    = $treeBuilder->getRootNode();
 
         $rootNode
             ->children()
@@ -115,44 +115,12 @@ final class Configuration implements ConfigurationInterface
     }
 
     /**
-     * Creates a tree builder handling the differences between SF4 and SF5.
-     *
-     * @param string $rootNodeName
-     *
-     * @return TreeBuilder
-     */
-    private function createTreeBuilder(string $rootNodeName): TreeBuilder
-    {
-        // Support Symfony 5.0
-        $treeBuilder = Kernel::VERSION_ID >= 40200
-            ? new TreeBuilder($rootNodeName)
-            : new TreeBuilder();
-
-        return $treeBuilder;
-    }
-
-    /**
-     * Creates a root node handling the differences between SF4 and SF5.
-     *
-     * @param TreeBuilder $treeBuilder
-     * @param string      $rootNodeName
-     *
-     * @return ArrayNodeDefinition|NodeDefinition
-     */
-    private function createRootNode(TreeBuilder $treeBuilder, string $rootNodeName): NodeDefinition
-    {
-        return Kernel::VERSION_ID >= 40200
-            ? $treeBuilder->getRootNode()
-            : $treeBuilder->root($rootNodeName);
-    }
-
-    /**
      * @return ArrayNodeDefinition|NodeDefinition
      */
     private function bouncesNode(): NodeDefinition
     {
-        $treeBuilder = $this->createTreeBuilder(self::BOUNCES);
-        $rootNode    = $this->createRootNode($treeBuilder, self::BOUNCES);
+        $treeBuilder = new TreeBuilder(self::BOUNCES);
+        $rootNode    = $treeBuilder->getRootNode();
 
         $rootNode
             ->addDefaultsIfNotSet()
@@ -179,8 +147,8 @@ final class Configuration implements ConfigurationInterface
      */
     private function complaintsNode(): NodeDefinition
     {
-        $treeBuilder = $this->createTreeBuilder(self::COMPLAINTS);
-        $rootNode    = $this->createRootNode($treeBuilder, self::COMPLAINTS);
+        $treeBuilder = new TreeBuilder(self::COMPLAINTS);
+        $rootNode    = $treeBuilder->getRootNode();
 
         $rootNode
             ->addDefaultsIfNotSet()
@@ -204,8 +172,8 @@ final class Configuration implements ConfigurationInterface
      */
     private function deliveriesNode(): NodeDefinition
     {
-        $treeBuilder = $this->createTreeBuilder(self::DELIVERIES);
-        $rootNode    = $this->createRootNode($treeBuilder, self::DELIVERIES);
+        $treeBuilder = new TreeBuilder(self::DELIVERIES);
+        $rootNode    = $treeBuilder->getRootNode();
 
         $rootNode
             ->addDefaultsIfNotSet()
