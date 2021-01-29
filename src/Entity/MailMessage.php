@@ -259,7 +259,7 @@ class MailMessage
     /**
      * @return string|null
      */
-    public function getHeaders(): ? string
+    public function getHeaders(): ?string
     {
         return $this->headers;
     }
@@ -267,7 +267,7 @@ class MailMessage
     /**
      * @return string|null
      */
-    public function getCommonHeaders(): ? string
+    public function getCommonHeaders(): ?string
     {
         return $this->commonHeaders;
     }

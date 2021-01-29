@@ -211,7 +211,7 @@ class Complaint
     /**
      * @return string|null
      */
-    public function getComplaintFeedbackType(): ? string
+    public function getComplaintFeedbackType(): ?string
     {
         return $this->complaintFeedbackType;
     }
@@ -219,7 +219,7 @@ class Complaint
     /**
      * @return \DateTime|null
      */
-    public function getArrivalDate(): ? \DateTime
+    public function getArrivalDate(): ?\DateTime
     {
         return $this->arrivalDate;
     }
