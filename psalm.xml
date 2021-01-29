@@ -25,6 +25,14 @@
     <issueHandlers>
         <MissingThrowsDocblock errorLevel="suppress" />
         <RedundantIdentityWithTrue errorLevel="suppress" />
+
+        <!-- To fix -->
+        <DeprecatedClass errorLevel="suppress" />
+        <DeprecatedMethod errorLevel="suppress" />
+        <MixedArgument errorLevel="suppress" />
+        <MixedArrayAccess errorLevel="suppress" />
+        <MixedAssignment errorLevel="suppress" />
+        <UndefinedMagicMethod errorLevel="suppress" />
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
