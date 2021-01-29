@@ -36,11 +36,6 @@ parameters:
 			path: src/Command/ConfigureCommand.php
 
 		-
-			message: "#^Parameter \\#1 \\$output of method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Util\\\\Console\\:\\:createSection\\(\\) expects Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleOutput, Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface given\\.$#"
-			count: 2
-			path: src/Command/ConfigureCommand.php
-
-		-
 			message: "#^PHPDoc tag @var for variable \\$tokens has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Command/ConfigureCommand.php
@@ -63,16 +58,6 @@ parameters:
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\DebugCommand\\:\\:\\$sectionBody has no typehint specified\\.$#"
 			count: 1
-			path: src/Command/DebugCommand.php
-
-		-
-			message: "#^Parameter \\#2 \\$output of method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Util\\\\Console\\:\\:overwrite\\(\\) expects Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleOutput, Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleSectionOutput given\\.$#"
-			count: 1
-			path: src/Command/DebugCommand.php
-
-		-
-			message: "#^Parameter \\#1 \\$output of method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Util\\\\Console\\:\\:clear\\(\\) expects Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleOutput, Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleSectionOutput given\\.$#"
-			count: 2
 			path: src/Command/DebugCommand.php
 
 		-
@@ -406,11 +391,6 @@ parameters:
 			path: src/Service/Monitor.php
 
 		-
-			message: "#^Parameter \\#1 \\$output of method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Util\\\\Console\\:\\:clear\\(\\) expects Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleOutput, Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface given\\.$#"
-			count: 11
-			path: src/Service/Monitor.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\Monitor\\:\\:findConfiguredIdentity\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Service/Monitor.php
@@ -461,6 +441,11 @@ parameters:
 			path: src/Service/Monitor.php
 
 		-
+			message: "#^Access to undefined constant SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\Monitor\\:\\:DOMAIN\\.$#"
+			count: 2
+			path: src/Service/Monitor.php
+
+		-
 			message: "#^Cannot access offset 'topic' on array\\|bool\\|int\\|string\\.$#"
 			count: 1
 			path: src/Service/Monitor.php
@@ -471,22 +456,7 @@ parameters:
 			path: src/Service/Monitor.php
 
 		-
-			message: "#^Parameter \\#2 \\$output of method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Util\\\\Console\\:\\:overwrite\\(\\) expects Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleOutput, Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface given\\.$#"
-			count: 13
-			path: src/Service/Monitor.php
-
-		-
-			message: "#^PHPDoc tag @param for parameter \\$output with type Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface is not subtype of native type Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleOutput\\.$#"
-			count: 3
-			path: src/Util/Console.php
-
-		-
 			message: "#^PHPDoc tag @return with type Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface is not subtype of native type Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleSectionOutput\\.$#"
-			count: 1
-			path: src/Util/Console.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Util\\\\Console\\:\\:createSection\\(\\) should return Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleSectionOutput but returns Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleOutput\\|Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleSectionOutput\\.$#"
 			count: 1
 			path: src/Util/Console.php
 
@@ -698,30 +668,5 @@ parameters:
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 4
-			path: tests/Util/ConsoleTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$output of method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Util\\\\Console\\:\\:createSection\\(\\) expects Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleOutput, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject&Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface given\\.$#"
-			count: 1
-			path: tests/Util/ConsoleTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$output of method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Util\\\\Console\\:\\:overwrite\\(\\) expects Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleOutput, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject&Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleSectionOutput given\\.$#"
-			count: 2
-			path: tests/Util/ConsoleTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$output of method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Util\\\\Console\\:\\:overwrite\\(\\) expects Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleOutput, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject&Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface given\\.$#"
-			count: 1
-			path: tests/Util/ConsoleTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$output of method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Util\\\\Console\\:\\:clear\\(\\) expects Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleOutput, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject&Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleSectionOutput given\\.$#"
-			count: 2
-			path: tests/Util/ConsoleTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$output of method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Util\\\\Console\\:\\:clear\\(\\) expects Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleOutput, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject&Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface given\\.$#"
-			count: 1
 			path: tests/Util/ConsoleTest.php
 

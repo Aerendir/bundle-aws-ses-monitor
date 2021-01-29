@@ -10,39 +10,38 @@
 return [
     // # Issue statistics:
     // PhanAccessMethodInternal : 250+ occurrences
-    // PhanRedefinedClassReference : 170+ occurrences
-    // PhanTypeMismatchArgument : 140+ occurrences
+    // PhanRedefinedClassReference : 180+ occurrences
     // PhanUnreferencedPublicMethod : 100+ occurrences
+    // PhanTypeMismatchArgument : 80+ occurrences
     // PhanAccessClassConstantInternal : 70+ occurrences
-    // PhanTypeMismatchArgumentProbablyReal : 55+ occurrences
-    // PhanTypeMismatchArgumentReal : 35+ occurrences
+    // PhanTypeMismatchArgumentProbablyReal : 50+ occurrences
+    // PhanTypeMismatchArgumentReal : 30+ occurrences
     // PhanTypeArraySuspiciousNullable : 25+ occurrences
-    // PhanDeprecatedFunction : 15+ occurrences
     // PhanUnreferencedPublicClassConstant : 15+ occurrences
+    // PhanDeprecatedFunction : 10+ occurrences
     // PhanPluginUnreachableCode : 5 occurrences
     // PhanReadOnlyPrivateProperty : 4 occurrences
     // PhanUndeclaredMethod : 4 occurrences
     // PhanUndeclaredProperty : 4 occurrences
     // PhanRedefinedExtendedClass : 3 occurrences
-    // PhanTypeMismatchDeclaredParam : 3 occurrences
     // PhanUnusedClosureParameter : 3 occurrences
     // ConstReferenceConstNotFound : 2 occurrences
     // PhanTypeNoPropertiesForeach : 2 occurrences
+    // PhanUndeclaredConstantOfClass : 2 occurrences
     // PhanUnreferencedClosure : 2 occurrences
+    // PhanUnusedVariable : 2 occurrences
     // PhanNoopNew : 1 occurrence
     // PhanParamTooFew : 1 occurrence
     // PhanTypeMismatchDeclaredParamNullable : 1 occurrence
     // PhanTypeMismatchDeclaredReturn : 1 occurrence
-    // PhanTypeMismatchReturnReal : 1 occurrence
     // PhanUnreferencedPrivateProperty : 1 occurrence
-    // PhanUnusedVariable : 1 occurrence
     // PhanUnusedVariableCaughtException : 1 occurrence
     // UndeclaredTypeInInlineVar : 1 occurrence
 
     // Currently, file_suppressions and directory_suppressions are the only supported suppressions
     'file_suppressions' => [
-        'src/Command/ConfigureCommand.php' => ['ConstReferenceConstNotFound', 'PhanAccessMethodInternal', 'PhanDeprecatedFunction', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanTypeArraySuspiciousNullable', 'PhanTypeMismatchArgument'],
-        'src/Command/DebugCommand.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanDeprecatedFunction', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal'],
+        'src/Command/ConfigureCommand.php' => ['ConstReferenceConstNotFound', 'PhanAccessMethodInternal', 'PhanDeprecatedFunction', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanTypeArraySuspiciousNullable'],
+        'src/Command/DebugCommand.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanDeprecatedFunction', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass'],
         'src/Command/SesSendTestEmailsCommand.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass'],
         'src/Controller/EndpointController.php' => ['PhanRedefinedClassReference', 'PhanUnreferencedPublicMethod'],
         'src/DependencyInjection/Configuration.php' => ['PhanAccessMethodInternal', 'PhanParamTooFew', 'PhanTypeNoPropertiesForeach', 'PhanUndeclaredMethod', 'PhanUnreferencedClosure'],
@@ -57,8 +56,8 @@ return [
         'src/Processor/AwsDataProcessor.php' => ['PhanTypeArraySuspiciousNullable'],
         'src/Processor/NotificationProcessor.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference'],
         'src/Processor/SubscriptionProcessor.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference'],
-        'src/Service/Monitor.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchDeclaredParamNullable', 'PhanUnreferencedPublicMethod', 'PhanUnusedVariableCaughtException'],
-        'src/Util/Console.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchDeclaredParam', 'PhanTypeMismatchDeclaredReturn', 'PhanTypeMismatchReturnReal', 'PhanUndeclaredMethod'],
+        'src/Service/Monitor.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanTypeMismatchDeclaredParamNullable', 'PhanUndeclaredConstantOfClass', 'PhanUnreferencedPublicMethod', 'PhanUnusedVariableCaughtException'],
+        'src/Util/Console.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchDeclaredReturn', 'PhanUndeclaredMethod'],
         'src/Util/EmailStatusAnalyzer.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference'],
         'tests/Command/SesSendTestEmailsCommandTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod', 'UndeclaredTypeInInlineVar'],
         'tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php' => ['PhanTypeArraySuspiciousNullable', 'PhanUnreferencedPublicMethod'],
@@ -81,7 +80,7 @@ return [
         'tests/Processor/RequestProcessorTest.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUndeclaredProperty', 'PhanUnreferencedPublicMethod'],
         'tests/Processor/SubscriptionProcessorTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
         'tests/Service/IdentitiesStoreTest.php' => ['PhanAccessMethodInternal', 'PhanUnreferencedPublicMethod'],
-        'tests/Service/MonitorTest.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanDeprecatedFunction', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPrivateProperty', 'PhanUnreferencedPublicMethod'],
+        'tests/Service/MonitorTest.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPrivateProperty', 'PhanUnreferencedPublicMethod', 'PhanUnusedVariable'],
         'tests/Util/ConsoleTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUnreferencedPublicMethod'],
         'tests/Util/EmailStatusAnalyzerTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
         'tests/Util/IdentityGuesserTest.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanUnreferencedPublicMethod'],

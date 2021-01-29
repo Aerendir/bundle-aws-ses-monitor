@@ -677,7 +677,9 @@
       <code>$this-&gt;liveData[AwsDataProcessor::IDENTITIES][$identity]</code>
       <code>$this-&gt;liveData[AwsDataProcessor::TOPICS][$topicArn]</code>
     </MixedArrayAccess>
-    <MixedArrayOffset occurrences="1">
+    <MixedArrayOffset occurrences="3">
+      <code>$parts[self::DOMAIN]</code>
+      <code>$this-&gt;getLiveIdentity($identity, 'mail_from')[self::DOMAIN]</code>
       <code>$this-&gt;liveData[AwsDataProcessor::TOPICS][$topicArn]</code>
     </MixedArrayOffset>
     <MixedAssignment occurrences="11">
@@ -741,13 +743,12 @@
     <TypeDoesNotContainType occurrences="1">
       <code>$ignoreEnv</code>
     </TypeDoesNotContainType>
+    <UndefinedConstant occurrences="2">
+      <code>self::DOMAIN</code>
+      <code>self::DOMAIN</code>
+    </UndefinedConstant>
   </file>
   <file src="src/Util/Console.php">
-    <MismatchingDocblockParamType occurrences="3">
-      <code>ConsoleOutput|OutputInterface</code>
-      <code>ConsoleOutput|OutputInterface</code>
-      <code>ConsoleOutput|OutputInterface</code>
-    </MismatchingDocblockParamType>
     <MismatchingDocblockReturnType occurrences="1">
       <code>ConsoleSectionOutput|OutputInterface</code>
     </MismatchingDocblockReturnType>
@@ -1090,38 +1091,11 @@
     </MixedArrayOffset>
   </file>
   <file src="tests/Service/MonitorTest.php">
-    <DeprecatedClass occurrences="6">
-      <code>self::at(0)</code>
-      <code>self::at(0)</code>
-      <code>self::at(0)</code>
-      <code>self::at(0)</code>
-      <code>self::at(1)</code>
-      <code>self::at(1)</code>
-    </DeprecatedClass>
-    <DeprecatedMethod occurrences="6">
-      <code>self::at(0)</code>
-      <code>self::at(0)</code>
-      <code>self::at(0)</code>
-      <code>self::at(0)</code>
-      <code>self::at(1)</code>
-      <code>self::at(1)</code>
-    </DeprecatedMethod>
     <MixedAssignment occurrences="2">
       <code>$result</code>
       <code>$result</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="51">
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
+    <MixedMethodCall occurrences="36">
       <code>method</code>
       <code>method</code>
       <code>method</code>
@@ -1146,10 +1120,8 @@
       <code>willReturn</code>
       <code>willReturn</code>
       <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
+      <code>willReturnOnConsecutiveCalls</code>
+      <code>willReturnOnConsecutiveCalls</code>
       <code>with</code>
       <code>with</code>
       <code>with</code>
@@ -1158,10 +1130,8 @@
       <code>with</code>
       <code>with</code>
       <code>with</code>
-      <code>with</code>
-      <code>with</code>
-      <code>with</code>
-      <code>with</code>
+      <code>withConsecutive</code>
+      <code>withConsecutive</code>
     </MixedMethodCall>
     <PossiblyInvalidArgument occurrences="6">
       <code>$this-&gt;mockSectionBody</code>
@@ -1171,7 +1141,7 @@
       <code>$this-&gt;mockSectionTitle</code>
       <code>$this-&gt;mockSectionTitle</code>
     </PossiblyInvalidArgument>
-    <PossiblyUndefinedMethod occurrences="25">
+    <PossiblyUndefinedMethod occurrences="23">
       <code>expects</code>
       <code>expects</code>
       <code>expects</code>
@@ -1186,17 +1156,15 @@
       <code>expects</code>
       <code>expects</code>
       <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
     </PossiblyUndefinedMethod>
     <TooManyArguments occurrences="11">
       <code>append</code>
