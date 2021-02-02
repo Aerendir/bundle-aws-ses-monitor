@@ -265,7 +265,7 @@ final class Monitor
      *
      * @return array|null
      */
-    public function getLiveTopic(string $normalizedTopicName): ? array
+    public function getLiveTopic(string $normalizedTopicName): ?array
     {
         foreach ($this->getLiveTopicsList() as $topicArn) {
             if (false !== \strstr($topicArn, $normalizedTopicName)) {
