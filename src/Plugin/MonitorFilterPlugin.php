@@ -1,16 +1,12 @@
 <?php
 
 /*
- * This file is part of the SHQAwsSesBundle.
+ * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2015 - 2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2015 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin;
@@ -23,7 +19,7 @@ use Swift_Events_SendEvent;
  * The SwiftMailer plugin.
  * {@inheritdoc}
  */
-class MonitorFilterPlugin implements \Swift_Events_SendListener
+final class MonitorFilterPlugin implements \Swift_Events_SendListener
 {
     /** @var array $blacklisted */
     private $blacklisted;
@@ -76,7 +72,7 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      */
     public function sendPerformed(Swift_Events_SendEvent $evt): void
     {
-        $evt->setFailedRecipients(array_unique($this->blacklisted));
+        $evt->setFailedRecipients(\array_unique($this->blacklisted));
     }
 
     /**
@@ -87,8 +83,8 @@ class MonitorFilterPlugin implements \Swift_Events_SendListener
      */
     private function filterBlacklisted(array $identities, array $recipients): array
     {
-        $emails         = array_keys($recipients);
-        $fromIdentities = array_keys($identities);
+        $emails         = \array_keys($recipients);
+        $fromIdentities = \array_keys($identities);
 
         foreach ($emails as $email) {
             $emailStatus = $this->emailStatusManager->loadEmailStatus($email);

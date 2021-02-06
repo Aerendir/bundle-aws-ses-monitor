@@ -1,16 +1,12 @@
 <?php
 
 /*
- * This file is part of the SHQAwsSesBundle.
+ * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2015 - 2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2015 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Util;
@@ -21,10 +17,16 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Util;
  *
  * @internal
  */
-class IdentityGuesser
+final class IdentityGuesser
 {
     /** @var string The name of the testing email Identity */
     public const TEST_MAILBOX = 'test_aws';
+
+    /** @var string */
+    public const MAILBOX = 'mailbox';
+
+    /** @var string */
+    public const DOMAIN = 'domain';
 
     /**
      * @param string $identity
@@ -38,14 +40,14 @@ class IdentityGuesser
         // Here we explicitly check for email as this way it intercepts also wrong
         // $identities like, for example, "an_identity" that is not an email not a domain
         if (false === $this->isEmailIdentity($identity)) {
-            throw new \InvalidArgumentException(sprintf('The value "%s" is not an Email identity.', $identity));
+            throw new \InvalidArgumentException(\Safe\sprintf('The value "%s" is not an Email identity.', $identity));
         }
 
-        $parts = explode('@', $identity);
+        $parts = \explode('@', $identity);
 
         return [
-            'mailbox' => $parts[0],
-            'domain'  => $parts[1],
+            self::MAILBOX => $parts[0],
+            self::DOMAIN  => $parts[1],
         ];
     }
 
@@ -68,7 +70,7 @@ class IdentityGuesser
      */
     public function isEmailIdentity(string $identity): bool
     {
-        return (bool) strstr($identity, '@');
+        return (bool) \strstr($identity, '@');
     }
 
     /**
@@ -101,6 +103,6 @@ class IdentityGuesser
             $mailbox = $this->getEmailParts($mailbox)['mailbox'];
         }
 
-        return (bool) strstr($mailbox, self::TEST_MAILBOX);
+        return (bool) \strstr($mailbox, self::TEST_MAILBOX);
     }
 }

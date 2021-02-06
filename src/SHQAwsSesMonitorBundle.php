@@ -1,16 +1,12 @@
 <?php
 
 /*
- * This file is part of the SHQAwsSesBundle.
+ * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2015 - 2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2015 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle;
@@ -23,12 +19,12 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  *
  * @codeCoverageIgnore
  */
-class SHQAwsSesMonitorBundle extends Bundle
+final class SHQAwsSesMonitorBundle extends Bundle
 {
     /**
      * {@inheritdoc}
      */
-    public function build(ContainerBuilder $container)
+    public function build(ContainerBuilder $container): void
     {
         parent::build($container);
     }

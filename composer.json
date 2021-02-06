@@ -1,58 +1,64 @@
 {
-    "name": "serendipity_hq/aws-ses-monitor-bundle",
+    "name": "serendipity_hq/bundle-aws-ses-monitor",
     "type": "symfony-bundle",
     "description": "Symfony bundle to monitor AWS SES bounces, complaints and deliveries through SNS. Comes with a command to fully configure the topics and includes configurable SwiftMailer filter to avoid sending emails to bounced and complained emails.",
     "keywords": ["aws", "ses", "sns", "bounce", "complaints", "blacklist", "swiftmailer"],
-    "homepage": "https://github.com/Aerendir/aws-ses-monitor-bundle",
+    "homepage": "https://github.com/Aerendir/bundle-aws-ses-monitor",
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/Aerendir/aws-ses-monitor-bundle/issues"
+        "docs": "https://github.com/Aerendir/bundle-aws-ses-monitor/tree/dev/docs",
+        "issues": "https://github.com/Aerendir/bundle-aws-ses-monitor/issues"
     },
     "authors": [
         {
-            "name": "Audrius Karabanovas",
-            "email": "audrius@karabanovas.net"
-        },
-        {
             "name": "Adamo Aerendir Crespi",
-            "email": "hello@aerendir.me"
+            "email": "aerendir@serendipityhq.com"
         }
     ],
     "require": {
-        "php": "^7.1",
+        "php": "^7.3|^8.0",
         "aws/aws-php-sns-message-validator": "^1.5",
-        "aws/aws-sdk-php": "^3.52",
+        "aws/aws-sdk-php": "^3.39.0",
         "aws/aws-sdk-php-symfony": "^2.0",
-        "doctrine/common": "^2.4",
-        "doctrine/doctrine-bundle": "^1.7",
+        "doctrine/common": "^2.4 || ^3.0",
+        "doctrine/doctrine-bundle": "^1.7 || ^2.0",
         "doctrine/orm": "^2.5",
-        "serendipity_hq/console-styles-bundle": "^1.1",
-        "symfony/framework-bundle": "^3.4|^4.1",
-        "symfony/http-kernel": "^3.4|^4.1",
+        "serendipity_hq/component-console-styles": "dev-dev",
+        "symfony/framework-bundle": "^4.4|^5.2",
+        "symfony/http-kernel": "^4.4|^5.2",
         "symfony/swiftmailer-bundle": "^3.0",
-        "symfony/yaml": "^3.4|^4.1"
-    },
-    "config": {
-        "sort-packages": true
-    },
-    "conflict": {
-        "nikic/php-parser": "4.6.0"
+        "symfony/yaml": "^4.4|^5.2",
+        "thecodingmachine/safe": "^1.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.0",
-        "roave/security-advisories":"dev-master",
-        "sensiolabs/security-checker": "^3.4|^4.1|^6.0",
-        "serendipity_hq/phpunit_helper": "*",
-        "symfony/console": "^3.4|^4.1",
-        "symfony/var-dumper": "^3.4|^4.1",
-        "symfony/phpunit-bridge": "^3.4|^4.1"
+        "ext-ast": "*",
+        "bamarni/composer-bin-plugin": "^1.4",
+        "roave/security-advisories": "dev-master",
+        "symfony/console": "^4.4|^5.2",
+        "symfony/var-dumper": "^4.4|^5.2",
+        "phpstan/phpstan": "0.12.71",
+        "phpstan/phpstan-phpunit": "0.12.17",
+        "phpstan/phpstan-doctrine": "0.12.30",
+        "phpstan/phpstan-symfony": "0.12.16",
+        "thecodingmachine/phpstan-safe-rule": "1.0.1",
+        "rector/rector": "0.9.16"
     },
     "autoload": {
         "psr-4": {
             "SerendipityHQ\\Bundle\\AwsSesMonitorBundle\\": "src"
-        },
-        "exclude-from-classmap": [
-            "**/Tests/"
-        ]
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SerendipityHQ\\Bundle\\AwsSesMonitorBundle\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "bin": "echo 'bin not installed'",
+        "post-install-cmd": ["@composer bin all install --ansi"],
+        "post-update-cmd": ["@composer bin all update --ansi"]
     }
 }

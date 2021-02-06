@@ -1,6 +1,5 @@
-/vendor/
-/composer.lock
-/build/
+.php_cs
+composer.lock
 phpunit.xml
-.php_cs.cache
-tools
+var
+vendor

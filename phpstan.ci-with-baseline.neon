@@ -1,0 +1,9 @@
+includes:
+    - phpstan.neon
+
+parameters:
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        # Those errors are manually added
+        # To actually fix
+        - "#^Comparison operation \"\\<\" between 4 and 4 is always false\\.$#"

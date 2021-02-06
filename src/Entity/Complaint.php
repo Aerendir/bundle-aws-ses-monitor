@@ -1,16 +1,12 @@
 <?php
 
 /*
- * This file is part of the SHQAwsSesBundle.
+ * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2015 - 2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2015 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity;
@@ -27,33 +23,44 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Complaint
 {
-    /** Indicates unsolicited email or some other kind of email abuse. */
+    /** Indicates unsolicited email or some other kind of email abuse.
+     * @var string */
     const TYPE_ABUSE = 'abuse';
 
-    /** Email authentication failure report. */
+    /** Email authentication failure report.
+     * @var string */
     const TYPE_AUTH_FAILURE = 'auth-failure';
 
-    /** Indicates some kind of fraud or phishing activity. */
+    /** Indicates some kind of fraud or phishing activity.
+     * @var string */
     const TYPE_FRAUD = 'fraud';
 
     /**
      * Indicates that the entity providing the report does not consider the message to be spam.
      * This may be used to correct a message that was incorrectly tagged or categorized as spam.
+     *
+     * @var string
      */
     const TYPE_NOT_SPAM = 'not-spam';
 
-    /** Indicates any other feedback that does not fit into other registered types. */
+    /** Indicates any other feedback that does not fit into other registered types.
+     * @var string */
     const TYPE_OTHER = 'other';
 
-    /** Reports that a virus is found in the originating message. */
+    /** Reports that a virus is found in the originating message.
+     * @var string */
     const TYPE_VIRUS = 'virus';
+    /**
+     * @var string
+     */
+    private const COMPLAINT = 'complaint';
 
     /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer", unique=true)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue()
      */
     private $id;
 
@@ -132,21 +139,21 @@ class Complaint
     public static function create(EmailStatus $email, MailMessage $mailMessage, array $notification): Complaint
     {
         $complaint = (new self())
-            ->setComplainedOn(new \DateTime($notification['complaint']['timestamp']))
-            ->setFeedbackId($notification['complaint']['feedbackId'])
+            ->setComplainedOn(new \DateTime($notification[self::COMPLAINT]['timestamp']))
+            ->setFeedbackId($notification[self::COMPLAINT]['feedbackId'])
             ->setMailMessage($mailMessage)
             ->setEmailStatus($email);
 
-        if (isset($notification['complaint']['userAgent'])) {
-            $complaint->setUserAgent($notification['complaint']['userAgent']);
+        if (isset($notification[self::COMPLAINT]['userAgent'])) {
+            $complaint->setUserAgent($notification[self::COMPLAINT]['userAgent']);
         }
 
-        if (isset($notification['complaint']['complaintFeedbackType'])) {
-            $complaint->setComplaintFeedbackType($notification['complaint']['complaintFeedbackType']);
+        if (isset($notification[self::COMPLAINT]['complaintFeedbackType'])) {
+            $complaint->setComplaintFeedbackType($notification[self::COMPLAINT]['complaintFeedbackType']);
         }
 
-        if (isset($notification['complaint']['arrivalDate'])) {
-            $complaint->setArrivalDate(new \DateTime($notification['complaint']['arrivalDate']));
+        if (isset($notification[self::COMPLAINT]['arrivalDate'])) {
+            $complaint->setArrivalDate(new \DateTime($notification[self::COMPLAINT]['arrivalDate']));
         }
 
         return $complaint;
@@ -204,7 +211,7 @@ class Complaint
     /**
      * @return string|null
      */
-    public function getComplaintFeedbackType(): ? string
+    public function getComplaintFeedbackType(): ?string
     {
         return $this->complaintFeedbackType;
     }
@@ -212,17 +219,15 @@ class Complaint
     /**
      * @return \DateTime|null
      */
-    public function getArrivalDate(): ? \DateTime
+    public function getArrivalDate(): ?\DateTime
     {
         return $this->arrivalDate;
     }
 
     /**
      * @param EmailStatus $emailStatus
-     *
-     * @return Complaint
      */
-    private function setEmailStatus(EmailStatus $emailStatus): Complaint
+    private function setEmailStatus(EmailStatus $emailStatus): self
     {
         $this->emailStatus = $emailStatus;
         $emailStatus->addComplaint($this);
@@ -232,10 +237,8 @@ class Complaint
 
     /**
      * @param MailMessage $mailMessage
-     *
-     * @return Complaint
      */
-    private function setMailMessage(MailMessage $mailMessage): Complaint
+    private function setMailMessage(MailMessage $mailMessage): self
     {
         $this->mailMessage = $mailMessage;
         $this->mailMessage->addComplaint($this);
@@ -244,11 +247,9 @@ class Complaint
     }
 
     /**
-     * @param \DateTime $complainedOn
-     *
-     * @return Complaint
+     * @param \DateTimeInterface $complainedOn
      */
-    private function setComplainedOn(\DateTime $complainedOn): Complaint
+    private function setComplainedOn(\DateTimeInterface $complainedOn): self
     {
         $this->complainedOn = $complainedOn;
 
@@ -257,10 +258,8 @@ class Complaint
 
     /**
      * @param string $feedbackId
-     *
-     * @return Complaint
      */
-    private function setFeedbackId(string $feedbackId): Complaint
+    private function setFeedbackId(string $feedbackId): self
     {
         $this->feedbackId = $feedbackId;
 
@@ -269,10 +268,8 @@ class Complaint
 
     /**
      * @param string $userAgent
-     *
-     * @return Complaint
      */
-    private function setUserAgent(string $userAgent): Complaint
+    private function setUserAgent(string $userAgent): self
     {
         $this->userAgent = $userAgent;
 
@@ -281,10 +278,8 @@ class Complaint
 
     /**
      * @param string $complaintFeedbackType
-     *
-     * @return Complaint
      */
-    private function setComplaintFeedbackType(string $complaintFeedbackType): Complaint
+    private function setComplaintFeedbackType(string $complaintFeedbackType): self
     {
         $this->complaintFeedbackType = $complaintFeedbackType;
 
@@ -292,11 +287,9 @@ class Complaint
     }
 
     /**
-     * @param \DateTime $arrivalDate
-     *
-     * @return Complaint
+     * @param \DateTimeInterface $arrivalDate
      */
-    private function setArrivalDate(\DateTime $arrivalDate): Complaint
+    private function setArrivalDate(\DateTimeInterface $arrivalDate): self
     {
         $this->arrivalDate = $arrivalDate;
 

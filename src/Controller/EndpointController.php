@@ -1,30 +1,26 @@
 <?php
 
 /*
- * This file is part of the SHQAwsSesBundle.
+ * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2015 - 2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2015 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor\RequestProcessor;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * {@inheritdoc}
  */
-class EndpointController extends Controller
+final class EndpointController extends AbstractController
 {
     /**
      * @param Request                $request
@@ -32,7 +28,7 @@ class EndpointController extends Controller
      * @param EntityManagerInterface $entityManager
      *
      * @return Response
-     * @codeCoverageIgnore
+     * @ codeCoverageIgnore
      */
     public function endpoint(Request $request, RequestProcessor $processor, EntityManagerInterface $entityManager): Response
     {

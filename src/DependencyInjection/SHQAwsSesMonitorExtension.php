@@ -1,16 +1,12 @@
 <?php
 
 /*
- * This file is part of the SHQAwsSesBundle.
+ * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2015 - 2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2015 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection;
@@ -24,12 +20,12 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 /**
  * {@inheritdoc}
  */
-class SHQAwsSesMonitorExtension extends Extension
+final class SHQAwsSesMonitorExtension extends Extension
 {
     /**
      * {@inheritdoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
         $config        = $this->processConfiguration($configuration, $configs);
@@ -49,7 +45,7 @@ class SHQAwsSesMonitorExtension extends Extension
             $mailers = $config['mailers'];
             $filter  = $container->getDefinition(MonitorFilterPlugin::class);
             foreach ($mailers as $mailer) {
-                $filter->addTag(sprintf('swiftmailer.%s.plugin', $mailer));
+                $filter->addTag(\Safe\sprintf('swiftmailer.%s.plugin', $mailer));
             }
         }
     }

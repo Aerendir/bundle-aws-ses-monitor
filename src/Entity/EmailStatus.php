@@ -1,16 +1,12 @@
 <?php
 
 /*
- * This file is part of the SHQAwsSesBundle.
+ * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2015 - 2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2015 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity;
@@ -93,7 +89,7 @@ class EmailStatus
      */
     public function __construct(string $email)
     {
-        $this->address    = mb_strtolower($email);
+        $this->address    = \mb_strtolower($email);
         $this->bounces    = new ArrayCollection();
         $this->complaints = new ArrayCollection();
         $this->deliveries = new ArrayCollection();
@@ -182,14 +178,12 @@ class EmailStatus
     /**
      * @param Bounce $bounce
      *
-     * @return EmailStatus
-     *
      * @internal
      */
-    public function addBounce(Bounce $bounce): EmailStatus
+    public function addBounce(Bounce $bounce): self
     {
         // Add only if not already added to avoid circular references
-        $predictate = function (/** @noinspection PhpUnusedParameterInspection */ $key, Bounce $element) use ($bounce) {
+        $predictate = function (/** @noinspection PhpUnusedParameterInspection */ $key, Bounce $element) use ($bounce): bool {
             return $element->getFeedbackId() === $bounce->getFeedbackId();
         };
 
@@ -214,14 +208,12 @@ class EmailStatus
     /**
      * @param Complaint $complaint
      *
-     * @return EmailStatus
-     *
      * @internal
      */
-    public function addComplaint(Complaint $complaint): EmailStatus
+    public function addComplaint(Complaint $complaint): self
     {
         // Add only if not already added to avoid circular references
-        $predictate = function (/** @noinspection PhpUnusedParameterInspection */ $key, Complaint $element) use ($complaint) {
+        $predictate = function (/** @noinspection PhpUnusedParameterInspection */ $key, Complaint $element) use ($complaint): bool {
             return $element->getFeedbackId() === $complaint->getFeedbackId();
         };
 
@@ -237,14 +229,12 @@ class EmailStatus
     /**
      * @param Delivery $delivery
      *
-     * @return EmailStatus
-     *
      * @internal
      */
-    public function addDelivery(Delivery $delivery): EmailStatus
+    public function addDelivery(Delivery $delivery): self
     {
         // Add only if not already added to avoid circular references
-        $predictate = function (/** @noinspection PhpUnusedParameterInspection */ $key, Delivery $element) use ($delivery) {
+        $predictate = function (/** @noinspection PhpUnusedParameterInspection */ $key, Delivery $element) use ($delivery): bool {
             // A Delivery doesn't have a feedbackId, so we rely on timestamp that should be sufficient to get identity uniqueness
             return $element->getDeliveredOn()->getTimestamp() === $delivery->getDeliveredOn()->getTimestamp();
         };

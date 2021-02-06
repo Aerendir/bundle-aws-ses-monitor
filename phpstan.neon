@@ -1,7 +1,19 @@
+includes:
+    - .baseline-phpstan.neon
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+    - vendor/phpstan/phpstan-doctrine/rules.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-symfony/rules.neon
+    - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
+
 parameters:
     level: max
+    bootstrapFiles:
+        - vendor-bin/phpunit/vendor/autoload.php
     paths:
         - src
+        - tests
     excludes_analyse:
-        - */src/Tests/*
         - */src/DependencyInjection/Configuration.php

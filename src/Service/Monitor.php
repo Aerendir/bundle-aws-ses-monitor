@@ -1,16 +1,12 @@
 <?php
 
 /*
- * This file is part of the SHQAwsSesBundle.
+ * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2015 - 2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2015 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
@@ -28,8 +24,32 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @internal
  */
-class Monitor
+final class Monitor
 {
+    /**
+     * @var string
+     */
+    private const TRACK = 'track';
+    /**
+     * @var string
+     */
+    private const DKIM = 'dkim';
+    /**
+     * @var string
+     */
+    private const TOPIC = 'topic';
+    /**
+     * @var string
+     */
+    private const IDENTITIES = 'Identities';
+    /**
+     * @var string
+     */
+    private const SUBSCRIPTION_ARN = 'SubscriptionArn';
+    /**
+     * @var string
+     */
+    private const TOPIC_ARN = 'TopicArn';
     /** @var string $env */
     private $env;
 
@@ -150,14 +170,14 @@ class Monitor
             // Find its domain identity
             $parts = $this->getIdentityGuesser()->getEmailParts($searchingIdentity);
 
-            $searchingIdentity = $parts['domain'];
+            $searchingIdentity = $parts[IdentityGuesser::DOMAIN];
         }
 
         // If the identity is not explicitly configured (the Email one or its Domain)
         if (false === $this->configuredIdentities->identityExists($searchingIdentity)) {
             $message = $this->getIdentityGuesser()->isEmailIdentity($identity)
-                ? sprintf('The Email Identity "%s" nor its Domain identity are configured.', $identity)
-                : sprintf('The Domain Identity "%s" is not configured.', $identity);
+                ? \Safe\sprintf('The Email Identity "%s" nor its Domain identity are configured.', $identity)
+                : \Safe\sprintf('The Domain Identity "%s" is not configured.', $identity);
             throw new \InvalidArgumentException($message);
         }
 
@@ -237,7 +257,7 @@ class Monitor
      */
     public function getLiveIdentitiesList(): array
     {
-        return array_keys($this->liveData[AwsDataProcessor::IDENTITIES]);
+        return \array_keys($this->liveData[AwsDataProcessor::IDENTITIES]);
     }
 
     /**
@@ -245,10 +265,10 @@ class Monitor
      *
      * @return array|null
      */
-    public function getLiveTopic(string $normalizedTopicName): ? array
+    public function getLiveTopic(string $normalizedTopicName): ?array
     {
         foreach ($this->getLiveTopicsList() as $topicArn) {
-            if (false !== strstr($topicArn, $normalizedTopicName)) {
+            if (false !== \strstr($topicArn, $normalizedTopicName)) {
                 return $this->liveData[AwsDataProcessor::TOPICS][$topicArn];
             }
         }
@@ -265,7 +285,7 @@ class Monitor
             return [];
         }
 
-        return array_keys($this->liveData[AwsDataProcessor::TOPICS]);
+        return \array_keys($this->liveData[AwsDataProcessor::TOPICS]);
     }
 
     /**
@@ -277,7 +297,7 @@ class Monitor
     {
         $config = $this->findConfiguredIdentity($identity, 'bounces');
 
-        return $config['track'];
+        return $config[self::TRACK];
     }
 
     /**
@@ -301,7 +321,7 @@ class Monitor
     {
         $config = $this->findConfiguredIdentity($identity, 'complaints');
 
-        return $config['track'];
+        return $config[self::TRACK];
     }
 
     /**
@@ -325,8 +345,7 @@ class Monitor
      */
     public function liveIdentityDkimIsEnabled(string $identity): bool
     {
-        return
-            $this->liveIdentityExists($identity) && $this->getLiveIdentity($identity, 'dkim')['enabled'];
+        return $this->liveIdentityExists($identity) && $this->getLiveIdentity($identity, self::DKIM)['enabled'];
     }
 
     /**
@@ -340,7 +359,7 @@ class Monitor
     {
         return
             $this->liveIdentityExists($identity) &&
-            'Success' === $this->getLiveIdentity($identity, 'dkim')['verification_status'];
+            'Success' === $this->getLiveIdentity($identity, self::DKIM)['verification_status'];
     }
 
     /**
@@ -384,7 +403,7 @@ class Monitor
     public function liveTopicExists(string $normalizedTopicName): bool
     {
         foreach ($this->getLiveTopicsList() as $topicArn) {
-            if (false !== strstr($topicArn, $normalizedTopicName)) {
+            if (false !== \strstr($topicArn, $normalizedTopicName)) {
                 return true;
             }
         }
@@ -399,7 +418,7 @@ class Monitor
      */
     public function dkimEnabledIsInSync(string $identity): bool
     {
-        return $this->getConfiguredIdentity($identity, 'dkim') === ($this->getLiveIdentity($identity, 'dkim')['enabled'] ?? null);
+        return $this->getConfiguredIdentity($identity, self::DKIM) === ($this->getLiveIdentity($identity, self::DKIM)['enabled'] ?? null);
     }
 
     /**
@@ -411,7 +430,7 @@ class Monitor
     {
         return
             $this->getConfiguredIdentity($identity, 'on_mx_failure') === ($this->getLiveIdentity($identity, 'mail_from')['on_mx_failure'] ?? null) &&
-            $this->getConfiguredIdentity($identity, 'from_domain') === ($this->getLiveIdentity($identity, 'mail_from')['domain'] ?? null);
+            $this->getConfiguredIdentity($identity, 'from_domain') === ($this->getLiveIdentity($identity, 'mail_from')[self::DOMAIN] ?? null);
     }
 
     /**
@@ -430,7 +449,7 @@ class Monitor
         if ($this->identityGuesser->isEmailIdentity($identity)) {
             // This is an email identity: check its domain identity
             $parts    = $this->identityGuesser->getEmailParts($identity);
-            $identity = $parts['domain'];
+            $identity = $parts[self::DOMAIN];
         }
 
         return $this->liveIdentityIsVerified($identity);
@@ -446,7 +465,7 @@ class Monitor
     {
         $topicConfig = $this->getConfiguredIdentity($identity, $type);
 
-        return $topicConfig['track'] && Configuration::USE_DOMAIN !== $topicConfig['topic'];
+        return $topicConfig[self::TRACK] && Configuration::USE_DOMAIN !== $topicConfig[self::TOPIC];
     }
 
     /**
@@ -460,7 +479,7 @@ class Monitor
         $identityNotifications = $this->getLiveIdentity($identity, 'notifications');
 
         // If the notification SNS topic is not configured
-        if (false === isset($identityNotifications[$notificationType]) || false === isset($identityNotifications[$notificationType]['topic'])) {
+        if (false === isset($identityNotifications[$notificationType]) || false === isset($identityNotifications[$notificationType][self::TOPIC])) {
             return true;
         }
 
@@ -472,7 +491,7 @@ class Monitor
         // Check each subscription...
         foreach ($this->liveData[AwsDataProcessor::SUBSCRIPTIONS] as $subscription) {
             // If we find at least one subscription with the same topic arn
-            if ($subscription['topic_arn'] === $identityNotifications[$notificationType]['topic']) {
+            if ($subscription['topic_arn'] === $identityNotifications[$notificationType][self::TOPIC]) {
                 return false;
             }
         }
@@ -491,14 +510,10 @@ class Monitor
     {
         $subscription = $this->getTopicSubscriptions($topicArn);
         if (null === $subscription) {
-            false;
+            return false;
         }
 
-        if ($subscription['endpoint'] === $currentEndpoint) {
-            return true;
-        }
-
-        return false;
+        return $subscription['endpoint'] === $currentEndpoint;
     }
 
     /**
@@ -558,19 +573,19 @@ class Monitor
     {
         $this->console->overwrite('Retrieving information of Identities:', $this->sectionTitle);
         $this->console->overwrite('   Retrieving DKIM attributes...', $this->sectionBody);
-        $identitiesDkimAttributes = $this->sesClient->getIdentityDkimAttributes(['Identities' => $this->configuredIdentities->getIdentitiesList()]);
+        $identitiesDkimAttributes = $this->sesClient->getIdentityDkimAttributes([self::IDENTITIES => $this->configuredIdentities->getIdentitiesList()]);
         $this->awsDataProcessor->processIdentitiesDkimAttributes($identitiesDkimAttributes);
 
         // This operation is throttled at one request per second and can only get custom MAIL FROM attributes for up to 100 identities at a time.
         // https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-email-2010-12-01.html#getidentitymailfromdomainattributes
         $this->console->overwrite('   Retrieving MAIL FROM domain attributes...', $this->sectionBody);
-        $identitiesMailFromDomainAttributes = $this->sesClient->getIdentityMailFromDomainAttributes(['Identities' => $this->configuredIdentities->getIdentitiesList()]);
+        $identitiesMailFromDomainAttributes = $this->sesClient->getIdentityMailFromDomainAttributes([self::IDENTITIES => $this->configuredIdentities->getIdentitiesList()]);
         $this->awsDataProcessor->processIdentitiesMailFromDomainAttributes($identitiesMailFromDomainAttributes);
 
         // This operation is throttled at one request per second and can only get custom MAIL FROM attributes for up to 100 identities at a time.
         // https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-email-2010-12-01.html#getidentitynotificationattributes
         $this->console->overwrite('   Retrieving notification attributes...', $this->sectionBody);
-        $identityNotificationAttributes = $this->sesClient->getIdentityNotificationAttributes(['Identities' => $this->configuredIdentities->getIdentitiesList()]);
+        $identityNotificationAttributes = $this->sesClient->getIdentityNotificationAttributes([self::IDENTITIES => $this->configuredIdentities->getIdentitiesList()]);
         $this->awsDataProcessor->processIdentitiesNotificationAttributes($identityNotificationAttributes);
 
         // Given a list of identities (email addresses and/or domains), returns the verification
@@ -591,7 +606,7 @@ class Monitor
         // This operation is throttled at one request per second and can only get verification attributes for up to 100 identities at a time.
         // https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-email-2010-12-01.html#getidentityverificationattributes
         $this->console->overwrite('   Retrieving verification attributes...', $this->sectionBody);
-        $identityVerificationAttributes = $this->sesClient->getIdentityVerificationAttributes(['Identities' => $this->configuredIdentities->getIdentitiesList()]);
+        $identityVerificationAttributes = $this->sesClient->getIdentityVerificationAttributes([self::IDENTITIES => $this->configuredIdentities->getIdentitiesList()]);
         $this->awsDataProcessor->processIdentitiesVerificationAttributes($identityVerificationAttributes);
 
         $this->console->clear($this->sectionBody);
@@ -616,16 +631,16 @@ class Monitor
         $this->awsDataProcessor->processSubscriptions($subscriptions);
 
         foreach ($subscriptions->get('Subscriptions') as $subscription) {
-            if ('PendingConfirmation' === $subscription['SubscriptionArn']) {
+            if ('PendingConfirmation' === $subscription[self::SUBSCRIPTION_ARN]) {
                 continue;
             }
-            $this->console->overwrite(sprintf('   Retrieving attributes for subscription <comment>%s</comment>', $subscription['SubscriptionArn']), $this->sectionBody);
+            $this->console->overwrite(\Safe\sprintf('   Retrieving attributes for subscription <comment>%s</comment>', $subscription[self::SUBSCRIPTION_ARN]), $this->sectionBody);
             try {
-                $subscriptionAttributes = $this->snsClient->getSubscriptionAttributes(['SubscriptionArn' => $subscription['SubscriptionArn']]);
+                $subscriptionAttributes = $this->snsClient->getSubscriptionAttributes([self::SUBSCRIPTION_ARN => $subscription[self::SUBSCRIPTION_ARN]]);
                 $this->awsDataProcessor->processSubscriptionAttributes($subscriptionAttributes);
             }
             // @codeCoverageIgnoreStart
-            catch (\Throwable $e) {
+            catch (\Throwable $throwable) {
                 // Do nothing for the moment
                 // This throws an error when the subscription doesn't exist.
                 // The problem is that all the subscriptions are returned by the previous call to list subscriptions.
@@ -656,9 +671,9 @@ class Monitor
         $this->awsDataProcessor->processTopics($topics);
 
         foreach ($topics->get('Topics') as $topic) {
-            $this->console->overwrite(sprintf('   Retrieving attributes for topic <comment>%s</comment>', $topic['TopicArn']), $this->sectionBody);
+            $this->console->overwrite(\Safe\sprintf('   Retrieving attributes for topic <comment>%s</comment>', $topic[self::TOPIC_ARN]), $this->sectionBody);
             //try {
-            $topicAttributes = $this->snsClient->getTopicAttributes(['TopicArn' => $topic['TopicArn']]);
+            $topicAttributes = $this->snsClient->getTopicAttributes([self::TOPIC_ARN => $topic[self::TOPIC_ARN]]);
             $this->awsDataProcessor->processTopicAttributes($topicAttributes);
             //} catch (\Throwable $e) {
             // Do nothing for the moment

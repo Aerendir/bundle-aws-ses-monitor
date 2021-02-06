@@ -1,16 +1,12 @@
 <?php
 
 /*
- * This file is part of the SHQAwsSesBundle.
+ * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2015 - 2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2015 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager;
@@ -21,7 +17,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
 /**
  * Manages EmailStatus entities.
  */
-class EmailStatusManager
+final class EmailStatusManager
 {
     /** @var EntityManagerInterface $entityManager */
     private $entityManager;
@@ -55,7 +51,7 @@ class EmailStatusManager
     public function loadEmailStatus(string $emailAddress): ?EmailStatus
     {
         /** @var EmailStatus|null $email */
-        $email = $this->entityManager->getRepository(EmailStatus::class)->findOneBy(['address' => mb_strtolower($emailAddress)]);
+        $email = $this->entityManager->getRepository(EmailStatus::class)->findOneBy(['address' => \mb_strtolower($emailAddress)]);
 
         return $email;
     }

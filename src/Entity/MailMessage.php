@@ -1,16 +1,12 @@
 <?php
 
 /*
- * This file is part of the SHQAwsSesBundle.
+ * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2015 - 2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2015 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity;
@@ -168,10 +164,8 @@ class MailMessage
 
     /**
      * @param Bounce $bounce
-     *
-     * @return MailMessage
      */
-    public function addBounce(Bounce $bounce): MailMessage
+    public function addBounce(Bounce $bounce): self
     {
         $this->bounces->add($bounce);
 
@@ -180,10 +174,8 @@ class MailMessage
 
     /**
      * @param Complaint $complaint
-     *
-     * @return MailMessage
      */
-    public function addComplaint(Complaint $complaint): MailMessage
+    public function addComplaint(Complaint $complaint): self
     {
         $this->complaints->add($complaint);
 
@@ -192,10 +184,8 @@ class MailMessage
 
     /**
      * @param Delivery $delivery
-     *
-     * @return MailMessage
      */
-    public function addDelivery(Delivery $delivery): MailMessage
+    public function addDelivery(Delivery $delivery): self
     {
         $this->deliveries->add($delivery);
 
@@ -269,7 +259,7 @@ class MailMessage
     /**
      * @return string|null
      */
-    public function getHeaders(): ? string
+    public function getHeaders(): ?string
     {
         return $this->headers;
     }
@@ -277,7 +267,7 @@ class MailMessage
     /**
      * @return string|null
      */
-    public function getCommonHeaders(): ? string
+    public function getCommonHeaders(): ?string
     {
         return $this->commonHeaders;
     }
@@ -286,10 +276,8 @@ class MailMessage
      * @param string $messageId
      *
      * @internal
-     *
-     * @return MailMessage
      */
-    public function setMessageId(string $messageId): MailMessage
+    public function setMessageId(string $messageId): self
     {
         $this->messageId = $messageId;
 
@@ -297,13 +285,11 @@ class MailMessage
     }
 
     /**
-     * @param \DateTime $sentOn
+     * @param \DateTimeInterface $sentOn
      *
      * @internal
-     *
-     * @return MailMessage
      */
-    public function setSentOn(\DateTime $sentOn): MailMessage
+    public function setSentOn(\DateTimeInterface $sentOn): self
     {
         $this->sentOn = $sentOn;
 
@@ -314,10 +300,8 @@ class MailMessage
      * @param string $sentFrom
      *
      * @internal
-     *
-     * @return MailMessage
      */
-    public function setSentFrom(string $sentFrom): MailMessage
+    public function setSentFrom(string $sentFrom): self
     {
         $this->sentFrom = $sentFrom;
 
@@ -328,10 +312,8 @@ class MailMessage
      * @param string $sourceArn
      *
      * @internal
-     *
-     * @return MailMessage
      */
-    public function setSourceArn(string $sourceArn): MailMessage
+    public function setSourceArn(string $sourceArn): self
     {
         $this->sourceArn = $sourceArn;
 
@@ -342,10 +324,8 @@ class MailMessage
      * @param string $sendingAccountId
      *
      * @internal
-     *
-     * @return MailMessage
      */
-    public function setSendingAccountId(string $sendingAccountId): MailMessage
+    public function setSendingAccountId(string $sendingAccountId): self
     {
         $this->sendingAccountId = $sendingAccountId;
 
@@ -356,10 +336,8 @@ class MailMessage
      * @param string $headers
      *
      * @internal
-     *
-     * @return MailMessage
      */
-    public function setHeaders(string $headers): MailMessage
+    public function setHeaders(string $headers): self
     {
         $this->headers = $headers;
 
@@ -370,10 +348,8 @@ class MailMessage
      * @param string $commonHeaders
      *
      * @internal
-     *
-     * @return MailMessage
      */
-    public function setCommonHeaders(string $commonHeaders): MailMessage
+    public function setCommonHeaders(string $commonHeaders): self
     {
         $this->commonHeaders = $commonHeaders;
 

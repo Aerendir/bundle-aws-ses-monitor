@@ -1,16 +1,12 @@
 <?php
 
 /*
- * This file is part of the SHQAwsSesBundle.
+ * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2015 - 2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2015 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager;
@@ -21,8 +17,12 @@ use Aws\Ses\SesClient;
 /**
  * Manages the interaction with AWS SES.
  */
-class SesManager
+final class SesManager
 {
+    /**
+     * @var string
+     */
+    private const IDENTITY = 'Identity';
     /** @var \Aws\Ses\SesClient $client */
     private $client;
 
@@ -36,7 +36,7 @@ class SesManager
 
     /**
      * @return Result
-     * @codeCoverageIgnore
+     * @ codeCoverageIgnore
      */
     public function listIdentities(): Result
     {
@@ -56,15 +56,15 @@ class SesManager
      * @param string $topicArn
      *
      * @see http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-email-2010-12-01.html#setidentitynotificationtopic
-     * @codeCoverageIgnore
+     * @ codeCoverageIgnore
      */
     public function setTopic(string $identity, string $notificationType, string $topicArn): void
     {
         $this->client->setIdentityNotificationTopic(
                 [
-                    'Identity'         => $identity,
-                    'NotificationType' => $notificationType,
-                    'SnsTopic'         => $topicArn,
+                    self::IDENTITY         => $identity,
+                    'NotificationType'     => $notificationType,
+                    'SnsTopic'             => $topicArn,
                 ]
             );
     }
@@ -72,26 +72,26 @@ class SesManager
     /**
      * @param string $identity
      * @param bool   $enabled
-     * @codeCoverageIgnore
+     * @ codeCoverageIgnore
      */
     public function configureDkim(string $identity, bool $enabled): void
     {
         $this->client->setIdentityDkimEnabled([
-            'Identity'    => $identity,
-            'DkimEnabled' => $enabled,
+            self::IDENTITY    => $identity,
+            'DkimEnabled'     => $enabled,
         ]);
     }
 
     /**
      * @param string $identity
      * @param bool   $enabled
-     * @codeCoverageIgnore
+     * @ codeCoverageIgnore
      */
     public function configureFeedbackForwarding(string $identity, bool $enabled): void
     {
         $this->client->setIdentityFeedbackForwardingEnabled([
-            'Identity'          => $identity,
-            'ForwardingEnabled' => $enabled,
+            self::IDENTITY          => $identity,
+            'ForwardingEnabled'     => $enabled,
         ]);
     }
 
@@ -99,14 +99,14 @@ class SesManager
      * @param string      $identity
      * @param string|null $domain
      * @param string      $onMxFailure
-     * @codeCoverageIgnore
+     * @ codeCoverageIgnore
      */
     public function configureFromDomain(string $identity, ?string $domain, string $onMxFailure): void
     {
         $this->client->setIdentityMailFromDomain([
-            'Identity'            => $identity,
-            'BehaviorOnMXFailure' => $onMxFailure,
-            'MailFromDomain'      => $domain,
+            self::IDENTITY            => $identity,
+            'BehaviorOnMXFailure'     => $onMxFailure,
+            'MailFromDomain'          => $domain,
         ]);
     }
 
@@ -114,7 +114,7 @@ class SesManager
      * @param string $identity
      *
      * @return string
-     * @codeCoverageIgnore
+     * @ codeCoverageIgnore
      */
     public function verifyDomainIdentity(string $identity): string
     {
@@ -125,7 +125,7 @@ class SesManager
 
     /**
      * @param string $identity
-     * @codeCoverageIgnore
+     * @ codeCoverageIgnore
      */
     public function verifyEmailIdentity(string $identity): void
     {

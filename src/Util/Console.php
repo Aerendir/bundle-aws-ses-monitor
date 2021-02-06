@@ -1,16 +1,12 @@
 <?php
 
 /*
- * This file is part of the SHQAwsSesBundle.
+ * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2015 - 2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2015 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Util;
@@ -27,7 +23,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @internal
  */
-class Console
+final class Console
 {
     /** @var bool $fullLog If true, the sections are not used and lines are wrote one by one. */
     private $fullLog = false;
@@ -71,9 +67,9 @@ class Console
      *
      * @internal
      */
-    public function createSection($output)
+    public function createSection(OutputInterface $output): ConsoleSectionOutput
     {
-        return method_exists($output, 'section') && false === $this->fullLog
+        return \method_exists($output, 'section') && false === $this->fullLog
             ? $output->section()
             : $output;
     }
@@ -84,9 +80,9 @@ class Console
      *
      * @internal
      */
-    public function overwrite(string $line, $output): void
+    public function overwrite(string $line, OutputInterface $output): void
     {
-        method_exists($output, 'overwrite') && false === $this->fullLog
+        \method_exists($output, 'overwrite') && false === $this->fullLog
             ? $output->overwrite($line)
             : $output->writeln($line);
     }
@@ -96,9 +92,9 @@ class Console
      *
      * @internal
      */
-    public function clear($output): void
+    public function clear(OutputInterface $output): void
     {
-        if (method_exists($output, 'clear') && false === $this->fullLog) {
+        if (\method_exists($output, 'clear') && false === $this->fullLog) {
             $output->clear();
         }
     }

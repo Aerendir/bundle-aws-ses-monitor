@@ -1,16 +1,12 @@
 <?php
 
 /*
- * This file is part of the SHQAwsSesBundle.
+ * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2015 - 2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2015 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
@@ -29,13 +25,23 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * {@inheritdoc}
  *
- * @codeCoverageIgnore This command basically calls AWS and uses other classes already tested, so it is not testable.
+ * @ codeCoverageIgnore This command basically calls AWS and uses other classes already tested, so it is not testable.
  */
-class DebugCommand extends Command
+final class DebugCommand extends Command
 {
-    public const NAME   = 'aws:ses:debug';
+    /**
+     * @var string
+     */
     private const THICK = "<fg=green>\xE2\x9C\x94</>";
+    /**
+     * @var string
+     */
     private const CROSS = "<fg=red>\xE2\x9C\x96</>";
+    /**
+     * @var string
+     */
+    private const TABLE_CELL_COLSPAN = 'colspan';
+    protected static $defaultName    = 'aws:ses:debug';
 
     /** @var Console $console */
     private $console;
@@ -61,10 +67,9 @@ class DebugCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDescription('Debugs the aws ses configuration helping discovering errors and wrong settings.')
-             ->setName(self::NAME)
              ->addOption('full-log', null, InputOption::VALUE_NONE, 'Shows logs line by line, without simply changing the current one.');
     }
 
@@ -73,7 +78,7 @@ class DebugCommand extends Command
      *
      * @param ConsoleOutput&OutputInterface $output
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->console->enableFullLog((bool) $input->getOption('full-log'));
 
@@ -97,6 +102,8 @@ class DebugCommand extends Command
         $this->console->clear($this->sectionBody);
         $this->console->clear($this->sectionTitle);
         $table->render();
+
+        return 0;
     }
 
     /**
@@ -134,7 +141,7 @@ class DebugCommand extends Command
         $results = [];
 
         foreach ($this->monitor->getConfiguredIdentitiesList(true)['allowed'] as $identity) {
-            $this->console->overwrite(sprintf('Validating identity <comment>%s</comment>', $identity), $this->sectionBody);
+            $this->console->overwrite(\Safe\sprintf('Validating identity <comment>%s</comment>', $identity), $this->sectionBody);
 
             // Does the identity exists on AWS?
             $results[$identity][] = ['   Created on AWS', $this->monitor->liveIdentityExists($identity) ? self::THICK : self::CROSS];
@@ -173,19 +180,19 @@ class DebugCommand extends Command
     {
         $table = new Table($this->sectionBody);
         $table->setHeaders([
-            [new TableCell('Results', ['colspan' => 2])],
+            [new TableCell('Results', [self::TABLE_CELL_COLSPAN => 2])],
         ]);
 
         $this->console->overwrite('Processing Account results', $this->sectionBody);
-        $table->addRow([new TableCell('<success>ACCOUNT</success>', ['colspan' => 2])]);
+        $table->addRow([new TableCell('<success>ACCOUNT</success>', [self::TABLE_CELL_COLSPAN => 2])]);
         foreach ($validationResults[AwsDataProcessor::ACCOUNT] as $result) {
             $table->addRow($result);
         }
 
         $this->console->overwrite('Processing Identities results', $this->sectionBody);
-        $table->addRow([new TableCell('<success>IDENTITIES</success>', ['colspan' => 2])]);
+        $table->addRow([new TableCell('<success>IDENTITIES</success>', [self::TABLE_CELL_COLSPAN => 2])]);
         foreach ($validationResults[AwsDataProcessor::IDENTITIES] as $identity => $results) {
-            $table->addRow([new TableCell($identity, ['colspan' => 2])]);
+            $table->addRow([new TableCell($identity, [self::TABLE_CELL_COLSPAN => 2])]);
             foreach ($results as $result) {
                 $table->addRow($result);
             }

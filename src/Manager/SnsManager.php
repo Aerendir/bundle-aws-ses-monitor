@@ -1,16 +1,12 @@
 <?php
 
 /*
- * This file is part of the SHQAwsSesBundle.
+ * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2015 - 2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2015 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager;
@@ -22,7 +18,7 @@ use Symfony\Component\Routing\RouterInterface;
 /**
  * Manages the interaction with AWS SNS.
  */
-class SnsManager
+final class SnsManager
 {
     /** @var array $endpointConfig */
     private $endpointConfig;
@@ -57,9 +53,7 @@ class SnsManager
         $response = $this->client->createTopic($topic);
         $topicArn = $response->get('TopicArn');
 
-        $topic = new Topic($topicName, $topicArn);
-
-        return $topic;
+        return new Topic($topicName, $topicArn);
     }
 
     /**
@@ -70,7 +64,6 @@ class SnsManager
      * @param string $topicArn
      *
      * @return string|null
-     * @codeCoverageIgnore
      */
     public function setEndpoint(string $topicArn): ?string
     {
@@ -82,13 +75,12 @@ class SnsManager
 
     /**
      * @return string
-     * @codeCoverageIgnore
      */
     public function getEndpointUrl(): string
     {
         // Get the already set scheme and host
         $originalScheme = $this->router->getContext()->getScheme();
-        $originalHost = $this->router->getContext()->getHost();
+        $originalHost   = $this->router->getContext()->getHost();
 
         // Overwrite scheme and host
         $this->router->getContext()->setHost($this->endpointConfig['host']);
@@ -109,7 +101,7 @@ class SnsManager
      * @param string $topicArn
      *
      * @return array
-     * @codeCoverageIgnore
+     * @ codeCoverageIgnore
      */
     private function buildSubscription(string $topicArn): array
     {

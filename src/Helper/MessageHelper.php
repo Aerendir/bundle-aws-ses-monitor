@@ -1,16 +1,12 @@
 <?php
 
 /*
- * This file is part of the SHQAwsSesBundle.
+ * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2015 - 2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2015 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Helper;
@@ -24,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @internal
  */
-class MessageHelper
+final class MessageHelper
 {
     /** @var MessageValidator $messageValidator */
     private $messageValidator;
@@ -48,7 +44,7 @@ class MessageHelper
     {
         /** @var string $content */
         $content = $request->getContent();
-        $data    = json_decode($content, true);
+        $data    = \Safe\json_decode($content, true);
 
         return new Message($data);
     }
@@ -74,6 +70,6 @@ class MessageHelper
      */
     public function extractMessageData(Message $message): array
     {
-        return json_decode($message->offsetGet('Message'), true);
+        return \Safe\json_decode($message->offsetGet('Message'), true);
     }
 }

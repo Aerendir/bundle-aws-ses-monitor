@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<psalm
+    phpVersion="7.3"
+    cacheDirectory="./var/cache/psalm"
+    allowPhpStormGenerics="true"
+    checkForThrowsDocblock="true"
+    hideExternalErrors="true"
+    ignoreInternalFunctionNullReturn="false"
+    ignoreInternalFunctionFalseReturn="false"
+    strictBinaryOperands="true"
+    totallyTyped="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="vendor-bin/phpunit/vendor/vimeo/psalm/config.xsd"
+    errorBaseline=".baseline-psalm.xml"
+>
+    <projectFiles>
+        <directory name="src"/>
+        <directory name="tests"/>
+        <ignoreFiles>
+            <directory name="vendor"/>
+        </ignoreFiles>
+    </projectFiles>
+
+    <issueHandlers>
+        <MissingThrowsDocblock errorLevel="suppress" />
+        <RedundantIdentityWithTrue errorLevel="suppress" />
+
+        <!-- To fix -->
+        <DeprecatedClass errorLevel="suppress" />
+        <DeprecatedMethod errorLevel="suppress" />
+        <MixedArgument errorLevel="suppress" />
+        <MixedArrayAccess errorLevel="suppress" />
+        <MixedAssignment errorLevel="suppress" />
+        <UndefinedMagicMethod errorLevel="suppress" />
+    </issueHandlers>
+    <plugins>
+        <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
+        <pluginClass class="Weirdan\DoctrinePsalmPlugin\Plugin"/>
+    </plugins>
+</psalm>

@@ -1,16 +1,12 @@
 <?php
 
 /*
- * This file is part of the SHQAwsSesBundle.
+ * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2015 - 2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2015 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor;
@@ -28,8 +24,12 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Processes the request from AWS SNS handling it with the right handler.
  */
-class NotificationProcessor
+final class NotificationProcessor
 {
+    /**
+     * @var string
+     */
+    private const NOTIFICATION_TYPE = 'notificationType';
     /** @var BounceNotificationHandler $bounceNotificationHandler */
     private $bounceNotificationHandler;
 
@@ -81,16 +81,16 @@ class NotificationProcessor
 
         $notificationData = $this->messageHelper->extractMessageData($message);
 
-        if (false === isset($notificationData['notificationType'])) {
+        if (false === isset($notificationData[self::NOTIFICATION_TYPE])) {
             return new Response('Missed NotificationType.', 403);
         }
 
-        if (SnsTypes::MESSAGE_TYPE_SUBSCRIPTION_SUCCESS === $notificationData['notificationType']) {
+        if (SnsTypes::MESSAGE_TYPE_SUBSCRIPTION_SUCCESS === $notificationData[self::NOTIFICATION_TYPE]) {
             return new Response('OK', 200);
         }
 
         $mailMessage = $this->loadOrCreateMailMessage($notificationData);
-        switch ($notificationData['notificationType']) {
+        switch ($notificationData[self::NOTIFICATION_TYPE]) {
             case SnsTypes::MESSAGE_TYPE_BOUNCE:
                 return $this->bounceNotificationHandler->processNotification($notificationData, $mailMessage);
             case SnsTypes::MESSAGE_TYPE_COMPLAINT:
