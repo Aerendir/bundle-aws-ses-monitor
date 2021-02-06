@@ -3,7 +3,7 @@ name: PHPunit
 on: [ push, pull_request ]
 
 jobs:
-    serendipity_hq:
+    phpunit:
         runs-on: ${{ matrix.os }}
         strategy:
             fail-fast: false
