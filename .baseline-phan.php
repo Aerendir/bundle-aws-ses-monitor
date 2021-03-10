@@ -26,7 +26,6 @@ return [
     // PhanUndeclaredMethod : 3 occurrences
     // PhanUnusedClosureParameter : 3 occurrences
     // ConstReferenceConstNotFound : 2 occurrences
-    // PhanTypeNoPropertiesForeach : 2 occurrences
     // PhanUndeclaredConstantOfClass : 2 occurrences
     // PhanUnreferencedClosure : 2 occurrences
     // PhanUnusedVariable : 2 occurrences
@@ -43,7 +42,7 @@ return [
         'src/Command/DebugCommand.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanDeprecatedFunction', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass'],
         'src/Command/SesSendTestEmailsCommand.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass'],
         'src/Controller/EndpointController.php' => ['PhanRedefinedClassReference', 'PhanUnreferencedPublicMethod'],
-        'src/DependencyInjection/Configuration.php' => ['PhanAccessMethodInternal', 'PhanTypeNoPropertiesForeach', 'PhanUndeclaredMethod', 'PhanUnreferencedClosure'],
+        'src/DependencyInjection/Configuration.php' => ['PhanAccessMethodInternal', 'PhanUndeclaredMethod', 'PhanUnreferencedClosure'],
         'src/Entity/Bounce.php' => ['PhanReadOnlyPrivateProperty', 'PhanUnreferencedPublicClassConstant', 'PhanUnreferencedPublicMethod'],
         'src/Entity/Complaint.php' => ['PhanReadOnlyPrivateProperty', 'PhanUnreferencedPublicClassConstant', 'PhanUnreferencedPublicMethod'],
         'src/Entity/Delivery.php' => ['PhanReadOnlyPrivateProperty', 'PhanUnreferencedPublicMethod'],

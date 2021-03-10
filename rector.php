@@ -38,7 +38,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::CODE_QUALITY,
             SetList::CODING_STYLE,
             SetList::MONOLOG_20,
-            SetList::PHP_DI_DECOUPLE,
             SetList::SWIFTMAILER_60,
             SetList::DOCTRINE_25,
             SetList::DOCTRINE_CODE_QUALITY,
@@ -46,7 +45,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::DOCTRINE_DBAL_210,
             SetList::FRAMEWORK_EXTRA_BUNDLE_40,
             SetList::FRAMEWORK_EXTRA_BUNDLE_50,
-            SetList::PERFORMANCE,
             SetList::PHP_52,
             SetList::PHP_53,
             SetList::PHP_54,
@@ -64,7 +62,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::PHPUNIT80_DMS,
             SetList::PHPUNIT_CODE_QUALITY,
             SetList::PHPUNIT_EXCEPTION,
-            SetList::PHPUNIT_INJECTOR,
             SetList::PHPUNIT_MOCK,
             SetList::PHPUNIT_SPECIFIC_METHOD,
             SetList::PHPUNIT_YIELD_DATA_PROVIDER,
@@ -85,7 +82,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::SYMFONY_50_TYPES,
             SetList::SYMFONY_CODE_QUALITY,
             SetList::SYMFONY_CONSTRUCTOR_INJECTION,
-            SetList::SYMFONY_PHPUNIT,
             SetList::SAFE_07,
             SetList::TYPE_DECLARATION,
             SetList::TWIG_112,
@@ -101,6 +97,10 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
     $parameters->set(
         Option::SKIP,
         [
+            __DIR__ . '/tests/Entity/BounceTest.php',
+            __DIR__ . '/tests/Service/IdentitiesStoreTest.php',
+            __DIR__ . '/tests/Util/EmailStatusAnalyzerTest.php',
+            __DIR__ . '/tests/Util/IdentityGuesserTest.php',
             Rector\CodeQuality\Rector\Catch_\ThrowWithPreviousExceptionRector::class,
             Rector\CodeQuality\Rector\Concat\JoinStringConcatRector::class,
             Rector\CodeQuality\Rector\Identical\SimplifyBoolIdenticalTrueRector::class,
@@ -109,7 +109,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             Rector\CodingStyle\Rector\ClassMethod\RemoveDoubleUnderscoreInMethodNameRector::class,
             Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector::class,
             Rector\CodingStyle\Rector\Switch_\BinarySwitchToIfElseRector::class,
-            Rector\CodingStyle\Rector\Throw_\AnnotateThrowablesRector::class,
             Rector\CodingStyle\Rector\Use_\RemoveUnusedAliasRector::class,
             Rector\Php56\Rector\FunctionLike\AddDefaultValueForUndefinedVariableRector::class, // Maybe good one day
             Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector::class,
@@ -123,6 +122,7 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             Rector\TypeDeclaration\Rector\Property\PropertyTypeDeclarationRector::class,
             Rector\PHPUnit\Rector\MethodCall\GetMockBuilderGetMockToCreateMockRector::class,
             Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector::class, // The class works well, but it is not ignored (see: tests/Plugin/MonitorFilterPluginTest.php
+            Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector::class, // Conflicts with PHP CS Fixer
         ]
     );
 };

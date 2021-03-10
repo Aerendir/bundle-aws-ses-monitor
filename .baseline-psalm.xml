@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.4.1@9fd7a7d885b3a216cff8dec9d8c21a132f275224">
+<files psalm-version="4.6.1@e93e532e4eaad6d68c4d7b606853800eaceccc72">
   <file src="src/Command/ConfigureCommand.php">
-    <MissingPropertyType occurrences="4">
+    <MissingPropertyType occurrences="2">
       <code>$sectionBody</code>
       <code>$sectionTitle</code>
-      <code>$this-&gt;sectionBody</code>
-      <code>$this-&gt;sectionTitle</code>
     </MissingPropertyType>
     <MixedArrayAssignment occurrences="1">
       <code>$this-&gt;actionsToTakeNow[$identity][]</code>
