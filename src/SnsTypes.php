@@ -19,12 +19,12 @@ final class SnsTypes
     /**
      * @var string
      */
-    public const HEADER_TYPE_NOTIFICATION          = 'Notification';
+    public const HEADER_TYPE_NOTIFICATION = 'Notification';
 
     /**
      * @var string
      */
-    public const HEADER_TYPE_CONFIRM_SUBSCRIPTION  = 'SubscriptionConfirmation';
+    public const HEADER_TYPE_CONFIRM_SUBSCRIPTION = 'SubscriptionConfirmation';
 
     /**
      * @var string
@@ -34,15 +34,15 @@ final class SnsTypes
     /**
      * @var string
      */
-    public const MESSAGE_TYPE_BOUNCE               = 'Bounce';
+    public const MESSAGE_TYPE_BOUNCE = 'Bounce';
 
     /**
      * @var string
      */
-    public const MESSAGE_TYPE_COMPLAINT            = 'Complaint';
+    public const MESSAGE_TYPE_COMPLAINT = 'Complaint';
 
     /**
      * @var string
      */
-    public const MESSAGE_TYPE_DELIVERY             = 'Delivery';
+    public const MESSAGE_TYPE_DELIVERY = 'Delivery';
 }

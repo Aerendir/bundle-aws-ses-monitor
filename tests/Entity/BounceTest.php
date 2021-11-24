@@ -23,7 +23,7 @@ final class BounceTest extends TestCase
 {
     public function testBounce(): void
     {
-        $test     = [
+        $test = [
             'email'            => $this->createMock(EmailStatus::class),
             'mailMessage'      => $this->createMock(MailMessage::class),
             'bouncedRecipient' => [

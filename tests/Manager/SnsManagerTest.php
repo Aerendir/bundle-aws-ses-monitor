@@ -64,7 +64,7 @@ final class SnsManagerTest extends TestCase
 
     public function testGetClient(): void
     {
-        $mockClient  = $this->createMock(SnsClient::class);
+        $mockClient = $this->createMock(SnsClient::class);
 
         new SnsManager(self::TEST_ENDPOINT_CONFIG, $mockClient, $this->createMockRouter());
     }

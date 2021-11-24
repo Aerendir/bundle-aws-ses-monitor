@@ -23,12 +23,12 @@ final class AwsDataProcessor
     /**
      * @var string
      */
-    public const ACCOUNT       = 'account';
+    public const ACCOUNT = 'account';
 
     /**
      * @var string
      */
-    public const IDENTITIES    = 'identities';
+    public const IDENTITIES = 'identities';
 
     /**
      * @var string
@@ -38,7 +38,7 @@ final class AwsDataProcessor
     /**
      * @var string
      */
-    public const TOPICS        = 'topics';
+    public const TOPICS = 'topics';
 
     /**
      * @var string

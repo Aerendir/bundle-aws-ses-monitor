@@ -25,13 +25,13 @@ final class MailMessageTest extends TestCase
     public function testTopic(): void
     {
         $test = [
-            'messageId'           => 'test-message-id',
-            'timestamp'           => (new \DateTime())->format('Y-m-d H:i:s'),
-            'source'              => 'test@example.com',
-            'sourceArn'           => 'test-source-arn',
-            'sendingAccountId'    => 'test-sending-account-id',
-            'headers'             => 'test-headers',
-            'commonHeaders'       => 'test-common-headers',
+            'messageId'        => 'test-message-id',
+            'timestamp'        => (new \DateTime())->format('Y-m-d H:i:s'),
+            'source'           => 'test@example.com',
+            'sourceArn'        => 'test-source-arn',
+            'sendingAccountId' => 'test-sending-account-id',
+            'headers'          => 'test-headers',
+            'commonHeaders'    => 'test-common-headers',
         ];
 
         $mockBounce    = $this->createMock(Bounce::class);
