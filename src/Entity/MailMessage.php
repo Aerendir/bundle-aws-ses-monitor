@@ -224,7 +224,7 @@ class MailMessage
         return $this->messageId;
     }
 
-    public function getSentOn(): \DateTimeInterface
+    public function getSentOn(): \DateTime
     {
         return $this->sentOn;
     }

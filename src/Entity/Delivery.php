@@ -135,7 +135,7 @@ class Delivery
         return $this->mailMessage;
     }
 
-    public function getDeliveredOn(): \DateTimeInterface
+    public function getDeliveredOn(): \DateTime
     {
         return $this->deliveredOn;
     }

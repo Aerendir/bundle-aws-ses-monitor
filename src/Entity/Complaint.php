@@ -185,7 +185,7 @@ class Complaint
         return $this->emailStatus;
     }
 
-    public function getComplainedOn(): \DateTimeInterface
+    public function getComplainedOn(): \DateTime
     {
         return $this->complainedOn;
     }

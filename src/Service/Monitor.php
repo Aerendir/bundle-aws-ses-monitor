@@ -241,10 +241,8 @@ final class Monitor
     /**
      * @param string $identity
      * @param string $attributes
-     *
-     * @return array
      */
-    public function getLiveIdentity(string $identity, string $attributes = null)
+    public function getLiveIdentity(string $identity, string $attributes = null): array
     {
         if (false === $this->liveIdentityExists($identity)) {
             return [];
