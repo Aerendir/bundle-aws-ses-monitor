@@ -27,6 +27,7 @@ class Delivery
      * @var string
      */
     private const DELIVERY = 'delivery';
+
     /**
      * @var int
      * @ORM\Column(name="id", type="integer", unique=true)

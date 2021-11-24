@@ -33,14 +33,17 @@ final class DebugCommand extends Command
      * @var string
      */
     private const THICK = "<fg=green>\xE2\x9C\x94</>";
+
     /**
      * @var string
      */
     private const CROSS = "<fg=red>\xE2\x9C\x96</>";
+
     /**
      * @var string
      */
     private const TABLE_CELL_COLSPAN = 'colspan';
+
     protected static $defaultName    = 'aws:ses:debug';
 
     /** @var Console $console */

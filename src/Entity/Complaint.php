@@ -25,15 +25,15 @@ class Complaint
 {
     /** Indicates unsolicited email or some other kind of email abuse.
      * @var string */
-    const TYPE_ABUSE = 'abuse';
+    public const TYPE_ABUSE = 'abuse';
 
     /** Email authentication failure report.
      * @var string */
-    const TYPE_AUTH_FAILURE = 'auth-failure';
+    public const TYPE_AUTH_FAILURE = 'auth-failure';
 
     /** Indicates some kind of fraud or phishing activity.
      * @var string */
-    const TYPE_FRAUD = 'fraud';
+    public const TYPE_FRAUD = 'fraud';
 
     /**
      * Indicates that the entity providing the report does not consider the message to be spam.
@@ -41,15 +41,16 @@ class Complaint
      *
      * @var string
      */
-    const TYPE_NOT_SPAM = 'not-spam';
+    public const TYPE_NOT_SPAM = 'not-spam';
 
     /** Indicates any other feedback that does not fit into other registered types.
      * @var string */
-    const TYPE_OTHER = 'other';
+    public const TYPE_OTHER = 'other';
 
     /** Reports that a virus is found in the originating message.
      * @var string */
-    const TYPE_VIRUS = 'virus';
+    public const TYPE_VIRUS = 'virus';
+
     /**
      * @var string
      */

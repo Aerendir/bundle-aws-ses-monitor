@@ -30,6 +30,7 @@ final class NotificationProcessor
      * @var string
      */
     private const NOTIFICATION_TYPE = 'notificationType';
+
     /** @var BounceNotificationHandler $bounceNotificationHandler */
     private $bounceNotificationHandler;
 

@@ -73,6 +73,13 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             Rector\PHPUnit\Rector\MethodCall\GetMockBuilderGetMockToCreateMockRector::class,
             Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector::class, // The class works well, but it is not ignored (see: tests/Plugin/MonitorFilterPluginTest.php
             Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector::class, // Conflicts with PHP CS Fixer
+
+            // Reactivate
+            \Rector\TypeDeclaration\Rector\Closure\AddClosureReturnTypeRector::class,
+            \Rector\CodeQuality\Rector\ClassMethod\DateTimeToDateTimeInterfaceRector::class,
+            \Rector\CodeQuality\Rector\ClassMethod\NarrowUnionTypeDocRector::class,
+            \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector::class,
+            \Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector::class,
         ]
     );
 };

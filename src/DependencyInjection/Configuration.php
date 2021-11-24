@@ -26,35 +26,43 @@ final class Configuration implements ConfigurationInterface
     /**
      * @var string
      */
-    const USE_DOMAIN = 'use_domain';
+    public const USE_DOMAIN = 'use_domain';
+
     /**
      * @var string
      */
     private const BOUNCES = 'bounces';
+
     /**
      * @var string
      */
     private const TRACK = 'track';
+
     /**
      * @var string
      */
     private const TOPIC = 'topic';
+
     /**
      * @var string
      */
     private const FOREVER = 'forever';
+
     /**
      * @var string
      */
     private const COMPLAINTS = 'complaints';
+
     /**
      * @var string
      */
     private const DELIVERIES = 'deliveries';
+
     /**
      * @var string
      */
     private const IDENTITIES = 'identities';
+
     /**
      * @var string
      */
@@ -286,6 +294,7 @@ final class Configuration implements ConfigurationInterface
                 if (false === $this->identityGuesser->isProductionIdentity($otherIdentity)) {
                     continue;
                 }
+
                 if ($otherConfig['bunces'][self::TOPIC] === $topic) {
                     $bouncesPath = \Safe\sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity);
                     throw new InvalidConfigurationException(\Safe\sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $bouncesPath));

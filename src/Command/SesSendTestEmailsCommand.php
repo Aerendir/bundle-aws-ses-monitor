@@ -35,7 +35,9 @@ final class SesSendTestEmailsCommand extends Command
         'complaint@simulator.amazonses.com',
         'suppressionlist@simulator.amazonses.com',
     ];
+
     protected static $defaultName = 'aws:ses:monitor:test:swiftmailer';
+
     /** @var \Swift_Mailer $mailer */
     private $mailer;
 
@@ -89,6 +91,7 @@ final class SesSendTestEmailsCommand extends Command
 
             $sents[] = '<' . $tag . '>' . $outputMessage . '</>';
         }
+
         foreach ($sents as $sent) {
             $output->writeln($sent);
         }

@@ -25,47 +25,56 @@ class Bounce
 {
     /** Hard bounces and subtypes.
      * @var string */
-    const TYPE_PERMANENT       = 'Permanent';
+    public const TYPE_PERMANENT       = 'Permanent';
+
     /**
      * @var string
      */
-    const TYPE_PERM_GENERAL    = 'General';
+    public const TYPE_PERM_GENERAL    = 'General';
+
     /**
      * @var string
      */
-    const TYPE_PERM_NOEMAIL    = 'NoEmail';
+    public const TYPE_PERM_NOEMAIL    = 'NoEmail';
+
     /**
      * @var string
      */
-    const TYPE_PERM_SUPPRESSED = 'Suppressed';
+    public const TYPE_PERM_SUPPRESSED = 'Suppressed';
 
     /** Soft bunces and subtypes.
      * @var string */
-    const TYPE_TRANSIENT            = 'Transient';
+    public const TYPE_TRANSIENT            = 'Transient';
+
     /**
      * @var string
      */
-    const TYPE_TRANS_GENERAL        = 'General';
+    public const TYPE_TRANS_GENERAL        = 'General';
+
     /**
      * @var string
      */
-    const TYPE_TRANS_BOXFULL        = 'MailboxFull';
+    public const TYPE_TRANS_BOXFULL        = 'MailboxFull';
+
     /**
      * @var string
      */
-    const TYPE_TRANS_TOOLARGE       = 'MessageTooLarge';
+    public const TYPE_TRANS_TOOLARGE       = 'MessageTooLarge';
+
     /**
      * @var string
      */
-    const TYPE_TRANS_CONTREJECTED   = 'ContentRejected';
+    public const TYPE_TRANS_CONTREJECTED   = 'ContentRejected';
+
     /**
      * @var string
      */
-    const TYPE_TRANS_ATTACHREJECTED = 'AttachmentRejected';
+    public const TYPE_TRANS_ATTACHREJECTED = 'AttachmentRejected';
 
     /** Undetermined bounces.
      * @var string */
-    const TYPE_UNDETERMINED = 'Undetermined';
+    public const TYPE_UNDETERMINED = 'Undetermined';
+
     /**
      * @var string
      */

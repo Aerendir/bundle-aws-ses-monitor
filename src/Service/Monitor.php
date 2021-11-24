@@ -30,26 +30,32 @@ final class Monitor
      * @var string
      */
     private const TRACK = 'track';
+
     /**
      * @var string
      */
     private const DKIM = 'dkim';
+
     /**
      * @var string
      */
     private const TOPIC = 'topic';
+
     /**
      * @var string
      */
     private const IDENTITIES = 'Identities';
+
     /**
      * @var string
      */
     private const SUBSCRIPTION_ARN = 'SubscriptionArn';
+
     /**
      * @var string
      */
     private const TOPIC_ARN = 'TopicArn';
+
     /** @var string $env */
     private $env;
 
@@ -120,6 +126,7 @@ final class Monitor
         if ($withAccount) {
             $this->fetchAccountData();
         }
+
         $this->fetchIdentitiesData();
         $this->fetchTopicsData();
         $this->fetchSubscriptionsData();
@@ -634,6 +641,7 @@ final class Monitor
             if ('PendingConfirmation' === $subscription[self::SUBSCRIPTION_ARN]) {
                 continue;
             }
+
             $this->console->overwrite(\Safe\sprintf('   Retrieving attributes for subscription <comment>%s</comment>', $subscription[self::SUBSCRIPTION_ARN]), $this->sectionBody);
             try {
                 $subscriptionAttributes = $this->snsClient->getSubscriptionAttributes([self::SUBSCRIPTION_ARN => $subscription[self::SUBSCRIPTION_ARN]]);
@@ -646,6 +654,7 @@ final class Monitor
                 // The problem is that all the subscriptions are returned by the previous call to list subscriptions.
                 // So, I have a call that returns me some subscriptions that don't exist. And this is a problem.
             }
+
             // @codeCoverageIgnoreEnd
 
             $this->console->clear($this->sectionBody);

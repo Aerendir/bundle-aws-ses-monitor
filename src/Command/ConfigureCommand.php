@@ -35,11 +35,14 @@ final class ConfigureCommand extends Command
      * @var string
      */
     private const FORCE = 'force';
+
     /**
      * @var string
      */
     private const TOPIC           = 'topic';
+
     protected static $defaultName = 'aws:ses:configure';
+
     /** @var string $env */
     private $env;
 
@@ -264,6 +267,7 @@ EOF
 
             $log = \Safe\sprintf('Verification requested for identity <comment>%s</comment>', $identity);
         }
+
         $this->console->overwrite($log, $this->sectionBody);
     }
 
@@ -318,9 +322,11 @@ EOF
                         )
                     );
                 }
+
                 $log = \Safe\sprintf('DKIM enabling for identity <comment>%s</comment> is now in synch', $identity);
             }
         }
+
         $this->console->overwrite($log, $this->sectionBody);
     }
 
@@ -347,6 +353,7 @@ EOF
                 $log = \Safe\sprintf('The "from domain" of identity <comment>%s</comment> is now in synch', $identity);
             }
         }
+
         $this->console->overwrite($log, $this->sectionBody);
     }
 
@@ -364,6 +371,7 @@ EOF
             $this->scheduledTopics[] = $this->normalizeTopicName($topicName);
             $log                     = \Safe\sprintf('Topic <comment>%s</comment> for notification of <comment>%s</comment> of identity <comment>%s</comment> scheduled...', $topicName, $type, $identity);
         }
+
         $this->console->overwrite($log, $this->sectionBody);
     }
 
@@ -463,6 +471,7 @@ EOF
             default:
                 throw new \RuntimeException('Unrecognized message type. This should never happen: investigate further!');
         }
+
         $this->console->overwrite(\Safe\sprintf('Checking subscription to topic <comment>%s</comment> for notifications of <comment>%s</comment>...', $topicName, $notificationType), $this->sectionBody);
 
         $log = \Safe\sprintf('Identity <comment>%s</comment> is already subscribed to topic <comment>%s</comment> for notifications of <comment>%s</comment>: skipping', $identity, $topicName, $notificationType);
@@ -481,6 +490,7 @@ EOF
             $lastCall = \microtime(true);
             $log      = \Safe\sprintf('Identity <comment>%s</comment> subscribed to topic <comment>%s</comment> for notifications of <comment>%s</comment>', $identity, $topicName, $notificationType);
         }
+
         $this->console->overwrite($log, $this->sectionBody);
 
         $this->console->overwrite(\Safe\sprintf('Checking endpoint in subscription to topic <comment>%s</comment> for notifications of <comment>%s</comment>...', $topicName, $notificationType), $this->sectionBody);
@@ -492,6 +502,7 @@ EOF
             $this->snsManager->setEndpoint($this->scheduledTopics[$topicName]);
             $log = \Safe\sprintf('Endpoint set to current <comment>%s</comment>: now in synch.', $currentEndpoint);
         }
+
         $this->console->overwrite($log, $this->sectionBody);
     }
 

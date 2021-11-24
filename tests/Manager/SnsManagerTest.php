@@ -33,6 +33,7 @@ final class SnsManagerTest extends TestCase
         'scheme' => 'https',
         'host'   => 'serendipityhq.com',
     ];
+
     /**
      * @var array<string, string>
      */
