@@ -1,15 +1,27 @@
-name: PHPunit
+name: SonarCloud
 
-on: [ push, pull_request ]
+on:
+    workflow_run:
+        workflows:
+            - PHPunit
+        branches:
+            - master
+            - dev
+        types:
+            - completed
 
 jobs:
-    phpunit:
+    sonar_cloud:
+        # `if` required because a workflow run is triggered regardless of
+        # the result of the previous workflow (see the documentation page)
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
         runs-on: ${{ matrix.os }}
         strategy:
             fail-fast: false
             matrix:
                 os: [ ubuntu-latest ]
-                php: [ '7.3', '7.4', '8.0' ]
+                php: [ '8.0' ]
 
         steps:
             -   name: Checkout
@@ -37,6 +49,12 @@ jobs:
                 run: |
                     composer update --no-interaction
 
-            -   name: Run PHPunit
+            -   name: Change paths in clover.xml
                 run: |
-                    vendor/bin/phpunit --coverage-clover var/coverage/clover.xml
+                    sed -i 's+/home/runner/work/bundle-stripe/bundle-aws-ses-monitor+/github/workspace+g' ./var/coverage/clover.xml
+
+            -   name: Sonarcloud
+                uses: sonarsource/sonarcloud-github-action@master
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
