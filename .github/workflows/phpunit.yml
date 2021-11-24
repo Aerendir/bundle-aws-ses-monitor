@@ -40,3 +40,14 @@ jobs:
             -   name: Run PHPunit
                 run: |
                     vendor/bin/phpunit --coverage-clover var/coverage/clover.xml
+
+            -   name: Change paths in clover.xml
+                run: |
+                    sed -i 's+/home/runner/work/bundle-stripe/bundle-stripe+/github/workspace+g' ./var/coverage/clover.xml
+
+            -   name: Sonarcloud
+                if: github.ref == 'refs/heads/dev'
+                uses: sonarsource/sonarcloud-github-action@master
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                    SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
