@@ -224,10 +224,7 @@ class MailMessage
         return $this->messageId;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getSentOn(): \DateTime
+    public function getSentOn(): \DateTimeInterface
     {
         return $this->sentOn;
     }

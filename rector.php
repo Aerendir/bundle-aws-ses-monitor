@@ -75,7 +75,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector::class, // Conflicts with PHP CS Fixer
 
             // Reactivate
-            \Rector\CodeQuality\Rector\ClassMethod\DateTimeToDateTimeInterfaceRector::class,
             \Rector\CodeQuality\Rector\ClassMethod\NarrowUnionTypeDocRector::class,
             \Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector::class,
             \Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector::class,

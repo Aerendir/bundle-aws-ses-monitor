@@ -135,10 +135,7 @@ class EmailStatus
         return $this->lastBounceType;
     }
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getLastTimeBounced(): ?\DateTime
+    public function getLastTimeBounced(): ?\DateTimeInterface
     {
         return $this->lastTimeBounced;
     }
@@ -151,10 +148,7 @@ class EmailStatus
         return $this->complaints;
     }
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getLastTimeComplained(): ?\DateTime
+    public function getLastTimeComplained(): ?\DateTimeInterface
     {
         return $this->lastTimeComplained;
     }
@@ -167,10 +161,7 @@ class EmailStatus
         return $this->deliveries;
     }
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getLastTimeDelivered(): ?\DateTime
+    public function getLastTimeDelivered(): ?\DateTimeInterface
     {
         return $this->lastTimeDelivered;
     }

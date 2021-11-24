@@ -185,10 +185,7 @@ class Complaint
         return $this->emailStatus;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getComplainedOn(): \DateTime
+    public function getComplainedOn(): \DateTimeInterface
     {
         return $this->complainedOn;
     }
@@ -217,10 +214,7 @@ class Complaint
         return $this->complaintFeedbackType;
     }
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getArrivalDate(): ?\DateTime
+    public function getArrivalDate(): ?\DateTimeInterface
     {
         return $this->arrivalDate;
     }

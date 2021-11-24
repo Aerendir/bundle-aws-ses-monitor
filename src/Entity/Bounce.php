@@ -242,10 +242,7 @@ class Bounce
         return $this->mailMessage;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getBouncedOn(): \DateTime
+    public function getBouncedOn(): \DateTimeInterface
     {
         return $this->bouncedOn;
     }
