@@ -17,3 +17,4 @@ parameters:
         - tests
     excludePaths:
         - */src/DependencyInjection/Configuration.php
+        - */src/Kernel.php
