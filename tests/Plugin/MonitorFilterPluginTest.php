@@ -51,8 +51,8 @@ final class MonitorFilterPluginTest extends TestCase
         $mockEmailStatusAnalyzer->expects(self::exactly(5))->method('canReceiveMessages')->willReturnCallback([$this, 'canReceiveMessages']);
         $mockEmailStatusManager = $this->createMock(EmailStatusManager::class);
         $mockEmailStatusManager->expects(self::exactly(5))->method('loadEmailStatus')->willReturnMap($this->getEmailStatusMap());
-        $mockEvent      = $this->createMock(\Swift_Events_SendEvent::class);
-        $mockMessage    = $this->getMessageWithRecipients();
+        $mockEvent   = $this->createMock(\Swift_Events_SendEvent::class);
+        $mockMessage = $this->getMessageWithRecipients();
 
         $mockEvent->expects(self::once())->method('getMessage')->willReturn($mockMessage);
         $mockEvent->expects(self::once())->method('setFailedRecipients')->willReturnCallback([$this, 'confirmAllButSuccessAreBlacklisted']);
@@ -134,19 +134,14 @@ final class MonitorFilterPluginTest extends TestCase
         switch ($emailStatus->getAddress()) {
             case 'bounced@example.com':
                 return false;
-                break;
             case 'complained@example.com':
                 return false;
-                break;
             case 'ooto@example.com':
                 return false;
-                break;
             case 'success@example.com':
                 return true;
-                break;
             case 'suppressed@example.com':
                 return false;
-                break;
         }
 
         throw new \RuntimeException('The email is not found: maybe you wrote it wrong in the tests.');
@@ -205,9 +200,9 @@ final class MonitorFilterPluginTest extends TestCase
         $mockBouncedEmailStatus->method('getHardBouncesCount')->willReturn(3);
         $mockBouncedEmailStatus->method('getSoftBouncesCount')->willReturn(3);
 
-        $mockComplainedCollection        = $this->getMockBuilder(ArrayCollection::class)->getMock();
+        $mockComplainedCollection = $this->getMockBuilder(ArrayCollection::class)->getMock();
         $mockComplainedCollection->method('count')->willReturn(1);
-        $mockComplainedEmailStatus       = $this->createMock(EmailStatus::class);
+        $mockComplainedEmailStatus = $this->createMock(EmailStatus::class);
         $mockComplainedEmailStatus->method('getAddress')->willReturn('complained@example.com');
         $mockComplainedEmailStatus->method('getComplaints')->willReturn($mockComplainedCollection);
 

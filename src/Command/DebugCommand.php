@@ -44,7 +44,7 @@ final class DebugCommand extends Command
      */
     private const TABLE_CELL_COLSPAN = 'colspan';
 
-    protected static $defaultName    = 'aws:ses:debug';
+    protected static $defaultName = 'aws:ses:debug';
 
     /** @var Console $console */
     private $console;

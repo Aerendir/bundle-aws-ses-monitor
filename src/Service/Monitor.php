@@ -185,6 +185,7 @@ final class Monitor
             $message = $this->getIdentityGuesser()->isEmailIdentity($identity)
                 ? \Safe\sprintf('The Email Identity "%s" nor its Domain identity are configured.', $identity)
                 : \Safe\sprintf('The Domain Identity "%s" is not configured.', $identity);
+
             throw new \InvalidArgumentException($message);
         }
 
@@ -435,7 +436,7 @@ final class Monitor
     {
         return
             $this->getConfiguredIdentity($identity, 'on_mx_failure') === ($this->getLiveIdentity($identity, 'mail_from')['on_mx_failure'] ?? null) &&
-            $this->getConfiguredIdentity($identity, 'from_domain') === ($this->getLiveIdentity($identity, 'mail_from')[self::DOMAIN] ?? null);
+            $this->getConfiguredIdentity($identity, 'from_domain')   === ($this->getLiveIdentity($identity, 'mail_from')[self::DOMAIN] ?? null);
     }
 
     /**
@@ -641,6 +642,7 @@ final class Monitor
             }
 
             $this->console->overwrite(\Safe\sprintf('   Retrieving attributes for subscription <comment>%s</comment>', $subscription[self::SUBSCRIPTION_ARN]), $this->sectionBody);
+
             try {
                 $subscriptionAttributes = $this->snsClient->getSubscriptionAttributes([self::SUBSCRIPTION_ARN => $subscription[self::SUBSCRIPTION_ARN]]);
                 $this->awsDataProcessor->processSubscriptionAttributes($subscriptionAttributes);

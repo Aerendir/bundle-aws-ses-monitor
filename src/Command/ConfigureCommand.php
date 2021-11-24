@@ -39,7 +39,7 @@ final class ConfigureCommand extends Command
     /**
      * @var string
      */
-    private const TOPIC           = 'topic';
+    private const TOPIC = 'topic';
 
     protected static $defaultName = 'aws:ses:configure';
 
@@ -459,14 +459,17 @@ EOF
             case SnsTypes::MESSAGE_TYPE_BOUNCE:
                 $notificationType = 'bounces';
                 $topicName        = $this->getTopicName($identity, $notificationType);
+
                 break;
             case SnsTypes::MESSAGE_TYPE_COMPLAINT:
                 $notificationType = 'complaints';
                 $topicName        = $this->getTopicName($identity, $notificationType);
+
                 break;
             case SnsTypes::MESSAGE_TYPE_DELIVERY:
                 $notificationType = 'deliveries';
                 $topicName        = $this->getTopicName($identity, $notificationType);
+
                 break;
             default:
                 throw new \RuntimeException('Unrecognized message type. This should never happen: investigate further!');

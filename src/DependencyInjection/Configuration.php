@@ -297,18 +297,21 @@ final class Configuration implements ConfigurationInterface
 
                 if ($otherConfig['bunces'][self::TOPIC] === $topic) {
                     $bouncesPath = \Safe\sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity);
+
                     throw new InvalidConfigurationException(\Safe\sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $bouncesPath));
                 }
 
                 // It is a production identity: check the topics are not the same of this one
                 if ($otherConfig[self::COMPLAINTS][self::TOPIC] === $topic) {
                     $complaintsPath = \Safe\sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity);
+
                     throw new InvalidConfigurationException(\Safe\sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $complaintsPath));
                 }
 
                 // It is a production identity: check the topics are not the same of this one
                 if ($otherConfig[self::DELIVERIES][self::TOPIC] === $topic) {
                     $deliveriesPath = \Safe\sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity);
+
                     throw new InvalidConfigurationException(\Safe\sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $deliveriesPath));
                 }
             }
@@ -375,7 +378,7 @@ final class Configuration implements ConfigurationInterface
      */
     private function generateTopicName(string $host, string $identity, string $type): string
     {
-        $env       = \strstr($identity, 'test') ? 'dev' : 'prod';
+        $env = \strstr($identity, 'test') ? 'dev' : 'prod';
 
         return \Safe\sprintf('%s-%s-ses-%s-%s', $host, $identity, $env, $type);
     }

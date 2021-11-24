@@ -25,17 +25,17 @@ class Bounce
 {
     /** Hard bounces and subtypes.
      * @var string */
-    public const TYPE_PERMANENT       = 'Permanent';
+    public const TYPE_PERMANENT = 'Permanent';
 
     /**
      * @var string
      */
-    public const TYPE_PERM_GENERAL    = 'General';
+    public const TYPE_PERM_GENERAL = 'General';
 
     /**
      * @var string
      */
-    public const TYPE_PERM_NOEMAIL    = 'NoEmail';
+    public const TYPE_PERM_NOEMAIL = 'NoEmail';
 
     /**
      * @var string
@@ -44,27 +44,27 @@ class Bounce
 
     /** Soft bunces and subtypes.
      * @var string */
-    public const TYPE_TRANSIENT            = 'Transient';
+    public const TYPE_TRANSIENT = 'Transient';
 
     /**
      * @var string
      */
-    public const TYPE_TRANS_GENERAL        = 'General';
+    public const TYPE_TRANS_GENERAL = 'General';
 
     /**
      * @var string
      */
-    public const TYPE_TRANS_BOXFULL        = 'MailboxFull';
+    public const TYPE_TRANS_BOXFULL = 'MailboxFull';
 
     /**
      * @var string
      */
-    public const TYPE_TRANS_TOOLARGE       = 'MessageTooLarge';
+    public const TYPE_TRANS_TOOLARGE = 'MessageTooLarge';
 
     /**
      * @var string
      */
-    public const TYPE_TRANS_CONTREJECTED   = 'ContentRejected';
+    public const TYPE_TRANS_CONTREJECTED = 'ContentRejected';
 
     /**
      * @var string
