@@ -48,6 +48,7 @@ final class EmailStatusAnalyzer
             if (false === $this->monitor->bouncesTrackingIsEnabled($identity)) {
                 return true;
             }
+
             // Or anyway the sending to bounced emails is forced
             // if 'false', This email is bounced and cannot receive messages
             return true === $this->monitor->bouncesSendingIsForced($identity);
@@ -59,6 +60,7 @@ final class EmailStatusAnalyzer
             if (false === $this->monitor->complaintsTrackingIsEnabled($identity)) {
                 return true;
             }
+
             // Or anyway the sending to complained emails is forced
             // If 'false', this email is complained and cannot receive messages
             return true === $this->monitor->complaintsSendingIsForced($identity);

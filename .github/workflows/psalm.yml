@@ -50,4 +50,5 @@ jobs:
 
             -   name: Run PSalm
                 run: |
+                    rm ./src/Kernel.php
                     ./vendor/bin/psalm

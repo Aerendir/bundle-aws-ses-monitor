@@ -1,46 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\ConfigureCommand\\:\\:\\$actionsToTakeNow type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Command/ConfigureCommand.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\ConfigureCommand\\:\\:\\$sectionTitle has no typehint specified\\.$#"
-			count: 1
-			path: src/Command/ConfigureCommand.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\ConfigureCommand\\:\\:\\$sectionBody has no typehint specified\\.$#"
-			count: 1
-			path: src/Command/ConfigureCommand.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\ConfigureCommand\\:\\:\\$allowedIdentities type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Command/ConfigureCommand.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\ConfigureCommand\\:\\:\\$skippedIdentities type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Command/ConfigureCommand.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\ConfigureCommand\\:\\:\\$scheduledTopics type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Command/ConfigureCommand.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between false and string will always evaluate to false\\.$#"
-			count: 1
-			path: src/Command/ConfigureCommand.php
-
-		-
-			message: "#^PHPDoc tag @var for variable \\$tokens has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Command/ConfigureCommand.php
-
-		-
 			message: "#^Cannot access offset 'topic' on array\\|bool\\|int\\|string\\.$#"
 			count: 3
 			path: src/Command/ConfigureCommand.php
@@ -51,12 +11,57 @@ parameters:
 			path: src/Command/ConfigureCommand.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\DebugCommand\\:\\:\\$sectionTitle has no typehint specified\\.$#"
+			message: "#^PHPDoc tag @var for variable \\$tokens has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Command/ConfigureCommand.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\ConfigureCommand\\:\\:\\$actionsToTakeNow type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Command/ConfigureCommand.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\ConfigureCommand\\:\\:\\$allowedIdentities type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Command/ConfigureCommand.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\ConfigureCommand\\:\\:\\$scheduledTopics type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Command/ConfigureCommand.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\ConfigureCommand\\:\\:\\$sectionBody has no type specified\\.$#"
+			count: 1
+			path: src/Command/ConfigureCommand.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\ConfigureCommand\\:\\:\\$sectionTitle has no type specified\\.$#"
+			count: 1
+			path: src/Command/ConfigureCommand.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\ConfigureCommand\\:\\:\\$skippedIdentities type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Command/ConfigureCommand.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between false and string will always evaluate to false\\.$#"
+			count: 1
+			path: src/Command/ConfigureCommand.php
+
+		-
+			message: "#^Cannot access offset 'max_24_hour_send' on mixed\\.$#"
 			count: 1
 			path: src/Command/DebugCommand.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\DebugCommand\\:\\:\\$sectionBody has no typehint specified\\.$#"
+			message: "#^Cannot access offset 'sent_last_24_hours' on mixed\\.$#"
+			count: 1
+			path: src/Command/DebugCommand.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\DebugCommand\\:\\:showData\\(\\) has parameter \\$validationResults with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Command/DebugCommand.php
 
@@ -71,14 +76,29 @@ parameters:
 			path: src/Command/DebugCommand.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\DebugCommand\\:\\:showData\\(\\) has parameter \\$validationResults with no value type specified in iterable type array\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\DebugCommand\\:\\:\\$sectionBody has no type specified\\.$#"
 			count: 1
 			path: src/Command/DebugCommand.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\DebugCommand\\:\\:\\$sectionTitle has no type specified\\.$#"
+			count: 1
+			path: src/Command/DebugCommand.php
+
+		-
+			message: "#^Cannot call method ask\\(\\) on mixed\\.$#"
+			count: 1
+			path: src/Command/SesSendTestEmailsCommand.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\DependencyInjection\\\\SHQAwsSesMonitorExtension\\:\\:requiresFilter\\(\\) has parameter \\$identities with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/DependencyInjection/SHQAwsSesMonitorExtension.php
+
+		-
+			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
+			count: 1
+			path: src/Entity/Bounce.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Bounce\\:\\:create\\(\\) has parameter \\$bouncedRecipient with no value type specified in iterable type array\\.$#"
@@ -91,19 +111,9 @@ parameters:
 			path: src/Entity/Bounce.php
 
 		-
-			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Bounce\\:\\:\\$id is never written, only read\\.$#"
 			count: 1
 			path: src/Entity/Bounce.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Bounce\\:\\:\\$bouncedOn \\(DateTime\\) does not accept DateTimeInterface\\.$#"
-			count: 1
-			path: src/Entity/Bounce.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Complaint\\:\\:create\\(\\) has parameter \\$notification with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Entity/Complaint.php
 
 		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
@@ -111,19 +121,14 @@ parameters:
 			path: src/Entity/Complaint.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Complaint\\:\\:\\$complainedOn \\(DateTime\\) does not accept DateTimeInterface\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Complaint\\:\\:create\\(\\) has parameter \\$notification with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Entity/Complaint.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Complaint\\:\\:\\$arrivalDate \\(DateTime\\|null\\) does not accept DateTimeInterface\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Complaint\\:\\:\\$id is never written, only read\\.$#"
 			count: 1
 			path: src/Entity/Complaint.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Delivery\\:\\:create\\(\\) has parameter \\$notification with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Entity/Delivery.php
 
 		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
@@ -131,24 +136,14 @@ parameters:
 			path: src/Entity/Delivery.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Delivery\\:\\:\\$deliveredOn \\(DateTime\\) does not accept DateTimeInterface\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Delivery\\:\\:create\\(\\) has parameter \\$notification with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Entity/Delivery.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\EmailStatus\\:\\:\\$bounces with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Delivery\\:\\:\\$id is never written, only read\\.$#"
 			count: 1
-			path: src/Entity/EmailStatus.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\EmailStatus\\:\\:\\$complaints with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
-			count: 1
-			path: src/Entity/EmailStatus.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\EmailStatus\\:\\:\\$deliveries with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
-			count: 1
-			path: src/Entity/EmailStatus.php
+			path: src/Entity/Delivery.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\EmailStatus\\:\\:getBounces\\(\\) return type with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
@@ -166,27 +161,42 @@ parameters:
 			path: src/Entity/EmailStatus.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\MailMessage\\:\\:\\$bounces with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\EmailStatus\\:\\:\\$bounces with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
 			count: 1
-			path: src/Entity/MailMessage.php
+			path: src/Entity/EmailStatus.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\MailMessage\\:\\:\\$complaints with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\EmailStatus\\:\\:\\$complaints with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
 			count: 1
-			path: src/Entity/MailMessage.php
+			path: src/Entity/EmailStatus.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\MailMessage\\:\\:\\$deliveries with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\EmailStatus\\:\\:\\$deliveries with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
+			count: 1
+			path: src/Entity/EmailStatus.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\EmailStatus\\:\\:\\$lastTimeBounced \\(DateTime\\|null\\) does not accept DateTimeInterface\\.$#"
+			count: 1
+			path: src/Entity/EmailStatus.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\EmailStatus\\:\\:\\$lastTimeComplained \\(DateTime\\|null\\) does not accept DateTimeInterface\\.$#"
+			count: 1
+			path: src/Entity/EmailStatus.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\EmailStatus\\:\\:\\$lastTimeDelivered \\(DateTime\\|null\\) does not accept DateTimeInterface\\.$#"
+			count: 1
+			path: src/Entity/EmailStatus.php
+
+		-
+			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
 			path: src/Entity/MailMessage.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\MailMessage\\:\\:create\\(\\) has parameter \\$mailMessageData with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Entity/MailMessage.php
-
-		-
-			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
 			path: src/Entity/MailMessage.php
 
@@ -206,9 +216,24 @@ parameters:
 			path: src/Entity/MailMessage.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\MailMessage\\:\\:\\$sentOn \\(DateTime\\) does not accept DateTimeInterface\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\MailMessage\\:\\:\\$bounces with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Entity/MailMessage.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\MailMessage\\:\\:\\$complaints with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
+			count: 1
+			path: src/Entity/MailMessage.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\MailMessage\\:\\:\\$deliveries with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
+			count: 1
+			path: src/Entity/MailMessage.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Topic\\:\\:\\$id is never written, only read\\.$#"
+			count: 1
+			path: src/Entity/Topic.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Handler\\\\AbstractNotification\\:\\:processNotification\\(\\) has parameter \\$notification with no value type specified in iterable type array\\.$#"
@@ -236,11 +261,6 @@ parameters:
 			path: src/Helper/MessageHelper.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Helper\\\\MessageHelper\\:\\:validateNotification\\(\\) has parameter \\$message with no value type specified in iterable type Aws\\\\Sns\\\\Message\\.$#"
-			count: 1
-			path: src/Helper/MessageHelper.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Helper\\\\MessageHelper\\:\\:extractMessageData\\(\\) has parameter \\$message with no value type specified in iterable type Aws\\\\Sns\\\\Message\\.$#"
 			count: 1
 			path: src/Helper/MessageHelper.php
@@ -251,14 +271,29 @@ parameters:
 			path: src/Helper/MessageHelper.php
 
 		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Helper\\\\MessageHelper\\:\\:extractMessageData\\(\\) should return array but returns mixed\\.$#"
+			count: 1
+			path: src/Helper/MessageHelper.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Helper\\\\MessageHelper\\:\\:validateNotification\\(\\) has parameter \\$message with no value type specified in iterable type Aws\\\\Sns\\\\Message\\.$#"
+			count: 1
+			path: src/Helper/MessageHelper.php
+
+		-
+			message: "#^Parameter \\#1 \\$data of class Aws\\\\Sns\\\\Message constructor expects array, mixed given\\.$#"
+			count: 1
+			path: src/Helper/MessageHelper.php
+
+		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Manager\\\\SesManager\\:\\:listIdentities\\(\\) return type has no value type specified in iterable type Aws\\\\Result\\.$#"
 			count: 1
 			path: src/Manager/SesManager.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Manager\\\\SnsManager\\:\\:\\$endpointConfig type has no value type specified in iterable type array\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Manager\\\\SesManager\\:\\:verifyDomainIdentity\\(\\) should return string but returns mixed\\.$#"
 			count: 1
-			path: src/Manager/SnsManager.php
+			path: src/Manager/SesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Manager\\\\SnsManager\\:\\:__construct\\(\\) has parameter \\$endpointConfig with no value type specified in iterable type array\\.$#"
@@ -271,9 +306,19 @@ parameters:
 			path: src/Manager/SnsManager.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Plugin\\\\MonitorFilterPlugin\\:\\:\\$blacklisted type has no value type specified in iterable type array\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Manager\\\\SnsManager\\:\\:setEndpoint\\(\\) should return string\\|null but returns mixed\\.$#"
 			count: 1
-			path: src/Plugin/MonitorFilterPlugin.php
+			path: src/Manager/SnsManager.php
+
+		-
+			message: "#^Parameter \\#2 \\$topicArn of class SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Topic constructor expects string, mixed given\\.$#"
+			count: 1
+			path: src/Manager/SnsManager.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Manager\\\\SnsManager\\:\\:\\$endpointConfig type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Manager/SnsManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Plugin\\\\MonitorFilterPlugin\\:\\:filterBlacklisted\\(\\) has parameter \\$identities with no value type specified in iterable type array\\.$#"
@@ -291,12 +336,167 @@ parameters:
 			path: src/Plugin/MonitorFilterPlugin.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessor\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
+			message: "#^Parameter \\#1 \\$identities of method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Plugin\\\\MonitorFilterPlugin\\:\\:filterBlacklisted\\(\\) expects array, mixed given\\.$#"
+			count: 3
+			path: src/Plugin/MonitorFilterPlugin.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Plugin\\\\MonitorFilterPlugin\\:\\:\\$blacklisted type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Plugin/MonitorFilterPlugin.php
+
+		-
+			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
+			count: 6
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'BehaviorOnMXFailure' on mixed\\.$#"
 			count: 1
 			path: src/Processor/AwsDataProcessor.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessor\\:\\:processAccountSendingEnabled\\(\\) has parameter \\$result with no value type specified in iterable type Aws\\\\Result\\.$#"
+			message: "#^Cannot access offset 'BounceTopic' on mixed\\.$#"
+			count: 2
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'ComplaintTopic' on mixed\\.$#"
+			count: 2
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'ConfirmationWasAuth…' on mixed\\.$#"
+			count: 1
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'DeliveryTopic' on mixed\\.$#"
+			count: 2
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'DisplayName' on mixed\\.$#"
+			count: 1
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'DkimEnabled' on mixed\\.$#"
+			count: 1
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'DkimTokens' on mixed\\.$#"
+			count: 2
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'DkimVerificationSta…' on mixed\\.$#"
+			count: 1
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'EffectiveDeliveryPo…' on mixed\\.$#"
+			count: 2
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'Endpoint' on mixed\\.$#"
+			count: 1
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'ForwardingEnabled' on mixed\\.$#"
+			count: 1
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'HeadersInBounceNoti…' on mixed\\.$#"
+			count: 1
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'HeadersInComplaintN…' on mixed\\.$#"
+			count: 1
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'HeadersInDeliveryNo…' on mixed\\.$#"
+			count: 1
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'MailFromDomain' on mixed\\.$#"
+			count: 2
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'MailFromDomainStatus' on mixed\\.$#"
+			count: 2
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'Owner' on mixed\\.$#"
+			count: 2
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'PendingConfirmation' on mixed\\.$#"
+			count: 1
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'Policy' on mixed\\.$#"
+			count: 1
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'Protocol' on mixed\\.$#"
+			count: 1
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'RawMessageDelivery' on mixed\\.$#"
+			count: 1
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'SubscriptionArn' on mixed\\.$#"
+			count: 6
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'SubscriptionsConfir…' on mixed\\.$#"
+			count: 1
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'SubscriptionsDeleted' on mixed\\.$#"
+			count: 1
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'SubscriptionsPending' on mixed\\.$#"
+			count: 1
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'TopicArn' on mixed\\.$#"
+			count: 4
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'VerificationStatus' on mixed\\.$#"
+			count: 1
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Cannot access offset 'VerificationToken' on mixed\\.$#"
+			count: 2
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessor\\:\\:getProcessedData\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Processor/AwsDataProcessor.php
 
@@ -307,6 +507,11 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessor\\:\\:processAccountSendStatistics\\(\\) has parameter \\$result with no value type specified in iterable type Aws\\\\Result\\.$#"
+			count: 1
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessor\\:\\:processAccountSendingEnabled\\(\\) has parameter \\$result with no value type specified in iterable type Aws\\\\Result\\.$#"
 			count: 1
 			path: src/Processor/AwsDataProcessor.php
 
@@ -331,17 +536,12 @@ parameters:
 			path: src/Processor/AwsDataProcessor.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessor\\:\\:processSubscriptions\\(\\) has parameter \\$result with no value type specified in iterable type Aws\\\\Result\\.$#"
-			count: 1
-			path: src/Processor/AwsDataProcessor.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessor\\:\\:processSubscriptionAttributes\\(\\) has parameter \\$result with no value type specified in iterable type Aws\\\\Result\\.$#"
 			count: 1
 			path: src/Processor/AwsDataProcessor.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessor\\:\\:processTopics\\(\\) has parameter \\$result with no value type specified in iterable type Aws\\\\Result\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessor\\:\\:processSubscriptions\\(\\) has parameter \\$result with no value type specified in iterable type Aws\\\\Result\\.$#"
 			count: 1
 			path: src/Processor/AwsDataProcessor.php
 
@@ -351,7 +551,12 @@ parameters:
 			path: src/Processor/AwsDataProcessor.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessor\\:\\:getProcessedData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessor\\:\\:processTopics\\(\\) has parameter \\$result with no value type specified in iterable type Aws\\\\Result\\.$#"
+			count: 1
+			path: src/Processor/AwsDataProcessor.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\AwsDataProcessor\\:\\:\\$data type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Processor/AwsDataProcessor.php
 
@@ -359,11 +564,6 @@ parameters:
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Processor\\\\NotificationProcessor\\:\\:loadOrCreateMailMessage\\(\\) has parameter \\$messageData with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Processor/NotificationProcessor.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\IdentitiesStore\\:\\:\\$identities type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Service/IdentitiesStore.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\IdentitiesStore\\:\\:__construct\\(\\) has parameter \\$identities with no value type specified in iterable type array\\.$#"
@@ -376,17 +576,57 @@ parameters:
 			path: src/Service/IdentitiesStore.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\IdentitiesStore\\:\\:getIdentity\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Service/IdentitiesStore.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\IdentitiesStore\\:\\:getIdentitiesList\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Service/IdentitiesStore.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\Monitor\\:\\:\\$liveData type has no value type specified in iterable type array\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\IdentitiesStore\\:\\:getIdentity\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Service/IdentitiesStore.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\IdentitiesStore\\:\\:\\$identities type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Service/IdentitiesStore.php
+
+		-
+			message: "#^Access to undefined constant SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\Monitor\\:\\:DOMAIN\\.$#"
+			count: 2
+			path: src/Service/Monitor.php
+
+		-
+			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
+			count: 2
+			path: src/Service/Monitor.php
+
+		-
+			message: "#^Cannot access offset 'SubscriptionArn' on mixed\\.$#"
+			count: 3
+			path: src/Service/Monitor.php
+
+		-
+			message: "#^Cannot access offset 'TopicArn' on mixed\\.$#"
+			count: 2
+			path: src/Service/Monitor.php
+
+		-
+			message: "#^Cannot access offset 'filter' on array\\|bool\\|int\\|string\\.$#"
+			count: 2
+			path: src/Service/Monitor.php
+
+		-
+			message: "#^Cannot access offset 'topic' on array\\|bool\\|int\\|string\\.$#"
+			count: 1
+			path: src/Service/Monitor.php
+
+		-
+			message: "#^Cannot access offset 'track' on array\\|bool\\|int\\|string\\.$#"
+			count: 3
+			path: src/Service/Monitor.php
+
+		-
+			message: "#^Left side of \\|\\| is always false\\.$#"
 			count: 1
 			path: src/Service/Monitor.php
 
@@ -396,27 +636,22 @@ parameters:
 			path: src/Service/Monitor.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\Monitor\\:\\:getConfiguredIdentity\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Service/Monitor.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\Monitor\\:\\:getConfiguredIdentitiesList\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Service/Monitor.php
 
 		-
-			message: "#^Left side of \\|\\| is always false\\.$#"
-			count: 1
-			path: src/Service/Monitor.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\Monitor\\:\\:getLiveIdentity\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\Monitor\\:\\:getConfiguredIdentity\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Service/Monitor.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\Monitor\\:\\:getLiveIdentitiesList\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Service/Monitor.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\Monitor\\:\\:getLiveIdentity\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Service/Monitor.php
 
@@ -431,27 +666,12 @@ parameters:
 			path: src/Service/Monitor.php
 
 		-
-			message: "#^Cannot access offset 'track' on array\\|bool\\|int\\|string\\.$#"
-			count: 3
-			path: src/Service/Monitor.php
-
-		-
-			message: "#^Cannot access offset 'filter' on array\\|bool\\|int\\|string\\.$#"
-			count: 2
-			path: src/Service/Monitor.php
-
-		-
-			message: "#^Access to undefined constant SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\Monitor\\:\\:DOMAIN\\.$#"
-			count: 2
-			path: src/Service/Monitor.php
-
-		-
-			message: "#^Cannot access offset 'topic' on array\\|bool\\|int\\|string\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\Monitor\\:\\:getTopicSubscriptions\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Service/Monitor.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\Monitor\\:\\:getTopicSubscriptions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Service\\\\Monitor\\:\\:\\$liveData type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Service/Monitor.php
 
@@ -471,6 +691,11 @@ parameters:
 			path: src/Util/IdentityGuesser.php
 
 		-
+			message: "#^Call to method getName\\(\\) on an unknown class Symfony\\\\Bundle\\\\FrameworkBundle\\\\Command\\\\ContainerAwareCommand\\.$#"
+			count: 1
+			path: tests/Command/SesSendTestEmailsCommandTest.php
+
+		-
 			message: "#^PHPDoc tag @var for variable \\$command contains unknown class Symfony\\\\Bundle\\\\FrameworkBundle\\\\Command\\\\ContainerAwareCommand\\.$#"
 			count: 1
 			path: tests/Command/SesSendTestEmailsCommandTest.php
@@ -481,12 +706,7 @@ parameters:
 			path: tests/Command/SesSendTestEmailsCommandTest.php
 
 		-
-			message: "#^Call to method getName\\(\\) on an unknown class Symfony\\\\Bundle\\\\FrameworkBundle\\\\Command\\\\ContainerAwareCommand\\.$#"
-			count: 1
-			path: tests/Command/SesSendTestEmailsCommandTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\AbstractSerendipityHQAwsSesBouncerExtensionTest\\:\\:testDefaultConfig\\(\\) has no return typehint specified\\.$#"
+			message: "#^Cannot access offset 'host' on array\\|bool\\|float\\|int\\|string\\|null\\.$#"
 			count: 1
 			path: tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php
 
@@ -496,57 +716,57 @@ parameters:
 			path: tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php
 
 		-
-			message: "#^Cannot access offset 'host' on array\\|bool\\|float\\|int\\|string\\|null\\.$#"
-			count: 1
-			path: tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php
-
-		-
 			message: "#^Cannot access offset 'serendipityhq\\.com' on array\\|bool\\|float\\|int\\|string\\|null\\.$#"
 			count: 11
 			path: tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\AbstractSerendipityHQAwsSesBouncerExtensionTest\\:\\:testTrackingDisabledDoesntRequireTopicBounces\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\AbstractSerendipityHQAwsSesBouncerExtensionTest\\:\\:loadConfiguration\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\AbstractSerendipityHQAwsSesBouncerExtensionTest\\:\\:testTrackingDisabledDoesntRequireTopicComplaints\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\AbstractSerendipityHQAwsSesBouncerExtensionTest\\:\\:loadConfiguration\\(\\) has parameter \\$resource with no type specified\\.$#"
 			count: 1
 			path: tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\AbstractSerendipityHQAwsSesBouncerExtensionTest\\:\\:testTrackingDisabledDoesntRequireTopicDeliveries\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\AbstractSerendipityHQAwsSesBouncerExtensionTest\\:\\:testDefaultConfig\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\AbstractSerendipityHQAwsSesBouncerExtensionTest\\:\\:testTrackingDisabledForBothConfigFilterIsNotLoaded\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\AbstractSerendipityHQAwsSesBouncerExtensionTest\\:\\:testTrackingDisabledDoesntRequireTopicBounces\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\AbstractSerendipityHQAwsSesBouncerExtensionTest\\:\\:testTrackingEnabledForBothConfigFilterIsLoaded\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\AbstractSerendipityHQAwsSesBouncerExtensionTest\\:\\:testTrackingDisabledDoesntRequireTopicComplaints\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\AbstractSerendipityHQAwsSesBouncerExtensionTest\\:\\:testTrackingEnabledForBouncesOnlyConfigFilterIsLoaded\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\AbstractSerendipityHQAwsSesBouncerExtensionTest\\:\\:testTrackingDisabledDoesntRequireTopicDeliveries\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\AbstractSerendipityHQAwsSesBouncerExtensionTest\\:\\:testTrackingEnabledForComplaintsOnlyConfigFilterIsLoaded\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\AbstractSerendipityHQAwsSesBouncerExtensionTest\\:\\:testTrackingDisabledForBothConfigFilterIsNotLoaded\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\AbstractSerendipityHQAwsSesBouncerExtensionTest\\:\\:loadConfiguration\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\AbstractSerendipityHQAwsSesBouncerExtensionTest\\:\\:testTrackingEnabledForBothConfigFilterIsLoaded\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\AbstractSerendipityHQAwsSesBouncerExtensionTest\\:\\:loadConfiguration\\(\\) has parameter \\$resource with no typehint specified\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\AbstractSerendipityHQAwsSesBouncerExtensionTest\\:\\:testTrackingEnabledForBouncesOnlyConfigFilterIsLoaded\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\AbstractSerendipityHQAwsSesBouncerExtensionTest\\:\\:testTrackingEnabledForComplaintsOnlyConfigFilterIsLoaded\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php
 
@@ -556,23 +776,23 @@ parameters:
 			path: tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\YamlAwsSesMonitorBundleExtensionTest\\:\\:loadConfiguration\\(\\) has parameter \\$resource with no typehint specified\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\DependencyInjection\\\\YamlAwsSesMonitorBundleExtensionTest\\:\\:loadConfiguration\\(\\) has parameter \\$resource with no type specified\\.$#"
 			count: 1
 			path: tests/DependencyInjection/YamlAwsSesMonitorBundleExtensionTest.php
 
 		-
-			message: "#^Cannot call method format\\(\\) on DateTime\\|null\\.$#"
+			message: "#^Cannot call method format\\(\\) on DateTimeInterface\\|null\\.$#"
 			count: 1
 			path: tests/Entity/ComplaintTest.php
 
 		-
-			message: "#^You should use assertCount\\(\\$expectedCount, \\$variable\\) instead of assertSame\\(\\$expectedCount, \\$variable\\-\\>count\\(\\)\\)\\.$#"
-			count: 7
+			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
+			count: 6
 			path: tests/Entity/EmailStatusTest.php
 
 		-
-			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 6
+			message: "#^You should use assertCount\\(\\$expectedCount, \\$variable\\) instead of assertSame\\(\\$expectedCount, \\$variable\\-\\>count\\(\\)\\)\\.$#"
+			count: 7
 			path: tests/Entity/EmailStatusTest.php
 
 		-
@@ -586,13 +806,38 @@ parameters:
 			path: tests/Entity/MailMessageTest.php
 
 		-
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 1
+			path: tests/Handler/BounceNotificationHandlerTest.php
+
+		-
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 1
+			path: tests/Handler/ComplaintNotificationHandlerTest.php
+
+		-
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 1
+			path: tests/Handler/DeliveryNotificationHandlerTest.php
+
+		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Helper\\\\MessageHelperTest\\:\\:testMessageHelper\\(\\) return type has no value type specified in iterable type Aws\\\\Sns\\\\Message\\.$#"
 			count: 1
 			path: tests/Helper/MessageHelperTest.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 5
+			message: "#^Parameter \\#1 \\$message of method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Helper\\\\MessageHelper\\:\\:extractMessageData\\(\\) expects Aws\\\\Sns\\\\Message, mixed given\\.$#"
+			count: 1
+			path: tests/Helper/MessageHelperTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$message of method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Helper\\\\MessageHelper\\:\\:validateNotification\\(\\) expects Aws\\\\Sns\\\\Message, mixed given\\.$#"
+			count: 1
+			path: tests/Helper/MessageHelperTest.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Plugin\\\\MonitorFilterPluginTest\\:\\:getEmailStatusMap\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
 			path: tests/Plugin/MonitorFilterPluginTest.php
 
 		-
@@ -601,8 +846,33 @@ parameters:
 			path: tests/Plugin/MonitorFilterPluginTest.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Plugin\\\\MonitorFilterPluginTest\\:\\:getEmailStatusMap\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Parameter \\#2 \\$array of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects array\\|ArrayAccess, mixed given\\.$#"
 			count: 1
+			path: tests/Plugin/MonitorFilterPluginTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayNotHasKey\\(\\) expects array\\|ArrayAccess, mixed given\\.$#"
+			count: 3
+			path: tests/Plugin/MonitorFilterPluginTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$haystack of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertContains\\(\\) expects iterable, mixed given\\.$#"
+			count: 4
+			path: tests/Plugin/MonitorFilterPluginTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$haystack of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotContains\\(\\) expects iterable, mixed given\\.$#"
+			count: 1
+			path: tests/Plugin/MonitorFilterPluginTest.php
+
+		-
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 8
+			path: tests/Plugin/MonitorFilterPluginTest.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 5
 			path: tests/Plugin/MonitorFilterPluginTest.php
 
 		-
@@ -611,53 +881,78 @@ parameters:
 			path: tests/Processor/NotificationProcessorTest.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\SubscriptionProcessorTest\\:\\:\\$subscriptionProcessor has no typehint specified\\.$#"
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 4
+			path: tests/Processor/NotificationProcessorTest.php
+
+		-
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 2
+			path: tests/Processor/RequestProcessorTest.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Processor\\\\SubscriptionProcessorTest\\:\\:\\$subscriptionProcessor has no type specified\\.$#"
 			count: 1
 			path: tests/Processor/SubscriptionProcessorTest.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:\\$mockConfiguredIdentities has no typehint specified\\.$#"
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 1
+			path: tests/Processor/SubscriptionProcessorTest.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:\\$mockAwsDataProcessor has no type specified\\.$#"
 			count: 1
 			path: tests/Service/MonitorTest.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:\\$mockLiveData has no typehint specified\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:\\$mockConfiguredIdentities has no type specified\\.$#"
 			count: 1
 			path: tests/Service/MonitorTest.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:\\$mockAwsDataProcessor has no typehint specified\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:\\$mockConsole has no type specified\\.$#"
 			count: 1
 			path: tests/Service/MonitorTest.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:\\$mockConsole has no typehint specified\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:\\$mockIdentityGuesser has no type specified\\.$#"
 			count: 1
 			path: tests/Service/MonitorTest.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:\\$mockSesClient has no typehint specified\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:\\$mockLiveData has no type specified\\.$#"
 			count: 1
 			path: tests/Service/MonitorTest.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:\\$mockSnsClient has no typehint specified\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:\\$mockLiveData is unused\\.$#"
 			count: 1
 			path: tests/Service/MonitorTest.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:\\$mockIdentityGuesser has no typehint specified\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:\\$mockSectionBody has no type specified\\.$#"
 			count: 1
 			path: tests/Service/MonitorTest.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:\\$mockSectionTitle has no typehint specified\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:\\$mockSectionTitle has no type specified\\.$#"
 			count: 1
 			path: tests/Service/MonitorTest.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:\\$mockSectionBody has no typehint specified\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:\\$mockSesClient has no type specified\\.$#"
 			count: 1
+			path: tests/Service/MonitorTest.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Service\\\\MonitorTest\\:\\:\\$mockSnsClient has no type specified\\.$#"
+			count: 1
+			path: tests/Service/MonitorTest.php
+
+		-
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 4
 			path: tests/Service/MonitorTest.php
 
 		-
@@ -666,7 +961,17 @@ parameters:
 			path: tests/Util/ConsoleTest.php
 
 		-
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 1
+			path: tests/Util/ConsoleTest.php
+
+		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 4
 			path: tests/Util/ConsoleTest.php
+
+		-
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 11
+			path: tests/Util/EmailStatusAnalyzerTest.php
 

@@ -15,5 +15,6 @@ parameters:
     paths:
         - src
         - tests
-    excludes_analyse:
+    excludePaths:
         - */src/DependencyInjection/Configuration.php
+        - */src/Kernel.php

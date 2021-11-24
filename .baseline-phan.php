@@ -30,6 +30,7 @@ return [
     // PhanUnreferencedClosure : 2 occurrences
     // PhanUnusedVariable : 2 occurrences
     // PhanNoopNew : 1 occurrence
+    // PhanParamSignatureMismatch : 1 occurrence
     // PhanTypeMismatchDeclaredParamNullable : 1 occurrence
     // PhanTypeMismatchDeclaredReturn : 1 occurrence
     // PhanUnreferencedPrivateProperty : 1 occurrence
@@ -39,7 +40,7 @@ return [
     // Currently, file_suppressions and directory_suppressions are the only supported suppressions
     'file_suppressions' => [
         'src/Command/ConfigureCommand.php' => ['ConstReferenceConstNotFound', 'PhanAccessMethodInternal', 'PhanDeprecatedFunction', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanTypeArraySuspiciousNullable'],
-        'src/Command/DebugCommand.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanDeprecatedFunction', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass'],
+        'src/Command/DebugCommand.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanDeprecatedFunction', 'PhanParamSignatureMismatch', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass'],
         'src/Command/SesSendTestEmailsCommand.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass'],
         'src/Controller/EndpointController.php' => ['PhanRedefinedClassReference', 'PhanUnreferencedPublicMethod'],
         'src/DependencyInjection/Configuration.php' => ['PhanAccessMethodInternal', 'PhanUndeclaredMethod', 'PhanUnreferencedClosure'],

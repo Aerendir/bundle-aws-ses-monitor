@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.6.1@e93e532e4eaad6d68c4d7b606853800eaceccc72">
+<files psalm-version="4.6.4@97fe86c4e158b5a57c5150aa5055c38b5a809aab">
   <file src="src/Command/ConfigureCommand.php">
     <MissingPropertyType occurrences="2">
       <code>$sectionBody</code>
@@ -191,9 +191,6 @@
       <code>$subType</code>
       <code>$type</code>
     </MissingConstructor>
-    <PropertyTypeCoercion occurrences="1">
-      <code>$bouncedOn</code>
-    </PropertyTypeCoercion>
   </file>
   <file src="src/Entity/Complaint.php">
     <MissingConstructor occurrences="6">
@@ -204,10 +201,6 @@
       <code>$mailMessage</code>
       <code>$userAgent</code>
     </MissingConstructor>
-    <PropertyTypeCoercion occurrences="2">
-      <code>$arrivalDate</code>
-      <code>$complainedOn</code>
-    </PropertyTypeCoercion>
   </file>
   <file src="src/Entity/Delivery.php">
     <MissingConstructor occurrences="6">
@@ -218,9 +211,6 @@
       <code>$processingTimeMillis</code>
       <code>$smtpResponse</code>
     </MissingConstructor>
-    <PropertyTypeCoercion occurrences="1">
-      <code>$deliveredOn</code>
-    </PropertyTypeCoercion>
   </file>
   <file src="src/Entity/EmailStatus.php">
     <MissingClosureParamType occurrences="3">
@@ -236,6 +226,11 @@
     <PossiblyFalsePropertyAssignmentValue occurrences="1">
       <code>\mb_strtolower($email)</code>
     </PossiblyFalsePropertyAssignmentValue>
+    <PropertyTypeCoercion occurrences="3">
+      <code>$bounce-&gt;getBouncedOn()</code>
+      <code>$complaint-&gt;getComplainedOn()</code>
+      <code>$delivery-&gt;getDeliveredOn()</code>
+    </PropertyTypeCoercion>
   </file>
   <file src="src/Entity/MailMessage.php">
     <PropertyNotSetInConstructor occurrences="5">
@@ -245,9 +240,6 @@
       <code>$sentOn</code>
       <code>$sourceArn</code>
     </PropertyNotSetInConstructor>
-    <PropertyTypeCoercion occurrences="1">
-      <code>$sentOn</code>
-    </PropertyTypeCoercion>
   </file>
   <file src="src/Entity/Topic.php">
     <PropertyNotSetInConstructor occurrences="1">
