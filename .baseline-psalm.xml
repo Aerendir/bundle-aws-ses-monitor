@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.6.4@97fe86c4e158b5a57c5150aa5055c38b5a809aab">
+<files psalm-version="4.13.1@5cf660f63b548ccd4a56f62d916ee4d6028e01a3">
   <file src="src/Command/ConfigureCommand.php">
+    <ArgumentTypeCoercion occurrences="1">
+      <code>(int) $wait * 10000000</code>
+    </ArgumentTypeCoercion>
     <MissingPropertyType occurrences="2">
       <code>$sectionBody</code>
       <code>$sectionTitle</code>
@@ -223,14 +226,16 @@
       <code>exists</code>
       <code>exists</code>
     </MixedArgumentTypeCoercion>
-    <PossiblyFalsePropertyAssignmentValue occurrences="1">
-      <code>\mb_strtolower($email)</code>
-    </PossiblyFalsePropertyAssignmentValue>
     <PropertyTypeCoercion occurrences="3">
       <code>$bounce-&gt;getBouncedOn()</code>
       <code>$complaint-&gt;getComplainedOn()</code>
       <code>$delivery-&gt;getDeliveredOn()</code>
     </PropertyTypeCoercion>
+    <UnusedClosureParam occurrences="3">
+      <code>$key</code>
+      <code>$key</code>
+      <code>$key</code>
+    </UnusedClosureParam>
   </file>
   <file src="src/Entity/MailMessage.php">
     <PropertyNotSetInConstructor occurrences="5">
@@ -253,6 +258,11 @@
     <MixedReturnStatement occurrences="1">
       <code>\Safe\json_decode($message-&gt;offsetGet('Message'), true)</code>
     </MixedReturnStatement>
+  </file>
+  <file src="src/Manager/EmailStatusManager.php">
+    <UnnecessaryVarAnnotation occurrences="1">
+      <code>EmailStatus|null</code>
+    </UnnecessaryVarAnnotation>
   </file>
   <file src="src/Manager/SesManager.php">
     <MixedInferredReturnType occurrences="1">
@@ -281,6 +291,9 @@
       <code>$email</code>
       <code>$identity</code>
     </MixedArgumentTypeCoercion>
+    <ParamNameMismatch occurrences="1">
+      <code>$event</code>
+    </ParamNameMismatch>
     <PropertyNotSetInConstructor occurrences="1">
       <code>$blacklisted</code>
     </PropertyNotSetInConstructor>
@@ -291,20 +304,46 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Processor/AwsDataProcessor.php">
-    <MixedArrayAssignment occurrences="7">
+    <MixedArrayAssignment occurrences="20">
       <code>$this-&gt;data[self::ACCOUNT]['enabled']</code>
       <code>$this-&gt;data[self::ACCOUNT]['quota']</code>
       <code>$this-&gt;data[self::ACCOUNT]['stats']</code>
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
       <code>$this-&gt;data[self::SUBSCRIPTIONS][$attributes[self::SUBSCRIPTION_ARN]]</code>
       <code>$this-&gt;data[self::SUBSCRIPTIONS][$attributes[self::SUBSCRIPTION_ARN]]</code>
       <code>$this-&gt;data[self::SUBSCRIPTIONS][$attributes[self::SUBSCRIPTION_ARN]]</code>
+      <code>$this-&gt;data[self::SUBSCRIPTIONS][$subscription[self::SUBSCRIPTION_ARN]]</code>
       <code>$this-&gt;data[self::TOPICS][$attributes[self::TOPIC_ARN]]</code>
+      <code>$this-&gt;data[self::TOPICS][$topic[self::TOPIC_ARN]]</code>
     </MixedArrayAssignment>
-    <MixedArrayOffset occurrences="4">
+    <MixedArrayOffset occurrences="17">
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
+      <code>$this-&gt;data[self::IDENTITIES][$identity]</code>
       <code>$this-&gt;data[self::SUBSCRIPTIONS][$attributes[self::SUBSCRIPTION_ARN]]</code>
       <code>$this-&gt;data[self::SUBSCRIPTIONS][$attributes[self::SUBSCRIPTION_ARN]]</code>
       <code>$this-&gt;data[self::SUBSCRIPTIONS][$attributes[self::SUBSCRIPTION_ARN]]</code>
+      <code>$this-&gt;data[self::SUBSCRIPTIONS][$subscription[self::SUBSCRIPTION_ARN]]</code>
       <code>$this-&gt;data[self::TOPICS][$attributes[self::TOPIC_ARN]]</code>
+      <code>$this-&gt;data[self::TOPICS][$topic[self::TOPIC_ARN]]</code>
     </MixedArrayOffset>
     <PossiblyNullArrayAccess occurrences="16">
       <code>$attributes['ConfirmationWasAuthenticated']</code>
@@ -338,6 +377,16 @@
       <code>$result-&gt;get('Topics')</code>
       <code>$result-&gt;get('VerificationAttributes')</code>
     </PossiblyNullIterator>
+  </file>
+  <file src="src/Processor/NotificationProcessor.php">
+    <UnnecessaryVarAnnotation occurrences="1">
+      <code>MailMessage|null</code>
+    </UnnecessaryVarAnnotation>
+  </file>
+  <file src="src/Processor/RequestProcessor.php">
+    <UnnecessaryVarAnnotation occurrences="1">
+      <code>string|null</code>
+    </UnnecessaryVarAnnotation>
   </file>
   <file src="src/Service/IdentitiesStore.php">
     <MixedInferredReturnType occurrences="1">
@@ -596,6 +645,16 @@
       <code>expects</code>
       <code>expects</code>
     </PossiblyUndefinedMethod>
+    <UnevaluatedCode occurrences="5">
+      <code>break;</code>
+      <code>break;</code>
+      <code>break;</code>
+      <code>break;</code>
+      <code>break;</code>
+    </UnevaluatedCode>
+    <UnusedVariable occurrences="1">
+      <code>$recipients</code>
+    </UnusedVariable>
   </file>
   <file src="tests/Processor/SubscriptionProcessorTest.php">
     <MissingClosureParamType occurrences="1">
@@ -690,5 +749,8 @@
       <code>append</code>
       <code>append</code>
     </TooManyArguments>
+    <UnusedVariable occurrences="1">
+      <code>$test</code>
+    </UnusedVariable>
   </file>
 </files>
