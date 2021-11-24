@@ -76,7 +76,7 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
 
             // Reactivate
             \Rector\CodeQuality\Rector\ClassMethod\NarrowUnionTypeDocRector::class,
-            \Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector::class,
+
         ]
     );
 };
