@@ -3,3 +3,4 @@ composer.lock
 phpunit.xml
 var
 vendor
+php_errors.log
