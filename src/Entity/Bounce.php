@@ -112,7 +112,7 @@ class Bounce
      * Note that this is the time at which the notification was sent by the ISP, and not the time at which it was
      * received by Amazon SES.
      *
-     * @var \DateTime
+     * @var \DateTimeInterface
      * @ORM\Column(name="bounced_on", type="datetime")
      */
     private $bouncedOn;
@@ -234,86 +234,56 @@ class Bounce
         return $this->emailStatus;
     }
 
-    /**
-     * @return MailMessage
-     */
     public function getMailMessage(): MailMessage
     {
         return $this->mailMessage;
     }
 
-    public function getBouncedOn(): \DateTime
+    public function getBouncedOn(): \DateTimeInterface
     {
         return $this->bouncedOn;
     }
 
-    /**
-     * @return string
-     */
     public function getFeedbackId(): string
     {
         return $this->feedbackId;
     }
 
-    /**
-     * @return string|null
-     */
     public function getReportingMta(): ?string
     {
         return $this->reportingMta;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAction(): ?string
     {
         return $this->action;
     }
 
-    /**
-     * @return string|null
-     */
     public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDiagnosticCode(): ?string
     {
         return $this->diagnosticCode;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return string
-     */
     public function getSubType(): string
     {
         return $this->subType;
     }
 
-    /**
-     * @return bool
-     */
     public function isPermanent(): bool
     {
         return self::TYPE_PERMANENT === $this->type;
     }
 
-    /**
-     * @param EmailStatus $emailStatus
-     */
     private function setEmailStatus(EmailStatus $emailStatus): self
     {
         $this->emailStatus = $emailStatus;
@@ -322,9 +292,6 @@ class Bounce
         return $this;
     }
 
-    /**
-     * @param string $type
-     */
     private function setType(string $type): self
     {
         $this->type = $type;
@@ -332,9 +299,6 @@ class Bounce
         return $this;
     }
 
-    /**
-     * @param string $subType
-     */
     private function setSubType(string $subType): self
     {
         $this->subType = $subType;
@@ -342,9 +306,6 @@ class Bounce
         return $this;
     }
 
-    /**
-     * @param string $feedbackId
-     */
     private function setFeedbackId(string $feedbackId): self
     {
         $this->feedbackId = $feedbackId;
@@ -352,9 +313,6 @@ class Bounce
         return $this;
     }
 
-    /**
-     * @param string $reportingMta
-     */
     private function setReportingMta(string $reportingMta): self
     {
         $this->reportingMta = $reportingMta;
@@ -362,9 +320,6 @@ class Bounce
         return $this;
     }
 
-    /**
-     * @param string $action
-     */
     private function setAction(string $action): self
     {
         $this->action = $action;
@@ -372,9 +327,6 @@ class Bounce
         return $this;
     }
 
-    /**
-     * @param string $status
-     */
     private function setStatus(string $status): self
     {
         $this->status = $status;
@@ -382,9 +334,6 @@ class Bounce
         return $this;
     }
 
-    /**
-     * @param string $diagnosticCode
-     */
     private function setDiagnosticCode(string $diagnosticCode): self
     {
         $this->diagnosticCode = $diagnosticCode;
@@ -392,9 +341,6 @@ class Bounce
         return $this;
     }
 
-    /**
-     * @param \DateTimeInterface $bouncedOn
-     */
     private function setBouncedOn(\DateTimeInterface $bouncedOn): self
     {
         $this->bouncedOn = $bouncedOn;
@@ -402,9 +348,6 @@ class Bounce
         return $this;
     }
 
-    /**
-     * @param MailMessage $mailMessage
-     */
     private function setMailMessage(MailMessage $mailMessage): self
     {
         $this->mailMessage = $mailMessage;

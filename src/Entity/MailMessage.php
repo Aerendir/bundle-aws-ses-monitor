@@ -45,7 +45,7 @@ class MailMessage
      *
      * Formerly "timestamp".
      *
-     * @var \DateTime
+     * @var \DateTimeInterface
      * @ORM\Column(name="sent_on", type="datetime")
      */
     private $sentOn;
@@ -224,7 +224,7 @@ class MailMessage
         return $this->messageId;
     }
 
-    public function getSentOn(): \DateTime
+    public function getSentOn(): \DateTimeInterface
     {
         return $this->sentOn;
     }

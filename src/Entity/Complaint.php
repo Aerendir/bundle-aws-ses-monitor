@@ -87,7 +87,7 @@ class Complaint
      * Note that this is the time at which the notification was sent by the ISP, and not the time at which it was
      * received by Amazon SES.
      *
-     * @var \DateTime
+     * @var \DateTimeInterface
      * @ORM\Column(name="complained_on", type="datetime")
      */
     private $complainedOn;
@@ -125,7 +125,7 @@ class Complaint
      *
      * This field may be absent in the report (and therefore also absent in the JSON).
      *
-     * @var \DateTime|null
+     * @var \DateTimeInterface|null
      * @ORM\Column(name="arrival_date", type="datetime", nullable=true)
      */
     private $arrivalDate;
@@ -185,7 +185,7 @@ class Complaint
         return $this->emailStatus;
     }
 
-    public function getComplainedOn(): \DateTime
+    public function getComplainedOn(): \DateTimeInterface
     {
         return $this->complainedOn;
     }
