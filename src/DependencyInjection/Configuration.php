@@ -110,10 +110,10 @@ final class Configuration implements ConfigurationInterface
                     ->end()->end()
                 ->end()
                 ->validate()
-                    ->ifTrue(function (array $tree) {
+                    ->ifTrue(function (array $tree): bool {
                         return $this->validateConfiguration($tree);
                     })
-                    ->then(function (array $tree) {
+                    ->then(function (array $tree): array {
                         return $this->prepareConfiguration($tree);
                     })
                 ->end();
