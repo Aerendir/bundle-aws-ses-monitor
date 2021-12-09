@@ -11,7 +11,6 @@ jobs:
                 os: [ ubuntu-latest ]
                 php: [ '7.3', '7.4', '8.0' ]
                 symfony: [ '~4.4', '~5.2' ]
-                composer-flags: [ '--prefer-stable --prefer-lowest', '' ]
 
         steps:
             -   name: Checkout
@@ -46,7 +45,7 @@ jobs:
 
             -   name: Install Composer deps
                 run: |
-                    composer update ${{ matrix.composer-flags }} --no-interaction --no-scripts
+                    composer update --no-interaction --no-scripts
 
             -   name: Run PHPStan
                 run: |
