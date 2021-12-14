@@ -49,8 +49,18 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
     $parameters->set(
         Option::SKIP,
         [
+            __DIR__ . '/src/Command/ConfigureCommand.php',
+            __DIR__ . '/src/Command/DebugCommand.php',
+            __DIR__ . '/src/Controller/EndpointController.php',
+            __DIR__ . '/src/DependencyInjection/SHQAwsSesMonitorExtension.php',
+            __DIR__ . '/src/SHQAwsSesMonitorBundle.php',
+            __DIR__ . '/src/Util/Console.php',
+            __DIR__ . '/tests/Command/SesSendTestEmailsCommandTest.php',
+            __DIR__ . '/tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php',
+            __DIR__ . '/tests/DependencyInjection/YamlAwsSesMonitorBundleExtensionTest.php',
             __DIR__ . '/tests/Entity/BounceTest.php',
             __DIR__ . '/tests/Service/IdentitiesStoreTest.php',
+            __DIR__ . '/tests/Util/ConsoleTest.php',
             __DIR__ . '/tests/Util/EmailStatusAnalyzerTest.php',
             __DIR__ . '/tests/Util/IdentityGuesserTest.php',
             Rector\CodeQuality\Rector\Catch_\ThrowWithPreviousExceptionRector::class,
