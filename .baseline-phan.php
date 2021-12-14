@@ -19,7 +19,6 @@ return [
     // PhanTypeArraySuspiciousNullable : 25+ occurrences
     // PhanUnreferencedPublicClassConstant : 15+ occurrences
     // PhanDeprecatedFunction : 10+ occurrences
-    // PhanPluginUnreachableCode : 5 occurrences
     // PhanReadOnlyPrivateProperty : 4 occurrences
     // PhanUndeclaredProperty : 4 occurrences
     // PhanRedefinedExtendedClass : 3 occurrences
@@ -73,7 +72,7 @@ return [
         'tests/Manager/EmailStatusManagerTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUnreferencedPublicMethod'],
         'tests/Manager/SesManagerTest.php' => ['PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
         'tests/Manager/SnsManagerTest.php' => ['PhanNoopNew', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUnreferencedPublicMethod'],
-        'tests/Plugin/MonitorFilterPluginTest.php' => ['ConstReferenceConstNotFound', 'PhanPluginUnreachableCode', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod', 'PhanUnusedVariable'],
+        'tests/Plugin/MonitorFilterPluginTest.php' => ['ConstReferenceConstNotFound', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod', 'PhanUnusedVariable'],
         'tests/Processor/AwsDataProcessorTest.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUnreferencedPublicMethod'],
         'tests/Processor/NotificationProcessorTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
         'tests/Processor/RequestProcessorTest.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUndeclaredProperty', 'PhanUnreferencedPublicMethod'],
