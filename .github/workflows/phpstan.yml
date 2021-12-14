@@ -46,6 +46,7 @@ jobs:
             -   name: Install Composer deps
                 run: |
                     composer update --no-interaction --no-scripts
+                    composer bin phpunit update
 
             -   name: Run PHPStan
                 run: |
