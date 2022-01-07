@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.13.1@5cf660f63b548ccd4a56f62d916ee4d6028e01a3">
+<files psalm-version="4.18.0.0">
   <file src="src/Command/ConfigureCommand.php">
     <ArgumentTypeCoercion occurrences="1">
       <code>(int) $wait * 10000000</code>
@@ -649,6 +649,19 @@
       <code>$recipients</code>
     </UnusedVariable>
   </file>
+  <file src="tests/Processor/NotificationProcessorTest.php">
+    <ReservedWord occurrences="4">
+      <code>$response-&gt;getContent()</code>
+      <code>$response-&gt;getContent()</code>
+      <code>$response-&gt;getContent()</code>
+      <code>$response-&gt;getContent()</code>
+    </ReservedWord>
+  </file>
+  <file src="tests/Processor/RequestProcessorTest.php">
+    <ReservedWord occurrences="1">
+      <code>$response-&gt;getContent()</code>
+    </ReservedWord>
+  </file>
   <file src="tests/Processor/SubscriptionProcessorTest.php">
     <MissingClosureParamType occurrences="1">
       <code>$key</code>
@@ -656,6 +669,11 @@
     <MixedArrayOffset occurrences="1">
       <code>$testMessage[$key]</code>
     </MixedArrayOffset>
+    <ReservedWord occurrences="3">
+      <code>$response-&gt;getContent()</code>
+      <code>$response-&gt;getContent()</code>
+      <code>$response-&gt;getContent()</code>
+    </ReservedWord>
   </file>
   <file src="tests/Service/MonitorTest.php">
     <MixedMethodCall occurrences="36">
