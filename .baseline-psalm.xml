@@ -49,9 +49,9 @@
     </MoreSpecificImplementedParamType>
   </file>
   <file src="src/Command/SesSendTestEmailsCommand.php">
-    <MixedMethodCall occurrences="1">
-      <code>ask</code>
-    </MixedMethodCall>
+    <ReservedWord occurrences="1">
+      <code>$this-&gt;getHelper('question')</code>
+    </ReservedWord>
   </file>
   <file src="src/DependencyInjection/Configuration.php">
     <MissingConstructor occurrences="1">
