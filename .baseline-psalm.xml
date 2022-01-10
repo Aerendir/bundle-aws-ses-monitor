@@ -48,11 +48,6 @@
       <code>$output</code>
     </MoreSpecificImplementedParamType>
   </file>
-  <file src="src/Command/SesSendTestEmailsCommand.php">
-    <ReservedWord occurrences="1">
-      <code>$this-&gt;getHelper('question')</code>
-    </ReservedWord>
-  </file>
   <file src="src/DependencyInjection/Configuration.php">
     <MissingConstructor occurrences="1">
       <code>$identityGuesser</code>
@@ -646,19 +641,6 @@
       <code>$recipients</code>
     </UnusedVariable>
   </file>
-  <file src="tests/Processor/NotificationProcessorTest.php">
-    <ReservedWord occurrences="4">
-      <code>$response-&gt;getContent()</code>
-      <code>$response-&gt;getContent()</code>
-      <code>$response-&gt;getContent()</code>
-      <code>$response-&gt;getContent()</code>
-    </ReservedWord>
-  </file>
-  <file src="tests/Processor/RequestProcessorTest.php">
-    <ReservedWord occurrences="1">
-      <code>$response-&gt;getContent()</code>
-    </ReservedWord>
-  </file>
   <file src="tests/Processor/SubscriptionProcessorTest.php">
     <MissingClosureParamType occurrences="1">
       <code>$key</code>
@@ -666,11 +648,6 @@
     <MixedArrayOffset occurrences="1">
       <code>$testMessage[$key]</code>
     </MixedArrayOffset>
-    <ReservedWord occurrences="3">
-      <code>$response-&gt;getContent()</code>
-      <code>$response-&gt;getContent()</code>
-      <code>$response-&gt;getContent()</code>
-    </ReservedWord>
   </file>
   <file src="tests/Service/MonitorTest.php">
     <MixedMethodCall occurrences="36">

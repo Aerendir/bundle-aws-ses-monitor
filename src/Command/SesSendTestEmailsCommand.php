@@ -12,6 +12,7 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
@@ -71,8 +72,14 @@ final class SesSendTestEmailsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $question    = new Question('<question>Please, enter the from email address to use:</question>');
-        $fromAddress = $this->getHelper('question')->ask($input, $output, $question);
+        $question = new Question('<question>Please, enter the from email address to use:</question>');
+        $ask      = $this->getHelper('question');
+
+        if (false === $ask instanceof QuestionHelper) {
+            throw new \RuntimeException('The $ask object is not of type QuestionHelper');
+        }
+
+        $fromAddress = $ask->ask($input, $output, $question);
         $sents       = [];
         foreach (self::EMAIL_ADDRESSES as $toAddress) {
             $message = $this->createMessage($fromAddress, $toAddress);

@@ -1,7 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Cannot call method ask\\(\\) on mixed\\.$#"
+			message: "#^Parameter \\#1 \\$sendFrom of method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\SesSendTestEmailsCommand\\:\\:createMessage\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: src/Command/SesSendTestEmailsCommand.php
 

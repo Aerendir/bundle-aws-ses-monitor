@@ -10,7 +10,7 @@
 return [
     // # Issue statistics:
     // PhanRedefinedClassReference : 290+ occurrences
-    // PhanAccessMethodInternal : 250+ occurrences
+    // PhanAccessMethodInternal : 240+ occurrences
     // PhanUnreferencedPublicMethod : 100+ occurrences
     // PhanTypeMismatchArgument : 80+ occurrences
     // PhanAccessClassConstantInternal : 70+ occurrences
@@ -32,7 +32,6 @@ return [
     // PhanRedefinedInheritedInterface : 1 occurrence
     // PhanTypeMismatchDeclaredParamNullable : 1 occurrence
     // PhanTypeMismatchDeclaredReturn : 1 occurrence
-    // PhanUnreferencedClass : 1 occurrence
     // PhanUnreferencedPrivateProperty : 1 occurrence
     // PhanUnusedVariableCaughtException : 1 occurrence
     // UndeclaredTypeInInlineVar : 1 occurrence
@@ -42,7 +41,7 @@ return [
         'src/Command/ConfigureCommand.php' => ['ConstReferenceConstNotFound', 'PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanTypeArraySuspiciousNullable'],
         'src/Command/DebugCommand.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanParamSignatureMismatch', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass'],
         'src/Command/SesSendTestEmailsCommand.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass'],
-        'src/Controller/EndpointController.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
+        'src/Controller/EndpointController.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUnreferencedPublicMethod'],
         'src/DependencyInjection/Configuration.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanRedefinedInheritedInterface', 'PhanUndeclaredMethod', 'PhanUnreferencedClosure'],
         'src/DependencyInjection/SHQAwsSesMonitorExtension.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass'],
         'src/Entity/Bounce.php' => ['PhanReadOnlyPrivateProperty', 'PhanUnreferencedPublicClassConstant', 'PhanUnreferencedPublicMethod'],
