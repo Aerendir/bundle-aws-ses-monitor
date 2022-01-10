@@ -48,6 +48,10 @@ jobs:
                     composer update --no-interaction --no-scripts
                     composer bin phpunit update
 
+            -   name: Remove Kernel.php
+                run: |
+                    rm ./src/Kernel.php
+
             -   name: Run PHPunit
                 run: |
                     vendor/bin/phpunit --coverage-clover var/coverage/clover.xml
