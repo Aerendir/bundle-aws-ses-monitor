@@ -18,11 +18,11 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\SnsManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\Monitor;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\SnsTypes;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\Console;
-use SerendipityHQ\Bundle\ConsoleStyles\Console\Style\SerendipityHQStyle;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * {@inheritdoc}
@@ -61,7 +61,7 @@ final class ConfigureCommand extends Command
     /** @var SnsManager $snsManager */
     private $snsManager;
 
-    /** @var SerendipityHQStyle $ioWriter */
+    /** @var SymfonyStyle $ioWriter */
     private $ioWriter;
 
     /** @var Console $console */
@@ -169,7 +169,7 @@ EOF
             );
 
             if (false === $this->ioWriter->confirm('Please, confirm you want to force the configuration of live identities at your own risk', false)) {
-                $this->ioWriter->successLine('Ok, for now your production servers are safe!');
+                $this->ioWriter->success('Ok, for now your production servers are safe!');
 
                 return false;
             }
@@ -570,11 +570,11 @@ EOF
     private function logActionsToTake(): void
     {
         if (false === empty($this->actionsToTakeNow)) {
-            $this->ioWriter->warningLine('There are pending actions.');
+            $this->ioWriter->warning('There are pending actions.');
             $this->ioWriter->writeln('You have to take the actions listed below, then run again the command <comment>bin/console aws:ses:configure</comment> to complete the configuration.');
 
             foreach (\array_keys($this->actionsToTakeNow) as $identity) {
-                $this->ioWriter->warningLineNoBg(\Safe\sprintf('Actions to take to complete configuration of identity "%s":', $identity));
+                $this->ioWriter->warning(\Safe\sprintf('Actions to take to complete configuration of identity "%s":', $identity));
                 foreach ($this->actionsToTakeNow[$identity] as $action) {
                     $this->ioWriter->writeln($action);
                 }
@@ -590,7 +590,7 @@ EOF
     private function logSkippedIdentities(): void
     {
         if (false === empty($this->skippedIdentities)) {
-            $this->ioWriter->warningLineNoBg('There are skipped entities:');
+            $this->ioWriter->warning('There are skipped entities:');
 
             foreach ($this->skippedIdentities as $identity) {
                 $this->ioWriter->writeln('   ' . $identity);

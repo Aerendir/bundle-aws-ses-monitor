@@ -38,9 +38,6 @@
       <code>$ioWriter</code>
       <code>$skippedIdentities</code>
     </PropertyNotSetInConstructor>
-    <TypeDoesNotContainType occurrences="1">
-      <code>false === $this-&gt;ioWriter-&gt;confirm('Please, confirm you want to force the configuration of live identities at your own risk', false)</code>
-    </TypeDoesNotContainType>
   </file>
   <file src="src/Command/DebugCommand.php">
     <MissingPropertyType occurrences="2">
@@ -763,5 +760,11 @@
     <UnusedVariable occurrences="1">
       <code>$test</code>
     </UnusedVariable>
+  </file>
+  <file src="tests/Util/ConsoleTest.php">
+    <UndefinedClass occurrences="2">
+      <code>SerendipityHQOutputFormatter</code>
+      <code>SerendipityHQStyle</code>
+    </UndefinedClass>
   </file>
 </files>
