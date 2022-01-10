@@ -10,6 +10,7 @@ jobs:
             matrix:
                 os: [ ubuntu-latest ]
                 php: [ '7.4', '8.0', '8.1' ]
+                symfony: [ '~4.4', '~5.4', '~6.0' ]
 
         steps:
             -   name: Checkout
@@ -33,9 +34,18 @@ jobs:
                     path: ${{ steps.composer-cache.outputs.dir }}
                     key: php-composer-dependencies-cache
 
-            -   name: Install Composer deps
+            -   name: Fix Symfony version
                 run: |
-                    composer update --no-interaction
+                    composer req symfony/flex --no-update
+                    composer config extra.symfony.require "${{ matrix.symfony }}"
+
+            -   name: Install Composer deps
+                # Do not install all bin deps, but individually install the required ones
+                # The second update is to make Flex able to do its job
+                run: |
+                    composer update --no-interaction --no-scripts
+                    composer update --no-interaction --no-scripts
+                    composer bin phpunit update
 
             -   name: Run PHPunit
                 run: |
