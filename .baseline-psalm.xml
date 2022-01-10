@@ -761,10 +761,4 @@
       <code>$test</code>
     </UnusedVariable>
   </file>
-  <file src="tests/Util/ConsoleTest.php">
-    <UndefinedClass occurrences="2">
-      <code>SerendipityHQOutputFormatter</code>
-      <code>SerendipityHQStyle</code>
-    </UndefinedClass>
-  </file>
 </files>
