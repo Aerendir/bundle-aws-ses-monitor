@@ -25,15 +25,15 @@ class Complaint
 {
     /** Indicates unsolicited email or some other kind of email abuse.
      * @var string */
-    const TYPE_ABUSE = 'abuse';
+    public const TYPE_ABUSE = 'abuse';
 
     /** Email authentication failure report.
      * @var string */
-    const TYPE_AUTH_FAILURE = 'auth-failure';
+    public const TYPE_AUTH_FAILURE = 'auth-failure';
 
     /** Indicates some kind of fraud or phishing activity.
      * @var string */
-    const TYPE_FRAUD = 'fraud';
+    public const TYPE_FRAUD = 'fraud';
 
     /**
      * Indicates that the entity providing the report does not consider the message to be spam.
@@ -41,15 +41,16 @@ class Complaint
      *
      * @var string
      */
-    const TYPE_NOT_SPAM = 'not-spam';
+    public const TYPE_NOT_SPAM = 'not-spam';
 
     /** Indicates any other feedback that does not fit into other registered types.
      * @var string */
-    const TYPE_OTHER = 'other';
+    public const TYPE_OTHER = 'other';
 
     /** Reports that a virus is found in the originating message.
      * @var string */
-    const TYPE_VIRUS = 'virus';
+    public const TYPE_VIRUS = 'virus';
+
     /**
      * @var string
      */
@@ -86,7 +87,7 @@ class Complaint
      * Note that this is the time at which the notification was sent by the ISP, and not the time at which it was
      * received by Amazon SES.
      *
-     * @var \DateTime
+     * @var \DateTimeInterface
      * @ORM\Column(name="complained_on", type="datetime")
      */
     private $complainedOn;
@@ -124,7 +125,7 @@ class Complaint
      *
      * This field may be absent in the report (and therefore also absent in the JSON).
      *
-     * @var \DateTime|null
+     * @var \DateTimeInterface|null
      * @ORM\Column(name="arrival_date", type="datetime", nullable=true)
      */
     private $arrivalDate;
@@ -184,10 +185,7 @@ class Complaint
         return $this->emailStatus;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getComplainedOn(): \DateTime
+    public function getComplainedOn(): \DateTimeInterface
     {
         return $this->complainedOn;
     }
@@ -216,10 +214,7 @@ class Complaint
         return $this->complaintFeedbackType;
     }
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getArrivalDate(): ?\DateTime
+    public function getArrivalDate(): ?\DateTimeInterface
     {
         return $this->arrivalDate;
     }

@@ -6,7 +6,7 @@
  * after this file is read.
  */
 return [
-    'target_php_version' => '7.3',
+    'target_php_version' => '7.4',
     'minimum_severity' => \Phan\Issue::SEVERITY_LOW,
 
     // A list of directories that should be parsed for class and
@@ -60,7 +60,7 @@ return [
     // directories/files, unanalyzable files, or files that
     // can't be removed for whatever reason.
     // (e.g. '@Test\.php$@', or '@vendor/.*/(tests|Tests)/@')
-    'exclude_file_regex' => '@(^vendor/(jetbrains|vimeo|.*/(tests?|Tests?))/)|(^vendor-bin/phpunit/vendor/bin/\.phpunit)@'
+    'exclude_file_regex' => '@(^vendor/(jetbrains|vimeo|.*/(tests?|Tests?))/)|(^vendor-bin/phpunit/vendor/bin/\.phpunit)|(^src/Kernel\.php)@'
     ,
     'plugins' => [
         'vendor-bin/phan/vendor/drenso/phan-extensions/Plugin/Annotation/SymfonyAnnotationPlugin.php',

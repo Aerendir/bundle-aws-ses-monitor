@@ -23,10 +23,10 @@ final class ComplaintTest extends TestCase
 {
     public function testComplaint(): void
     {
-        $test     = [
-            'email'                 => $this->createMock(EmailStatus::class),
-            'mailMessage'           => $this->createMock(MailMessage::class),
-            'notification'          => [
+        $test = [
+            'email'        => $this->createMock(EmailStatus::class),
+            'mailMessage'  => $this->createMock(MailMessage::class),
+            'notification' => [
                 'complaint' => [
                     'timestamp'             => '2016-08-01 00:00:00',
                     'userAgent'             => 'test-user-agent',

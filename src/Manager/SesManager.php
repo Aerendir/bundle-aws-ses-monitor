@@ -23,7 +23,8 @@ final class SesManager
      * @var string
      */
     private const IDENTITY = 'Identity';
-    /** @var \Aws\Ses\SesClient $client */
+
+    /** @var SesClient $client */
     private $client;
 
     /**
@@ -62,9 +63,9 @@ final class SesManager
     {
         $this->client->setIdentityNotificationTopic(
                 [
-                    self::IDENTITY         => $identity,
-                    'NotificationType'     => $notificationType,
-                    'SnsTopic'             => $topicArn,
+                    self::IDENTITY     => $identity,
+                    'NotificationType' => $notificationType,
+                    'SnsTopic'         => $topicArn,
                 ]
             );
     }
@@ -77,8 +78,8 @@ final class SesManager
     public function configureDkim(string $identity, bool $enabled): void
     {
         $this->client->setIdentityDkimEnabled([
-            self::IDENTITY    => $identity,
-            'DkimEnabled'     => $enabled,
+            self::IDENTITY => $identity,
+            'DkimEnabled'  => $enabled,
         ]);
     }
 
@@ -90,8 +91,8 @@ final class SesManager
     public function configureFeedbackForwarding(string $identity, bool $enabled): void
     {
         $this->client->setIdentityFeedbackForwardingEnabled([
-            self::IDENTITY          => $identity,
-            'ForwardingEnabled'     => $enabled,
+            self::IDENTITY      => $identity,
+            'ForwardingEnabled' => $enabled,
         ]);
     }
 
@@ -104,9 +105,9 @@ final class SesManager
     public function configureFromDomain(string $identity, ?string $domain, string $onMxFailure): void
     {
         $this->client->setIdentityMailFromDomain([
-            self::IDENTITY            => $identity,
-            'BehaviorOnMXFailure'     => $onMxFailure,
-            'MailFromDomain'          => $domain,
+            self::IDENTITY        => $identity,
+            'BehaviorOnMXFailure' => $onMxFailure,
+            'MailFromDomain'      => $domain,
         ]);
     }
 

@@ -11,12 +11,11 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Util;
 
-use SerendipityHQ\Bundle\ConsoleStyles\Console\Formatter\SerendipityHQOutputFormatter;
-use SerendipityHQ\Bundle\ConsoleStyles\Console\Style\SerendipityHQStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\ConsoleSectionOutput;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Manages the compatibility between console 3 and 4.
@@ -37,18 +36,12 @@ final class Console
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     *
-     * @return SerendipityHQStyle
-     *
      * @internal
      */
-    public function createWriter(InputInterface $input, OutputInterface $output): SerendipityHQStyle
+    public function createWriter(InputInterface $input, OutputInterface $output): SymfonyStyle
     {
         // Create the Input/Output writer
-        $ioWriter = new SerendipityHQStyle($input, $output);
-        $ioWriter->setFormatter(new SerendipityHQOutputFormatter(true));
+        $ioWriter = new SymfonyStyle($input, $output);
 
         return $ioWriter;
     }

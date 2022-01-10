@@ -12,6 +12,7 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Util;
 
 use PHPUnit\Framework\TestCase;
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\IdentityGuesser;
 
 /**
@@ -35,8 +36,8 @@ final class IdentityGuesserTest extends TestCase
     {
         $this->productionMailbox = 'hello';
         $this->domainIdentity    = 'serendipityhq.com';
-        $this->testIdentity      = \Safe\sprintf('%s@s%s', IdentityGuesser::TEST_MAILBOX, $this->domainIdentity);
-        $this->emailIdentity     = \Safe\sprintf('%s@%s', $this->productionMailbox, $this->domainIdentity);
+        $this->testIdentity      = sprintf('%s@s%s', IdentityGuesser::TEST_MAILBOX, $this->domainIdentity);
+        $this->emailIdentity     = sprintf('%s@%s', $this->productionMailbox, $this->domainIdentity);
     }
 
     public function testGetEmailParts(): void

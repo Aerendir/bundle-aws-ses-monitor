@@ -45,7 +45,7 @@ class MailMessage
      *
      * Formerly "timestamp".
      *
-     * @var \DateTime
+     * @var \DateTimeInterface
      * @ORM\Column(name="sent_on", type="datetime")
      */
     private $sentOn;
@@ -132,9 +132,9 @@ class MailMessage
      */
     public function __construct()
     {
-        $this->bounces      = new ArrayCollection();
-        $this->complaints   = new ArrayCollection();
-        $this->deliveries   = new ArrayCollection();
+        $this->bounces    = new ArrayCollection();
+        $this->complaints = new ArrayCollection();
+        $this->deliveries = new ArrayCollection();
     }
 
     /**
@@ -224,10 +224,7 @@ class MailMessage
         return $this->messageId;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getSentOn(): \DateTime
+    public function getSentOn(): \DateTimeInterface
     {
         return $this->sentOn;
     }

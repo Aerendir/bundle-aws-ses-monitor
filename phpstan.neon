@@ -15,5 +15,20 @@ parameters:
     paths:
         - src
         - tests
-    excludes_analyse:
+    excludePaths:
         - */src/DependencyInjection/Configuration.php
+        - */src/Kernel.php
+        - */src/Util/Console.php
+        - */src/Processor/RequestProcessor.php
+        - */src/Processor/AwsDataProcessor.php
+        - */src/Controller/EndpointController.php
+        - */src/Manager/SesManager.php
+        - */src/Manager/SnsManager.php
+        - */src/SHQAwsSesMonitorBundle.php
+        - */src/Command/ConfigureCommand.php
+        - */src/Command/DebugCommand.php
+        - */src/Service/Monitor.php
+        - */src/DependencyInjection/SHQAwsSesMonitorExtension.php
+        - */tests/Util/ConsoleTest.php
+        - */tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php
+        - */tests/DependencyInjection/YamlAwsSesMonitorBundleExtensionTest.php

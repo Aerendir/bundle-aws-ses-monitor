@@ -27,6 +27,7 @@ class Delivery
      * @var string
      */
     private const DELIVERY = 'delivery';
+
     /**
      * @var int
      * @ORM\Column(name="id", type="integer", unique=true)
@@ -54,7 +55,7 @@ class Delivery
     /**
      * The time Amazon SES delivered the email to the recipient's mail server (in ISO8601 format).
      *
-     * @var \DateTime
+     * @var \DateTimeInterface
      * @ORM\Column(name="delivered_on", type="datetime")
      */
     private $deliveredOn;
@@ -134,10 +135,7 @@ class Delivery
         return $this->mailMessage;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getDeliveredOn(): \DateTime
+    public function getDeliveredOn(): \DateTimeInterface
     {
         return $this->deliveredOn;
     }

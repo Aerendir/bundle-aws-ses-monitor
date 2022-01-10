@@ -20,7 +20,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Topic;
 final class TopicTest extends TestCase
 {
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private const TEST = [
         'name' => 'TestTopic',

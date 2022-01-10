@@ -11,7 +11,9 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 
+use function Safe\sprintf;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
@@ -35,7 +37,9 @@ final class SesSendTestEmailsCommand extends Command
         'complaint@simulator.amazonses.com',
         'suppressionlist@simulator.amazonses.com',
     ];
+
     protected static $defaultName = 'aws:ses:monitor:test:swiftmailer';
+
     /** @var \Swift_Mailer $mailer */
     private $mailer;
 
@@ -69,12 +73,18 @@ final class SesSendTestEmailsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $question    = new Question('<question>Please, enter the from email address to use:</question>');
-        $fromAddress = $this->getHelper('question')->ask($input, $output, $question);
+        $question = new Question('<question>Please, enter the from email address to use:</question>');
+        $ask      = $this->getHelper('question');
+
+        if (false === $ask instanceof QuestionHelper) {
+            throw new \RuntimeException('The $ask object is not of type QuestionHelper');
+        }
+
+        $fromAddress = $ask->ask($input, $output, $question);
         $sents       = [];
         foreach (self::EMAIL_ADDRESSES as $toAddress) {
             $message = $this->createMessage($fromAddress, $toAddress);
-            $output->writeln(\Safe\sprintf('<info>Sending an email from <comment>%s</comment> to <comment>%s</comment></info>', $fromAddress, $toAddress));
+            $output->writeln(sprintf('<info>Sending an email from <comment>%s</comment> to <comment>%s</comment></info>', $fromAddress, $toAddress));
             $result = $this->mailer->send($message);
 
             $tag           = 'fg=green';
@@ -89,6 +99,7 @@ final class SesSendTestEmailsCommand extends Command
 
             $sents[] = '<' . $tag . '>' . $outputMessage . '</>';
         }
+
         foreach ($sents as $sent) {
             $output->writeln($sent);
         }

@@ -19,25 +19,30 @@ final class SnsTypes
     /**
      * @var string
      */
-    const HEADER_TYPE_NOTIFICATION          = 'Notification';
+    public const HEADER_TYPE_NOTIFICATION = 'Notification';
+
     /**
      * @var string
      */
-    const HEADER_TYPE_CONFIRM_SUBSCRIPTION  = 'SubscriptionConfirmation';
+    public const HEADER_TYPE_CONFIRM_SUBSCRIPTION = 'SubscriptionConfirmation';
+
     /**
      * @var string
      */
-    const MESSAGE_TYPE_SUBSCRIPTION_SUCCESS = 'AmazonSnsSubscriptionSucceeded';
+    public const MESSAGE_TYPE_SUBSCRIPTION_SUCCESS = 'AmazonSnsSubscriptionSucceeded';
+
     /**
      * @var string
      */
-    const MESSAGE_TYPE_BOUNCE               = 'Bounce';
+    public const MESSAGE_TYPE_BOUNCE = 'Bounce';
+
     /**
      * @var string
      */
-    const MESSAGE_TYPE_COMPLAINT            = 'Complaint';
+    public const MESSAGE_TYPE_COMPLAINT = 'Complaint';
+
     /**
      * @var string
      */
-    const MESSAGE_TYPE_DELIVERY             = 'Delivery';
+    public const MESSAGE_TYPE_DELIVERY = 'Delivery';
 }

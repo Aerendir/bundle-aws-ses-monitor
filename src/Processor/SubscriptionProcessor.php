@@ -57,10 +57,9 @@ final class SubscriptionProcessor
             return new Response('The message is invalid.', 403);
         }
 
-        /** @var Topic|null $topic */
         $topic = $this->entityManager->getRepository(Topic::class)->findOneBy(['arn' => $message->offsetGet('TopicArn')]);
 
-        if (null === $topic) {
+        if ( ! $topic instanceof Topic) {
             return new Response('Topic not found', 404);
         }
 

@@ -13,6 +13,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Helper;
 
 use Aws\Sns\Message;
 use Aws\Sns\MessageValidator;
+use function Safe\json_decode;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -44,7 +45,7 @@ final class MessageHelper
     {
         /** @var string $content */
         $content = $request->getContent();
-        $data    = \Safe\json_decode($content, true);
+        $data    = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
 
         return new Message($data);
     }
@@ -70,6 +71,6 @@ final class MessageHelper
      */
     public function extractMessageData(Message $message): array
     {
-        return \Safe\json_decode($message->offsetGet('Message'), true);
+        return json_decode($message->offsetGet('Message'), true, 512, JSON_THROW_ON_ERROR);
     }
 }

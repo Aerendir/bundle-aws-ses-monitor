@@ -25,47 +25,56 @@ class Bounce
 {
     /** Hard bounces and subtypes.
      * @var string */
-    const TYPE_PERMANENT       = 'Permanent';
+    public const TYPE_PERMANENT = 'Permanent';
+
     /**
      * @var string
      */
-    const TYPE_PERM_GENERAL    = 'General';
+    public const TYPE_PERM_GENERAL = 'General';
+
     /**
      * @var string
      */
-    const TYPE_PERM_NOEMAIL    = 'NoEmail';
+    public const TYPE_PERM_NOEMAIL = 'NoEmail';
+
     /**
      * @var string
      */
-    const TYPE_PERM_SUPPRESSED = 'Suppressed';
+    public const TYPE_PERM_SUPPRESSED = 'Suppressed';
 
     /** Soft bunces and subtypes.
      * @var string */
-    const TYPE_TRANSIENT            = 'Transient';
+    public const TYPE_TRANSIENT = 'Transient';
+
     /**
      * @var string
      */
-    const TYPE_TRANS_GENERAL        = 'General';
+    public const TYPE_TRANS_GENERAL = 'General';
+
     /**
      * @var string
      */
-    const TYPE_TRANS_BOXFULL        = 'MailboxFull';
+    public const TYPE_TRANS_BOXFULL = 'MailboxFull';
+
     /**
      * @var string
      */
-    const TYPE_TRANS_TOOLARGE       = 'MessageTooLarge';
+    public const TYPE_TRANS_TOOLARGE = 'MessageTooLarge';
+
     /**
      * @var string
      */
-    const TYPE_TRANS_CONTREJECTED   = 'ContentRejected';
+    public const TYPE_TRANS_CONTREJECTED = 'ContentRejected';
+
     /**
      * @var string
      */
-    const TYPE_TRANS_ATTACHREJECTED = 'AttachmentRejected';
+    public const TYPE_TRANS_ATTACHREJECTED = 'AttachmentRejected';
 
     /** Undetermined bounces.
      * @var string */
-    const TYPE_UNDETERMINED = 'Undetermined';
+    public const TYPE_UNDETERMINED = 'Undetermined';
+
     /**
      * @var string
      */
@@ -103,7 +112,7 @@ class Bounce
      * Note that this is the time at which the notification was sent by the ISP, and not the time at which it was
      * received by Amazon SES.
      *
-     * @var \DateTime
+     * @var \DateTimeInterface
      * @ORM\Column(name="bounced_on", type="datetime")
      */
     private $bouncedOn;
@@ -225,89 +234,56 @@ class Bounce
         return $this->emailStatus;
     }
 
-    /**
-     * @return MailMessage
-     */
     public function getMailMessage(): MailMessage
     {
         return $this->mailMessage;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getBouncedOn(): \DateTime
+    public function getBouncedOn(): \DateTimeInterface
     {
         return $this->bouncedOn;
     }
 
-    /**
-     * @return string
-     */
     public function getFeedbackId(): string
     {
         return $this->feedbackId;
     }
 
-    /**
-     * @return string|null
-     */
     public function getReportingMta(): ?string
     {
         return $this->reportingMta;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAction(): ?string
     {
         return $this->action;
     }
 
-    /**
-     * @return string|null
-     */
     public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDiagnosticCode(): ?string
     {
         return $this->diagnosticCode;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return string
-     */
     public function getSubType(): string
     {
         return $this->subType;
     }
 
-    /**
-     * @return bool
-     */
     public function isPermanent(): bool
     {
         return self::TYPE_PERMANENT === $this->type;
     }
 
-    /**
-     * @param EmailStatus $emailStatus
-     */
     private function setEmailStatus(EmailStatus $emailStatus): self
     {
         $this->emailStatus = $emailStatus;
@@ -316,9 +292,6 @@ class Bounce
         return $this;
     }
 
-    /**
-     * @param string $type
-     */
     private function setType(string $type): self
     {
         $this->type = $type;
@@ -326,9 +299,6 @@ class Bounce
         return $this;
     }
 
-    /**
-     * @param string $subType
-     */
     private function setSubType(string $subType): self
     {
         $this->subType = $subType;
@@ -336,9 +306,6 @@ class Bounce
         return $this;
     }
 
-    /**
-     * @param string $feedbackId
-     */
     private function setFeedbackId(string $feedbackId): self
     {
         $this->feedbackId = $feedbackId;
@@ -346,9 +313,6 @@ class Bounce
         return $this;
     }
 
-    /**
-     * @param string $reportingMta
-     */
     private function setReportingMta(string $reportingMta): self
     {
         $this->reportingMta = $reportingMta;
@@ -356,9 +320,6 @@ class Bounce
         return $this;
     }
 
-    /**
-     * @param string $action
-     */
     private function setAction(string $action): self
     {
         $this->action = $action;
@@ -366,9 +327,6 @@ class Bounce
         return $this;
     }
 
-    /**
-     * @param string $status
-     */
     private function setStatus(string $status): self
     {
         $this->status = $status;
@@ -376,9 +334,6 @@ class Bounce
         return $this;
     }
 
-    /**
-     * @param string $diagnosticCode
-     */
     private function setDiagnosticCode(string $diagnosticCode): self
     {
         $this->diagnosticCode = $diagnosticCode;
@@ -386,9 +341,6 @@ class Bounce
         return $this;
     }
 
-    /**
-     * @param \DateTimeInterface $bouncedOn
-     */
     private function setBouncedOn(\DateTimeInterface $bouncedOn): self
     {
         $this->bouncedOn = $bouncedOn;
@@ -396,9 +348,6 @@ class Bounce
         return $this;
     }
 
-    /**
-     * @param MailMessage $mailMessage
-     */
     private function setMailMessage(MailMessage $mailMessage): self
     {
         $this->mailMessage = $mailMessage;

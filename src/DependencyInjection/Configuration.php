@@ -11,6 +11,7 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection;
 
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\IdentityGuesser;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
@@ -26,35 +27,43 @@ final class Configuration implements ConfigurationInterface
     /**
      * @var string
      */
-    const USE_DOMAIN = 'use_domain';
+    public const USE_DOMAIN = 'use_domain';
+
     /**
      * @var string
      */
     private const BOUNCES = 'bounces';
+
     /**
      * @var string
      */
     private const TRACK = 'track';
+
     /**
      * @var string
      */
     private const TOPIC = 'topic';
+
     /**
      * @var string
      */
     private const FOREVER = 'forever';
+
     /**
      * @var string
      */
     private const COMPLAINTS = 'complaints';
+
     /**
      * @var string
      */
     private const DELIVERIES = 'deliveries';
+
     /**
      * @var string
      */
     private const IDENTITIES = 'identities';
+
     /**
      * @var string
      */
@@ -102,10 +111,10 @@ final class Configuration implements ConfigurationInterface
                     ->end()->end()
                 ->end()
                 ->validate()
-                    ->ifTrue(function (array $tree) {
+                    ->ifTrue(function (array $tree): bool {
                         return $this->validateConfiguration($tree);
                     })
-                    ->then(function (array $tree) {
+                    ->then(function (array $tree): array {
                         return $this->prepareConfiguration($tree);
                     })
                 ->end();
@@ -235,7 +244,7 @@ final class Configuration implements ConfigurationInterface
 
         // If tracking is disabled but the topic name is passed anyway...
         if (false === $track && null !== $topic) {
-            throw new InvalidConfigurationException(\Safe\sprintf('You have not enabled the tracking of "%s" for identity "%s" but you have anyway set the name of its topic. Either remove the name of the topic at path "shq_aws_ses_monitor.identities.%s.%s.topic" or enabled the tracking setting "shq_aws_ses_monitor.identities.%s.%s.track" to "true".', $type, $identity, $identity, $type, $identity, $type));
+            throw new InvalidConfigurationException(sprintf('You have not enabled the tracking of "%s" for identity "%s" but you have anyway set the name of its topic. Either remove the name of the topic at path "shq_aws_ses_monitor.identities.%s.%s.topic" or enabled the tracking setting "shq_aws_ses_monitor.identities.%s.%s.track" to "true".', $type, $identity, $identity, $type, $identity, $type));
         }
 
         if (null !== $topic) {
@@ -251,15 +260,15 @@ final class Configuration implements ConfigurationInterface
      */
     private function validateTopic(string $identity, string $type, string $topic, array $identities): void
     {
-        $currentPath      = \Safe\sprintf('shq_aws_ses_monitor.identities.%s.%s.topic', $identity, $type);
-        $checkCurrentPath = \Safe\sprintf('Check the configuration at path "%s".', $currentPath);
+        $currentPath      = sprintf('shq_aws_ses_monitor.identities.%s.%s.topic', $identity, $type);
+        $checkCurrentPath = sprintf('Check the configuration at path "%s".', $currentPath);
         $wantsToUseDomain = self::USE_DOMAIN === $topic;
 
         // If the identity isn't an email...
         if (false === $this->identityGuesser->isEmailIdentity($identity)) {
             // It is almost sure a domain: a domain cannot set the "use_domain" value for topic
             if ($wantsToUseDomain) {
-                throw new InvalidConfigurationException(\Safe\sprintf('The identity "%s" is not an email. The value "%s" can be used only with email identities. %s', $identity, self::USE_DOMAIN, $checkCurrentPath));
+                throw new InvalidConfigurationException(sprintf('The identity "%s" is not an email. The value "%s" can be used only with email identities. %s', $identity, self::USE_DOMAIN, $checkCurrentPath));
             }
 
             // Is not an email and doesn't want to use the value "use_domain": we can exit the checks
@@ -271,13 +280,13 @@ final class Configuration implements ConfigurationInterface
 
         // Check if the Domain identity was configured
         if (false === \array_key_exists($parts[self::DOMAIN], $identities)) {
-            throw new InvalidConfigurationException(\Safe\sprintf('The domain "%s" of the email identity "%s" is NOT explicitly configured. You need to explicitly configure the domain identity "%s" to use its topic for the email identity "%s". %s', $parts[self::DOMAIN], $identity, $parts[self::DOMAIN], $identity, $checkCurrentPath));
+            throw new InvalidConfigurationException(sprintf('The domain "%s" of the email identity "%s" is NOT explicitly configured. You need to explicitly configure the domain identity "%s" to use its topic for the email identity "%s". %s', $parts[self::DOMAIN], $identity, $parts[self::DOMAIN], $identity, $checkCurrentPath));
         }
 
         // Check if the mailbox is a test one
         if ($this->identityGuesser->isTestEmail($parts['mailbox'])) {
             if ($wantsToUseDomain) {
-                throw new InvalidConfigurationException(\Safe\sprintf('The email identity "%s" is for testing on development machines purposes only. You cannot set it to use the domain\'s topic that has to be used only in production. %s', $identity, $identity, $type, $checkCurrentPath));
+                throw new InvalidConfigurationException(sprintf('The email identity "%s" is for testing on development machines purposes only. You cannot set it to use the domain\'s topic that has to be used only in production. %s', $identity, $identity, $type, $checkCurrentPath));
             }
 
             // Check the topic used for this test email is not set for production identities
@@ -286,21 +295,25 @@ final class Configuration implements ConfigurationInterface
                 if (false === $this->identityGuesser->isProductionIdentity($otherIdentity)) {
                     continue;
                 }
+
                 if ($otherConfig['bunces'][self::TOPIC] === $topic) {
-                    $bouncesPath = \Safe\sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity);
-                    throw new InvalidConfigurationException(\Safe\sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $bouncesPath));
+                    $bouncesPath = sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity);
+
+                    throw new InvalidConfigurationException(sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $bouncesPath));
                 }
 
                 // It is a production identity: check the topics are not the same of this one
                 if ($otherConfig[self::COMPLAINTS][self::TOPIC] === $topic) {
-                    $complaintsPath = \Safe\sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity);
-                    throw new InvalidConfigurationException(\Safe\sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $complaintsPath));
+                    $complaintsPath = sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity);
+
+                    throw new InvalidConfigurationException(sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $complaintsPath));
                 }
 
                 // It is a production identity: check the topics are not the same of this one
                 if ($otherConfig[self::DELIVERIES][self::TOPIC] === $topic) {
-                    $deliveriesPath = \Safe\sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity);
-                    throw new InvalidConfigurationException(\Safe\sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $deliveriesPath));
+                    $deliveriesPath = sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity);
+
+                    throw new InvalidConfigurationException(sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $deliveriesPath));
                 }
             }
         }
@@ -366,8 +379,8 @@ final class Configuration implements ConfigurationInterface
      */
     private function generateTopicName(string $host, string $identity, string $type): string
     {
-        $env       = \strstr($identity, 'test') ? 'dev' : 'prod';
+        $env = \strstr($identity, 'test') ? 'dev' : 'prod';
 
-        return \Safe\sprintf('%s-%s-ses-%s-%s', $host, $identity, $env, $type);
+        return sprintf('%s-%s-ses-%s-%s', $host, $identity, $env, $type);
     }
 }

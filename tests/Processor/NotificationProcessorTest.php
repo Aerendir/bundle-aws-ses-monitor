@@ -53,11 +53,11 @@ final class NotificationProcessorTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->bounceNotificationHandler   = $this->createMock(BounceNotificationHandler::class);
-        $this->complaintNotificationHandler= $this->createMock(ComplaintNotificationHandler::class);
-        $this->deliveryNotificationHandler = $this->createMock(DeliveryNotificationHandler::class);
-        $this->mockEntityManager           = $this->createMock(EntityManagerInterface::class);
-        $this->mockMessageHelper           = $this->createMock(MessageHelper::class);
+        $this->bounceNotificationHandler    = $this->createMock(BounceNotificationHandler::class);
+        $this->complaintNotificationHandler = $this->createMock(ComplaintNotificationHandler::class);
+        $this->deliveryNotificationHandler  = $this->createMock(DeliveryNotificationHandler::class);
+        $this->mockEntityManager            = $this->createMock(EntityManagerInterface::class);
+        $this->mockMessageHelper            = $this->createMock(MessageHelper::class);
 
         $this->notificationProcessor = new NotificationProcessor(
             $this->bounceNotificationHandler,
@@ -185,12 +185,15 @@ final class NotificationProcessorTest extends TestCase
         switch ($messageType) {
             case SnsTypes::MESSAGE_TYPE_BOUNCE:
                 $this->bounceNotificationHandler->expects(self::exactly(1))->method('processNotification')->willReturn($mockResponse);
+
                 break;
             case SnsTypes::MESSAGE_TYPE_COMPLAINT:
                 $this->complaintNotificationHandler->expects(self::exactly(1))->method('processNotification')->willReturn($mockResponse);
+
                 break;
             case SnsTypes::MESSAGE_TYPE_DELIVERY:
                 $this->deliveryNotificationHandler->expects(self::exactly(1))->method('processNotification')->willReturn($mockResponse);
+
                 break;
         }
 

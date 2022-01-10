@@ -39,7 +39,7 @@ final class SesSendTestEmailsCommandTest extends TestCase
         $commandTester = new CommandTester($command);
         $commandTester->setInputs(['test@example.com']);
 
-        $commandTester->execute(['command'  => $command->getName()]);
+        $commandTester->execute(['command' => $command->getName()]);
 
         // the output of the command in the console
         $output = $commandTester->getDisplay();

@@ -30,6 +30,7 @@ final class NotificationProcessor
      * @var string
      */
     private const NOTIFICATION_TYPE = 'notificationType';
+
     /** @var BounceNotificationHandler $bounceNotificationHandler */
     private $bounceNotificationHandler;
 
@@ -59,11 +60,11 @@ final class NotificationProcessor
         EntityManagerInterface $entityManager,
         MessageHelper $messageHelper
     ) {
-        $this->bounceNotificationHandler       = $bounceNotificationHandler;
-        $this->complaintNotificationHandler    = $complaintNotificationHandler;
-        $this->deliveryNotificationHandler     = $deliveryNotificationHandler;
-        $this->entityManager                   = $entityManager;
-        $this->messageHelper                   = $messageHelper;
+        $this->bounceNotificationHandler    = $bounceNotificationHandler;
+        $this->complaintNotificationHandler = $complaintNotificationHandler;
+        $this->deliveryNotificationHandler  = $deliveryNotificationHandler;
+        $this->entityManager                = $entityManager;
+        $this->messageHelper                = $messageHelper;
     }
 
     /**

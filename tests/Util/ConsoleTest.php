@@ -13,13 +13,12 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Util;
 
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\Console;
-use SerendipityHQ\Bundle\ConsoleStyles\Console\Formatter\SerendipityHQOutputFormatter;
-use SerendipityHQ\Bundle\ConsoleStyles\Console\Style\SerendipityHQStyle;
+use Symfony\Component\Console\Formatter\OutputFormatterInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\ConsoleSectionOutput;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * {@inheritdoc}
@@ -31,22 +30,17 @@ final class ConsoleTest extends TestCase
         $resource            = new Console();
         $mockInputInterface  = $this->createMock(InputInterface::class);
         $mockOutputInterface = $this->createMock(OutputInterface::class);
-        $mockFormatter       = $this->createMock(SerendipityHQOutputFormatter::class);
-        $mockOutputInterface->method('getFormatter')->willReturn($mockFormatter);
+
+        $mockFormatter = $this->createMock(OutputFormatterInterface::class);
+        $mockOutputInterface->expects(self::once())->method('getFormatter')->willReturn($mockFormatter);
 
         $result = $resource->createWriter($mockInputInterface, $mockOutputInterface);
 
-        self::assertInstanceOf(SerendipityHQStyle::class, $result);
+        self::assertInstanceOf(SymfonyStyle::class, $result);
     }
 
-    public function testCreateSection4(): void
+    public function testCreateSection(): void
     {
-        if (Kernel::MAJOR_VERSION < 4) {
-            self::markTestSkipped('To run only on SF4');
-
-            return;
-        }
-
         $resource            = new Console();
         $mockOutputInterface = $this->createMock(ConsoleOutput::class);
 
@@ -56,25 +50,8 @@ final class ConsoleTest extends TestCase
         self::assertInstanceOf(ConsoleSectionOutput::class, $result);
     }
 
-    public function testCreateSection3(): void
+    public function testOverwrite(): void
     {
-        $resource            = new Console();
-        $mockOutputInterface = $this->createMock(ConsoleSectionOutput::class);
-
-        // The mocked OutputInterface doesn't have the "::section()" method
-        $result = $resource->createSection($mockOutputInterface);
-
-        self::assertSame($mockOutputInterface, $result);
-    }
-
-    public function testOverwrite4(): void
-    {
-        if (Kernel::MAJOR_VERSION < 4) {
-            self::markTestSkipped('To run only on SF4');
-
-            return;
-        }
-
         $resource            = new Console();
         $mockOutputInterface = $this->createMock(ConsoleSectionOutput::class);
         $testString          = 'Serendipity HQ is very awesome!';
@@ -85,25 +62,8 @@ final class ConsoleTest extends TestCase
         $resource->overwrite($testString, $mockOutputInterface);
     }
 
-    public function testOverwrite3(): void
+    public function testClear(): void
     {
-        $resource            = new Console();
-        $mockOutputInterface = $this->createMock(OutputInterface::class);
-        $testString          = 'Serendipity HQ is very awesome!';
-
-        $mockOutputInterface->expects(self::once())->method('writeln')->with($testString);
-
-        $resource->overwrite($testString, $mockOutputInterface);
-    }
-
-    public function testClear4(): void
-    {
-        if (Kernel::MAJOR_VERSION < 4) {
-            self::markTestSkipped('To run only on SF4');
-
-            return;
-        }
-
         $resource            = new Console();
         $mockOutputInterface = $this->createMock(ConsoleSectionOutput::class);
 
@@ -112,24 +72,8 @@ final class ConsoleTest extends TestCase
         $resource->clear($mockOutputInterface);
     }
 
-    public function testClear3(): void
+    public function testEnableFullLog(): void
     {
-        $resource            = new Console();
-        $mockOutputInterface = $this->createMock(OutputInterface::class);
-
-        $mockOutputInterface->expects(self::never())->method(self::anything());
-
-        $resource->clear($mockOutputInterface);
-    }
-
-    public function testEnableFullLog4(): void
-    {
-        if (Kernel::MAJOR_VERSION < 4) {
-            self::markTestSkipped('To run only on SF4');
-
-            return;
-        }
-
         $resource            = new Console();
         $mockOutputInterface = $this->createMock(ConsoleSectionOutput::class);
         $testString          = 'Serendipity HQ is very awesome!';

@@ -27,14 +27,15 @@ use Symfony\Component\Routing\RouterInterface;
 final class SnsManagerTest extends TestCase
 {
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private const TEST_ENDPOINT_CONFIG = [
         'scheme' => 'https',
         'host'   => 'serendipityhq.com',
     ];
+
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private const TEST = [
         'name' => 'topic-name',
@@ -63,7 +64,7 @@ final class SnsManagerTest extends TestCase
 
     public function testGetClient(): void
     {
-        $mockClient  = $this->createMock(SnsClient::class);
+        $mockClient = $this->createMock(SnsClient::class);
 
         new SnsManager(self::TEST_ENDPOINT_CONFIG, $mockClient, $this->createMockRouter());
     }
