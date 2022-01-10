@@ -46,7 +46,7 @@ jobs:
                     sed -i 's+/home/runner/work/bundle-stripe/bundle-stripe+/github/workspace+g' ./var/coverage/clover.xml
 
             -   name: Sonarcloud
-                if: github.ref == 'refs/heads/dev'
+                github.ref == 'refs/heads/dev' && matrix.php == '8.1' && matrix.symfony == '~6.0'
                 uses: sonarsource/sonarcloud-github-action@master
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
