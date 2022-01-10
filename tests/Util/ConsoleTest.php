@@ -13,12 +13,11 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Util;
 
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\Console;
-use SerendipityHQ\Bundle\ConsoleStyles\Console\Formatter\SerendipityHQOutputFormatter;
-use SerendipityHQ\Bundle\ConsoleStyles\Console\Style\SerendipityHQStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\ConsoleSectionOutput;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\HttpKernel\Kernel;
 
 /**
@@ -31,12 +30,10 @@ final class ConsoleTest extends TestCase
         $resource            = new Console();
         $mockInputInterface  = $this->createMock(InputInterface::class);
         $mockOutputInterface = $this->createMock(OutputInterface::class);
-        $mockFormatter       = $this->createMock(SerendipityHQOutputFormatter::class);
-        $mockOutputInterface->method('getFormatter')->willReturn($mockFormatter);
 
         $result = $resource->createWriter($mockInputInterface, $mockOutputInterface);
 
-        self::assertInstanceOf(SerendipityHQStyle::class, $result);
+        self::assertInstanceOf(SymfonyStyle::class, $result);
     }
 
     public function testCreateSection4(): void
