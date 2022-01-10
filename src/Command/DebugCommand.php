@@ -11,6 +11,7 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor\AwsDataProcessor;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\Monitor;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\Console;
@@ -144,7 +145,7 @@ final class DebugCommand extends Command
         $results = [];
 
         foreach ($this->monitor->getConfiguredIdentitiesList(true)['allowed'] as $identity) {
-            $this->console->overwrite(\Safe\sprintf('Validating identity <comment>%s</comment>', $identity), $this->sectionBody);
+            $this->console->overwrite(sprintf('Validating identity <comment>%s</comment>', $identity), $this->sectionBody);
 
             // Does the identity exists on AWS?
             $results[$identity][] = ['   Created on AWS', $this->monitor->liveIdentityExists($identity) ? self::THICK : self::CROSS];

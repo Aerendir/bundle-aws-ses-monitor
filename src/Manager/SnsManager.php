@@ -23,7 +23,7 @@ final class SnsManager
     /** @var array $endpointConfig */
     private $endpointConfig;
 
-    /** @var \Aws\Sns\SnsClient $client */
+    /** @var SnsClient $client */
     private $client;
 
     /** @var RouterInterface $router */

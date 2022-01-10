@@ -11,6 +11,7 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection;
 
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin\MonitorFilterPlugin;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -45,7 +46,7 @@ final class SHQAwsSesMonitorExtension extends Extension
             $mailers = $config['mailers'];
             $filter  = $container->getDefinition(MonitorFilterPlugin::class);
             foreach ($mailers as $mailer) {
-                $filter->addTag(\Safe\sprintf('swiftmailer.%s.plugin', $mailer));
+                $filter->addTag(sprintf('swiftmailer.%s.plugin', $mailer));
             }
         }
     }

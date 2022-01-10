@@ -248,7 +248,7 @@
       <code>array</code>
     </MixedInferredReturnType>
     <MixedReturnStatement occurrences="1">
-      <code>\Safe\json_decode($message-&gt;offsetGet('Message'), true)</code>
+      <code>json_decode($message-&gt;offsetGet('Message'), true, 512, JSON_THROW_ON_ERROR)</code>
     </MixedReturnStatement>
   </file>
   <file src="src/Manager/EmailStatusManager.php">

@@ -11,6 +11,8 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Util;
 
+use function Safe\sprintf;
+
 /**
  * Provides some static methods to better understand
  * the nature of a configured identity.
@@ -40,7 +42,7 @@ final class IdentityGuesser
         // Here we explicitly check for email as this way it intercepts also wrong
         // $identities like, for example, "an_identity" that is not an email not a domain
         if (false === $this->isEmailIdentity($identity)) {
-            throw new \InvalidArgumentException(\Safe\sprintf('The value "%s" is not an Email identity.', $identity));
+            throw new \InvalidArgumentException(sprintf('The value "%s" is not an Email identity.', $identity));
         }
 
         $parts = \explode('@', $identity);

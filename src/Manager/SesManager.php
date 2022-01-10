@@ -24,7 +24,7 @@ final class SesManager
      */
     private const IDENTITY = 'Identity';
 
-    /** @var \Aws\Ses\SesClient $client */
+    /** @var SesClient $client */
     private $client;
 
     /**

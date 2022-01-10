@@ -59,7 +59,7 @@ final class SubscriptionProcessor
 
         $topic = $this->entityManager->getRepository(Topic::class)->findOneBy(['arn' => $message->offsetGet('TopicArn')]);
 
-        if ( ! $topic instanceof \SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Topic) {
+        if ( ! $topic instanceof Topic) {
             return new Response('Topic not found', 404);
         }
 

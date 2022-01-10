@@ -11,6 +11,7 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 
+use function Safe\sprintf;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
@@ -83,7 +84,7 @@ final class SesSendTestEmailsCommand extends Command
         $sents       = [];
         foreach (self::EMAIL_ADDRESSES as $toAddress) {
             $message = $this->createMessage($fromAddress, $toAddress);
-            $output->writeln(\Safe\sprintf('<info>Sending an email from <comment>%s</comment> to <comment>%s</comment></info>', $fromAddress, $toAddress));
+            $output->writeln(sprintf('<info>Sending an email from <comment>%s</comment> to <comment>%s</comment></info>', $fromAddress, $toAddress));
             $result = $this->mailer->send($message);
 
             $tag           = 'fg=green';

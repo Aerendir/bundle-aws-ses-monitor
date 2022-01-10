@@ -13,6 +13,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
 
 use Aws\Ses\SesClient;
 use Aws\Sns\SnsClient;
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection\Configuration;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor\AwsDataProcessor;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\Console;
@@ -183,8 +184,8 @@ final class Monitor
         // If the identity is not explicitly configured (the Email one or its Domain)
         if (false === $this->configuredIdentities->identityExists($searchingIdentity)) {
             $message = $this->getIdentityGuesser()->isEmailIdentity($identity)
-                ? \Safe\sprintf('The Email Identity "%s" nor its Domain identity are configured.', $identity)
-                : \Safe\sprintf('The Domain Identity "%s" is not configured.', $identity);
+                ? sprintf('The Email Identity "%s" nor its Domain identity are configured.', $identity)
+                : sprintf('The Domain Identity "%s" is not configured.', $identity);
 
             throw new \InvalidArgumentException($message);
         }
@@ -641,7 +642,7 @@ final class Monitor
                 continue;
             }
 
-            $this->console->overwrite(\Safe\sprintf('   Retrieving attributes for subscription <comment>%s</comment>', $subscription[self::SUBSCRIPTION_ARN]), $this->sectionBody);
+            $this->console->overwrite(sprintf('   Retrieving attributes for subscription <comment>%s</comment>', $subscription[self::SUBSCRIPTION_ARN]), $this->sectionBody);
 
             try {
                 $subscriptionAttributes = $this->snsClient->getSubscriptionAttributes([self::SUBSCRIPTION_ARN => $subscription[self::SUBSCRIPTION_ARN]]);
@@ -680,7 +681,7 @@ final class Monitor
         $this->awsDataProcessor->processTopics($topics);
 
         foreach ($topics->get('Topics') as $topic) {
-            $this->console->overwrite(\Safe\sprintf('   Retrieving attributes for topic <comment>%s</comment>', $topic[self::TOPIC_ARN]), $this->sectionBody);
+            $this->console->overwrite(sprintf('   Retrieving attributes for topic <comment>%s</comment>', $topic[self::TOPIC_ARN]), $this->sectionBody);
             //try {
             $topicAttributes = $this->snsClient->getTopicAttributes([self::TOPIC_ARN => $topic[self::TOPIC_ARN]]);
             $this->awsDataProcessor->processTopicAttributes($topicAttributes);

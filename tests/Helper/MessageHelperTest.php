@@ -11,6 +11,7 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Helper;
 
+use Aws\Sns\Message;
 use Aws\Sns\MessageValidator;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -43,7 +44,7 @@ final class MessageHelperTest extends TestCase
     /**
      * Tests the creation of a Message from the Request.
      */
-    public function testMessageHelper(): \Aws\Sns\Message
+    public function testMessageHelper(): Message
     {
         $expected = [
             'Type'             => 'Notification',
