@@ -44,9 +44,6 @@
       <code>$sectionBody</code>
       <code>$sectionTitle</code>
     </MissingPropertyType>
-    <MoreSpecificImplementedParamType occurrences="1">
-      <code>$output</code>
-    </MoreSpecificImplementedParamType>
   </file>
   <file src="src/DependencyInjection/Configuration.php">
     <MissingConstructor occurrences="1">
