@@ -80,7 +80,7 @@ final class DebugCommand extends Command
     /**
      * {@inheritdoc}
      *
-     * @param ConsoleOutput&OutputInterface $output
+     * @param ConsoleOutput|OutputInterface $output
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
