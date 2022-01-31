@@ -13,7 +13,6 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection;
 
 use function Safe\sprintf;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\IdentityGuesser;
-use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -122,9 +121,6 @@ final class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
-    /**
-     * @return ArrayNodeDefinition|NodeDefinition
-     */
     private function bouncesNode(): NodeDefinition
     {
         $treeBuilder = new TreeBuilder(self::BOUNCES);
@@ -150,9 +146,6 @@ final class Configuration implements ConfigurationInterface
         return $rootNode;
     }
 
-    /**
-     * @return ArrayNodeDefinition|NodeDefinition
-     */
     private function complaintsNode(): NodeDefinition
     {
         $treeBuilder = new TreeBuilder(self::COMPLAINTS);
@@ -175,9 +168,6 @@ final class Configuration implements ConfigurationInterface
         return $rootNode;
     }
 
-    /**
-     * @return ArrayNodeDefinition|NodeDefinition
-     */
     private function deliveriesNode(): NodeDefinition
     {
         $treeBuilder = new TreeBuilder(self::DELIVERIES);
@@ -193,11 +183,6 @@ final class Configuration implements ConfigurationInterface
         return $rootNode;
     }
 
-    /**
-     * @param array $tree
-     *
-     * @return bool
-     */
     private function validateConfiguration(array $tree): bool
     {
         if ((\is_array($tree[self::IDENTITIES]) || $tree[self::IDENTITIES] instanceof \Countable ? \count($tree[self::IDENTITIES]) : 0) < 1) {
@@ -219,11 +204,6 @@ final class Configuration implements ConfigurationInterface
         return true;
     }
 
-    /**
-     * @param string $identity
-     * @param array  $config
-     * @param array  $identities
-     */
     private function validateIdentity(string $identity, array $config, array $identities): void
     {
         $this->validateType($identity, self::BOUNCES, $config[self::BOUNCES], $identities);
@@ -231,12 +211,6 @@ final class Configuration implements ConfigurationInterface
         $this->validateType($identity, self::DELIVERIES, $config[self::DELIVERIES], $identities);
     }
 
-    /**
-     * @param string $identity
-     * @param string $type
-     * @param array  $typeConfig
-     * @param array  $identities
-     */
     private function validateType(string $identity, string $type, array $typeConfig, array $identities): void
     {
         $track = $typeConfig[self::TRACK];
@@ -252,12 +226,6 @@ final class Configuration implements ConfigurationInterface
         }
     }
 
-    /**
-     * @param string $identity
-     * @param string $type
-     * @param string $topic
-     * @param array  $identities
-     */
     private function validateTopic(string $identity, string $type, string $topic, array $identities): void
     {
         $currentPath      = sprintf('shq_aws_ses_monitor.identities.%s.%s.topic', $identity, $type);
@@ -319,11 +287,6 @@ final class Configuration implements ConfigurationInterface
         }
     }
 
-    /**
-     * @param array $tree
-     *
-     * @return array
-     */
     private function prepareConfiguration(array $tree): array
     {
         foreach ($tree[self::IDENTITIES] as $identity => $config) {
@@ -337,13 +300,6 @@ final class Configuration implements ConfigurationInterface
         return $tree;
     }
 
-    /**
-     * @param string $host
-     * @param string $identity
-     * @param array  $config
-     *
-     * @return array
-     */
     private function prepareIdentity(string $host, string $identity, array $config): array
     {
         $config[self::BOUNCES]    = $this->prepareNotification($host, $identity, self::BOUNCES, $config[self::BOUNCES]);
@@ -353,14 +309,6 @@ final class Configuration implements ConfigurationInterface
         return $config;
     }
 
-    /**
-     * @param string $host
-     * @param string $identity
-     * @param string $type
-     * @param array  $typeConfig
-     *
-     * @return array
-     */
     private function prepareNotification(string $host, string $identity, string $type, array $typeConfig): array
     {
         if ($typeConfig[self::TRACK] && null === $typeConfig[self::TOPIC]) {
@@ -370,13 +318,6 @@ final class Configuration implements ConfigurationInterface
         return $typeConfig;
     }
 
-    /**
-     * @param string $host
-     * @param string $identity
-     * @param string $type
-     *
-     * @return string
-     */
     private function generateTopicName(string $host, string $identity, string $type): string
     {
         $env = \strstr($identity, 'test') ? 'dev' : 'prod';

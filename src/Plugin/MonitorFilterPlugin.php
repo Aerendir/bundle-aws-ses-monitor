@@ -30,10 +30,6 @@ final class MonitorFilterPlugin implements \Swift_Events_SendListener
     /** @var EmailStatusManager $emailStatusManager */
     private $emailStatusManager;
 
-    /**
-     * @param EmailStatusAnalyzer $emailStatusAnalyzer
-     * @param EmailStatusManager  $emailStatusManager
-     */
     public function __construct(EmailStatusAnalyzer $emailStatusAnalyzer, EmailStatusManager $emailStatusManager)
     {
         $this->emailStatusAnalyzer = $emailStatusAnalyzer;
@@ -42,8 +38,6 @@ final class MonitorFilterPlugin implements \Swift_Events_SendListener
 
     /**
      * Invoked immediately before the MailMessage is sent.
-     *
-     * @param Swift_Events_SendEvent $event
      */
     public function beforeSendPerformed(Swift_Events_SendEvent $event): void
     {
@@ -67,20 +61,12 @@ final class MonitorFilterPlugin implements \Swift_Events_SendListener
 
     /**
      * Invoked immediately after the MailMessage is sent.
-     *
-     * @param Swift_Events_SendEvent $evt
      */
     public function sendPerformed(Swift_Events_SendEvent $evt): void
     {
         $evt->setFailedRecipients(\array_unique($this->blacklisted));
     }
 
-    /**
-     * @param array $identities
-     * @param array $recipients
-     *
-     * @return array
-     */
     private function filterBlacklisted(array $identities, array $recipients): array
     {
         $emails         = \array_keys($recipients);

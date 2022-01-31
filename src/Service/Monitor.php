@@ -87,15 +87,6 @@ final class Monitor
     /** @var OutputInterface $sectionBody */
     private $sectionBody;
 
-    /**
-     * @param string           $env
-     * @param AwsDataProcessor $awsDataProcessor
-     * @param Console          $console
-     * @param IdentitiesStore  $configuredIdentities
-     * @param IdentityGuesser  $identityGuesser
-     * @param SesClient        $sesClient
-     * @param SnsClient        $snsClient
-     */
     public function __construct(
         string $env,
         AwsDataProcessor $awsDataProcessor,
@@ -114,11 +105,6 @@ final class Monitor
         $this->snsClient            = $snsClient;
     }
 
-    /**
-     * @param OutputInterface $sectionTitle
-     * @param OutputInterface $sectionBody
-     * @param bool            $withAccount
-     */
     public function retrieve(OutputInterface $sectionTitle, OutputInterface $sectionBody, bool $withAccount = false): void
     {
         $this->sectionTitle = $sectionTitle;
@@ -194,7 +180,6 @@ final class Monitor
     }
 
     /**
-     * @param string      $identity
      * @param string|null $attributes
      *
      * @return array|bool|int|string
@@ -206,8 +191,6 @@ final class Monitor
 
     /**
      * @param bool $ignoreEnv if false, returns configured identities allowed on the current environment
-     *
-     * @return array
      */
     public function getConfiguredIdentitiesList(bool $ignoreEnv = false): array
     {
@@ -240,10 +223,6 @@ final class Monitor
         ];
     }
 
-    /**
-     * @param string $identity
-     * @param string $attributes
-     */
     public function getLiveIdentity(string $identity, string $attributes = null): array
     {
         if (false === $this->liveIdentityExists($identity)) {
@@ -259,19 +238,11 @@ final class Monitor
         return $return;
     }
 
-    /**
-     * @return array
-     */
     public function getLiveIdentitiesList(): array
     {
         return \array_keys($this->liveData[AwsDataProcessor::IDENTITIES]);
     }
 
-    /**
-     * @param string $normalizedTopicName
-     *
-     * @return array|null
-     */
     public function getLiveTopic(string $normalizedTopicName): ?array
     {
         foreach ($this->getLiveTopicsList() as $topicArn) {
@@ -283,9 +254,6 @@ final class Monitor
         return null;
     }
 
-    /**
-     * @return array
-     */
     public function getLiveTopicsList(): array
     {
         if (false === isset($this->liveData[AwsDataProcessor::TOPICS])) {
@@ -295,11 +263,6 @@ final class Monitor
         return \array_keys($this->liveData[AwsDataProcessor::TOPICS]);
     }
 
-    /**
-     * @param string $identity
-     *
-     * @return bool
-     */
     public function bouncesTrackingIsEnabled(string $identity): bool
     {
         $config = $this->findConfiguredIdentity($identity, 'bounces');
@@ -307,11 +270,6 @@ final class Monitor
         return $config[self::TRACK];
     }
 
-    /**
-     * @param string $identity
-     *
-     * @return bool
-     */
     public function bouncesSendingIsForced(string $identity): bool
     {
         $config = $this->findConfiguredIdentity($identity, 'bounces');
@@ -319,11 +277,6 @@ final class Monitor
         return $config['filter']['force_send'];
     }
 
-    /**
-     * @param string $identity
-     *
-     * @return bool
-     */
     public function complaintsTrackingIsEnabled(string $identity): bool
     {
         $config = $this->findConfiguredIdentity($identity, 'complaints');
@@ -331,11 +284,6 @@ final class Monitor
         return $config[self::TRACK];
     }
 
-    /**
-     * @param string $identity
-     *
-     * @return bool
-     */
     public function complaintsSendingIsForced(string $identity): bool
     {
         $config = $this->findConfiguredIdentity($identity, 'complaints');
@@ -345,10 +293,6 @@ final class Monitor
 
     /**
      * This can apply only to identities.
-     *
-     * @param string $identity
-     *
-     * @return bool
      */
     public function liveIdentityDkimIsEnabled(string $identity): bool
     {
@@ -357,10 +301,6 @@ final class Monitor
 
     /**
      * This can apply only to identities.
-     *
-     * @param string $identity
-     *
-     * @return bool
      */
     public function liveIdentityDkimIsVerified(string $identity): bool
     {
@@ -369,21 +309,11 @@ final class Monitor
             'Success' === $this->getLiveIdentity($identity, self::DKIM)['verification_status'];
     }
 
-    /**
-     * @param string $identity
-     *
-     * @return bool
-     */
     public function liveIdentityExists(string $identity): bool
     {
         return isset($this->liveData[AwsDataProcessor::IDENTITIES][$identity]);
     }
 
-    /**
-     * @param string $identity
-     *
-     * @return bool
-     */
     public function liveIdentityIsVerified(string $identity): bool
     {
         return
@@ -392,21 +322,13 @@ final class Monitor
     }
 
     /**
-     * @param string $identity
-     * @param string $type     Type of notification: bounces, complaints or deliveries
-     *
-     * @return bool
+     * @param string $type Type of notification: bounces, complaints or deliveries
      */
     public function liveNotificationsIncludeHeaders(string $identity, string $type): bool
     {
         return $this->getLiveIdentity($identity, 'notifications')[$type]['include_headers'];
     }
 
-    /**
-     * @param string $normalizedTopicName
-     *
-     * @return bool
-     */
     public function liveTopicExists(string $normalizedTopicName): bool
     {
         foreach ($this->getLiveTopicsList() as $topicArn) {
@@ -418,21 +340,11 @@ final class Monitor
         return false;
     }
 
-    /**
-     * @param string $identity
-     *
-     * @return bool
-     */
     public function dkimEnabledIsInSync(string $identity): bool
     {
         return $this->getConfiguredIdentity($identity, self::DKIM) === ($this->getLiveIdentity($identity, self::DKIM)['enabled'] ?? null);
     }
 
-    /**
-     * @param string $identity
-     *
-     * @return bool
-     */
     public function fromDomainIsInSync(string $identity): bool
     {
         return
@@ -440,11 +352,6 @@ final class Monitor
             $this->getConfiguredIdentity($identity, 'from_domain')   === ($this->getLiveIdentity($identity, 'mail_from')[self::DOMAIN] ?? null);
     }
 
-    /**
-     * @param string $identity
-     *
-     * @return bool
-     */
     public function fromDomainCanBeSynched(string $identity): bool
     {
         // If is a domain identity and is verified
@@ -463,10 +370,7 @@ final class Monitor
     }
 
     /**
-     * @param string $identity
-     * @param string $type     Bounces, complaints or deliveries
-     *
-     * @return bool
+     * @param string $type Bounces, complaints or deliveries
      */
     public function requiresTopicConfiguration(string $identity, string $type): bool
     {
@@ -475,12 +379,6 @@ final class Monitor
         return $topicConfig[self::TRACK] && Configuration::USE_DOMAIN !== $topicConfig[self::TOPIC];
     }
 
-    /**
-     * @param string $identity
-     * @param string $notificationType
-     *
-     * @return bool
-     */
     public function identityRequiresTopicSubscription(string $identity, string $notificationType): bool
     {
         $identityNotifications = $this->getLiveIdentity($identity, 'notifications');
@@ -507,12 +405,6 @@ final class Monitor
         return true;
     }
 
-    /**
-     * @param string $topicArn
-     * @param string $currentEndpoint
-     *
-     * @return bool
-     */
     public function subscriptionEndpointIsInSynch(string $topicArn, string $currentEndpoint): bool
     {
         $subscription = $this->getTopicSubscriptions($topicArn);
@@ -523,11 +415,6 @@ final class Monitor
         return $subscription['endpoint'] === $currentEndpoint;
     }
 
-    /**
-     * @param string $topicArn
-     *
-     * @return array|null
-     */
     public function getTopicSubscriptions(string $topicArn): ?array
     {
         if (false === isset($this->liveData[AwsDataProcessor::SUBSCRIPTIONS])) {
@@ -543,9 +430,6 @@ final class Monitor
         return null;
     }
 
-    /**
-     * @return IdentityGuesser
-     */
     public function getIdentityGuesser(): IdentityGuesser
     {
         return $this->identityGuesser;

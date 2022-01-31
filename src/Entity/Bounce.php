@@ -180,14 +180,6 @@ class Bounce
      */
     private $diagnosticCode;
 
-    /**
-     * @param EmailStatus $email
-     * @param MailMessage $mailMessage
-     * @param array       $bouncedRecipient
-     * @param array       $notification
-     *
-     * @return Bounce
-     */
     public static function create(EmailStatus $email, MailMessage $mailMessage, array $bouncedRecipient, array $notification): Bounce
     {
         $bounce = (new self())
@@ -218,7 +210,6 @@ class Bounce
     }
 
     /**
-     * @return int
      * @codeCoverageIgnore
      */
     public function getId(): int
@@ -226,9 +217,6 @@ class Bounce
         return $this->id;
     }
 
-    /**
-     * @return EmailStatus
-     */
     public function getEmailStatus(): EmailStatus
     {
         return $this->emailStatus;

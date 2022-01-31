@@ -43,9 +43,6 @@ class Topic
 
     /**
      * Topic constructor.
-     *
-     * @param string $topicName
-     * @param string $topicArn
      */
     public function __construct(string $topicName, string $topicArn)
     {
@@ -54,7 +51,6 @@ class Topic
     }
 
     /**
-     * @return int
      * @codeCoverageIgnore
      */
     public function getId(): int
@@ -62,17 +58,11 @@ class Topic
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getArn(): string
     {
         return $this->arn;

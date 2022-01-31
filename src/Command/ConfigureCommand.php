@@ -43,6 +43,9 @@ final class ConfigureCommand extends Command
      */
     private const TOPIC = 'topic';
 
+    /**
+     * @var string
+     */
     protected static $defaultName = 'aws:ses:configure';
 
     /** @var string $env */
@@ -82,14 +85,6 @@ final class ConfigureCommand extends Command
     /** @var array $scheduledTopics The topics to create */
     private $scheduledTopics = [];
 
-    /**
-     * @param string                 $env
-     * @param EntityManagerInterface $entityManager
-     * @param Monitor                $monitor
-     * @param SesManager             $sesManager
-     * @param SnsManager             $snsManager
-     * @param Console                $console
-     */
     public function __construct(
         string $env,
         EntityManagerInterface $entityManager,
@@ -151,11 +146,6 @@ final class ConfigureCommand extends Command
         return 0;
     }
 
-    /**
-     * @param InputInterface $input
-     *
-     * @return bool
-     */
     private function canProceed(InputInterface $input): bool
     {
         // Be sure the dev wants to configure production identities from dev env
@@ -180,9 +170,6 @@ EOF
         return true;
     }
 
-    /**
-     * @param OutputInterface $output
-     */
     private function initializeConfiguration(OutputInterface $output): void
     {
         $this->sectionTitle = $this->console->createSection($output);
@@ -190,9 +177,6 @@ EOF
         $this->monitor->retrieve($this->sectionTitle, $this->sectionBody);
     }
 
-    /**
-     * @param bool $force
-     */
     private function configureIdentities(bool $force): void
     {
         // Get identities to process
@@ -206,9 +190,6 @@ EOF
         }
     }
 
-    /**
-     * @param string $identity
-     */
     private function configureIdentity(string $identity): void
     {
         $this->console->overwrite(sprintf('Configuring identity <comment>%s</comment>', $identity), $this->sectionTitle);
@@ -224,9 +205,6 @@ EOF
         $this->console->clear($this->sectionBody);
     }
 
-    /**
-     * @param string $identity
-     */
     private function checkIdentityVerificationStatus(string $identity): void
     {
         // If the identity is not still verified (or doesn't exist at all)...
@@ -273,9 +251,6 @@ EOF
         $this->console->overwrite($log, $this->sectionBody);
     }
 
-    /**
-     * @param string $identity
-     */
     private function checkIdentityDkimConfiguration(string $identity): void
     {
         // (Requires a verified identity) If the remote configuration is different than the local configuration...
@@ -332,9 +307,6 @@ EOF
         $this->console->overwrite($log, $this->sectionBody);
     }
 
-    /**
-     * @param string $identity
-     */
     private function checkIdentityFromDomain(string $identity): void
     {
         // If the remote configuration is different than the local configuration...
@@ -359,10 +331,6 @@ EOF
         $this->console->overwrite($log, $this->sectionBody);
     }
 
-    /**
-     * @param string $identity
-     * @param string $type
-     */
     private function checkIdentityNotificationTopic(string $identity, string $type): void
     {
         $this->console->overwrite(sprintf('Checking notification topic for <comment>%s</comment> of identity <comment>%s</comment>...', $type, $identity), $this->sectionBody);
@@ -389,9 +357,6 @@ EOF
         }
     }
 
-    /**
-     * @param string $topic
-     */
     private function configureTopic(string $topic): void
     {
         $this->console->overwrite(sprintf('Configuring topic <comment>%s</comment>', $topic), $this->sectionTitle);
@@ -423,9 +388,6 @@ EOF
         }
     }
 
-    /**
-     * @param string $identity
-     */
     private function configureSubscription(string $identity): void
     {
         $this->console->overwrite(sprintf('Configuring subscriptions of identity <comment>%s</comment>', $identity), $this->sectionTitle);
@@ -450,10 +412,6 @@ EOF
         $this->console->clear($this->sectionTitle);
     }
 
-    /**
-     * @param string $identity
-     * @param string $messageType
-     */
     private function subscribeIdentityToTopic(string $identity, string $messageType): void
     {
         static $lastCall = 0;
@@ -511,20 +469,11 @@ EOF
         $this->console->overwrite($log, $this->sectionBody);
     }
 
-    /**
-     * @param string $identity
-     * @param string $action
-     */
     private function addActionToTake(string $identity, string $action): void
     {
         $this->actionsToTakeNow[$identity][] = $action;
     }
 
-    /**
-     * @param string $topicName
-     *
-     * @return string
-     */
     private function normalizeTopicName(string $topicName): string
     {
         $topicName = preg_replace('#[^A-Za-z0-9-_]#', '_', $topicName);
@@ -532,12 +481,6 @@ EOF
         return \strtolower($topicName);
     }
 
-    /**
-     * @param string $identity
-     * @param string $token
-     *
-     * @return string
-     */
     private function buildDkimDnsString(string $identity, string $token): string
     {
         if ($this->monitor->getIdentityGuesser()->isEmailIdentity($identity)) {
@@ -548,12 +491,6 @@ EOF
         return sprintf('Name: <comment>%s._domainkey.%s</comment>; Type: <comment>CNAME</comment>; Value: <comment>%s.dkim.amazonses.com</comment>;', $token, $identity, $token);
     }
 
-    /**
-     * @param string $identity
-     * @param string $type
-     *
-     * @return string
-     */
     private function getTopicName(string $identity, string $type): string
     {
         $topicName = $this->monitor->getConfiguredIdentity($identity, $type)[self::TOPIC];

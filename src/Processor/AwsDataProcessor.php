@@ -74,8 +74,6 @@ final class AwsDataProcessor
     private $data = [];
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processAccountSendingEnabled(Result $result): void
@@ -84,8 +82,6 @@ final class AwsDataProcessor
     }
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processAccountSendQuota(Result $result): void
@@ -98,8 +94,6 @@ final class AwsDataProcessor
     }
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processAccountSendStatistics(Result $result): void
@@ -108,8 +102,6 @@ final class AwsDataProcessor
     }
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processIdentitiesDkimAttributes(Result $result): void
@@ -127,8 +119,6 @@ final class AwsDataProcessor
     }
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processIdentitiesMailFromDomainAttributes(Result $result): void
@@ -147,8 +137,6 @@ final class AwsDataProcessor
     }
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processIdentitiesNotificationAttributes(Result $result): void
@@ -177,8 +165,6 @@ final class AwsDataProcessor
     }
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processIdentitiesVerificationAttributes(Result $result): void
@@ -193,8 +179,6 @@ final class AwsDataProcessor
     }
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processSubscriptions(Result $result): void
@@ -213,8 +197,6 @@ final class AwsDataProcessor
     }
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processSubscriptionAttributes(Result $result): void
@@ -230,8 +212,6 @@ final class AwsDataProcessor
     }
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processTopics(Result $result): void
@@ -242,8 +222,6 @@ final class AwsDataProcessor
     }
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processTopicAttributes(Result $result): void
@@ -268,8 +246,6 @@ final class AwsDataProcessor
      * Returns the processed data.
      *
      * On call, resets the internal array.
-     *
-     * @return array
      *
      * @internal
      */

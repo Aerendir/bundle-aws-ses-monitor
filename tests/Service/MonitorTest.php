@@ -283,9 +283,6 @@ final class MonitorTest extends TestCase
         $this->resource->retrieve($this->mockSectionTitle, $this->mockSectionBody);
     }
 
-    /**
-     * @param bool $withAccount
-     */
     private function configureSesClient(bool $withAccount = false): void
     {
         if ($withAccount) {

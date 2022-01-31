@@ -26,19 +26,12 @@ final class MessageHelper
     /** @var MessageValidator $messageValidator */
     private $messageValidator;
 
-    /**
-     * @param MessageValidator $messageValidator
-     */
     public function __construct(MessageValidator $messageValidator)
     {
         $this->messageValidator = $messageValidator;
     }
 
     /**
-     * @param Request $request
-     *
-     * @return Message
-     *
      * @internal
      */
     public function buildMessageFromRequest(Request $request): Message
@@ -51,10 +44,6 @@ final class MessageHelper
     }
 
     /**
-     * @param Message $message
-     *
-     * @return bool
-     *
      * @internal
      */
     public function validateNotification(Message $message): bool
@@ -63,10 +52,6 @@ final class MessageHelper
     }
 
     /**
-     * @param Message $message
-     *
-     * @return array
-     *
      * @internal
      */
     public function extractMessageData(Message $message): array

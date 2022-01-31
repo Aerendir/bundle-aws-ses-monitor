@@ -53,10 +53,6 @@ final class SHQAwsSesMonitorExtension extends Extension
 
     /**
      * Checks if at least one identity requires the SwiftMailer filter.
-     *
-     * @param array $identities
-     *
-     * @return bool
      */
     private function requiresFilter(array $identities): bool
     {

@@ -32,11 +32,6 @@ final class SubscriptionProcessor
     /** @var MessageHelper $messageHelper */
     private $messageHelper;
 
-    /**
-     * @param SnsClient              $snsClient
-     * @param EntityManagerInterface $entityManager
-     * @param MessageHelper          $messageHelper
-     */
     public function __construct(SnsClient $snsClient, EntityManagerInterface $entityManager, MessageHelper $messageHelper)
     {
         $this->snsClient     = $snsClient;
@@ -44,11 +39,6 @@ final class SubscriptionProcessor
         $this->messageHelper = $messageHelper;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function processRequest(Request $request): Response
     {
         $message = $this->messageHelper->buildMessageFromRequest($request);

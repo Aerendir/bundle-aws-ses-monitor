@@ -46,13 +46,6 @@ final class NotificationProcessor
     /** @var MessageHelper $messageHelper */
     private $messageHelper;
 
-    /**
-     * @param BounceNotificationHandler    $bounceNotificationHandler
-     * @param ComplaintNotificationHandler $complaintNotificationHandler
-     * @param DeliveryNotificationHandler  $deliveryNotificationHandler
-     * @param EntityManagerInterface       $entityManager
-     * @param MessageHelper                $messageHelper
-     */
     public function __construct(
         BounceNotificationHandler $bounceNotificationHandler,
         ComplaintNotificationHandler $complaintNotificationHandler,
@@ -67,11 +60,6 @@ final class NotificationProcessor
         $this->messageHelper                = $messageHelper;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function processRequest(Request $request): Response
     {
         $message = $this->messageHelper->buildMessageFromRequest($request);
@@ -103,11 +91,6 @@ final class NotificationProcessor
         }
     }
 
-    /**
-     * @param array $messageData
-     *
-     * @return MailMessage
-     */
     private function loadOrCreateMailMessage(array $messageData): MailMessage
     {
         $mailMessageData = $messageData['mail'];

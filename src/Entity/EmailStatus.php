@@ -84,9 +84,6 @@ class EmailStatus
      */
     private $lastTimeDelivered;
 
-    /**
-     * @param string $email
-     */
     public function __construct(string $email)
     {
         $this->address    = \mb_strtolower($email);
@@ -95,41 +92,26 @@ class EmailStatus
         $this->deliveries = new ArrayCollection();
     }
 
-    /**
-     * @return string
-     */
     public function getAddress(): string
     {
         return $this->address;
     }
 
-    /**
-     * @return Collection
-     */
     public function getBounces(): Collection
     {
         return $this->bounces;
     }
 
-    /**
-     * @return int
-     */
     public function getHardBouncesCount(): int
     {
         return $this->hardBouncesCount;
     }
 
-    /**
-     * @return int
-     */
     public function getSoftBouncesCount(): int
     {
         return $this->softBouncesCount;
     }
 
-    /**
-     * @return string|null
-     */
     public function getLastBounceType(): ?string
     {
         return $this->lastBounceType;
@@ -140,9 +122,6 @@ class EmailStatus
         return $this->lastTimeBounced;
     }
 
-    /**
-     * @return Collection
-     */
     public function getComplaints(): Collection
     {
         return $this->complaints;
@@ -153,9 +132,6 @@ class EmailStatus
         return $this->lastTimeComplained;
     }
 
-    /**
-     * @return Collection
-     */
     public function getDeliveries(): Collection
     {
         return $this->deliveries;
@@ -167,8 +143,6 @@ class EmailStatus
     }
 
     /**
-     * @param Bounce $bounce
-     *
      * @internal
      */
     public function addBounce(Bounce $bounce): self
@@ -197,8 +171,6 @@ class EmailStatus
     }
 
     /**
-     * @param Complaint $complaint
-     *
      * @internal
      */
     public function addComplaint(Complaint $complaint): self
@@ -218,8 +190,6 @@ class EmailStatus
     }
 
     /**
-     * @param Delivery $delivery
-     *
      * @internal
      */
     public function addDelivery(Delivery $delivery): self

@@ -123,9 +123,6 @@ final class MonitorFilterPluginTest extends TestCase
         $resource->sendPerformed($mockEvent);
     }
 
-    /**
-     * @return bool
-     */
     public function canReceiveMessages(): bool
     {
         /** @var EmailStatus $emailStatus */
@@ -179,9 +176,6 @@ final class MonitorFilterPluginTest extends TestCase
         return $message;
     }
 
-    /**
-     * @return array
-     */
     private function getRecipients(): array
     {
         return $recipients = ['bounced@example.com' => null, 'complained@example.com' => null, 'ooto@example.com' => null, 'success@example.com' => null, 'suppressed@example.com' => null];
@@ -190,8 +184,6 @@ final class MonitorFilterPluginTest extends TestCase
     /**
      * Configures the EmailStatusManager to return the mocked EmailStatus objects each
      * time the EmailStatusManager::loadOrCreateEmailStatus() method is called.
-     *
-     * @return array
      */
     private function getEmailStatusMap(): array
     {

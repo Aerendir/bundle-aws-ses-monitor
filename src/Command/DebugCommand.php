@@ -20,7 +20,6 @@ use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableCell;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -45,6 +44,9 @@ final class DebugCommand extends Command
      */
     private const TABLE_CELL_COLSPAN = 'colspan';
 
+    /**
+     * @var string
+     */
     protected static $defaultName = 'aws:ses:debug';
 
     /** @var Console $console */
@@ -57,10 +59,6 @@ final class DebugCommand extends Command
 
     private $sectionBody;
 
-    /**
-     * @param Console $console
-     * @param Monitor $monitor
-     */
     public function __construct(Console $console, Monitor $monitor)
     {
         $this->console = $console;
@@ -79,8 +77,6 @@ final class DebugCommand extends Command
 
     /**
      * {@inheritdoc}
-     *
-     * @param ConsoleOutput|OutputInterface $output
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -110,9 +106,6 @@ final class DebugCommand extends Command
         return 0;
     }
 
-    /**
-     * @return array
-     */
     private function validateAccountData(): array
     {
         $results = [];
@@ -136,9 +129,6 @@ final class DebugCommand extends Command
         return $results;
     }
 
-    /**
-     * @return array
-     */
     private function validateIdentitiesData(): array
     {
         $this->console->overwrite('Validating Identities', $this->sectionTitle);
@@ -175,11 +165,6 @@ final class DebugCommand extends Command
         return $results;
     }
 
-    /**
-     * @param array $validationResults
-     *
-     * @return Table
-     */
     private function showData(array $validationResults): Table
     {
         $table = new Table($this->sectionBody);

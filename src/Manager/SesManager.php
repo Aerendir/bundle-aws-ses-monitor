@@ -27,16 +27,12 @@ final class SesManager
     /** @var SesClient $client */
     private $client;
 
-    /**
-     * @param SesClient $client
-     */
     public function __construct(SesClient $client)
     {
         $this->client = $client;
     }
 
     /**
-     * @return Result
      * @ codeCoverageIgnore
      */
     public function listIdentities(): Result
@@ -114,7 +110,6 @@ final class SesManager
     /**
      * @param string $identity
      *
-     * @return string
      * @ codeCoverageIgnore
      */
     public function verifyDomainIdentity(string $identity): string
@@ -133,9 +128,6 @@ final class SesManager
         $this->client->verifyEmailIdentity(['EmailAddress' => $identity]);
     }
 
-    /**
-     * @return SesClient
-     */
     public function getClient(): SesClient
     {
         return $this->client;

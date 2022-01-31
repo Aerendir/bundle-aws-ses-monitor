@@ -29,11 +29,6 @@ final class SnsManager
     /** @var RouterInterface $router */
     private $router;
 
-    /**
-     * @param array           $endpointConfig
-     * @param SnsClient       $client
-     * @param RouterInterface $router
-     */
     public function __construct(array $endpointConfig, SnsClient $client, RouterInterface $router)
     {
         $this->endpointConfig = $endpointConfig;
@@ -41,11 +36,6 @@ final class SnsManager
         $this->router         = $router;
     }
 
-    /**
-     * @param string $topicName
-     *
-     * @return Topic
-     */
     public function createTopic(string $topicName): Topic
     {
         // create SNS topic
@@ -62,8 +52,6 @@ final class SnsManager
      * Once set, the SNS topic will deliver all notification to this endpoint.
      *
      * @param string $topicArn
-     *
-     * @return string|null
      */
     public function setEndpoint(string $topicArn): ?string
     {
@@ -73,9 +61,6 @@ final class SnsManager
         return $response->get('SubscriptionArn');
     }
 
-    /**
-     * @return string
-     */
     public function getEndpointUrl(): string
     {
         // Get the already set scheme and host
@@ -100,7 +85,6 @@ final class SnsManager
     /**
      * @param string $topicArn
      *
-     * @return array
      * @ codeCoverageIgnore
      */
     private function buildSubscription(string $topicArn): array

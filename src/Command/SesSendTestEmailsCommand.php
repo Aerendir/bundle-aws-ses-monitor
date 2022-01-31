@@ -38,14 +38,14 @@ final class SesSendTestEmailsCommand extends Command
         'suppressionlist@simulator.amazonses.com',
     ];
 
+    /**
+     * @var string
+     */
     protected static $defaultName = 'aws:ses:monitor:test:swiftmailer';
 
     /** @var \Swift_Mailer $mailer */
     private $mailer;
 
-    /**
-     * @param \Swift_Mailer $mailer
-     */
     public function __construct(\Swift_Mailer $mailer)
     {
         $this->mailer = $mailer;
@@ -65,9 +65,6 @@ final class SesSendTestEmailsCommand extends Command
 
     /**
      * Executes the command.
-     *
-     * @param InputInterface  $input
-     * @param OutputInterface $output
      *
      * @return int 0 if everything went fine, or an error code
      */
@@ -107,12 +104,6 @@ final class SesSendTestEmailsCommand extends Command
         return 0;
     }
 
-    /**
-     * @param string $sendFrom
-     * @param string $sendTo
-     *
-     * @return \Swift_Message
-     */
     private function createMessage(string $sendFrom, string $sendTo): \Swift_Message
     {
         return (new \Swift_Message())

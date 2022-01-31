@@ -21,12 +21,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class ComplaintNotificationHandler extends AbstractNotification
 {
-    /**
-     * @param array       $notification
-     * @param MailMessage $mailMessage
-     *
-     * @return Response
-     */
     public function processNotification(array $notification, MailMessage $mailMessage): Response
     {
         foreach ($notification['complaint']['complainedRecipients'] as $complainedRecipient) {

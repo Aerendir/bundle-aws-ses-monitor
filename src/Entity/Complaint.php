@@ -130,13 +130,6 @@ class Complaint
      */
     private $arrivalDate;
 
-    /**
-     * @param EmailStatus $email
-     * @param MailMessage $mailMessage
-     * @param array       $notification
-     *
-     * @return Complaint
-     */
     public static function create(EmailStatus $email, MailMessage $mailMessage, array $notification): Complaint
     {
         $complaint = (new self())
@@ -161,7 +154,6 @@ class Complaint
     }
 
     /**
-     * @return int
      * @codeCoverageIgnore
      */
     public function getId(): int
@@ -169,17 +161,11 @@ class Complaint
         return $this->id;
     }
 
-    /**
-     * @return MailMessage
-     */
     public function getMailMessage(): MailMessage
     {
         return $this->mailMessage;
     }
 
-    /**
-     * @return EmailStatus
-     */
     public function getEmailStatus(): EmailStatus
     {
         return $this->emailStatus;
@@ -190,25 +176,16 @@ class Complaint
         return $this->complainedOn;
     }
 
-    /**
-     * @return string
-     */
     public function getFeedbackId(): string
     {
         return $this->feedbackId;
     }
 
-    /**
-     * @return string
-     */
     public function getUserAgent(): string
     {
         return $this->userAgent;
     }
 
-    /**
-     * @return string|null
-     */
     public function getComplaintFeedbackType(): ?string
     {
         return $this->complaintFeedbackType;
@@ -219,9 +196,6 @@ class Complaint
         return $this->arrivalDate;
     }
 
-    /**
-     * @param EmailStatus $emailStatus
-     */
     private function setEmailStatus(EmailStatus $emailStatus): self
     {
         $this->emailStatus = $emailStatus;
@@ -230,9 +204,6 @@ class Complaint
         return $this;
     }
 
-    /**
-     * @param MailMessage $mailMessage
-     */
     private function setMailMessage(MailMessage $mailMessage): self
     {
         $this->mailMessage = $mailMessage;
@@ -241,9 +212,6 @@ class Complaint
         return $this;
     }
 
-    /**
-     * @param \DateTimeInterface $complainedOn
-     */
     private function setComplainedOn(\DateTimeInterface $complainedOn): self
     {
         $this->complainedOn = $complainedOn;
@@ -251,9 +219,6 @@ class Complaint
         return $this;
     }
 
-    /**
-     * @param string $feedbackId
-     */
     private function setFeedbackId(string $feedbackId): self
     {
         $this->feedbackId = $feedbackId;
@@ -261,9 +226,6 @@ class Complaint
         return $this;
     }
 
-    /**
-     * @param string $userAgent
-     */
     private function setUserAgent(string $userAgent): self
     {
         $this->userAgent = $userAgent;
@@ -271,9 +233,6 @@ class Complaint
         return $this;
     }
 
-    /**
-     * @param string $complaintFeedbackType
-     */
     private function setComplaintFeedbackType(string $complaintFeedbackType): self
     {
         $this->complaintFeedbackType = $complaintFeedbackType;
@@ -281,9 +240,6 @@ class Complaint
         return $this;
     }
 
-    /**
-     * @param \DateTimeInterface $arrivalDate
-     */
     private function setArrivalDate(\DateTimeInterface $arrivalDate): self
     {
         $this->arrivalDate = $arrivalDate;

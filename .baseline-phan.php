@@ -9,7 +9,7 @@
  */
 return [
     // # Issue statistics:
-    // PhanRedefinedClassReference : 290+ occurrences
+    // PhanRedefinedClassReference : 280+ occurrences
     // PhanAccessMethodInternal : 240+ occurrences
     // PhanUnreferencedPublicMethod : 100+ occurrences
     // PhanTypeMismatchArgument : 80+ occurrences
@@ -29,7 +29,6 @@ return [
     // PhanUnusedVariable : 2 occurrences
     // PhanNoopNew : 1 occurrence
     // PhanRedefinedInheritedInterface : 1 occurrence
-    // PhanTypeMismatchDeclaredParamNullable : 1 occurrence
     // PhanTypeMismatchDeclaredReturn : 1 occurrence
     // PhanUnreferencedClass : 1 occurrence
     // PhanUnreferencedPrivateProperty : 1 occurrence
@@ -61,7 +60,7 @@ return [
         'src/Processor/RequestProcessor.php' => ['PhanRedefinedClassReference'],
         'src/Processor/SubscriptionProcessor.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference'],
         'src/SHQAwsSesMonitorBundle.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass'],
-        'src/Service/Monitor.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanTypeMismatchDeclaredParamNullable', 'PhanUndeclaredConstantOfClass', 'PhanUnreferencedPublicMethod', 'PhanUnusedVariableCaughtException'],
+        'src/Service/Monitor.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanUndeclaredConstantOfClass', 'PhanUnreferencedPublicMethod', 'PhanUnusedVariableCaughtException'],
         'src/Util/Console.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchDeclaredReturn', 'PhanUndeclaredMethod'],
         'src/Util/EmailStatusAnalyzer.php' => ['PhanAccessMethodInternal'],
         'tests/Command/SesSendTestEmailsCommandTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod', 'UndeclaredTypeInInlineVar'],

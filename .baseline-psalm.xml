@@ -17,6 +17,9 @@
       <code>$lastCall</code>
       <code>$lastCall</code>
     </MixedOperand>
+    <NonInvariantDocblockPropertyType occurrences="1">
+      <code>$defaultName</code>
+    </NonInvariantDocblockPropertyType>
     <PossiblyInvalidArgument occurrences="1">
       <code>$topicName</code>
     </PossiblyInvalidArgument>
@@ -44,8 +47,14 @@
       <code>$sectionBody</code>
       <code>$sectionTitle</code>
     </MissingPropertyType>
+    <NonInvariantDocblockPropertyType occurrences="1">
+      <code>$defaultName</code>
+    </NonInvariantDocblockPropertyType>
   </file>
   <file src="src/Command/SesSendTestEmailsCommand.php">
+    <NonInvariantDocblockPropertyType occurrences="1">
+      <code>$defaultName</code>
+    </NonInvariantDocblockPropertyType>
     <ReservedWord occurrences="1">
       <code>$this-&gt;getHelper('question')</code>
     </ReservedWord>
@@ -271,7 +280,7 @@
   </file>
   <file src="src/Manager/SnsManager.php">
     <MixedInferredReturnType occurrences="1">
-      <code>string|null</code>
+      <code>?string</code>
     </MixedInferredReturnType>
     <MixedReturnStatement occurrences="1">
       <code>$response-&gt;get('SubscriptionArn')</code>
@@ -377,11 +386,6 @@
       <code>MailMessage|null</code>
     </UnnecessaryVarAnnotation>
   </file>
-  <file src="src/Processor/RequestProcessor.php">
-    <UnnecessaryVarAnnotation occurrences="1">
-      <code>string|null</code>
-    </UnnecessaryVarAnnotation>
-  </file>
   <file src="src/Service/IdentitiesStore.php">
     <MixedInferredReturnType occurrences="1">
       <code>array|bool|int|string</code>
@@ -401,9 +405,9 @@
       <code>$this-&gt;liveData[AwsDataProcessor::TOPICS][$topicArn]</code>
     </MixedArrayOffset>
     <MixedInferredReturnType occurrences="8">
+      <code>?array</code>
+      <code>?array</code>
       <code>array</code>
-      <code>array|null</code>
-      <code>array|null</code>
       <code>bool</code>
       <code>bool</code>
       <code>bool</code>

@@ -31,10 +31,6 @@ final class IdentityGuesser
     public const DOMAIN = 'domain';
 
     /**
-     * @param string $identity
-     *
-     * @return array
-     *
      * @internal
      */
     public function getEmailParts(string $identity): array
@@ -53,21 +49,12 @@ final class IdentityGuesser
         ];
     }
 
-    /**
-     * @param string $identity
-     *
-     * @return bool
-     */
     public function isDomainIdentity(string $identity): bool
     {
         return false === $this->isEmailIdentity($identity);
     }
 
     /**
-     * @param string $identity
-     *
-     * @return bool
-     *
      * @internal
      */
     public function isEmailIdentity(string $identity): bool
@@ -76,10 +63,6 @@ final class IdentityGuesser
     }
 
     /**
-     * @param string $identity
-     *
-     * @return bool
-     *
      * @internal
      */
     public function isProductionIdentity(string $identity): bool
@@ -93,10 +76,6 @@ final class IdentityGuesser
     }
 
     /**
-     * @param string $mailbox
-     *
-     * @return bool
-     *
      * @internal
      */
     public function isTestEmail(string $mailbox): bool

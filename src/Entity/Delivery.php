@@ -87,13 +87,6 @@ class Delivery
      */
     private $reportingMta;
 
-    /**
-     * @param EmailStatus $email
-     * @param MailMessage $mailMessage
-     * @param array       $notification
-     *
-     * @return Delivery
-     */
     public static function create(EmailStatus $email, MailMessage $mailMessage, array $notification): Delivery
     {
         $delivery = (new self())
@@ -111,7 +104,6 @@ class Delivery
     }
 
     /**
-     * @return int
      * @codeCoverageIgnore
      */
     public function getId(): int
@@ -119,17 +111,11 @@ class Delivery
         return $this->id;
     }
 
-    /**
-     * @return EmailStatus
-     */
     public function getEmailStatus(): EmailStatus
     {
         return $this->emailStatus;
     }
 
-    /**
-     * @return MailMessage
-     */
     public function getMailMessage(): MailMessage
     {
         return $this->mailMessage;
@@ -140,33 +126,21 @@ class Delivery
         return $this->deliveredOn;
     }
 
-    /**
-     * @return int
-     */
     public function getProcessingTimeMillis(): int
     {
         return $this->processingTimeMillis;
     }
 
-    /**
-     * @return string
-     */
     public function getSmtpResponse(): string
     {
         return $this->smtpResponse;
     }
 
-    /**
-     * @return string|null
-     */
     public function getReportingMta(): ?string
     {
         return $this->reportingMta;
     }
 
-    /**
-     * @param EmailStatus $emailStatus
-     */
     private function setEmailStatus(EmailStatus $emailStatus): self
     {
         $this->emailStatus = $emailStatus;
@@ -175,9 +149,6 @@ class Delivery
         return $this;
     }
 
-    /**
-     * @param MailMessage $mailMessage
-     */
     private function setMailMessage(MailMessage $mailMessage): self
     {
         $this->mailMessage = $mailMessage;
@@ -186,9 +157,6 @@ class Delivery
         return $this;
     }
 
-    /**
-     * @param \DateTimeInterface $deliveredOn
-     */
     private function setDeliveredOn(\DateTimeInterface $deliveredOn): self
     {
         $this->deliveredOn = $deliveredOn;
@@ -196,9 +164,6 @@ class Delivery
         return $this;
     }
 
-    /**
-     * @param int $processingTimeMillis
-     */
     private function setProcessingTimeMillis(int $processingTimeMillis): self
     {
         $this->processingTimeMillis = $processingTimeMillis;
@@ -206,9 +171,6 @@ class Delivery
         return $this;
     }
 
-    /**
-     * @param string $smtpResponse
-     */
     private function setSmtpResponse(string $smtpResponse): self
     {
         $this->smtpResponse = $smtpResponse;
@@ -216,9 +178,6 @@ class Delivery
         return $this;
     }
 
-    /**
-     * @param string $reportingMta
-     */
     private function setReportingMta(string $reportingMta): self
     {
         $this->reportingMta = $reportingMta;

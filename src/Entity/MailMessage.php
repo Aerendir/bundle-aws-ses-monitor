@@ -137,11 +137,6 @@ class MailMessage
         $this->deliveries = new ArrayCollection();
     }
 
-    /**
-     * @param array $mailMessageData
-     *
-     * @return MailMessage
-     */
     public static function create(array $mailMessageData): MailMessage
     {
         $mailMessage = new self();
@@ -162,9 +157,6 @@ class MailMessage
         return $mailMessage;
     }
 
-    /**
-     * @param Bounce $bounce
-     */
     public function addBounce(Bounce $bounce): self
     {
         $this->bounces->add($bounce);
@@ -172,9 +164,6 @@ class MailMessage
         return $this;
     }
 
-    /**
-     * @param Complaint $complaint
-     */
     public function addComplaint(Complaint $complaint): self
     {
         $this->complaints->add($complaint);
@@ -182,9 +171,6 @@ class MailMessage
         return $this;
     }
 
-    /**
-     * @param Delivery $delivery
-     */
     public function addDelivery(Delivery $delivery): self
     {
         $this->deliveries->add($delivery);
@@ -192,33 +178,21 @@ class MailMessage
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
     public function getBounces(): Collection
     {
         return $this->bounces;
     }
 
-    /**
-     * @return Collection
-     */
     public function getComplaints(): Collection
     {
         return $this->complaints;
     }
 
-    /**
-     * @return Collection
-     */
     public function getDeliveries(): Collection
     {
         return $this->deliveries;
     }
 
-    /**
-     * @return string
-     */
     public function getMessageId(): string
     {
         return $this->messageId;
@@ -229,49 +203,32 @@ class MailMessage
         return $this->sentOn;
     }
 
-    /**
-     * @return string
-     */
     public function getSentFrom(): string
     {
         return $this->sentFrom;
     }
 
-    /**
-     * @return string
-     */
     public function getSourceArn(): string
     {
         return $this->sourceArn;
     }
 
-    /**
-     * @return string
-     */
     public function getSendingAccountId(): string
     {
         return $this->sendingAccountId;
     }
 
-    /**
-     * @return string|null
-     */
     public function getHeaders(): ?string
     {
         return $this->headers;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCommonHeaders(): ?string
     {
         return $this->commonHeaders;
     }
 
     /**
-     * @param string $messageId
-     *
      * @internal
      */
     public function setMessageId(string $messageId): self
@@ -282,8 +239,6 @@ class MailMessage
     }
 
     /**
-     * @param \DateTimeInterface $sentOn
-     *
      * @internal
      */
     public function setSentOn(\DateTimeInterface $sentOn): self
@@ -294,8 +249,6 @@ class MailMessage
     }
 
     /**
-     * @param string $sentFrom
-     *
      * @internal
      */
     public function setSentFrom(string $sentFrom): self
@@ -306,8 +259,6 @@ class MailMessage
     }
 
     /**
-     * @param string $sourceArn
-     *
      * @internal
      */
     public function setSourceArn(string $sourceArn): self
@@ -318,8 +269,6 @@ class MailMessage
     }
 
     /**
-     * @param string $sendingAccountId
-     *
      * @internal
      */
     public function setSendingAccountId(string $sendingAccountId): self
@@ -330,8 +279,6 @@ class MailMessage
     }
 
     /**
-     * @param string $headers
-     *
      * @internal
      */
     public function setHeaders(string $headers): self
@@ -342,8 +289,6 @@ class MailMessage
     }
 
     /**
-     * @param string $commonHeaders
-     *
      * @internal
      */
     public function setCommonHeaders(string $commonHeaders): self

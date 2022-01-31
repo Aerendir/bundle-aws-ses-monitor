@@ -27,9 +27,6 @@ final class Console
     /** @var bool $fullLog If true, the sections are not used and lines are wrote one by one. */
     private $fullLog = false;
 
-    /**
-     * @param bool $enable
-     */
     public function enableFullLog(bool $enable): void
     {
         $this->fullLog = $enable;
@@ -68,9 +65,6 @@ final class Console
     }
 
     /**
-     * @param string                        $line
-     * @param ConsoleOutput|OutputInterface $output
-     *
      * @internal
      */
     public function overwrite(string $line, OutputInterface $output): void
@@ -81,8 +75,6 @@ final class Console
     }
 
     /**
-     * @param ConsoleOutput|OutputInterface $output
-     *
      * @internal
      */
     public function clear(OutputInterface $output): void

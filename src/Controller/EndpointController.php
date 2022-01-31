@@ -23,11 +23,6 @@ use Symfony\Component\HttpFoundation\Response;
 final class EndpointController extends AbstractController
 {
     /**
-     * @param Request                $request
-     * @param RequestProcessor       $processor
-     * @param EntityManagerInterface $entityManager
-     *
-     * @return Response
      * @ codeCoverageIgnore
      */
     public function endpoint(Request $request, RequestProcessor $processor, EntityManagerInterface $entityManager): Response

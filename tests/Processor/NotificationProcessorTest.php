@@ -154,8 +154,6 @@ final class NotificationProcessorTest extends TestCase
     }
 
     /**
-     * @param string $messageType
-     *
      * @return MockObject|Response
      */
     private function initializeSwitch(string $messageType)
@@ -200,9 +198,6 @@ final class NotificationProcessorTest extends TestCase
         return $mockResponse;
     }
 
-    /**
-     * @param string $messageId
-     */
     private function configureLoadOrCreateMailMessage(string $messageId): void
     {
         $mockMailMessageRepository = $this->createMock(EntityRepository::class);

@@ -172,7 +172,6 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
     }
 
     /**
-     * @param ContainerBuilder $container
      * @param $resource
      */
     abstract protected function loadConfiguration(ContainerBuilder $container, $resource);

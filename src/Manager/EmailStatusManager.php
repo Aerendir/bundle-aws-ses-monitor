@@ -22,19 +22,11 @@ final class EmailStatusManager
     /** @var EntityManagerInterface $entityManager */
     private $entityManager;
 
-    /**
-     * @param EntityManagerInterface $entityManager
-     */
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * @param string $emailAddress
-     *
-     * @return EmailStatus
-     */
     public function createEmailStatus(string $emailAddress): EmailStatus
     {
         $email = new EmailStatus($emailAddress);
@@ -43,11 +35,6 @@ final class EmailStatusManager
         return $email;
     }
 
-    /**
-     * @param string $emailAddress
-     *
-     * @return EmailStatus|null
-     */
     public function loadEmailStatus(string $emailAddress): ?EmailStatus
     {
         /** @var EmailStatus|null $email */
@@ -56,11 +43,6 @@ final class EmailStatusManager
         return $email;
     }
 
-    /**
-     * @param string $emailAddress
-     *
-     * @return EmailStatus
-     */
     public function loadOrCreateEmailStatus(string $emailAddress): EmailStatus
     {
         $email = $this->loadEmailStatus($emailAddress);
