@@ -3,7 +3,7 @@
         "dg/bypass-finals": "^1.3",
         "phpunit/phpunit": "9.5.13",
         "symfony/phpunit-bridge": "6.0.3",
-        "vimeo/psalm": "4.18.1",
+        "vimeo/psalm": "4.19.0",
         "psalm/plugin-phpunit": "0.16.1",
         "weirdan/doctrine-psalm-plugin": "2.1.0",
         "symfony/framework-bundle": "~5.4"
