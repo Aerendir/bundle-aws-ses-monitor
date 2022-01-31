@@ -31,6 +31,7 @@ return [
     // PhanRedefinedInheritedInterface : 1 occurrence
     // PhanTypeMismatchDeclaredParamNullable : 1 occurrence
     // PhanTypeMismatchDeclaredReturn : 1 occurrence
+    // PhanUnreferencedClass : 1 occurrence
     // PhanUnreferencedPrivateProperty : 1 occurrence
     // PhanUnusedVariableCaughtException : 1 occurrence
     // UndeclaredTypeInInlineVar : 1 occurrence
@@ -40,7 +41,7 @@ return [
         'src/Command/ConfigureCommand.php' => ['ConstReferenceConstNotFound', 'PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanTypeArraySuspiciousNullable'],
         'src/Command/DebugCommand.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass'],
         'src/Command/SesSendTestEmailsCommand.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass'],
-        'src/Controller/EndpointController.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUnreferencedPublicMethod'],
+        'src/Controller/EndpointController.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
         'src/DependencyInjection/Configuration.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanRedefinedInheritedInterface', 'PhanUndeclaredMethod', 'PhanUnreferencedClosure'],
         'src/DependencyInjection/SHQAwsSesMonitorExtension.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass'],
         'src/Entity/Bounce.php' => ['PhanReadOnlyPrivateProperty', 'PhanUnreferencedPublicClassConstant', 'PhanUnreferencedPublicMethod'],
