@@ -26,6 +26,5 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
     $containerConfigurator->import(SerendipityHQ::SHQ_SYMFONY_BUNDLE);
 
     $toSkip = SerendipityHQ::buildToSkip(SerendipityHQ::SHQ_SYMFONY_BUNDLE_SKIP);
-    $toSkip[] = \Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector::class;
     $parameters->set(Option::SKIP, $toSkip);
 };
