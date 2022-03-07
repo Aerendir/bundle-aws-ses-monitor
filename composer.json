@@ -32,7 +32,7 @@
     "require-dev": {
         "ext-ast": "*",
         "bamarni/composer-bin-plugin": "^1.4",
-        "phpstan/phpstan": "1.4.6",
+        "phpstan/phpstan": "1.4.8",
         "phpstan/phpstan-doctrine": "1.2.11",
         "phpstan/phpstan-phpunit": "1.0.0",
         "phpstan/phpstan-symfony": "1.1.7",
