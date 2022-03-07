@@ -31,6 +31,7 @@
         <MixedArrayAccess errorLevel="suppress" />
         <MixedAssignment errorLevel="suppress" />
         <UndefinedMagicMethod errorLevel="suppress" />
+        <UndefinedDocblockClass errorLevel="suppress" />
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
