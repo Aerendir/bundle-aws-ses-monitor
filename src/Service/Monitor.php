@@ -349,7 +349,7 @@ final class Monitor
     {
         return
             $this->getConfiguredIdentity($identity, 'on_mx_failure') === ($this->getLiveIdentity($identity, 'mail_from')['on_mx_failure'] ?? null) &&
-            $this->getConfiguredIdentity($identity, 'from_domain')   === ($this->getLiveIdentity($identity, 'mail_from')[self::DOMAIN] ?? null);
+            $this->getConfiguredIdentity($identity, 'from_domain')   === ($this->getLiveIdentity($identity, 'mail_from')[self::DOMAIN]    ?? null);
     }
 
     public function fromDomainCanBeSynched(string $identity): bool
@@ -566,15 +566,15 @@ final class Monitor
 
         foreach ($topics->get('Topics') as $topic) {
             $this->console->overwrite(sprintf('   Retrieving attributes for topic <comment>%s</comment>', $topic[self::TOPIC_ARN]), $this->sectionBody);
-            //try {
+            // try {
             $topicAttributes = $this->snsClient->getTopicAttributes([self::TOPIC_ARN => $topic[self::TOPIC_ARN]]);
             $this->awsDataProcessor->processTopicAttributes($topicAttributes);
-            //} catch (\Throwable $e) {
+            // } catch (\Throwable $e) {
             // Do nothing for the moment
             // This throws an error when the subscription doesn't exist.
             // The problem is that all the subscriptions are returned by the previous call to list subscriptions.
             // So, I have a call that returns me some subscriptions that don't exist. And this is a problem.
-            //}
+            // }
         }
 
         $this->console->clear($this->sectionBody);
