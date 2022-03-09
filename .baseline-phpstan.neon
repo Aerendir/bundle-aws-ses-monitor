@@ -56,6 +56,21 @@ parameters:
 			path: src/Entity/EmailStatus.php
 
 		-
+			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\Collection\\<mixed,mixed\\>\\:\\:exists\\(\\) expects Closure\\(mixed, mixed\\)\\: bool, Closure\\(mixed, SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Bounce\\)\\: bool given\\.$#"
+			count: 1
+			path: src/Entity/EmailStatus.php
+
+		-
+			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\Collection\\<mixed,mixed\\>\\:\\:exists\\(\\) expects Closure\\(mixed, mixed\\)\\: bool, Closure\\(mixed, SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Complaint\\)\\: bool given\\.$#"
+			count: 1
+			path: src/Entity/EmailStatus.php
+
+		-
+			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\Collection\\<mixed,mixed\\>\\:\\:exists\\(\\) expects Closure\\(mixed, mixed\\)\\: bool, Closure\\(mixed, SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Delivery\\)\\: bool given\\.$#"
+			count: 1
+			path: src/Entity/EmailStatus.php
+
+		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\EmailStatus\\:\\:\\$bounces with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Entity/EmailStatus.php
@@ -146,16 +161,6 @@ parameters:
 			path: src/Handler/DeliveryNotificationHandler.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Helper\\\\MessageHelper\\:\\:buildMessageFromRequest\\(\\) return type has no value type specified in iterable type Aws\\\\Sns\\\\Message\\.$#"
-			count: 1
-			path: src/Helper/MessageHelper.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Helper\\\\MessageHelper\\:\\:extractMessageData\\(\\) has parameter \\$message with no value type specified in iterable type Aws\\\\Sns\\\\Message\\.$#"
-			count: 1
-			path: src/Helper/MessageHelper.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Helper\\\\MessageHelper\\:\\:extractMessageData\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Helper/MessageHelper.php
@@ -166,12 +171,12 @@ parameters:
 			path: src/Helper/MessageHelper.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Helper\\\\MessageHelper\\:\\:validateNotification\\(\\) has parameter \\$message with no value type specified in iterable type Aws\\\\Sns\\\\Message\\.$#"
+			message: "#^Parameter \\#1 \\$data of class Aws\\\\Sns\\\\Message constructor expects array, mixed given\\.$#"
 			count: 1
 			path: src/Helper/MessageHelper.php
 
 		-
-			message: "#^Parameter \\#1 \\$data of class Aws\\\\Sns\\\\Message constructor expects array, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$json of function Safe\\\\json_decode expects string, mixed given\\.$#"
 			count: 1
 			path: src/Helper/MessageHelper.php
 
@@ -294,11 +299,6 @@ parameters:
 			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
 			count: 1
 			path: tests/Handler/DeliveryNotificationHandlerTest.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Tests\\\\Helper\\\\MessageHelperTest\\:\\:testMessageHelper\\(\\) return type has no value type specified in iterable type Aws\\\\Sns\\\\Message\\.$#"
-			count: 1
-			path: tests/Helper/MessageHelperTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$message of method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Helper\\\\MessageHelper\\:\\:extractMessageData\\(\\) expects Aws\\\\Sns\\\\Message, mixed given\\.$#"
