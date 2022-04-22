@@ -23,8 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class MessageHelper
 {
-    /** @var MessageValidator $messageValidator */
-    private $messageValidator;
+    private MessageValidator $messageValidator;
 
     public function __construct(MessageValidator $messageValidator)
     {

@@ -20,8 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 abstract class AbstractNotification
 {
-    /** @var EmailStatusManager $emailStatusManager */
-    private $emailStatusManager;
+    private EmailStatusManager $emailStatusManager;
 
     public function __construct(EmailStatusManager $emailStatusManager)
     {

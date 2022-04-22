@@ -24,65 +24,55 @@ use Doctrine\ORM\Mapping as ORM;
 class EmailStatus
 {
     /**
-     * @var string
      * @ORM\Column(unique=true)
      * @ORM\Id
      */
-    private $address;
+    private string $address;
 
     /**
-     * @var Collection
      * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce", mappedBy="emailStatus")
      */
-    private $bounces;
+    private Collection $bounces;
 
     /**
-     * @var int
      * @ORM\Column(name="hard_bounces_count", type="integer")
      */
-    private $hardBouncesCount = 0;
+    private int $hardBouncesCount = 0;
 
     /**
-     * @var int
      * @ORM\Column(name="soft_bounces_count", type="integer")
      */
-    private $softBouncesCount = 0;
+    private int $softBouncesCount = 0;
 
     /**
-     * @var string|null
      * @ORM\Column(name="last_bounce_type", type="string", nullable=true)
      */
-    private $lastBounceType;
+    private ?string $lastBounceType = null;
 
     /**
-     * @var \DateTime|null
      * @ORM\Column(name="last_time_bounced", type="datetime", nullable=true)
      */
-    private $lastTimeBounced;
+    private ?\DateTimeInterface $lastTimeBounced = null;
 
     /**
-     * @var Collection
      * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint", mappedBy="emailStatus")
      */
-    private $complaints;
+    private Collection $complaints;
 
     /**
-     * @var \DateTime|null
      * @ORM\Column(name="last_time_complained", type="datetime", nullable=true)
      */
-    private $lastTimeComplained;
+    private ?\DateTimeInterface $lastTimeComplained = null;
 
     /**
-     * @var Collection
      * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery", mappedBy="emailStatus")
      */
-    private $deliveries;
+    private Collection $deliveries;
 
     /**
-     * @var \DateTime|null
      * @ORM\Column(name="last_time_delivered", type="datetime", nullable=true)
      */
-    private $lastTimeDelivered;
+    private ?\DateTimeInterface $lastTimeDelivered = null;
 
     public function __construct(string $email)
     {

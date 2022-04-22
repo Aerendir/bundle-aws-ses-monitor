@@ -37,55 +37,49 @@ class Delivery
     private $id;
 
     /**
-     * @var EmailStatus
      * @ORM\ManyToOne(targetEntity="EmailStatus", inversedBy="deliveries", cascade={"persist"})
      * @ORM\JoinColumn(name="email_status", referencedColumnName="address")
      */
-    private $emailStatus;
+    private EmailStatus $emailStatus;
 
     /**
      * The MessageObject that reported this complaint.
      *
-     * @var MailMessage
      * @ORM\ManyToOne(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage", inversedBy="deliveries")
      * @ORM\JoinColumn(name="mail_message", referencedColumnName="message_id")
      */
-    private $mailMessage;
+    private MailMessage $mailMessage;
 
     /**
      * The time Amazon SES delivered the email to the recipient's mail server (in ISO8601 format).
      *
-     * @var \DateTimeInterface
      * @ORM\Column(name="delivered_on", type="datetime")
      */
-    private $deliveredOn;
+    private \DateTimeInterface $deliveredOn;
 
     /**
      * The time in milliseconds between when Amazon SES accepted the request from the sender to passing the message to
      * the recipient's mail server.
      *
-     * @var int
      * @ORM\Column(name="processing_time_millis", type="integer")
      */
-    private $processingTimeMillis;
+    private int $processingTimeMillis;
 
     /**
      * The SMTP response message of the remote ISP that accepted the email from Amazon SES.
      *
      * This message will vary by email, by receiving mail server, and by receiving ISP.
      *
-     * @var string
      * @ORM\Column(name="smtp_response", type="text")
      */
-    private $smtpResponse;
+    private string $smtpResponse;
 
     /**
      * The host name of the Amazon SES mail server that sent the mail.
      *
-     * @var string|null
      * @ORM\Column(name="reporting_mta", type="string", nullable=true)
      */
-    private $reportingMta;
+    private ?string $reportingMta = null;
 
     public static function create(EmailStatus $email, MailMessage $mailMessage, array $notification): Delivery
     {

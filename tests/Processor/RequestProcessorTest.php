@@ -26,8 +26,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
  */
 final class RequestProcessorTest extends TestCase
 {
-    /** @var RequestProcessor $requestProcessor */
-    private $requestProcessor;
+    private RequestProcessor $requestProcessor;
 
     /**
      * {@inheritdoc}

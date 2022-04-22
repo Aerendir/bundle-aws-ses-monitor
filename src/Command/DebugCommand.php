@@ -20,6 +20,7 @@ use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableCell;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\ConsoleSectionOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -49,15 +50,13 @@ final class DebugCommand extends Command
      */
     protected static $defaultName = 'aws:ses:debug';
 
-    /** @var Console $console */
-    private $console;
+    private Console $console;
 
-    /** @var Monitor $monitor */
-    private $monitor;
+    private Monitor $monitor;
 
-    private $sectionTitle;
+    private ConsoleSectionOutput $sectionTitle;
 
-    private $sectionBody;
+    private ConsoleSectionOutput $sectionBody;
 
     public function __construct(Console $console, Monitor $monitor)
     {

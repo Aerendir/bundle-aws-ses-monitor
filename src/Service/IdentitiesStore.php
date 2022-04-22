@@ -18,8 +18,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
  */
 final class IdentitiesStore
 {
-    /** @var array $identities */
-    private $identities;
+    private array $identities;
 
     public function __construct(array $identities)
     {

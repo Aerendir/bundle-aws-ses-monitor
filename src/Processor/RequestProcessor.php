@@ -21,11 +21,9 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
  */
 final class RequestProcessor
 {
-    /** @var NotificationProcessor $snsNotificationProcessor */
-    private $snsNotificationProcessor;
+    private NotificationProcessor $snsNotificationProcessor;
 
-    /** @var SubscriptionProcessor $subscriptionHandler */
-    private $subscriptionHandler;
+    private SubscriptionProcessor $subscriptionHandler;
 
     public function __construct(
         NotificationProcessor $snsNotificationProcessor,

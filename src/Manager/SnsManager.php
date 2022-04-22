@@ -20,14 +20,11 @@ use Symfony\Component\Routing\RouterInterface;
  */
 final class SnsManager
 {
-    /** @var array $endpointConfig */
-    private $endpointConfig;
+    private array $endpointConfig;
 
-    /** @var SnsClient $client */
-    private $client;
+    private SnsClient $client;
 
-    /** @var RouterInterface $router */
-    private $router;
+    private RouterInterface $router;
 
     public function __construct(array $endpointConfig, SnsClient $client, RouterInterface $router)
     {

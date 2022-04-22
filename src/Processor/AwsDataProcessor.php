@@ -70,8 +70,7 @@ final class AwsDataProcessor
      */
     private const TOPIC_ARN = 'TopicArn';
 
-    /** @var array */
-    private $data = [];
+    private array $data = [];
 
     /**
      * @internal

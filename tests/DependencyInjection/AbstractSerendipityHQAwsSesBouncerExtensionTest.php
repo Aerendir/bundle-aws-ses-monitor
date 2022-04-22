@@ -22,11 +22,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
 {
-    /** @var SHQAwsSesMonitorExtension $extension */
-    private $extension;
+    private SHQAwsSesMonitorExtension $extension;
 
-    /** @var ContainerBuilder $container */
-    private $container;
+    private ContainerBuilder $container;
 
     /**
      * {@inheritdoc}

@@ -24,8 +24,7 @@ final class SesManager
      */
     private const IDENTITY = 'Identity';
 
-    /** @var SesClient $client */
-    private $client;
+    private SesClient $client;
 
     public function __construct(SesClient $client)
     {

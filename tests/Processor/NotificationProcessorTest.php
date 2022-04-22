@@ -30,22 +30,21 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class NotificationProcessorTest extends TestCase
 {
-    /** @var NotificationProcessor $notificationProcessor */
-    private $notificationProcessor;
+    private NotificationProcessor $notificationProcessor;
 
-    /** @var MockObject $bounceNotificationHandler */
+    /** @var BounceNotificationHandler&MockObject $bounceNotificationHandler */
     private $bounceNotificationHandler;
 
-    /** @var MockObject $complaintNotificationHandler */
+    /** @var ComplaintNotificationHandler&MockObject $complaintNotificationHandler */
     private $complaintNotificationHandler;
 
-    /** @var MockObject $deliveryNotificationHandler */
+    /** @var DeliveryNotificationHandler&MockObject $deliveryNotificationHandler */
     private $deliveryNotificationHandler;
 
-    /** @var MockObject $mockEntityManager */
+    /** @var EntityManagerInterface&MockObject $mockEntityManager */
     private $mockEntityManager;
 
-    /** @var MockObject $mockMessageHelper */
+    /** @var MessageHelper&MockObject $mockMessageHelper */
     private $mockMessageHelper;
 
     /**

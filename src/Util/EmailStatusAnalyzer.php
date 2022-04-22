@@ -19,8 +19,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\Monitor;
  */
 final class EmailStatusAnalyzer
 {
-    /** @var Monitor $monitor */
-    private $monitor;
+    private Monitor $monitor;
 
     public function __construct(Monitor $monitor)
     {

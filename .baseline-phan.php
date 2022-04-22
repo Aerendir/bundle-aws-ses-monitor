@@ -9,28 +9,28 @@
  */
 return [
     // # Issue statistics:
-    // PhanRedefinedClassReference : 280+ occurrences
+    // PhanUndeclaredStaticMethod : 410+ occurrences
+    // PhanRedefinedClassReference : 290+ occurrences
     // PhanAccessMethodInternal : 240+ occurrences
+    // PhanUndeclaredMethod : 160+ occurrences
     // PhanUnreferencedPublicMethod : 100+ occurrences
-    // PhanTypeMismatchArgument : 80+ occurrences
     // PhanAccessClassConstantInternal : 70+ occurrences
-    // PhanTypeMismatchArgumentProbablyReal : 50+ occurrences
-    // PhanTypeMismatchArgumentReal : 30+ occurrences
+    // PhanRedefinedExtendedClass : 30+ occurrences
     // PhanTypeArraySuspiciousNullable : 25+ occurrences
+    // PhanUnreferencedClass : 25+ occurrences
     // PhanUnreferencedPublicClassConstant : 15+ occurrences
-    // PhanRedefinedExtendedClass : 6 occurrences
+    // PhanImpossibleIntersectionType : 9 occurrences
+    // PhanUnreferencedProtectedMethod : 8 occurrences
     // PhanReadOnlyPrivateProperty : 4 occurrences
-    // PhanUndeclaredProperty : 4 occurrences
-    // PhanUndeclaredMethod : 3 occurrences
+    // PhanTypeMismatchArgumentProbablyReal : 3 occurrences
+    // PhanUnreferencedClosure : 3 occurrences
     // PhanUnusedClosureParameter : 3 occurrences
     // ConstReferenceConstNotFound : 2 occurrences
     // PhanUndeclaredConstantOfClass : 2 occurrences
-    // PhanUnreferencedClosure : 2 occurrences
     // PhanUnusedVariable : 2 occurrences
     // PhanNoopNew : 1 occurrence
     // PhanRedefinedInheritedInterface : 1 occurrence
     // PhanTypeMismatchDeclaredReturn : 1 occurrence
-    // PhanUnreferencedClass : 1 occurrence
     // PhanUnreferencedPrivateProperty : 1 occurrence
     // PhanUnusedVariableCaughtException : 1 occurrence
     // UndeclaredTypeInInlineVar : 1 occurrence
@@ -63,32 +63,32 @@ return [
         'src/Service/Monitor.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanUndeclaredConstantOfClass', 'PhanUnreferencedPublicMethod', 'PhanUnusedVariableCaughtException'],
         'src/Util/Console.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchDeclaredReturn', 'PhanUndeclaredMethod'],
         'src/Util/EmailStatusAnalyzer.php' => ['PhanAccessMethodInternal'],
-        'tests/Command/SesSendTestEmailsCommandTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod', 'UndeclaredTypeInInlineVar'],
-        'tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php' => ['PhanRedefinedClassReference', 'PhanTypeArraySuspiciousNullable', 'PhanUnreferencedPublicMethod'],
-        'tests/DependencyInjection/YamlAwsSesMonitorBundleExtensionTest.php' => ['PhanRedefinedClassReference'],
-        'tests/Entity/BounceTest.php' => ['PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
-        'tests/Entity/ComplaintTest.php' => ['PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
-        'tests/Entity/DeliveryTest.php' => ['PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
-        'tests/Entity/EmailStatusTest.php' => ['PhanAccessMethodInternal', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
-        'tests/Entity/MailMessageTest.php' => ['PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
-        'tests/Entity/TopicTest.php' => ['PhanUnreferencedPublicMethod'],
-        'tests/Handler/BounceNotificationHandlerTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
-        'tests/Handler/ComplaintNotificationHandlerTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
-        'tests/Handler/DeliveryNotificationHandlerTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
-        'tests/Helper/MessageHelperTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
-        'tests/Manager/EmailStatusManagerTest.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUnreferencedPublicMethod'],
-        'tests/Manager/SesManagerTest.php' => ['PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
-        'tests/Manager/SnsManagerTest.php' => ['PhanNoopNew', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUnreferencedPublicMethod'],
-        'tests/Plugin/MonitorFilterPluginTest.php' => ['ConstReferenceConstNotFound', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod', 'PhanUnusedVariable'],
-        'tests/Processor/AwsDataProcessorTest.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUnreferencedPublicMethod'],
-        'tests/Processor/NotificationProcessorTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
-        'tests/Processor/RequestProcessorTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentReal', 'PhanUndeclaredProperty', 'PhanUnreferencedPublicMethod'],
-        'tests/Processor/SubscriptionProcessorTest.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
-        'tests/Service/IdentitiesStoreTest.php' => ['PhanAccessMethodInternal', 'PhanUnreferencedPublicMethod'],
-        'tests/Service/MonitorTest.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPrivateProperty', 'PhanUnreferencedPublicMethod', 'PhanUnusedVariable'],
-        'tests/Util/ConsoleTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUnreferencedPublicMethod'],
-        'tests/Util/EmailStatusAnalyzerTest.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentProbablyReal', 'PhanTypeMismatchArgumentReal', 'PhanUnreferencedPublicMethod'],
-        'tests/Util/IdentityGuesserTest.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanUnreferencedPublicMethod'],
+        'tests/Command/SesSendTestEmailsCommandTest.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod', 'UndeclaredTypeInInlineVar'],
+        'tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanTypeArraySuspiciousNullable', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedProtectedMethod', 'PhanUnreferencedPublicMethod'],
+        'tests/DependencyInjection/YamlAwsSesMonitorBundleExtensionTest.php' => ['PhanRedefinedClassReference', 'PhanUnreferencedClass'],
+        'tests/Entity/BounceTest.php' => ['PhanRedefinedExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
+        'tests/Entity/ComplaintTest.php' => ['PhanRedefinedExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
+        'tests/Entity/DeliveryTest.php' => ['PhanRedefinedExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
+        'tests/Entity/EmailStatusTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
+        'tests/Entity/MailMessageTest.php' => ['PhanRedefinedExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
+        'tests/Entity/TopicTest.php' => ['PhanRedefinedExtendedClass', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
+        'tests/Handler/BounceNotificationHandlerTest.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
+        'tests/Handler/ComplaintNotificationHandlerTest.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
+        'tests/Handler/DeliveryNotificationHandlerTest.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
+        'tests/Helper/MessageHelperTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedProtectedMethod', 'PhanUnreferencedPublicMethod'],
+        'tests/Manager/EmailStatusManagerTest.php' => ['PhanRedefinedExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
+        'tests/Manager/SesManagerTest.php' => ['PhanRedefinedExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
+        'tests/Manager/SnsManagerTest.php' => ['PhanNoopNew', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedProtectedMethod', 'PhanUnreferencedPublicMethod'],
+        'tests/Plugin/MonitorFilterPluginTest.php' => ['ConstReferenceConstNotFound', 'PhanRedefinedExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod', 'PhanUnusedVariable'],
+        'tests/Processor/AwsDataProcessorTest.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanRedefinedExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
+        'tests/Processor/NotificationProcessorTest.php' => ['PhanImpossibleIntersectionType', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedProtectedMethod', 'PhanUnreferencedPublicMethod'],
+        'tests/Processor/RequestProcessorTest.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedProtectedMethod', 'PhanUnreferencedPublicMethod'],
+        'tests/Processor/SubscriptionProcessorTest.php' => ['PhanImpossibleIntersectionType', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedClosure', 'PhanUnreferencedProtectedMethod', 'PhanUnreferencedPublicMethod'],
+        'tests/Service/IdentitiesStoreTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedExtendedClass', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
+        'tests/Service/MonitorTest.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanImpossibleIntersectionType', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanTypeMismatchArgumentProbablyReal', 'PhanUndeclaredMethod', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPrivateProperty', 'PhanUnreferencedProtectedMethod', 'PhanUnreferencedPublicMethod', 'PhanUnusedVariable'],
+        'tests/Util/ConsoleTest.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
+        'tests/Util/EmailStatusAnalyzerTest.php' => ['PhanRedefinedExtendedClass', 'PhanUndeclaredMethod', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedPublicMethod'],
+        'tests/Util/IdentityGuesserTest.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanRedefinedExtendedClass', 'PhanUndeclaredStaticMethod', 'PhanUnreferencedClass', 'PhanUnreferencedProtectedMethod', 'PhanUnreferencedPublicMethod'],
     ],
     // 'directory_suppressions' => ['src/directory_name' => ['PhanIssueName1', 'PhanIssueName2']] can be manually added if needed.
     // (directory_suppressions will currently be ignored by subsequent calls to --save-baseline, but may be preserved in future Phan releases)

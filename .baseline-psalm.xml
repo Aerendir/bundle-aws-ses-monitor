@@ -4,10 +4,6 @@
     <ArgumentTypeCoercion occurrences="1">
       <code>(int) $wait * 10000000</code>
     </ArgumentTypeCoercion>
-    <MissingPropertyType occurrences="2">
-      <code>$sectionBody</code>
-      <code>$sectionTitle</code>
-    </MissingPropertyType>
     <NonInvariantDocblockPropertyType occurrences="1">
       <code>$defaultName</code>
     </NonInvariantDocblockPropertyType>
@@ -27,20 +23,30 @@
     <PossiblyNullArrayAccess occurrences="1">
       <code>$this-&gt;monitor-&gt;getLiveTopic($topic)['arn']</code>
     </PossiblyNullArrayAccess>
-    <PropertyNotSetInConstructor occurrences="3">
+    <PropertyNotSetInConstructor occurrences="5">
       <code>$allowedIdentities</code>
       <code>$ioWriter</code>
-      <code>$skippedIdentities</code>
-    </PropertyNotSetInConstructor>
-  </file>
-  <file src="src/Command/DebugCommand.php">
-    <MissingPropertyType occurrences="2">
       <code>$sectionBody</code>
       <code>$sectionTitle</code>
-    </MissingPropertyType>
+      <code>$skippedIdentities</code>
+    </PropertyNotSetInConstructor>
+    <PropertyTypeCoercion occurrences="2">
+      <code>$this-&gt;console-&gt;createSection($output)</code>
+      <code>$this-&gt;console-&gt;createSection($output)</code>
+    </PropertyTypeCoercion>
+  </file>
+  <file src="src/Command/DebugCommand.php">
     <NonInvariantDocblockPropertyType occurrences="1">
       <code>$defaultName</code>
     </NonInvariantDocblockPropertyType>
+    <PropertyNotSetInConstructor occurrences="2">
+      <code>$sectionBody</code>
+      <code>$sectionTitle</code>
+    </PropertyNotSetInConstructor>
+    <PropertyTypeCoercion occurrences="2">
+      <code>$this-&gt;console-&gt;createSection($output)</code>
+      <code>$this-&gt;console-&gt;createSection($output)</code>
+    </PropertyTypeCoercion>
   </file>
   <file src="src/Command/SesSendTestEmailsCommand.php">
     <NonInvariantDocblockPropertyType occurrences="1">
@@ -98,11 +104,6 @@
       <code>$key</code>
       <code>$key</code>
     </MissingClosureParamType>
-    <PropertyTypeCoercion occurrences="3">
-      <code>$bounce-&gt;getBouncedOn()</code>
-      <code>$complaint-&gt;getComplainedOn()</code>
-      <code>$delivery-&gt;getDeliveredOn()</code>
-    </PropertyTypeCoercion>
   </file>
   <file src="src/Entity/MailMessage.php">
     <PropertyNotSetInConstructor occurrences="5">
@@ -228,10 +229,6 @@
     <InvalidArgument occurrences="1">
       <code>$command</code>
     </InvalidArgument>
-    <UndefinedDocblockClass occurrences="2">
-      <code>$command</code>
-      <code>$command</code>
-    </UndefinedDocblockClass>
   </file>
   <file src="tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php">
     <MissingParamType occurrences="1">
@@ -409,39 +406,9 @@
     </ReservedWord>
   </file>
   <file src="tests/Service/MonitorTest.php">
-    <PossiblyInvalidArgument occurrences="6">
-      <code>$this-&gt;mockSectionBody</code>
-      <code>$this-&gt;mockSectionBody</code>
-      <code>$this-&gt;mockSectionBody</code>
-      <code>$this-&gt;mockSectionTitle</code>
-      <code>$this-&gt;mockSectionTitle</code>
-      <code>$this-&gt;mockSectionTitle</code>
-    </PossiblyInvalidArgument>
-    <PossiblyUndefinedMethod occurrences="23">
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-    </PossiblyUndefinedMethod>
+    <InvalidPropertyAssignmentValue occurrences="1">
+      <code>$this-&gt;createMock(IdentityGuesser::class)</code>
+    </InvalidPropertyAssignmentValue>
     <TooManyArguments occurrences="11">
       <code>append</code>
       <code>append</code>
@@ -455,5 +422,12 @@
       <code>append</code>
       <code>append</code>
     </TooManyArguments>
+    <UndefinedMethod occurrences="5">
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+    </UndefinedMethod>
   </file>
 </files>

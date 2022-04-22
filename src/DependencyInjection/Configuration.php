@@ -68,8 +68,7 @@ final class Configuration implements ConfigurationInterface
      */
     private const DOMAIN = 'domain';
 
-    /** @var IdentityGuesser $identityGuesser */
-    private $identityGuesser;
+    private IdentityGuesser $identityGuesser;
 
     /**
      * {@inheritdoc}
