@@ -24,8 +24,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 final class Console
 {
-    /** @var bool $fullLog If true, the sections are not used and lines are wrote one by one. */
-    private $fullLog = false;
+    /** If true, the sections are not used and lines are wrote one by one. */
+    private bool $fullLog = false;
 
     public function enableFullLog(bool $enable): void
     {

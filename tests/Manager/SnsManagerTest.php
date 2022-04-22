@@ -42,11 +42,9 @@ final class SnsManagerTest extends TestCase
         'arn'  => 'the-topic-arn',
     ];
 
-    /** @var MockHandler $mockHandler */
-    private $mockHandler;
+    private MockHandler $mockHandler;
 
-    /** @var SnsClient $client */
-    private $client;
+    private SnsClient $client;
 
     protected function setUp(): void
     {

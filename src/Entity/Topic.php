@@ -30,16 +30,14 @@ class Topic
     private $id;
 
     /**
-     * @var string
      * @ORM\Column(name="name", type="string", length=296)
      */
-    private $name;
+    private string $name;
 
     /**
-     * @var string
      * @ORM\Column(name="arn", type="string", length=296)
      */
-    private $arn;
+    private string $arn;
 
     /**
      * Topic constructor.

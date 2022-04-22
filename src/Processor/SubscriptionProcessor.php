@@ -23,14 +23,11 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class SubscriptionProcessor
 {
-    /** @var SnsClient $snsClient */
-    private $snsClient;
+    private SnsClient $snsClient;
 
-    /** @var EntityManagerInterface $entityManager */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
-    /** @var MessageHelper $messageHelper */
-    private $messageHelper;
+    private MessageHelper $messageHelper;
 
     public function __construct(SnsClient $snsClient, EntityManagerInterface $entityManager, MessageHelper $messageHelper)
     {

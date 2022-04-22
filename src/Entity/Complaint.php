@@ -66,20 +66,18 @@ class Complaint
     private $id;
 
     /**
-     * @var EmailStatus
      * @ORM\ManyToOne(targetEntity="EmailStatus", inversedBy="complaints", cascade={"persist"})
      * @ORM\JoinColumn(name="email_status", referencedColumnName="address")
      */
-    private $emailStatus;
+    private EmailStatus $emailStatus;
 
     /**
      * The MessageObject that reported this complaint.
      *
-     * @var MailMessage
      * @ORM\ManyToOne(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage", inversedBy="complaints")
      * @ORM\JoinColumn(name="mail_message", referencedColumnName="message_id")
      */
-    private $mailMessage;
+    private MailMessage $mailMessage;
 
     /**
      * The date and time at which the bounce was sent (in ISO8601 format).
@@ -87,48 +85,43 @@ class Complaint
      * Note that this is the time at which the notification was sent by the ISP, and not the time at which it was
      * received by Amazon SES.
      *
-     * @var \DateTimeInterface
      * @ORM\Column(name="complained_on", type="datetime")
      */
-    private $complainedOn;
+    private \DateTimeInterface $complainedOn;
 
     /**
      * A unique ID for the bounce.
      *
-     * @var string
      * @ORM\Column(name="feedback_id", type="string")
      */
-    private $feedbackId;
+    private string $feedbackId;
 
     /**
      * The value of the User-Agent field from the feedback report.
      *
      * This indicates the name and version of the system that generated the report.
      *
-     * @var string
      * @ORM\Column(name="user_agent")
      */
-    private $userAgent;
+    private string $userAgent;
 
     /**
      * The value of the Feedback-Type field from the feedback report received from the ISP.
      *
      * This contains the type of feedback.
      *
-     * @var string|null
      * @ORM\Column(name="complaint_feedback_type", type="string", nullable=true)
      */
-    private $complaintFeedbackType;
+    private ?string $complaintFeedbackType = null;
 
     /**
      * The value of the Arrival-Date or Received-Date field from the feedback report (in ISO8601 format).
      *
      * This field may be absent in the report (and therefore also absent in the JSON).
      *
-     * @var \DateTimeInterface|null
      * @ORM\Column(name="arrival_date", type="datetime", nullable=true)
      */
-    private $arrivalDate;
+    private ?\DateTimeInterface $arrivalDate = null;
 
     public static function create(EmailStatus $email, MailMessage $mailMessage, array $notification): Complaint
     {

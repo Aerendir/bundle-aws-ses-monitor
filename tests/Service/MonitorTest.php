@@ -32,41 +32,35 @@ final class MonitorTest extends TestCase
     /** @var string $env */
     private const MOCK_ENV = 'prod';
 
-    /** @var IdentitiesStore|MockObject $configuredIdentities */
+    /** @var IdentitiesStore&MockObject $mockConfiguredIdentities */
     private $mockConfiguredIdentities;
 
-    /** @var array $liveData */
-    private $mockLiveData;
+    private array $mockLiveData;
 
-    /** @var AwsDataProcessor|MockObject $awsDataProcessor */
+    /** @var AwsDataProcessor&MockObject $mockAwsDataProcessor */
     private $mockAwsDataProcessor;
 
-    /** @var Console|MockObject $console */
+    /** @var Console&MockObject $mockConsole */
     private $mockConsole;
 
-    /** @var SesClient $sesClient */
-    private $mockSesClient;
+    private SesClient $mockSesClient;
 
-    /** @var MockHandler $mockSesClientHandler */
-    private $mockSesClientHandler;
+    private MockHandler $mockSesClientHandler;
 
-    /** @var SnsClient $snsClient */
-    private $mockSnsClient;
+    private SnsClient $mockSnsClient;
 
-    /** @var MockHandler $mockSnsClientHandler */
-    private $mockSnsClientHandler;
+    private MockHandler $mockSnsClientHandler;
 
-    /** @var IdentityGuesser|MockObject $identityGuesser */
+    /** @var IdentityGuesser&MockHandler $mockIdentityGuesser */
     private $mockIdentityGuesser;
 
-    /** @var MockObject|OutputInterface $sectionTitle */
+    /** @var MockObject&OutputInterface $sectionTitle */
     private $mockSectionTitle;
 
-    /** @var MockObject|OutputInterface $sectionBody */
+    /** @var MockObject&OutputInterface $sectionBody */
     private $mockSectionBody;
 
-    /** @var Monitor $resource */
-    private $resource;
+    private Monitor $resource;
 
     /**
      * {@inheritdoc}

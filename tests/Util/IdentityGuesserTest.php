@@ -20,17 +20,13 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\IdentityGuesser;
  */
 final class IdentityGuesserTest extends TestCase
 {
-    /** @var string $testIdentity */
-    private $testIdentity;
+    private string $testIdentity;
 
-    /** @var string $emailIdentity */
-    private $emailIdentity;
+    private string $emailIdentity;
 
-    /** @var string $domainIdentity */
-    private $domainIdentity;
+    private string $domainIdentity;
 
-    /** @var string $productionMailbox */
-    private $productionMailbox;
+    private string $productionMailbox;
 
     protected function setUp(): void
     {

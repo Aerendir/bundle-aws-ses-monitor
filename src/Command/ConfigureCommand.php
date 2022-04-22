@@ -23,6 +23,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\Console;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\ConsoleSectionOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -48,42 +49,32 @@ final class ConfigureCommand extends Command
      */
     protected static $defaultName = 'aws:ses:configure';
 
-    /** @var string $env */
-    private $env;
+    private string $env;
 
-    /** @var EntityManagerInterface $entityManager */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
-    /** @var array $actionsToTakeNow */
-    private $actionsToTakeNow = [];
+    private array $actionsToTakeNow = [];
 
-    /** @var Monitor $monitor */
-    private $monitor;
+    private Monitor $monitor;
 
-    /** @var SesManager $sesManager */
-    private $sesManager;
+    private SesManager $sesManager;
 
-    /** @var SnsManager $snsManager */
-    private $snsManager;
+    private SnsManager $snsManager;
 
-    /** @var SymfonyStyle $ioWriter */
-    private $ioWriter;
+    private SymfonyStyle $ioWriter;
 
-    /** @var Console $console */
-    private $console;
+    private Console $console;
 
-    private $sectionTitle;
+    private ConsoleSectionOutput $sectionTitle;
 
-    private $sectionBody;
+    private ConsoleSectionOutput $sectionBody;
 
-    /** @var array $allowedIdentities */
-    private $allowedIdentities;
+    private array $allowedIdentities;
 
-    /** @var array $skippedIdentities */
-    private $skippedIdentities;
+    private array $skippedIdentities;
 
-    /** @var array $scheduledTopics The topics to create */
-    private $scheduledTopics = [];
+    /** The topics to create */
+    private array $scheduledTopics = [];
 
     public function __construct(
         string $env,

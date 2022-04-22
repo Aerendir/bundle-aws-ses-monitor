@@ -57,35 +57,25 @@ final class Monitor
      */
     private const TOPIC_ARN = 'TopicArn';
 
-    /** @var string $env */
-    private $env;
+    private string $env;
 
-    /** @var IdentitiesStore $configuredIdentities */
-    private $configuredIdentities;
+    private IdentitiesStore $configuredIdentities;
 
-    /** @var array $liveData */
-    private $liveData;
+    private array $liveData;
 
-    /** @var AwsDataProcessor $awsDataProcessor */
-    private $awsDataProcessor;
+    private AwsDataProcessor $awsDataProcessor;
 
-    /** @var Console $console */
-    private $console;
+    private Console $console;
 
-    /** @var SesClient $sesClient */
-    private $sesClient;
+    private SesClient $sesClient;
 
-    /** @var SnsClient $snsClient */
-    private $snsClient;
+    private SnsClient $snsClient;
 
-    /** @var IdentityGuesser $identityGuesser */
-    private $identityGuesser;
+    private IdentityGuesser $identityGuesser;
 
-    /** @var OutputInterface $sectionTitle */
-    private $sectionTitle;
+    private OutputInterface $sectionTitle;
 
-    /** @var OutputInterface $sectionBody */
-    private $sectionBody;
+    private OutputInterface $sectionBody;
 
     public function __construct(
         string $env,

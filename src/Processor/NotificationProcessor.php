@@ -31,20 +31,15 @@ final class NotificationProcessor
      */
     private const NOTIFICATION_TYPE = 'notificationType';
 
-    /** @var BounceNotificationHandler $bounceNotificationHandler */
-    private $bounceNotificationHandler;
+    private BounceNotificationHandler $bounceNotificationHandler;
 
-    /** @var ComplaintNotificationHandler $complaintNotificationHandler */
-    private $complaintNotificationHandler;
+    private ComplaintNotificationHandler $complaintNotificationHandler;
 
-    /** @var DeliveryNotificationHandler $deliveryNotificationHandler */
-    private $deliveryNotificationHandler;
+    private DeliveryNotificationHandler $deliveryNotificationHandler;
 
-    /** @var EntityManagerInterface $entityManager */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
-    /** @var MessageHelper $messageHelper */
-    private $messageHelper;
+    private MessageHelper $messageHelper;
 
     public function __construct(
         BounceNotificationHandler $bounceNotificationHandler,

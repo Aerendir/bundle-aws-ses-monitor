@@ -43,8 +43,7 @@ final class SesSendTestEmailsCommand extends Command
      */
     protected static $defaultName = 'aws:ses:monitor:test:swiftmailer';
 
-    /** @var \Swift_Mailer $mailer */
-    private $mailer;
+    private \Swift_Mailer $mailer;
 
     public function __construct(\Swift_Mailer $mailer)
     {

@@ -28,16 +28,15 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class SubscriptionProcessorTest extends TestCase
 {
-    /** @var SubscriptionProcessor $requestProcessor */
-    private $subscriptionProcessor;
+    private SubscriptionProcessor $subscriptionProcessor;
 
-    /** @var MockObject $mockSnsClient */
+    /** @var MockObject&SnsClient $mockSnsClient */
     private $mockSnsClient;
 
-    /** @var MockObject $mockEntityManager */
+    /** @var EntityManagerInterface&MockObject $mockEntityManager */
     private $mockEntityManager;
 
-    /** @var MockObject $mockMessageHelper */
+    /** @var MessageHelper&MockObject $mockMessageHelper */
     private $mockMessageHelper;
 
     /**

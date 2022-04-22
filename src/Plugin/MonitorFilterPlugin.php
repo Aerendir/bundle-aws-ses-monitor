@@ -21,14 +21,11 @@ use Swift_Events_SendEvent;
  */
 final class MonitorFilterPlugin implements \Swift_Events_SendListener
 {
-    /** @var array $blacklisted */
-    private $blacklisted;
+    private array $blacklisted;
 
-    /** @var EmailStatusAnalyzer $emailStatusAnalyzer */
-    private $emailStatusAnalyzer;
+    private EmailStatusAnalyzer $emailStatusAnalyzer;
 
-    /** @var EmailStatusManager $emailStatusManager */
-    private $emailStatusManager;
+    private EmailStatusManager $emailStatusManager;
 
     public function __construct(EmailStatusAnalyzer $emailStatusAnalyzer, EmailStatusManager $emailStatusManager)
     {
