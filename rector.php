@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
@@ -12,10 +12,10 @@ declare(strict_types = 1);
  */
 
 use Rector\Config\RectorConfig;
-use SerendipityHQ\Integration\Rector\SerendipityHQ;
 use Rector\Core\ValueObject\PhpVersion;
+use SerendipityHQ\Integration\Rector\SerendipityHQ;
 
-return static function (RectorConfig $rectorConfig) : void {
+return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->phpVersion(PhpVersion::PHP_74);
     $rectorConfig->paths([__DIR__ . '/src', __DIR__ . '/tests']);
 
