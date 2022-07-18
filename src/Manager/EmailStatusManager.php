@@ -46,7 +46,7 @@ final class EmailStatusManager
     {
         $email = $this->loadEmailStatus($emailAddress);
 
-        if (null === $email) {
+        if ( ! $email instanceof EmailStatus) {
             $email = $this->createEmailStatus($emailAddress);
         }
 

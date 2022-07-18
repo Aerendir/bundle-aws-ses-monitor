@@ -88,11 +88,10 @@ final class NotificationProcessor
     {
         $mailMessageData = $messageData['mail'];
 
-        /** @var MailMessage|null $mailMessage */
         $mailMessage = $this->entityManager->getRepository(MailMessage::class)->findOneBy(['messageId' => $mailMessageData['messageId']]);
 
         // If a MailMessage object doesn't already exists...
-        if (null === $mailMessage) {
+        if ( ! $mailMessage instanceof MailMessage) {
             // Create it
             $mailMessage = MailMessage::create($mailMessageData);
             $this->entityManager->persist($mailMessage);
