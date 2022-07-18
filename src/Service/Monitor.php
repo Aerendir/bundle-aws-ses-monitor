@@ -27,34 +27,22 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class Monitor
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private const TRACK = 'track';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const DKIM = 'dkim';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const TOPIC = 'topic';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const IDENTITIES = 'Identities';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const SUBSCRIPTION_ARN = 'SubscriptionArn';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const TOPIC_ARN = 'TopicArn';
 
     private string $env;

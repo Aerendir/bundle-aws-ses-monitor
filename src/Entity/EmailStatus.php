@@ -29,49 +29,31 @@ class EmailStatus
      */
     private string $address;
 
-    /**
-     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce", mappedBy="emailStatus")
-     */
+    /** @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce", mappedBy="emailStatus") */
     private Collection $bounces;
 
-    /**
-     * @ORM\Column(name="hard_bounces_count", type="integer")
-     */
+    /** @ORM\Column(name="hard_bounces_count", type="integer") */
     private int $hardBouncesCount = 0;
 
-    /**
-     * @ORM\Column(name="soft_bounces_count", type="integer")
-     */
+    /** @ORM\Column(name="soft_bounces_count", type="integer") */
     private int $softBouncesCount = 0;
 
-    /**
-     * @ORM\Column(name="last_bounce_type", type="string", nullable=true)
-     */
+    /** @ORM\Column(name="last_bounce_type", type="string", nullable=true) */
     private ?string $lastBounceType = null;
 
-    /**
-     * @ORM\Column(name="last_time_bounced", type="datetime", nullable=true)
-     */
+    /** @ORM\Column(name="last_time_bounced", type="datetime", nullable=true) */
     private ?\DateTimeInterface $lastTimeBounced = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint", mappedBy="emailStatus")
-     */
+    /** @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint", mappedBy="emailStatus") */
     private Collection $complaints;
 
-    /**
-     * @ORM\Column(name="last_time_complained", type="datetime", nullable=true)
-     */
+    /** @ORM\Column(name="last_time_complained", type="datetime", nullable=true) */
     private ?\DateTimeInterface $lastTimeComplained = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery", mappedBy="emailStatus")
-     */
+    /** @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery", mappedBy="emailStatus") */
     private Collection $deliveries;
 
-    /**
-     * @ORM\Column(name="last_time_delivered", type="datetime", nullable=true)
-     */
+    /** @ORM\Column(name="last_time_delivered", type="datetime", nullable=true) */
     private ?\DateTimeInterface $lastTimeDelivered = null;
 
     public function __construct(string $email)

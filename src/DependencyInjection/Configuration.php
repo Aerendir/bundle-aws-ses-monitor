@@ -23,49 +23,31 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
  */
 final class Configuration implements ConfigurationInterface
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public const USE_DOMAIN = 'use_domain';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const BOUNCES = 'bounces';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const TRACK = 'track';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const TOPIC = 'topic';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const FOREVER = 'forever';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const COMPLAINTS = 'complaints';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const DELIVERIES = 'deliveries';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const IDENTITIES = 'identities';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const DOMAIN = 'domain';
 
     private IdentityGuesser $identityGuesser;

@@ -51,9 +51,7 @@ class Complaint
      * @var string */
     public const TYPE_VIRUS = 'virus';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const COMPLAINT = 'complaint';
 
     /**

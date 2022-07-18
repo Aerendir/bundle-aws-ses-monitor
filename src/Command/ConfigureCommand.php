@@ -34,19 +34,13 @@ use Symfony\Component\Console\Style\SymfonyStyle;
  */
 final class ConfigureCommand extends Command
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private const FORCE = 'force';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const TOPIC = 'topic';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected static $defaultName = 'aws:ses:configure';
 
     private string $env;

@@ -29,14 +29,10 @@ class Topic
      */
     private $id;
 
-    /**
-     * @ORM\Column(name="name", type="string", length=296)
-     */
+    /** @ORM\Column(name="name", type="string", length=296) */
     private string $name;
 
-    /**
-     * @ORM\Column(name="arn", type="string", length=296)
-     */
+    /** @ORM\Column(name="arn", type="string", length=296) */
     private string $arn;
 
     /**

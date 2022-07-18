@@ -16,33 +16,21 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle;
  */
 final class SnsTypes
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public const HEADER_TYPE_NOTIFICATION = 'Notification';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const HEADER_TYPE_CONFIRM_SUBSCRIPTION = 'SubscriptionConfirmation';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const MESSAGE_TYPE_SUBSCRIPTION_SUCCESS = 'AmazonSnsSubscriptionSucceeded';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const MESSAGE_TYPE_BOUNCE = 'Bounce';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const MESSAGE_TYPE_COMPLAINT = 'Complaint';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const MESSAGE_TYPE_DELIVERY = 'Delivery';
 }

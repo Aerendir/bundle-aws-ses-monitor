@@ -30,24 +30,16 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class DebugCommand extends Command
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private const THICK = "<fg=green>\xE2\x9C\x94</>";
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const CROSS = "<fg=red>\xE2\x9C\x96</>";
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const TABLE_CELL_COLSPAN = 'colspan';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected static $defaultName = 'aws:ses:debug';
 
     private Console $console;

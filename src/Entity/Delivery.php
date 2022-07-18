@@ -23,9 +23,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Delivery
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private const DELIVERY = 'delivery';
 
     /**

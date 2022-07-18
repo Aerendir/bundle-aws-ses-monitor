@@ -23,9 +23,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class ComplaintNotificationHandlerTest extends TestCase
 {
-    /**
-     * @var array<string, array<string, array<int, array<string, string>>|string>>
-     */
+    /** @var array<string, array<string, array<int, array<string, string>>|string>> */
     private const TEST = [
         'complaint' => [
             'complainedRecipients' => [

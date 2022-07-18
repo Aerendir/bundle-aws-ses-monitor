@@ -27,9 +27,7 @@ use Symfony\Component\Console\Question\Question;
  */
 final class SesSendTestEmailsCommand extends Command
 {
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     private const EMAIL_ADDRESSES = [
         'success@simulator.amazonses.com',
         'bounce@simulator.amazonses.com',
@@ -38,9 +36,7 @@ final class SesSendTestEmailsCommand extends Command
         'suppressionlist@simulator.amazonses.com',
     ];
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected static $defaultName = 'aws:ses:monitor:test:swiftmailer';
 
     private \Swift_Mailer $mailer;

@@ -19,9 +19,7 @@ use Aws\Ses\SesClient;
  */
 final class SesManager
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private const IDENTITY = 'Identity';
 
     private SesClient $client;

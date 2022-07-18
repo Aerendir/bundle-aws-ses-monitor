@@ -102,19 +102,13 @@ class MailMessage
      */
     private ?string $commonHeaders = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce", mappedBy="mailMessage", cascade={"persist"})
-     */
+    /** @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce", mappedBy="mailMessage", cascade={"persist"}) */
     private Collection $bounces;
 
-    /**
-     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint", mappedBy="mailMessage", cascade={"persist"})
-     */
+    /** @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint", mappedBy="mailMessage", cascade={"persist"}) */
     private Collection $complaints;
 
-    /**
-     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery", mappedBy="mailMessage", cascade={"persist"})
-     */
+    /** @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery", mappedBy="mailMessage", cascade={"persist"}) */
     private Collection $deliveries;
 
     /**

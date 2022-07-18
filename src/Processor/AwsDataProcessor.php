@@ -20,54 +20,34 @@ use Aws\Result;
  */
 final class AwsDataProcessor
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public const ACCOUNT = 'account';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const IDENTITIES = 'identities';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const SUBSCRIPTIONS = 'subscriptions';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const TOPICS = 'topics';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const MAIL_FROM = 'mail_from';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const NOTIFICATIONS = 'notifications';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const INCLUDE_HEADERS = 'include_headers';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const TOPIC = 'topic';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const SUBSCRIPTION_ARN = 'SubscriptionArn';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const TOPIC_ARN = 'TopicArn';
 
     private array $data = [];

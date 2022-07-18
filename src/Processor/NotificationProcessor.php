@@ -26,9 +26,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class NotificationProcessor
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private const NOTIFICATION_TYPE = 'notificationType';
 
     private BounceNotificationHandler $bounceNotificationHandler;

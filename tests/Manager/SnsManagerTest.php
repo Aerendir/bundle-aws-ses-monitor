@@ -26,17 +26,13 @@ use Symfony\Component\Routing\RouterInterface;
  */
 final class SnsManagerTest extends TestCase
 {
-    /**
-     * @var array<string, string>
-     */
+    /** @var array<string, string> */
     private const TEST_ENDPOINT_CONFIG = [
         'scheme' => 'https',
         'host'   => 'serendipityhq.com',
     ];
 
-    /**
-     * @var array<string, string>
-     */
+    /** @var array<string, string> */
     private const TEST = [
         'name' => 'topic-name',
         'arn'  => 'the-topic-arn',

@@ -27,57 +27,39 @@ class Bounce
      * @var string */
     public const TYPE_PERMANENT = 'Permanent';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const TYPE_PERM_GENERAL = 'General';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const TYPE_PERM_NOEMAIL = 'NoEmail';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const TYPE_PERM_SUPPRESSED = 'Suppressed';
 
     /** Soft bunces and subtypes.
      * @var string */
     public const TYPE_TRANSIENT = 'Transient';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const TYPE_TRANS_GENERAL = 'General';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const TYPE_TRANS_BOXFULL = 'MailboxFull';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const TYPE_TRANS_TOOLARGE = 'MessageTooLarge';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const TYPE_TRANS_CONTREJECTED = 'ContentRejected';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const TYPE_TRANS_ATTACHREJECTED = 'AttachmentRejected';
 
     /** Undetermined bounces.
      * @var string */
     public const TYPE_UNDETERMINED = 'Undetermined';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const BOUNCE = 'bounce';
 
     /**
@@ -113,14 +95,10 @@ class Bounce
      */
     private \DateTimeInterface $bouncedOn;
 
-    /**
-     * @ORM\Column(name="type", type="string")
-     */
+    /** @ORM\Column(name="type", type="string") */
     private string $type;
 
-    /**
-     * @ORM\Column(name="sub_type", type="string")
-     */
+    /** @ORM\Column(name="sub_type", type="string") */
     private string $subType;
 
     /**
