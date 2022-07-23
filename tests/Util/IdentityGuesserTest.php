@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -12,20 +14,15 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Util;
 
 use PHPUnit\Framework\TestCase;
-use function Safe\sprintf;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\IdentityGuesser;
 
-/**
- * {@inheritdoc}
- */
+use function Safe\sprintf;
+
 final class IdentityGuesserTest extends TestCase
 {
     private string $testIdentity;
-
     private string $emailIdentity;
-
     private string $domainIdentity;
-
     private string $productionMailbox;
 
     protected function setUp(): void

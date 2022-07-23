@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -22,7 +24,6 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 final class RequestProcessor
 {
     private NotificationProcessor $snsNotificationProcessor;
-
     private SubscriptionProcessor $subscriptionHandler;
 
     public function __construct(

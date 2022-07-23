@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -15,14 +17,8 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-/**
- * {@inheritdoc}
- */
 final class YamlAwsSesMonitorBundleExtensionTest extends AbstractSerendipityHQAwsSesBouncerExtensionTest
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function loadConfiguration(ContainerBuilder $container, $resource): void
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/Fixtures/'));

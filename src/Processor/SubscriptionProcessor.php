@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -24,9 +26,7 @@ use Symfony\Component\HttpFoundation\Response;
 final class SubscriptionProcessor
 {
     private SnsClient $snsClient;
-
     private EntityManagerInterface $entityManager;
-
     private MessageHelper $messageHelper;
 
     public function __construct(SnsClient $snsClient, EntityManagerInterface $entityManager, MessageHelper $messageHelper)

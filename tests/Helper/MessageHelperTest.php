@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -18,9 +20,6 @@ use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Helper\MessageHelper;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * {@inheritdoc}
- */
 final class MessageHelperTest extends TestCase
 {
     /** @var string */
@@ -31,9 +30,6 @@ final class MessageHelperTest extends TestCase
 
     private MessageHelper $messageHelper;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp(): void
     {
         $this->messageValidator = $this->createMock(MessageValidator::class);

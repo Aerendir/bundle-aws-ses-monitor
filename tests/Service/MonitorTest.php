@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -24,9 +26,6 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\Console;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\IdentityGuesser;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- * {@inheritdoc}
- */
 final class MonitorTest extends TestCase
 {
     /** @var string $env */
@@ -44,11 +43,8 @@ final class MonitorTest extends TestCase
     private $mockConsole;
 
     private SesClient $mockSesClient;
-
     private MockHandler $mockSesClientHandler;
-
     private SnsClient $mockSnsClient;
-
     private MockHandler $mockSnsClientHandler;
 
     /** @var IdentityGuesser&MockHandler $mockIdentityGuesser */
@@ -62,9 +58,6 @@ final class MonitorTest extends TestCase
 
     private Monitor $resource;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp(): void
     {
         $this->mockConfiguredIdentities = $this->createMock(IdentitiesStore::class);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -30,13 +32,9 @@ final class NotificationProcessor
     private const NOTIFICATION_TYPE = 'notificationType';
 
     private BounceNotificationHandler $bounceNotificationHandler;
-
     private ComplaintNotificationHandler $complaintNotificationHandler;
-
     private DeliveryNotificationHandler $deliveryNotificationHandler;
-
     private EntityManagerInterface $entityManager;
-
     private MessageHelper $messageHelper;
 
     public function __construct(

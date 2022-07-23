@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -12,8 +14,6 @@
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 
 use Doctrine\ORM\EntityManagerInterface;
-use function Safe\preg_replace;
-use function Safe\sprintf;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection\Configuration;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\SesManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\SnsManager;
@@ -27,9 +27,10 @@ use Symfony\Component\Console\Output\ConsoleSectionOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+use function Safe\preg_replace;
+use function Safe\sprintf;
+
 /**
- * {@inheritdoc}
- *
  * @ codeCoverageIgnore This command basically calls AWS and uses other classes already tested, so it is not testable.
  */
 final class ConfigureCommand extends Command
@@ -44,27 +45,16 @@ final class ConfigureCommand extends Command
     protected static $defaultName = 'aws:ses:configure';
 
     private string $env;
-
     private EntityManagerInterface $entityManager;
-
     private array $actionsToTakeNow = [];
-
     private Monitor $monitor;
-
     private SesManager $sesManager;
-
     private SnsManager $snsManager;
-
     private SymfonyStyle $ioWriter;
-
     private Console $console;
-
     private ConsoleSectionOutput $sectionTitle;
-
     private ConsoleSectionOutput $sectionBody;
-
     private array $allowedIdentities;
-
     private array $skippedIdentities;
 
     /** The topics to create */
@@ -88,9 +78,6 @@ final class ConfigureCommand extends Command
         parent::__construct();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         $this->setDescription('Configures the identities on AWS SES and their topics.')
@@ -98,9 +85,6 @@ final class ConfigureCommand extends Command
             ->addOption('full-log', null, InputOption::VALUE_NONE, 'Shows logs line by line, without simply changing the current one.');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->console->enableFullLog((bool) $input->getOption('full-log'));
@@ -206,29 +190,29 @@ EOF
             // Add the action to take
             $this->monitor->getIdentityGuesser()->isEmailIdentity($identity)
                 ? $this->addActionToTake(
-                $identity,
-                sprintf("A request to verify the email identity <comment>%s</comment> was just sent from amazon to the email address: check the email's inbox and click the confirmation link.", $identity)
-            )
-                : $this->addActionToTake(
-                $identity,
-                sprintf(
-                    "A request to verify the domain identity <comment>%s</comment> was just sent to amazon.\n"
-                    . "You now need to add a TXT record to the DNS settings of your domain.\n"
-                    . "Here the details:\n\n"
-                    . "Name: <comment>_amazonses.%s</comment>\n"
-                    . "Type: <comment>TXT</comment>\n"
-                    . "Value: <comment>%s</comment>\n\n"
-                    . 'NOTE: If your DNS provider does not allow underscores in record names, you can omit "_amazonses" from the record name.'
-                    . "To help you easily identify this record within your domain's DNS settings, you can optionally prefix the record value with \"amazonses\"."
-                    . "As Amazon SES searches for the TXT record, the domain's verification status is \"Pending\".\n"
-                    . "When Amazon SES detects the record, the domain's verification status changes to \"Success\".\n"
-                    . "If Amazon SES is unable to detect the record within 72 hours, the domain's verification status changes to \"Failed\".\n"
-                    . 'In that case, if you still want to verify the domain, you must restart the verification process from the beginning.',
                     $identity,
-                    $identity,
-                    $verificationToken
+                    sprintf("A request to verify the email identity <comment>%s</comment> was just sent from amazon to the email address: check the email's inbox and click the confirmation link.", $identity)
                 )
-            );
+                : $this->addActionToTake(
+                    $identity,
+                    sprintf(
+                        "A request to verify the domain identity <comment>%s</comment> was just sent to amazon.\n"
+                        . "You now need to add a TXT record to the DNS settings of your domain.\n"
+                        . "Here the details:\n\n"
+                        . "Name: <comment>_amazonses.%s</comment>\n"
+                        . "Type: <comment>TXT</comment>\n"
+                        . "Value: <comment>%s</comment>\n\n"
+                        . 'NOTE: If your DNS provider does not allow underscores in record names, you can omit "_amazonses" from the record name.'
+                        . "To help you easily identify this record within your domain's DNS settings, you can optionally prefix the record value with \"amazonses\"."
+                        . "As Amazon SES searches for the TXT record, the domain's verification status is \"Pending\".\n"
+                        . "When Amazon SES detects the record, the domain's verification status changes to \"Success\".\n"
+                        . "If Amazon SES is unable to detect the record within 72 hours, the domain's verification status changes to \"Failed\".\n"
+                        . 'In that case, if you still want to verify the domain, you must restart the verification process from the beginning.',
+                        $identity,
+                        $identity,
+                        $verificationToken
+                    )
+                );
 
             $log = sprintf('Verification requested for identity <comment>%s</comment>', $identity);
         }

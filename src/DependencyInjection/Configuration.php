@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -11,16 +13,14 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection;
 
-use function Safe\sprintf;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\IdentityGuesser;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
-/**
- * {@inheritdoc}
- */
+use function Safe\sprintf;
+
 final class Configuration implements ConfigurationInterface
 {
     /** @var string */
@@ -52,9 +52,6 @@ final class Configuration implements ConfigurationInterface
 
     private IdentityGuesser $identityGuesser;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $this->identityGuesser = new IdentityGuesser();
