@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -13,7 +15,6 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin;
 
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\EmailStatusManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\EmailStatusAnalyzer;
-use Swift_Events_SendEvent;
 
 /**
  * The SwiftMailer plugin.
@@ -22,9 +23,7 @@ use Swift_Events_SendEvent;
 final class MonitorFilterPlugin implements \Swift_Events_SendListener
 {
     private array $blacklisted;
-
     private EmailStatusAnalyzer $emailStatusAnalyzer;
-
     private EmailStatusManager $emailStatusManager;
 
     public function __construct(EmailStatusAnalyzer $emailStatusAnalyzer, EmailStatusManager $emailStatusManager)
@@ -36,7 +35,7 @@ final class MonitorFilterPlugin implements \Swift_Events_SendListener
     /**
      * Invoked immediately before the MailMessage is sent.
      */
-    public function beforeSendPerformed(Swift_Events_SendEvent $event): void
+    public function beforeSendPerformed(\Swift_Events_SendEvent $event): void
     {
         // Reset the blacklisted array
         $this->blacklisted = [];
@@ -59,7 +58,7 @@ final class MonitorFilterPlugin implements \Swift_Events_SendListener
     /**
      * Invoked immediately after the MailMessage is sent.
      */
-    public function sendPerformed(Swift_Events_SendEvent $evt): void
+    public function sendPerformed(\Swift_Events_SendEvent $evt): void
     {
         $evt->setFailedRecipients(\array_unique($this->blacklisted));
     }
@@ -73,7 +72,7 @@ final class MonitorFilterPlugin implements \Swift_Events_SendListener
             $emailStatus = $this->emailStatusManager->loadEmailStatus($email);
 
             foreach ($fromIdentities as $identity) {
-                if (null !== $emailStatus && false === $this->emailStatusAnalyzer->canReceiveMessages($emailStatus, $identity)) {
+                if (null !== $emailStatus && false === $this->emailStatusAnalyzer->canReceiveMessages($emailStatus, (string) $identity)) {
                     $this->blacklisted[] = $emailStatus->getAddress();
                     unset($recipients[$emailStatus->getAddress()]);
                 }

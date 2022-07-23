@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -11,7 +13,6 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 
-use function Safe\sprintf;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor\AwsDataProcessor;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\Monitor;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\Console;
@@ -23,9 +24,9 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleSectionOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
+use function Safe\sprintf;
+
 /**
- * {@inheritdoc}
- *
  * @ codeCoverageIgnore This command basically calls AWS and uses other classes already tested, so it is not testable.
  */
 final class DebugCommand extends Command
@@ -43,11 +44,8 @@ final class DebugCommand extends Command
     protected static $defaultName = 'aws:ses:debug';
 
     private Console $console;
-
     private Monitor $monitor;
-
     private ConsoleSectionOutput $sectionTitle;
-
     private ConsoleSectionOutput $sectionBody;
 
     public function __construct(Console $console, Monitor $monitor)
@@ -57,18 +55,12 @@ final class DebugCommand extends Command
         parent::__construct();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         $this->setDescription('Debugs the aws ses configuration helping discovering errors and wrong settings.')
              ->addOption('full-log', null, InputOption::VALUE_NONE, 'Shows logs line by line, without simply changing the current one.');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->console->enableFullLog((bool) $input->getOption('full-log'));

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -21,9 +23,6 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\SnsManager;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouterInterface;
 
-/**
- * {@inheritdoc}
- */
 final class SnsManagerTest extends TestCase
 {
     /** @var array<string, string> */
@@ -39,7 +38,6 @@ final class SnsManagerTest extends TestCase
     ];
 
     private MockHandler $mockHandler;
-
     private SnsClient $client;
 
     protected function setUp(): void

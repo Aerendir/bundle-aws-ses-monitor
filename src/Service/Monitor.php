@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -13,12 +15,13 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
 
 use Aws\Ses\SesClient;
 use Aws\Sns\SnsClient;
-use function Safe\sprintf;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection\Configuration;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor\AwsDataProcessor;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\Console;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\IdentityGuesser;
 use Symfony\Component\Console\Output\OutputInterface;
+
+use function Safe\sprintf;
 
 /**
  * Collects the current information from AWS SES and SNS.
@@ -46,23 +49,14 @@ final class Monitor
     private const TOPIC_ARN = 'TopicArn';
 
     private string $env;
-
     private IdentitiesStore $configuredIdentities;
-
     private array $liveData;
-
     private AwsDataProcessor $awsDataProcessor;
-
     private Console $console;
-
     private SesClient $sesClient;
-
     private SnsClient $snsClient;
-
     private IdentityGuesser $identityGuesser;
-
     private OutputInterface $sectionTitle;
-
     private OutputInterface $sectionBody;
 
     public function __construct(
@@ -102,11 +96,6 @@ final class Monitor
         $this->console->clear($this->sectionBody);
     }
 
-    /**
-     * @param string|null $attributes
-     *
-     * @return mixed
-     */
     public function getAccount(string $attributes = null)
     {
         $return = $this->liveData[AwsDataProcessor::ACCOUNT];
@@ -123,9 +112,6 @@ final class Monitor
      *
      * If passed an Email Identity and it is not configured, then the method
      * searches for the Domain Identity on which it depends.
-     *
-     * @param string      $identity
-     * @param string|null $attributes
      *
      * @return array|bool|int|string
      */
@@ -158,8 +144,6 @@ final class Monitor
     }
 
     /**
-     * @param string|null $attributes
-     *
      * @return array|bool|int|string
      */
     public function getConfiguredIdentity(string $identity, string $attributes = null)

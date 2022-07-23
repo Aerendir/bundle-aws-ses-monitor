@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -151,8 +153,8 @@ class Bounce
     {
         $bounce = (new self())
             ->setBouncedOn(new \DateTime($notification[self::BOUNCE]['timestamp']))
-            ->setType(($notification[self::BOUNCE]['bounceType']))
-            ->setSubType(($notification[self::BOUNCE]['bounceSubType']))
+            ->setType($notification[self::BOUNCE]['bounceType'])
+            ->setSubType($notification[self::BOUNCE]['bounceSubType'])
             ->setFeedbackId($notification[self::BOUNCE]['feedbackId'])
             ->setMailMessage($mailMessage)
             ->setEmailStatus($email);

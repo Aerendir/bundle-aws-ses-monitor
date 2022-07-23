@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -21,16 +23,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-/**
- * {@inheritdoc}
- */
 final class RequestProcessorTest extends TestCase
 {
     private RequestProcessor $requestProcessor;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp(): void
     {
         $mockResponse = $this->createMock(Response::class);

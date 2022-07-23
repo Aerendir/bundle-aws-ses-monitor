@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -14,9 +16,6 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Service;
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\IdentitiesStore;
 
-/**
- * {@inheritdoc}
- */
 final class IdentitiesStoreTest extends TestCase
 {
     public function testIdentitiesStore(): void

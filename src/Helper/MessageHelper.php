@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -13,8 +15,9 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Helper;
 
 use Aws\Sns\Message;
 use Aws\Sns\MessageValidator;
-use function Safe\json_decode;
 use Symfony\Component\HttpFoundation\Request;
+
+use function Safe\json_decode;
 
 /**
  * Helps to create and validate the received message.

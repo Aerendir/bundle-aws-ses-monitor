@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -21,9 +23,7 @@ use Symfony\Component\Routing\RouterInterface;
 final class SnsManager
 {
     private array $endpointConfig;
-
     private SnsClient $client;
-
     private RouterInterface $router;
 
     public function __construct(array $endpointConfig, SnsClient $client, RouterInterface $router)
@@ -47,8 +47,6 @@ final class SnsManager
      * Sets the App's endpoint in the SNS topic.
      *
      * Once set, the SNS topic will deliver all notification to this endpoint.
-     *
-     * @param string $topicArn
      */
     public function setEndpoint(string $topicArn): ?string
     {
@@ -80,8 +78,6 @@ final class SnsManager
     }
 
     /**
-     * @param string $topicArn
-     *
      * @ codeCoverageIgnore
      */
     private function buildSubscription(string $topicArn): array

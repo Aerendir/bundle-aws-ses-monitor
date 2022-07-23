@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -23,9 +25,6 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor\SubscriptionProcessor;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * {@inheritdoc}
- */
 final class SubscriptionProcessorTest extends TestCase
 {
     private SubscriptionProcessor $subscriptionProcessor;
@@ -39,9 +38,6 @@ final class SubscriptionProcessorTest extends TestCase
     /** @var MessageHelper&MockObject $mockMessageHelper */
     private $mockMessageHelper;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp(): void
     {
         $this->mockSnsClient     = $this->createMock(SnsClient::class);

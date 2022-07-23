@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -15,9 +17,6 @@ use Aws\Ses\SesClient;
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\SesManager;
 
-/**
- * {@inheritdoc}
- */
 final class SesManagerTest extends TestCase
 {
     public function testGetClient(): void
