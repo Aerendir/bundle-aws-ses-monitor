@@ -122,7 +122,7 @@ class EmailStatus
     public function addBounce(Bounce $bounce): self
     {
         // Add only if not already added to avoid circular references
-        $predictate = function (/** @noinspection PhpUnusedParameterInspection */ $key, Bounce $element) use ($bounce): bool {
+        $predictate = static function (/** @noinspection PhpUnusedParameterInspection */ $key, Bounce $element) use ($bounce): bool {
             return $element->getFeedbackId() === $bounce->getFeedbackId();
         };
 
@@ -150,7 +150,7 @@ class EmailStatus
     public function addComplaint(Complaint $complaint): self
     {
         // Add only if not already added to avoid circular references
-        $predictate = function (/** @noinspection PhpUnusedParameterInspection */ $key, Complaint $element) use ($complaint): bool {
+        $predictate = static function (/** @noinspection PhpUnusedParameterInspection */ $key, Complaint $element) use ($complaint): bool {
             return $element->getFeedbackId() === $complaint->getFeedbackId();
         };
 
@@ -169,7 +169,7 @@ class EmailStatus
     public function addDelivery(Delivery $delivery): self
     {
         // Add only if not already added to avoid circular references
-        $predictate = function (/** @noinspection PhpUnusedParameterInspection */ $key, Delivery $element) use ($delivery): bool {
+        $predictate = static function ($key, Delivery $element) use ($delivery): bool {
             // A Delivery doesn't have a feedbackId, so we rely on timestamp that should be sufficient to get identity uniqueness
             return $element->getDeliveredOn()->getTimestamp() === $delivery->getDeliveredOn()->getTimestamp();
         };
