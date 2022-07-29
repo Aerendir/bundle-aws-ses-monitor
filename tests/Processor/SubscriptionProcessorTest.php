@@ -100,7 +100,9 @@ final class SubscriptionProcessorTest extends TestCase
                 self::equalTo('TopicArn'),
                 self::equalTo('Token')
             ))
-            ->will(self::returnCallback(function ($key) use ($testMessage): string { return $testMessage[$key]; }));
+            ->will(self::returnCallback(static function ($key) use ($testMessage): string {
+                return $testMessage[$key];
+            }));
 
         $this->mockMessageHelper->expects(self::exactly(1))->method('buildMessageFromRequest')->willReturn($mockNsnMessage);
         $this->mockMessageHelper->expects(self::exactly(1))->method('validateNotification')->willReturn(true);
