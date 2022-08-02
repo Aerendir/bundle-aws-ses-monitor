@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -13,7 +15,6 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin;
 
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\EmailStatusManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\EmailStatusAnalyzer;
-use Swift_Events_SendEvent;
 
 /**
  * The SwiftMailer plugin.
@@ -21,19 +22,10 @@ use Swift_Events_SendEvent;
  */
 final class MonitorFilterPlugin implements \Swift_Events_SendListener
 {
-    /** @var array $blacklisted */
-    private $blacklisted;
+    private array $blacklisted;
+    private EmailStatusAnalyzer $emailStatusAnalyzer;
+    private EmailStatusManager $emailStatusManager;
 
-    /** @var EmailStatusAnalyzer $emailStatusAnalyzer */
-    private $emailStatusAnalyzer;
-
-    /** @var EmailStatusManager $emailStatusManager */
-    private $emailStatusManager;
-
-    /**
-     * @param EmailStatusAnalyzer $emailStatusAnalyzer
-     * @param EmailStatusManager  $emailStatusManager
-     */
     public function __construct(EmailStatusAnalyzer $emailStatusAnalyzer, EmailStatusManager $emailStatusManager)
     {
         $this->emailStatusAnalyzer = $emailStatusAnalyzer;
@@ -42,10 +34,8 @@ final class MonitorFilterPlugin implements \Swift_Events_SendListener
 
     /**
      * Invoked immediately before the MailMessage is sent.
-     *
-     * @param Swift_Events_SendEvent $event
      */
-    public function beforeSendPerformed(Swift_Events_SendEvent $event): void
+    public function beforeSendPerformed(\Swift_Events_SendEvent $event): void
     {
         // Reset the blacklisted array
         $this->blacklisted = [];
@@ -67,20 +57,12 @@ final class MonitorFilterPlugin implements \Swift_Events_SendListener
 
     /**
      * Invoked immediately after the MailMessage is sent.
-     *
-     * @param Swift_Events_SendEvent $evt
      */
-    public function sendPerformed(Swift_Events_SendEvent $evt): void
+    public function sendPerformed(\Swift_Events_SendEvent $evt): void
     {
         $evt->setFailedRecipients(\array_unique($this->blacklisted));
     }
 
-    /**
-     * @param array $identities
-     * @param array $recipients
-     *
-     * @return array
-     */
     private function filterBlacklisted(array $identities, array $recipients): array
     {
         $emails         = \array_keys($recipients);
@@ -90,7 +72,7 @@ final class MonitorFilterPlugin implements \Swift_Events_SendListener
             $emailStatus = $this->emailStatusManager->loadEmailStatus($email);
 
             foreach ($fromIdentities as $identity) {
-                if (null !== $emailStatus && false === $this->emailStatusAnalyzer->canReceiveMessages($emailStatus, $identity)) {
+                if (null !== $emailStatus && false === $this->emailStatusAnalyzer->canReceiveMessages($emailStatus, (string) $identity)) {
                     $this->blacklisted[] = $emailStatus->getAddress();
                     unset($recipients[$emailStatus->getAddress()]);
                 }

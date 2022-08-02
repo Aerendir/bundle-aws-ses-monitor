@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -27,57 +29,39 @@ class Bounce
      * @var string */
     public const TYPE_PERMANENT = 'Permanent';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const TYPE_PERM_GENERAL = 'General';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const TYPE_PERM_NOEMAIL = 'NoEmail';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const TYPE_PERM_SUPPRESSED = 'Suppressed';
 
     /** Soft bunces and subtypes.
      * @var string */
     public const TYPE_TRANSIENT = 'Transient';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const TYPE_TRANS_GENERAL = 'General';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const TYPE_TRANS_BOXFULL = 'MailboxFull';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const TYPE_TRANS_TOOLARGE = 'MessageTooLarge';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const TYPE_TRANS_CONTREJECTED = 'ContentRejected';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const TYPE_TRANS_ATTACHREJECTED = 'AttachmentRejected';
 
     /** Undetermined bounces.
      * @var string */
     public const TYPE_UNDETERMINED = 'Undetermined';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const BOUNCE = 'bounce';
 
     /**
@@ -90,21 +74,18 @@ class Bounce
     private $id;
 
     /**
-     * @var EmailStatus
      * @ORM\ManyToOne(targetEntity="EmailStatus", inversedBy="bounces", cascade={"persist"})
      * @ORM\JoinColumn(name="email_status", referencedColumnName="address")
      */
-    private $emailStatus;
+    private EmailStatus $emailStatus;
 
     /**
      * The MessageObject that reported this bounce.
      *
-     * @var MailMessage
-     *
      * @ORM\ManyToOne(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage", inversedBy="bounces")
      * @ORM\JoinColumn(name="mail_message", referencedColumnName="message_id")
      */
-    private $mailMessage;
+    private MailMessage $mailMessage;
 
     /**
      * The date and time at which the bounce was sent (in ISO8601 format).
@@ -112,30 +93,22 @@ class Bounce
      * Note that this is the time at which the notification was sent by the ISP, and not the time at which it was
      * received by Amazon SES.
      *
-     * @var \DateTimeInterface
      * @ORM\Column(name="bounced_on", type="datetime")
      */
-    private $bouncedOn;
+    private \DateTimeInterface $bouncedOn;
 
-    /**
-     * @var string
-     * @ORM\Column(name="type", type="string")
-     */
-    private $type;
+    /** @ORM\Column(name="type", type="string") */
+    private string $type;
 
-    /**
-     * @var string
-     * @ORM\Column(name="sub_type", type="string")
-     */
-    private $subType;
+    /** @ORM\Column(name="sub_type", type="string") */
+    private string $subType;
 
     /**
      * A unique ID for the bounce.
      *
-     * @var string
      * @ORM\Column(name="feedback_id", type="string")
      */
-    private $feedbackId;
+    private string $feedbackId;
 
     /**
      * The value of the Reporting-MTA field from the DSN.
@@ -143,10 +116,9 @@ class Bounce
      * This is the value of the Message Transfer Authority (MTA) that attempted to perform the delivery, relay, or
      * gateway operation described in the DSN.
      *
-     * @var string|null
      * @ORM\Column(name="reporting_mta", type="string", nullable=true)
      */
-    private $reportingMta;
+    private ?string $reportingMta = null;
 
     /**
      * The value of the Action field from the DSN.
@@ -154,20 +126,18 @@ class Bounce
      * This indicates the action performed by the Reporting-MTA as a result of its attempt to deliver the message to
      * this recipient.
      *
-     * @var string|null
      * @ORM\Column(name="action", type="text", nullable=true)
      */
-    private $action;
+    private ?string $action = null;
 
     /**
      * The value of the EmailStatus field from the DSN.
      *
      * This is the per-recipient transport-independent status code that indicates the delivery status of the message.
      *
-     * @var string|null
      * @ORM\Column(name="status", type="string", nullable=true)
      */
-    private $status;
+    private ?string $status = null;
 
     /**
      * The status code issued by the reporting MTA.
@@ -175,25 +145,16 @@ class Bounce
      * This is the value of the Diagnostic-Code field from the DSN. This field may be absent in the DSN (and therefore
      * also absent in the JSON).
      *
-     * @var string|null
      * @ORM\Column(name="diagnostic_code", type="text", nullable=true)
      */
-    private $diagnosticCode;
+    private ?string $diagnosticCode = null;
 
-    /**
-     * @param EmailStatus $email
-     * @param MailMessage $mailMessage
-     * @param array       $bouncedRecipient
-     * @param array       $notification
-     *
-     * @return Bounce
-     */
     public static function create(EmailStatus $email, MailMessage $mailMessage, array $bouncedRecipient, array $notification): Bounce
     {
         $bounce = (new self())
             ->setBouncedOn(new \DateTime($notification[self::BOUNCE]['timestamp']))
-            ->setType(($notification[self::BOUNCE]['bounceType']))
-            ->setSubType(($notification[self::BOUNCE]['bounceSubType']))
+            ->setType($notification[self::BOUNCE]['bounceType'])
+            ->setSubType($notification[self::BOUNCE]['bounceSubType'])
             ->setFeedbackId($notification[self::BOUNCE]['feedbackId'])
             ->setMailMessage($mailMessage)
             ->setEmailStatus($email);
@@ -218,7 +179,6 @@ class Bounce
     }
 
     /**
-     * @return int
      * @codeCoverageIgnore
      */
     public function getId(): int
@@ -226,9 +186,6 @@ class Bounce
         return $this->id;
     }
 
-    /**
-     * @return EmailStatus
-     */
     public function getEmailStatus(): EmailStatus
     {
         return $this->emailStatus;

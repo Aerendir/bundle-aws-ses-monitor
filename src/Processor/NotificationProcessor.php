@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -26,33 +28,15 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class NotificationProcessor
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private const NOTIFICATION_TYPE = 'notificationType';
 
-    /** @var BounceNotificationHandler $bounceNotificationHandler */
-    private $bounceNotificationHandler;
+    private BounceNotificationHandler $bounceNotificationHandler;
+    private ComplaintNotificationHandler $complaintNotificationHandler;
+    private DeliveryNotificationHandler $deliveryNotificationHandler;
+    private EntityManagerInterface $entityManager;
+    private MessageHelper $messageHelper;
 
-    /** @var ComplaintNotificationHandler $complaintNotificationHandler */
-    private $complaintNotificationHandler;
-
-    /** @var DeliveryNotificationHandler $deliveryNotificationHandler */
-    private $deliveryNotificationHandler;
-
-    /** @var EntityManagerInterface $entityManager */
-    private $entityManager;
-
-    /** @var MessageHelper $messageHelper */
-    private $messageHelper;
-
-    /**
-     * @param BounceNotificationHandler    $bounceNotificationHandler
-     * @param ComplaintNotificationHandler $complaintNotificationHandler
-     * @param DeliveryNotificationHandler  $deliveryNotificationHandler
-     * @param EntityManagerInterface       $entityManager
-     * @param MessageHelper                $messageHelper
-     */
     public function __construct(
         BounceNotificationHandler $bounceNotificationHandler,
         ComplaintNotificationHandler $complaintNotificationHandler,
@@ -67,11 +51,6 @@ final class NotificationProcessor
         $this->messageHelper                = $messageHelper;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function processRequest(Request $request): Response
     {
         $message = $this->messageHelper->buildMessageFromRequest($request);
@@ -103,20 +82,14 @@ final class NotificationProcessor
         }
     }
 
-    /**
-     * @param array $messageData
-     *
-     * @return MailMessage
-     */
     private function loadOrCreateMailMessage(array $messageData): MailMessage
     {
         $mailMessageData = $messageData['mail'];
 
-        /** @var MailMessage|null $mailMessage */
         $mailMessage = $this->entityManager->getRepository(MailMessage::class)->findOneBy(['messageId' => $mailMessageData['messageId']]);
 
         // If a MailMessage object doesn't already exists...
-        if (null === $mailMessage) {
+        if ( ! $mailMessage instanceof MailMessage) {
             // Create it
             $mailMessage = MailMessage::create($mailMessageData);
             $this->entityManager->persist($mailMessage);

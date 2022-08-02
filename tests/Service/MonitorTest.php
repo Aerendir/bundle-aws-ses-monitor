@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -24,53 +26,38 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\Console;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\IdentityGuesser;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- * {@inheritdoc}
- */
 final class MonitorTest extends TestCase
 {
     /** @var string $env */
     private const MOCK_ENV = 'prod';
 
-    /** @var IdentitiesStore|MockObject $configuredIdentities */
+    /** @var IdentitiesStore&MockObject $mockConfiguredIdentities */
     private $mockConfiguredIdentities;
 
-    /** @var array $liveData */
-    private $mockLiveData;
+    private array $mockLiveData;
 
-    /** @var AwsDataProcessor|MockObject $awsDataProcessor */
+    /** @var AwsDataProcessor&MockObject $mockAwsDataProcessor */
     private $mockAwsDataProcessor;
 
-    /** @var Console|MockObject $console */
+    /** @var Console&MockObject $mockConsole */
     private $mockConsole;
 
-    /** @var SesClient $sesClient */
-    private $mockSesClient;
+    private SesClient $mockSesClient;
+    private MockHandler $mockSesClientHandler;
+    private SnsClient $mockSnsClient;
+    private MockHandler $mockSnsClientHandler;
 
-    /** @var MockHandler $mockSesClientHandler */
-    private $mockSesClientHandler;
-
-    /** @var SnsClient $snsClient */
-    private $mockSnsClient;
-
-    /** @var MockHandler $mockSnsClientHandler */
-    private $mockSnsClientHandler;
-
-    /** @var IdentityGuesser|MockObject $identityGuesser */
+    /** @var IdentityGuesser&MockHandler $mockIdentityGuesser */
     private $mockIdentityGuesser;
 
-    /** @var MockObject|OutputInterface $sectionTitle */
+    /** @var MockObject&OutputInterface $sectionTitle */
     private $mockSectionTitle;
 
-    /** @var MockObject|OutputInterface $sectionBody */
+    /** @var MockObject&OutputInterface $sectionBody */
     private $mockSectionBody;
 
-    /** @var Monitor $resource */
-    private $resource;
+    private Monitor $resource;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp(): void
     {
         $this->mockConfiguredIdentities = $this->createMock(IdentitiesStore::class);
@@ -283,9 +270,6 @@ final class MonitorTest extends TestCase
         $this->resource->retrieve($this->mockSectionTitle, $this->mockSectionBody);
     }
 
-    /**
-     * @param bool $withAccount
-     */
     private function configureSesClient(bool $withAccount = false): void
     {
         if ($withAccount) {

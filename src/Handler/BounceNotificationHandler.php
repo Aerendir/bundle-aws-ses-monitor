@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -21,12 +23,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class BounceNotificationHandler extends AbstractNotification
 {
-    /**
-     * @param array       $notification
-     * @param MailMessage $mailMessage
-     *
-     * @return Response
-     */
     public function processNotification(array $notification, MailMessage $mailMessage): Response
     {
         foreach ($notification['bounce']['bouncedRecipients'] as $bouncedRecipient) {

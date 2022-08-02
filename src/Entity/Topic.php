@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -29,23 +31,14 @@ class Topic
      */
     private $id;
 
-    /**
-     * @var string
-     * @ORM\Column(name="name", type="string", length=296)
-     */
-    private $name;
+    /** @ORM\Column(name="name", type="string", length=296) */
+    private string $name;
 
-    /**
-     * @var string
-     * @ORM\Column(name="arn", type="string", length=296)
-     */
-    private $arn;
+    /** @ORM\Column(name="arn", type="string", length=296) */
+    private string $arn;
 
     /**
      * Topic constructor.
-     *
-     * @param string $topicName
-     * @param string $topicArn
      */
     public function __construct(string $topicName, string $topicArn)
     {
@@ -54,7 +47,6 @@ class Topic
     }
 
     /**
-     * @return int
      * @codeCoverageIgnore
      */
     public function getId(): int
@@ -62,17 +54,11 @@ class Topic
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getArn(): string
     {
         return $this->arn;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -19,9 +21,6 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\EmailStatusManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin\MonitorFilterPlugin;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\EmailStatusAnalyzer;
 
-/**
- * {@inheritdoc}
- */
 final class MonitorFilterPluginTest extends TestCase
 {
     public function testBeforeSendPerformedWithoutRecipientsDoesNothing(): void
@@ -123,9 +122,6 @@ final class MonitorFilterPluginTest extends TestCase
         $resource->sendPerformed($mockEvent);
     }
 
-    /**
-     * @return bool
-     */
     public function canReceiveMessages(): bool
     {
         /** @var EmailStatus $emailStatus */
@@ -179,9 +175,6 @@ final class MonitorFilterPluginTest extends TestCase
         return $message;
     }
 
-    /**
-     * @return array
-     */
     private function getRecipients(): array
     {
         return $recipients = ['bounced@example.com' => null, 'complained@example.com' => null, 'ooto@example.com' => null, 'success@example.com' => null, 'suppressed@example.com' => null];
@@ -190,8 +183,6 @@ final class MonitorFilterPluginTest extends TestCase
     /**
      * Configures the EmailStatusManager to return the mocked EmailStatus objects each
      * time the EmailStatusManager::loadOrCreateEmailStatus() method is called.
-     *
-     * @return array
      */
     private function getEmailStatusMap(): array
     {

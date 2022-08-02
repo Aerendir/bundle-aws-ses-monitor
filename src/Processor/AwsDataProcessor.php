@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -20,62 +22,39 @@ use Aws\Result;
  */
 final class AwsDataProcessor
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public const ACCOUNT = 'account';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const IDENTITIES = 'identities';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const SUBSCRIPTIONS = 'subscriptions';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public const TOPICS = 'topics';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const MAIL_FROM = 'mail_from';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const NOTIFICATIONS = 'notifications';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const INCLUDE_HEADERS = 'include_headers';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const TOPIC = 'topic';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const SUBSCRIPTION_ARN = 'SubscriptionArn';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const TOPIC_ARN = 'TopicArn';
 
-    /** @var array */
-    private $data = [];
+    private array $data = [];
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processAccountSendingEnabled(Result $result): void
@@ -84,8 +63,6 @@ final class AwsDataProcessor
     }
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processAccountSendQuota(Result $result): void
@@ -98,8 +75,6 @@ final class AwsDataProcessor
     }
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processAccountSendStatistics(Result $result): void
@@ -108,8 +83,6 @@ final class AwsDataProcessor
     }
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processIdentitiesDkimAttributes(Result $result): void
@@ -127,8 +100,6 @@ final class AwsDataProcessor
     }
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processIdentitiesMailFromDomainAttributes(Result $result): void
@@ -147,8 +118,6 @@ final class AwsDataProcessor
     }
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processIdentitiesNotificationAttributes(Result $result): void
@@ -177,8 +146,6 @@ final class AwsDataProcessor
     }
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processIdentitiesVerificationAttributes(Result $result): void
@@ -193,8 +160,6 @@ final class AwsDataProcessor
     }
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processSubscriptions(Result $result): void
@@ -213,8 +178,6 @@ final class AwsDataProcessor
     }
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processSubscriptionAttributes(Result $result): void
@@ -230,8 +193,6 @@ final class AwsDataProcessor
     }
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processTopics(Result $result): void
@@ -242,8 +203,6 @@ final class AwsDataProcessor
     }
 
     /**
-     * @param Result $result
-     *
      * @internal
      */
     public function processTopicAttributes(Result $result): void
@@ -268,8 +227,6 @@ final class AwsDataProcessor
      * Returns the processed data.
      *
      * On call, resets the internal array.
-     *
-     * @return array
      *
      * @internal
      */

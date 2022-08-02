@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -19,9 +21,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Topic;
  */
 final class TopicTest extends TestCase
 {
-    /**
-     * @var array<string, string>
-     */
+    /** @var array<string, string> */
     private const TEST = [
         'name' => 'TestTopic',
         'arn'  => 'arn:aws:sns:us-west-2:111122223333:TestTopic',

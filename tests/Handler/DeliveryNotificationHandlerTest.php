@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -18,14 +20,9 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Handler\DeliveryNotificationHandler
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\EmailStatusManager;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * {@inheritdoc}
- */
 final class DeliveryNotificationHandlerTest extends TestCase
 {
-    /**
-     * @var array<string, array<string, int|string|string[]>>
-     */
+    /** @var array<string, array<string, int|string|string[]>> */
     private const TEST = [
         'delivery' => [
             'recipients' => [

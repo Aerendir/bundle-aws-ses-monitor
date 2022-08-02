@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -18,20 +20,14 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Service;
  */
 final class IdentitiesStore
 {
-    /** @var array $identities */
-    private $identities;
+    private array $identities;
 
-    /**
-     * @param array $identities
-     */
     public function __construct(array $identities)
     {
         $this->identities = $identities;
     }
 
     /**
-     * @return array
-     *
      * @internal
      */
     public function getIdentities(): array
@@ -40,9 +36,6 @@ final class IdentitiesStore
     }
 
     /**
-     * @param string      $identity
-     * @param string|null $attribute
-     *
      * @return array|bool|int|string
      *
      * @internal
@@ -58,19 +51,12 @@ final class IdentitiesStore
         return $return;
     }
 
-    /**
-     * @param string $identity
-     *
-     * @return bool
-     */
     public function identityExists(string $identity): bool
     {
         return isset($this->getIdentities()[$identity]);
     }
 
     /**
-     * @return array
-     *
      * @internal
      */
     public function getIdentitiesList(): array

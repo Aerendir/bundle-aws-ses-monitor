@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -34,31 +36,28 @@ class MailMessage
      * This message ID was assigned by Amazon SES. You can find the message ID of the original
      * email in the headers and commonHeaders fields of the mail object.
      *
-     * @var string
      * @ORM\Column(name="message_id", type="string")
      * @ORM\Id
      */
-    private $messageId;
+    private string $messageId;
 
     /**
      * The time at which the original message was sent (in ISO8601 format).
      *
      * Formerly "timestamp".
      *
-     * @var \DateTimeInterface
      * @ORM\Column(name="sent_on", type="datetime")
      */
-    private $sentOn;
+    private \DateTimeInterface $sentOn;
 
     /**
      * The email address from which the original message was sent (the envelope MAIL FROM address).
      *
      * Formerly "source".
      *
-     * @var string
      * @ORM\Column(name="sent_from", type="string")
      */
-    private $sentFrom;
+    private string $sentFrom;
 
     /**
      * The Amazon Resource Name (ARN) of the identity that was used to send the email.
@@ -67,20 +66,18 @@ class MailMessage
      * the delegate sender to use to send the email. For more information about sending authorization, see Using Sending
      * Authorization.
      *
-     * @var string
      * @ORM\Column(name="source_arn", type="string")
      */
-    private $sourceArn;
+    private string $sourceArn;
 
     /**
      * The AWS account ID of the account that was used to send the email.
      *
      * In the case of sending authorization, the sendingAccountId is the delegate sender's account ID.
      *
-     * @var string
      * @ORM\Column(name="sending_account_id", type="string")
      */
-    private $sendingAccountId;
+    private string $sendingAccountId;
 
     /**
      * A list of the email's original headers. Each header in the list has a name field and a value field.
@@ -90,10 +87,9 @@ class MailMessage
      *
      * (Only present if the notification settings include the original email headers.)
      *
-     * @var string|null
      * @ORM\Column(name="headers", type="text", nullable=true)
      */
-    private $headers;
+    private ?string $headers = null;
 
     /**
      * A list of the email's original, commonly used headers.
@@ -104,28 +100,18 @@ class MailMessage
      *
      * (Only present if the notification settings include the original email headers.)
      *
-     * @var string|null
      * @ORM\Column(name="common_headers", type="text", nullable=true)
      */
-    private $commonHeaders;
+    private ?string $commonHeaders = null;
 
-    /**
-     * @var Collection
-     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce", mappedBy="mailMessage", cascade={"persist"})
-     */
-    private $bounces;
+    /** @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce", mappedBy="mailMessage", cascade={"persist"}) */
+    private Collection $bounces;
 
-    /**
-     * @var Collection
-     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint", mappedBy="mailMessage", cascade={"persist"})
-     */
-    private $complaints;
+    /** @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint", mappedBy="mailMessage", cascade={"persist"}) */
+    private Collection $complaints;
 
-    /**
-     * @var Collection
-     * @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery", mappedBy="mailMessage", cascade={"persist"})
-     */
-    private $deliveries;
+    /** @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery", mappedBy="mailMessage", cascade={"persist"}) */
+    private Collection $deliveries;
 
     /**
      * MailMessage constructor.
@@ -137,11 +123,6 @@ class MailMessage
         $this->deliveries = new ArrayCollection();
     }
 
-    /**
-     * @param array $mailMessageData
-     *
-     * @return MailMessage
-     */
     public static function create(array $mailMessageData): MailMessage
     {
         $mailMessage = new self();
@@ -162,9 +143,6 @@ class MailMessage
         return $mailMessage;
     }
 
-    /**
-     * @param Bounce $bounce
-     */
     public function addBounce(Bounce $bounce): self
     {
         $this->bounces->add($bounce);
@@ -172,9 +150,6 @@ class MailMessage
         return $this;
     }
 
-    /**
-     * @param Complaint $complaint
-     */
     public function addComplaint(Complaint $complaint): self
     {
         $this->complaints->add($complaint);
@@ -182,9 +157,6 @@ class MailMessage
         return $this;
     }
 
-    /**
-     * @param Delivery $delivery
-     */
     public function addDelivery(Delivery $delivery): self
     {
         $this->deliveries->add($delivery);
@@ -192,33 +164,21 @@ class MailMessage
         return $this;
     }
 
-    /**
-     * @return Collection
-     */
     public function getBounces(): Collection
     {
         return $this->bounces;
     }
 
-    /**
-     * @return Collection
-     */
     public function getComplaints(): Collection
     {
         return $this->complaints;
     }
 
-    /**
-     * @return Collection
-     */
     public function getDeliveries(): Collection
     {
         return $this->deliveries;
     }
 
-    /**
-     * @return string
-     */
     public function getMessageId(): string
     {
         return $this->messageId;
@@ -229,49 +189,32 @@ class MailMessage
         return $this->sentOn;
     }
 
-    /**
-     * @return string
-     */
     public function getSentFrom(): string
     {
         return $this->sentFrom;
     }
 
-    /**
-     * @return string
-     */
     public function getSourceArn(): string
     {
         return $this->sourceArn;
     }
 
-    /**
-     * @return string
-     */
     public function getSendingAccountId(): string
     {
         return $this->sendingAccountId;
     }
 
-    /**
-     * @return string|null
-     */
     public function getHeaders(): ?string
     {
         return $this->headers;
     }
 
-    /**
-     * @return string|null
-     */
     public function getCommonHeaders(): ?string
     {
         return $this->commonHeaders;
     }
 
     /**
-     * @param string $messageId
-     *
      * @internal
      */
     public function setMessageId(string $messageId): self
@@ -282,8 +225,6 @@ class MailMessage
     }
 
     /**
-     * @param \DateTimeInterface $sentOn
-     *
      * @internal
      */
     public function setSentOn(\DateTimeInterface $sentOn): self
@@ -294,8 +235,6 @@ class MailMessage
     }
 
     /**
-     * @param string $sentFrom
-     *
      * @internal
      */
     public function setSentFrom(string $sentFrom): self
@@ -306,8 +245,6 @@ class MailMessage
     }
 
     /**
-     * @param string $sourceArn
-     *
      * @internal
      */
     public function setSourceArn(string $sourceArn): self
@@ -318,8 +255,6 @@ class MailMessage
     }
 
     /**
-     * @param string $sendingAccountId
-     *
      * @internal
      */
     public function setSendingAccountId(string $sendingAccountId): self
@@ -330,8 +265,6 @@ class MailMessage
     }
 
     /**
-     * @param string $headers
-     *
      * @internal
      */
     public function setHeaders(string $headers): self
@@ -342,8 +275,6 @@ class MailMessage
     }
 
     /**
-     * @param string $commonHeaders
-     *
      * @internal
      */
     public function setCommonHeaders(string $commonHeaders): self

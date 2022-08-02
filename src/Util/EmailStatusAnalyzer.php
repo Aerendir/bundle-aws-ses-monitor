@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -19,23 +21,13 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\Monitor;
  */
 final class EmailStatusAnalyzer
 {
-    /** @var Monitor $monitor */
-    private $monitor;
+    private Monitor $monitor;
 
-    /**
-     * @param Monitor $monitor
-     */
     public function __construct(Monitor $monitor)
     {
         $this->monitor = $monitor;
     }
 
-    /**
-     * @param EmailStatus $emailStatus
-     * @param string      $identity
-     *
-     * @return bool
-     */
     public function canReceiveMessages(EmailStatus $emailStatus, string $identity): bool
     {
         $filter     = $this->monitor->findConfiguredIdentity($identity, 'bounces')['filter'];
@@ -70,13 +62,6 @@ final class EmailStatusAnalyzer
         return true;
     }
 
-    /**
-     * @param EmailStatus $emailStatus
-     * @param int         $maxBounces
-     * @param bool        $softAsHard
-     *
-     * @return bool
-     */
     public function isBounced(EmailStatus $emailStatus, int $maxBounces, bool $softAsHard = false): bool
     {
         $bouncesCount = $emailStatus->getHardBouncesCount();
@@ -88,12 +73,6 @@ final class EmailStatusAnalyzer
         return $bouncesCount >= $maxBounces;
     }
 
-    /**
-     * @param EmailStatus $emailStatus
-     * @param int         $maxComplained
-     *
-     * @return bool
-     */
     public function isComplained(EmailStatus $emailStatus, int $maxComplained = 1): bool
     {
         return $emailStatus->getComplaints()->count() >= $maxComplained;

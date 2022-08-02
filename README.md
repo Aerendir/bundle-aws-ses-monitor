@@ -75,7 +75,7 @@ The entire procedure is automated by the bundle in a really simple and easy way.
 
 ## Documentation
 
-You can read how to install, configure, test and use AWS SES Monitor Bundle in the [documentation](src/Resources/doc/Index.md).
+You can read how to install, configure, test and use AWS SES Monitor Bundle in the [documentation](src/Resources/docs/Index.md).
 
 <hr />
 <h3 align="center">

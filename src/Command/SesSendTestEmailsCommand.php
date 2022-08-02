@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -11,25 +13,22 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 
-use function Safe\sprintf;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 
+use function Safe\sprintf;
+
 /**
  * Sends test emails to the addresses provided by AWS SES.
  *
  * @see: http://docs.aws.amazon.com/ses/latest/DeveloperGuide/mailbox-simulator.html
- *
- * {@inheritdoc}
  */
 final class SesSendTestEmailsCommand extends Command
 {
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     private const EMAIL_ADDRESSES = [
         'success@simulator.amazonses.com',
         'bounce@simulator.amazonses.com',
@@ -38,14 +37,11 @@ final class SesSendTestEmailsCommand extends Command
         'suppressionlist@simulator.amazonses.com',
     ];
 
+    /** @var string */
     protected static $defaultName = 'aws:ses:monitor:test:swiftmailer';
 
-    /** @var \Swift_Mailer $mailer */
-    private $mailer;
+    private \Swift_Mailer $mailer;
 
-    /**
-     * @param \Swift_Mailer $mailer
-     */
     public function __construct(\Swift_Mailer $mailer)
     {
         $this->mailer = $mailer;
@@ -53,9 +49,6 @@ final class SesSendTestEmailsCommand extends Command
         parent::__construct();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         $this->setDescription(
@@ -65,9 +58,6 @@ final class SesSendTestEmailsCommand extends Command
 
     /**
      * Executes the command.
-     *
-     * @param InputInterface  $input
-     * @param OutputInterface $output
      *
      * @return int 0 if everything went fine, or an error code
      */
@@ -107,12 +97,6 @@ final class SesSendTestEmailsCommand extends Command
         return 0;
     }
 
-    /**
-     * @param string $sendFrom
-     * @param string $sendTo
-     *
-     * @return \Swift_Message
-     */
     private function createMessage(string $sendFrom, string $sendTo): \Swift_Message
     {
         return (new \Swift_Message())

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -11,7 +13,6 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 
-use function Safe\sprintf;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor\AwsDataProcessor;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\Monitor;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\Console;
@@ -20,47 +21,33 @@ use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableCell;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\ConsoleSectionOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
+use function Safe\sprintf;
+
 /**
- * {@inheritdoc}
- *
  * @ codeCoverageIgnore This command basically calls AWS and uses other classes already tested, so it is not testable.
  */
 final class DebugCommand extends Command
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private const THICK = "<fg=green>\xE2\x9C\x94</>";
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const CROSS = "<fg=red>\xE2\x9C\x96</>";
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private const TABLE_CELL_COLSPAN = 'colspan';
 
+    /** @var string */
     protected static $defaultName = 'aws:ses:debug';
 
-    /** @var Console $console */
-    private $console;
+    private Console $console;
+    private Monitor $monitor;
+    private ConsoleSectionOutput $sectionTitle;
+    private ConsoleSectionOutput $sectionBody;
 
-    /** @var Monitor $monitor */
-    private $monitor;
-
-    private $sectionTitle;
-
-    private $sectionBody;
-
-    /**
-     * @param Console $console
-     * @param Monitor $monitor
-     */
     public function __construct(Console $console, Monitor $monitor)
     {
         $this->console = $console;
@@ -68,20 +55,12 @@ final class DebugCommand extends Command
         parent::__construct();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         $this->setDescription('Debugs the aws ses configuration helping discovering errors and wrong settings.')
              ->addOption('full-log', null, InputOption::VALUE_NONE, 'Shows logs line by line, without simply changing the current one.');
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @param ConsoleOutput&OutputInterface $output
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->console->enableFullLog((bool) $input->getOption('full-log'));
@@ -110,9 +89,6 @@ final class DebugCommand extends Command
         return 0;
     }
 
-    /**
-     * @return array
-     */
     private function validateAccountData(): array
     {
         $results = [];
@@ -136,9 +112,6 @@ final class DebugCommand extends Command
         return $results;
     }
 
-    /**
-     * @return array
-     */
     private function validateIdentitiesData(): array
     {
         $this->console->overwrite('Validating Identities', $this->sectionTitle);
@@ -175,11 +148,6 @@ final class DebugCommand extends Command
         return $results;
     }
 
-    /**
-     * @param array $validationResults
-     *
-     * @return Table
-     */
     private function showData(array $validationResults): Table
     {
         $table = new Table($this->sectionBody);

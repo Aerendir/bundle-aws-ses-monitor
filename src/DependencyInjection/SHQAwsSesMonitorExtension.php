@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -11,21 +13,16 @@
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection;
 
-use function Safe\sprintf;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin\MonitorFilterPlugin;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-/**
- * {@inheritdoc}
- */
+use function Safe\sprintf;
+
 final class SHQAwsSesMonitorExtension extends Extension
 {
-    /**
-     * {@inheritdoc}
-     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
@@ -53,10 +50,6 @@ final class SHQAwsSesMonitorExtension extends Extension
 
     /**
      * Checks if at least one identity requires the SwiftMailer filter.
-     *
-     * @param array $identities
-     *
-     * @return bool
      */
     private function requiresFilter(array $identities): bool
     {

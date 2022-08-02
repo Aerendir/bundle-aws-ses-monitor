@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -25,32 +27,25 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\SnsTypes;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * {@inheritdoc}
- */
 final class NotificationProcessorTest extends TestCase
 {
-    /** @var NotificationProcessor $notificationProcessor */
-    private $notificationProcessor;
+    private NotificationProcessor $notificationProcessor;
 
-    /** @var MockObject $bounceNotificationHandler */
+    /** @var BounceNotificationHandler&MockObject $bounceNotificationHandler */
     private $bounceNotificationHandler;
 
-    /** @var MockObject $complaintNotificationHandler */
+    /** @var ComplaintNotificationHandler&MockObject $complaintNotificationHandler */
     private $complaintNotificationHandler;
 
-    /** @var MockObject $deliveryNotificationHandler */
+    /** @var DeliveryNotificationHandler&MockObject $deliveryNotificationHandler */
     private $deliveryNotificationHandler;
 
-    /** @var MockObject $mockEntityManager */
+    /** @var EntityManagerInterface&MockObject $mockEntityManager */
     private $mockEntityManager;
 
-    /** @var MockObject $mockMessageHelper */
+    /** @var MessageHelper&MockObject $mockMessageHelper */
     private $mockMessageHelper;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp(): void
     {
         $this->bounceNotificationHandler    = $this->createMock(BounceNotificationHandler::class);
@@ -154,8 +149,6 @@ final class NotificationProcessorTest extends TestCase
     }
 
     /**
-     * @param string $messageType
-     *
      * @return MockObject|Response
      */
     private function initializeSwitch(string $messageType)
@@ -200,9 +193,6 @@ final class NotificationProcessorTest extends TestCase
         return $mockResponse;
     }
 
-    /**
-     * @param string $messageId
-     */
     private function configureLoadOrCreateMailMessage(string $messageId): void
     {
         $mockMailMessageRepository = $this->createMock(EntityRepository::class);

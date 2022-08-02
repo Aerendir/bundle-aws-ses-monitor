@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -22,15 +24,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
 {
-    /** @var SHQAwsSesMonitorExtension $extension */
-    private $extension;
+    private SHQAwsSesMonitorExtension $extension;
+    private ContainerBuilder $container;
 
-    /** @var ContainerBuilder $container */
-    private $container;
-
-    /**
-     * {@inheritdoc}
-     */
     protected function setUp(): void
     {
         $this->extension = new SHQAwsSesMonitorExtension();
@@ -44,20 +40,14 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         $this->loadConfiguration($this->container, 'default_config');
         $this->container->compile(true);
 
-        /*
-         * Test mailers
-         */
+        // Test mailers
         self::assertSame(['default'], $this->container->getParameter('shq_aws_ses_monitor.mailers'));
 
-        /*
-         * Test endpoint configuration
-         */
+        // Test endpoint configuration
         self::assertSame('https', $this->container->getParameter('shq_aws_ses_monitor.endpoint')['scheme']);
         self::assertSame('localhost.local', $this->container->getParameter('shq_aws_ses_monitor.endpoint')['host']);
 
-        /*
-         * Test bounces configuration
-         */
+        // Test bounces configuration
         $bouncesConfig = $this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['bounces'];
         self::assertTrue($bouncesConfig['track']);
         self::assertSame('localhost.local-serendipityhq.com-ses-prod-bounces', $bouncesConfig['topic']);
@@ -67,18 +57,14 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         self::assertSame('forever', $bouncesConfig['filter']['hard_blacklist_time']);
         self::assertFalse($bouncesConfig['filter']['force_send']);
 
-        /*
-         * Test complaints configuration
-         */
+        // Test complaints configuration
         $complaintsConfig = $this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['complaints'];
         self::assertTrue($complaintsConfig['track']);
         self::assertSame('localhost.local-serendipityhq.com-ses-prod-complaints', $complaintsConfig['topic']);
         self::assertSame('forever', $complaintsConfig['filter']['blacklist_time']);
         self::assertFalse($complaintsConfig['filter']['force_send']);
 
-        /*
-         * Test deliveries configuration
-         */
+        // Test deliveries configuration
         $deliveriesConfig = $this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['deliveries'];
         self::assertTrue($deliveriesConfig['track']);
         self::assertSame('localhost.local-serendipityhq.com-ses-prod-deliveries', $deliveriesConfig['topic']);
@@ -172,7 +158,6 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
     }
 
     /**
-     * @param ContainerBuilder $container
      * @param $resource
      */
     abstract protected function loadConfiguration(ContainerBuilder $container, $resource);

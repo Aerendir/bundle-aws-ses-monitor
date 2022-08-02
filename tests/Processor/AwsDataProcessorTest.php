@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -15,9 +17,6 @@ use Aws\Result;
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor\AwsDataProcessor;
 
-/**
- * {@inheritdoc}
- */
 final class AwsDataProcessorTest extends TestCase
 {
     public function testProcessAccountSendingEnabled(): void

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -20,28 +22,15 @@ use Symfony\Component\HttpFoundation\Response;
  */
 abstract class AbstractNotification
 {
-    /** @var EmailStatusManager $emailStatusManager */
-    private $emailStatusManager;
+    private EmailStatusManager $emailStatusManager;
 
-    /**
-     * @param EmailStatusManager $emailStatusManager
-     */
     public function __construct(EmailStatusManager $emailStatusManager)
     {
         $this->emailStatusManager = $emailStatusManager;
     }
 
-    /**
-     * @param array       $notification
-     * @param MailMessage $mailMessage
-     *
-     * @return Response
-     */
     abstract public function processNotification(array $notification, MailMessage $mailMessage): Response;
 
-    /**
-     * @return EmailStatusManager
-     */
     protected function getEmailStatusManager(): EmailStatusManager
     {
         return $this->emailStatusManager;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -13,8 +15,9 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Helper;
 
 use Aws\Sns\Message;
 use Aws\Sns\MessageValidator;
-use function Safe\json_decode;
 use Symfony\Component\HttpFoundation\Request;
+
+use function Safe\json_decode;
 
 /**
  * Helps to create and validate the received message.
@@ -23,22 +26,14 @@ use Symfony\Component\HttpFoundation\Request;
  */
 final class MessageHelper
 {
-    /** @var MessageValidator $messageValidator */
-    private $messageValidator;
+    private MessageValidator $messageValidator;
 
-    /**
-     * @param MessageValidator $messageValidator
-     */
     public function __construct(MessageValidator $messageValidator)
     {
         $this->messageValidator = $messageValidator;
     }
 
     /**
-     * @param Request $request
-     *
-     * @return Message
-     *
      * @internal
      */
     public function buildMessageFromRequest(Request $request): Message
@@ -51,10 +46,6 @@ final class MessageHelper
     }
 
     /**
-     * @param Message $message
-     *
-     * @return bool
-     *
      * @internal
      */
     public function validateNotification(Message $message): bool
@@ -63,10 +54,6 @@ final class MessageHelper
     }
 
     /**
-     * @param Message $message
-     *
-     * @return array
-     *
      * @internal
      */
     public function extractMessageData(Message $message): array

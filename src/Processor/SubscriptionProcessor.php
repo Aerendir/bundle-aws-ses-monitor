@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -23,20 +25,10 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class SubscriptionProcessor
 {
-    /** @var SnsClient $snsClient */
-    private $snsClient;
+    private SnsClient $snsClient;
+    private EntityManagerInterface $entityManager;
+    private MessageHelper $messageHelper;
 
-    /** @var EntityManagerInterface $entityManager */
-    private $entityManager;
-
-    /** @var MessageHelper $messageHelper */
-    private $messageHelper;
-
-    /**
-     * @param SnsClient              $snsClient
-     * @param EntityManagerInterface $entityManager
-     * @param MessageHelper          $messageHelper
-     */
     public function __construct(SnsClient $snsClient, EntityManagerInterface $entityManager, MessageHelper $messageHelper)
     {
         $this->snsClient     = $snsClient;
@@ -44,11 +36,6 @@ final class SubscriptionProcessor
         $this->messageHelper = $messageHelper;
     }
 
-    /**
-     * @param Request $request
-     *
-     * @return Response
-     */
     public function processRequest(Request $request): Response
     {
         $message = $this->messageHelper->buildMessageFromRequest($request);

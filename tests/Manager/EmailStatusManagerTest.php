@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -17,9 +19,6 @@ use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\EmailStatusManager;
 
-/**
- * {@inheritdoc}
- */
 final class EmailStatusManagerTest extends TestCase
 {
     /**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Aws Ses Bundle.
  *
@@ -19,22 +21,13 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
  */
 final class EmailStatusManager
 {
-    /** @var EntityManagerInterface $entityManager */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
-    /**
-     * @param EntityManagerInterface $entityManager
-     */
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * @param string $emailAddress
-     *
-     * @return EmailStatus
-     */
     public function createEmailStatus(string $emailAddress): EmailStatus
     {
         $email = new EmailStatus($emailAddress);
@@ -43,11 +36,6 @@ final class EmailStatusManager
         return $email;
     }
 
-    /**
-     * @param string $emailAddress
-     *
-     * @return EmailStatus|null
-     */
     public function loadEmailStatus(string $emailAddress): ?EmailStatus
     {
         /** @var EmailStatus|null $email */
@@ -56,16 +44,11 @@ final class EmailStatusManager
         return $email;
     }
 
-    /**
-     * @param string $emailAddress
-     *
-     * @return EmailStatus
-     */
     public function loadOrCreateEmailStatus(string $emailAddress): EmailStatus
     {
         $email = $this->loadEmailStatus($emailAddress);
 
-        if (null === $email) {
+        if ( ! $email instanceof EmailStatus) {
             $email = $this->createEmailStatus($emailAddress);
         }
 
