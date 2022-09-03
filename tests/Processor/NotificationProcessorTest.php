@@ -41,7 +41,7 @@ final class NotificationProcessorTest extends TestCase
     private $deliveryNotificationHandler;
 
     /** @var EntityManagerInterface&MockObject $mockEntityManager */
-    private $mockEntityManager;
+    private MockObject $mockEntityManager;
 
     /** @var MessageHelper&MockObject $mockMessageHelper */
     private $mockMessageHelper;
@@ -151,7 +151,7 @@ final class NotificationProcessorTest extends TestCase
     /**
      * @return MockObject|Response
      */
-    private function initializeSwitch(string $messageType)
+    private function initializeSwitch(string $messageType): MockObject
     {
         $test = [
             'notificationType' => $messageType,

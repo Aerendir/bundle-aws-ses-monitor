@@ -41,13 +41,13 @@ final class SubscriptionProcessor
         $message = $this->messageHelper->buildMessageFromRequest($request);
 
         if (false === $this->messageHelper->validateNotification($message)) {
-            return new Response('The message is invalid.', 403);
+            return new Response('The message is invalid.', Response::HTTP_FORBIDDEN);
         }
 
         $topic = $this->entityManager->getRepository(Topic::class)->findOneBy(['arn' => $message->offsetGet('TopicArn')]);
 
         if ( ! $topic instanceof Topic) {
-            return new Response('Topic not found', 404);
+            return new Response('Topic not found', Response::HTTP_NOT_FOUND);
         }
 
         $this->snsClient->confirmSubscription(
@@ -59,6 +59,6 @@ final class SubscriptionProcessor
 
         $this->entityManager->flush();
 
-        return new Response('OK', 200);
+        return new Response('OK', Response::HTTP_OK);
     }
 }

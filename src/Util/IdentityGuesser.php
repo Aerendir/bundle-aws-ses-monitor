@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Util;
 
-use function Safe\sprintf;
-
 /**
  * Provides some static methods to better understand
  * the nature of a configured identity.

@@ -15,8 +15,8 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Command;
 
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Command\SesSendTestEmailsCommand;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 
 final class SesSendTestEmailsCommandTest extends TestCase
@@ -32,7 +32,7 @@ final class SesSendTestEmailsCommandTest extends TestCase
         /** @var \Swift_Mailer $mockMailer */
         $application->add(new SesSendTestEmailsCommand($mockMailer));
 
-        /** @var ContainerAwareCommand $command */
+        /** @var Command $command */
         $command = $application->find('aws:ses:monitor:test:swiftmailer');
 
         $commandTester = new CommandTester($command);

@@ -28,7 +28,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 use function Safe\preg_replace;
-use function Safe\sprintf;
 
 /**
  * @ codeCoverageIgnore This command basically calls AWS and uses other classes already tested, so it is not testable.
@@ -414,7 +413,7 @@ EOF
             $elapsed = \microtime(true) - $lastCall;
             while ($elapsed < 0.1000000) {
                 $wait = 0.1000000 - $elapsed;
-                \usleep((int) $wait * 10000000);
+                \usleep((int) $wait * 10_000_000);
                 $elapsed = \microtime(true) - $lastCall;
             }
 

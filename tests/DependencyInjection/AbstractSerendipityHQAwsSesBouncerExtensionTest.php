@@ -20,19 +20,16 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * Tests the configuration of the bundle.
+ * @noRector \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector
  */
 abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
 {
-    private SHQAwsSesMonitorExtension $extension;
     private ContainerBuilder $container;
 
     protected function setUp(): void
     {
-        $this->extension = new SHQAwsSesMonitorExtension();
-
         $this->container = new ContainerBuilder();
-        $this->container->registerExtension($this->extension);
+        $this->container->registerExtension(new SHQAwsSesMonitorExtension());
     }
 
     public function testDefaultConfig()
@@ -157,8 +154,5 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         self::assertArrayHasKey(MonitorFilterPlugin::class, $this->container->getRemovedIds());
     }
 
-    /**
-     * @param $resource
-     */
     abstract protected function loadConfiguration(ContainerBuilder $container, $resource);
 }

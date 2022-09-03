@@ -11,6 +11,10 @@ includes:
 parameters:
     level: max
     reportUnmatchedIgnoredErrors: false
+    exceptions:
+        check:
+            missingCheckedExceptionInThrows: false
+            tooWideThrowType: false
     bootstrapFiles:
         - vendor-bin/phpunit/vendor/autoload.php
     paths:
