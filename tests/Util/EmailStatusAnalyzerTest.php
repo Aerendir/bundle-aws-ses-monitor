@@ -21,6 +21,9 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\EmailStatusAnalyzer;
 
 final class EmailStatusAnalyzerTest extends TestCase
 {
+    /**
+     * @return never
+     */
     public function testIsComplained(): void
     {
         $mockMonitor     = $this->createMock(Monitor::class);
@@ -35,6 +38,9 @@ final class EmailStatusAnalyzerTest extends TestCase
         self::assertTrue($resource->isComplained($mockEmailStatus));
     }
 
+    /**
+     * @return never
+     */
     public function testIsBouncedHard(): void
     {
         $mockMonitor     = $this->createMock(Monitor::class);
@@ -47,6 +53,9 @@ final class EmailStatusAnalyzerTest extends TestCase
         self::assertTrue($resource->isBounced($mockEmailStatus, 1, false));
     }
 
+    /**
+     * @return never
+     */
     public function testIsBouncedWith(): void
     {
         $mockMonitor     = $this->createMock(Monitor::class);
@@ -60,6 +69,9 @@ final class EmailStatusAnalyzerTest extends TestCase
         self::assertTrue($resource->isBounced($mockEmailStatus, 2, true));
     }
 
+    /**
+     * @return never
+     */
     public function testIsBouncedNot(): void
     {
         $mockMonitor     = $this->createMock(Monitor::class);
@@ -72,6 +84,9 @@ final class EmailStatusAnalyzerTest extends TestCase
         self::assertFalse($resource->isBounced($mockEmailStatus, 1, false));
     }
 
+    /**
+     * @return never
+     */
     public function testBouncedCannnotReceiveMessages(): void
     {
         $testIdentity    = 'hello@serendipityhq.com';
@@ -95,6 +110,9 @@ final class EmailStatusAnalyzerTest extends TestCase
         self::assertFalse($resource->canReceiveMessages($mockEmailStatus, $testIdentity));
     }
 
+    /**
+     * @return never
+     */
     public function testBouncedCanReceiveMessagesWithTrackingDisabled(): void
     {
         $testIdentity    = 'hello@serendipityhq.com';
@@ -118,6 +136,9 @@ final class EmailStatusAnalyzerTest extends TestCase
         self::assertTrue($resource->canReceiveMessages($mockEmailStatus, $testIdentity));
     }
 
+    /**
+     * @return never
+     */
     public function testBouncedCanReceiveMessagesWithSendingForced(): void
     {
         $testIdentity    = 'hello@serendipityhq.com';
@@ -141,6 +162,9 @@ final class EmailStatusAnalyzerTest extends TestCase
         self::assertTrue($resource->canReceiveMessages($mockEmailStatus, $testIdentity));
     }
 
+    /**
+     * @return never
+     */
     public function testComplainedCannnotReceiveMessages(): void
     {
         $testIdentity    = 'hello@serendipityhq.com';
@@ -168,6 +192,9 @@ final class EmailStatusAnalyzerTest extends TestCase
         self::assertFalse($resource->canReceiveMessages($mockEmailStatus, $testIdentity));
     }
 
+    /**
+     * @return never
+     */
     public function testComplainedCanReceiveMessagesWithTrackingDisabled(): void
     {
         $testIdentity    = 'hello@serendipityhq.com';
@@ -195,6 +222,9 @@ final class EmailStatusAnalyzerTest extends TestCase
         self::assertTrue($resource->canReceiveMessages($mockEmailStatus, $testIdentity));
     }
 
+    /**
+     * @return never
+     */
     public function testComplainedCanReceiveMessagesWithSendingForced(): void
     {
         $testIdentity    = 'hello@serendipityhq.com';
@@ -222,6 +252,9 @@ final class EmailStatusAnalyzerTest extends TestCase
         self::assertTrue($resource->canReceiveMessages($mockEmailStatus, $testIdentity));
     }
 
+    /**
+     * @return never
+     */
     public function testHealthyCanReceiveMessages(): void
     {
         $testIdentity    = 'hello@serendipityhq.com';

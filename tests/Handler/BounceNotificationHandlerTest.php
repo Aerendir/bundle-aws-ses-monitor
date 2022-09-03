@@ -41,6 +41,9 @@ final class BounceNotificationHandlerTest extends TestCase
         ],
     ];
 
+    /**
+     * @return never
+     */
     public function testProcessNotification(): void
     {
         $mockEmailStatus  = $this->createMock(EmailStatus::class);

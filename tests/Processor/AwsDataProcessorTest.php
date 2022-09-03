@@ -220,7 +220,7 @@ final class AwsDataProcessorTest extends TestCase
         $test = [
             'serendipityhq.com' => [
                 'SubscriptionArn' => 'subscription:arn:12345',
-                'Owner'           => 1234567890,
+                'Owner'           => 1_234_567_890,
                 'Protocol'        => 'https',
                 'Endpoint'        => 'endpoint',
                 'TopicArn'        => 'topic:arn:12345',

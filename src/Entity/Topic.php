@@ -24,12 +24,11 @@ use Doctrine\ORM\Mapping as ORM;
 class Topic
 {
     /**
-     * @var int
      * @ORM\Column(name="id", type="integer", unique=true)
      * @ORM\Id
      * @ORM\GeneratedValue()
      */
-    private $id;
+    private int $id;
 
     /** @ORM\Column(name="name", type="string", length=296) */
     private string $name;

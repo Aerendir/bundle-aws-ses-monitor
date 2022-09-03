@@ -56,17 +56,17 @@ final class NotificationProcessor
         $message = $this->messageHelper->buildMessageFromRequest($request);
 
         if (false === $this->messageHelper->validateNotification($message)) {
-            return new Response('The message is invalid.', 403);
+            return new Response('The message is invalid.', Response::HTTP_FORBIDDEN);
         }
 
         $notificationData = $this->messageHelper->extractMessageData($message);
 
         if (false === isset($notificationData[self::NOTIFICATION_TYPE])) {
-            return new Response('Missed NotificationType.', 403);
+            return new Response('Missed NotificationType.', Response::HTTP_FORBIDDEN);
         }
 
         if (SnsTypes::MESSAGE_TYPE_SUBSCRIPTION_SUCCESS === $notificationData[self::NOTIFICATION_TYPE]) {
-            return new Response('OK', 200);
+            return new Response('OK', Response::HTTP_OK);
         }
 
         $mailMessage = $this->loadOrCreateMailMessage($notificationData);
@@ -78,7 +78,7 @@ final class NotificationProcessor
             case SnsTypes::MESSAGE_TYPE_DELIVERY:
                 return $this->deliveryNotificationHandler->processNotification($notificationData, $mailMessage);
             default:
-                return new Response('Notification type not understood', 403);
+                return new Response('Notification type not understood', Response::HTTP_FORBIDDEN);
         }
     }
 

@@ -29,12 +29,11 @@ class Delivery
     private const DELIVERY = 'delivery';
 
     /**
-     * @var int
      * @ORM\Column(name="id", type="integer", unique=true)
      * @ORM\Id
      * @ORM\GeneratedValue()
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="EmailStatus", inversedBy="deliveries", cascade={"persist"})

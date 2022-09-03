@@ -23,6 +23,9 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\EmailStatusAnalyzer;
 
 final class MonitorFilterPluginTest extends TestCase
 {
+    /**
+     * @return never
+     */
     public function testBeforeSendPerformedWithoutRecipientsDoesNothing(): void
     {
         $mockEmailStatusAnalyzer = $this->createMock(EmailStatusAnalyzer::class);
@@ -43,6 +46,7 @@ final class MonitorFilterPluginTest extends TestCase
 
     /**
      * @noRector \Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector
+     * @return never
      */
     public function testBeforeSendPerformedWithGetToRecipients(): void
     {
@@ -70,6 +74,7 @@ final class MonitorFilterPluginTest extends TestCase
 
     /**
      * @noRector \Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector
+     * @return never
      */
     public function testBeforeSendPerformedWithGetCcRecipients(): void
     {
@@ -97,6 +102,7 @@ final class MonitorFilterPluginTest extends TestCase
 
     /**
      * @noRector \Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector
+     * @return never
      */
     public function testBeforeSendPerformedWithGetBccRecipients(): void
     {

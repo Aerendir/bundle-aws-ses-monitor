@@ -414,7 +414,7 @@ EOF
             $elapsed = \microtime(true) - $lastCall;
             while ($elapsed < 0.1000000) {
                 $wait = 0.1000000 - $elapsed;
-                \usleep((int) $wait * 10000000);
+                \usleep((int) $wait * 10_000_000);
                 $elapsed = \microtime(true) - $lastCall;
             }
 
