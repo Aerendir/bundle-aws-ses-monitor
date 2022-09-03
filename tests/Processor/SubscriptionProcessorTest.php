@@ -30,10 +30,10 @@ final class SubscriptionProcessorTest extends TestCase
     private SubscriptionProcessor $subscriptionProcessor;
 
     /** @var MockObject&SnsClient $mockSnsClient */
-    private $mockSnsClient;
+    private MockObject $mockSnsClient;
 
     /** @var EntityManagerInterface&MockObject $mockEntityManager */
-    private $mockEntityManager;
+    private MockObject $mockEntityManager;
 
     /** @var MessageHelper&MockObject $mockMessageHelper */
     private $mockMessageHelper;

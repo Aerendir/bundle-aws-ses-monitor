@@ -41,9 +41,6 @@ final class ComplaintNotificationHandlerTest extends TestCase
         ],
     ];
 
-    /**
-     * @return never
-     */
     public function testProcessNotification(): void
     {
         $mockEmailStatus  = $this->createMock(EmailStatus::class);

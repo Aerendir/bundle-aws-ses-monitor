@@ -23,5 +23,10 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(SerendipityHQ::SHQ_SYMFONY_BUNDLE);
 
     $toSkip = SerendipityHQ::buildToSkip(SerendipityHQ::SHQ_SYMFONY_BUNDLE_SKIP);
+
+    // @todo reactivate
+    $toSkip[] = __DIR__ . '/tests/bootstrap.php';
+    $toSkip[] = __DIR__ . '/tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php';
+    $toSkip[] = \Rector\TypeDeclaration\Rector\ClassMethod\ReturnNeverTypeRector::class;
     $rectorConfig->skip($toSkip);
 };

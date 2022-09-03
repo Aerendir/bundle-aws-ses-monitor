@@ -51,10 +51,10 @@ final class MonitorTest extends TestCase
     private $mockIdentityGuesser;
 
     /** @var MockObject&OutputInterface $sectionTitle */
-    private $mockSectionTitle;
+    private MockObject $mockSectionTitle;
 
     /** @var MockObject&OutputInterface $sectionBody */
-    private $mockSectionBody;
+    private MockObject $mockSectionBody;
 
     private Monitor $resource;
 

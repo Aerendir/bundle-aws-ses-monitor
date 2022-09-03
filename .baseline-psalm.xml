@@ -2,43 +2,8 @@
 <files psalm-version="4.26.0@6998fabb2bf528b65777bf9941920888d23c03ac">
   <file src="src/Command/ConfigureCommand.php">
     <ArgumentTypeCoercion occurrences="1">
-      <code>(int) $wait * 10000000</code>
+      <code>(int) $wait * 10_000_000</code>
     </ArgumentTypeCoercion>
-    <DeprecatedFunction occurrences="35">
-      <code>sprintf("A request to verify the email identity &lt;comment&gt;%s&lt;/comment&gt; was just sent from amazon to the email address: check the email's inbox and click the confirmation link.", $identity)</code>
-      <code>sprintf("Subscribing App's endpoint to the topic &lt;comment&gt;%s&lt;/comment&gt;", $topicName)</code>
-      <code>sprintf('Actions to take to complete configuration of identity "%s":', $identity)</code>
-      <code>sprintf('Checking endpoint in subscription to topic &lt;comment&gt;%s&lt;/comment&gt; for notifications of &lt;comment&gt;%s&lt;/comment&gt;...', $topicName, $notificationType)</code>
-      <code>sprintf('Checking notification topic for &lt;comment&gt;%s&lt;/comment&gt; of identity &lt;comment&gt;%s&lt;/comment&gt;...', $type, $identity)</code>
-      <code>sprintf('Checking subscription to topic &lt;comment&gt;%s&lt;/comment&gt; for notifications of &lt;comment&gt;%s&lt;/comment&gt;...', $topicName, $notificationType)</code>
-      <code>sprintf('Configuring identity &lt;comment&gt;%s&lt;/comment&gt;', $identity)</code>
-      <code>sprintf('Configuring subscriptions of identity &lt;comment&gt;%s&lt;/comment&gt;', $identity)</code>
-      <code>sprintf('Configuring topic &lt;comment&gt;%s&lt;/comment&gt;', $topic)</code>
-      <code>sprintf('Creating topic &lt;comment&gt;%s&lt;/comment&gt;...', $topic)</code>
-      <code>sprintf('DKIM enabling for identity &lt;comment&gt;%s&lt;/comment&gt; is already in synch: skipping...', $identity)</code>
-      <code>sprintf('DKIM enabling for identity &lt;comment&gt;%s&lt;/comment&gt; is not in synch: synching...', $identity)</code>
-      <code>sprintf('DKIM enabling for identity &lt;comment&gt;%s&lt;/comment&gt; is now in synch', $identity)</code>
-      <code>sprintf('Endpoint &lt;comment&gt;%s&lt;/comment&gt; in subscription to topic is correct.', $currentEndpoint)</code>
-      <code>sprintf('Endpoint set to current &lt;comment&gt;%s&lt;/comment&gt;: now in synch.', $currentEndpoint)</code>
-      <code>sprintf('Identity &lt;comment&gt;%s&lt;/comment&gt; is already subscribed to topic &lt;comment&gt;%s&lt;/comment&gt; for notifications of &lt;comment&gt;%s&lt;/comment&gt;: skipping', $identity, $topicName, $notificationType)</code>
-      <code>sprintf('Identity &lt;comment&gt;%s&lt;/comment&gt; is already verified: skipping...', $identity)</code>
-      <code>sprintf('Identity &lt;comment&gt;%s&lt;/comment&gt; is not still verified: cannot synch dkim enabling', $identity)</code>
-      <code>sprintf('Identity &lt;comment&gt;%s&lt;/comment&gt; is not still verified: requesting verification...', $identity)</code>
-      <code>sprintf('Identity &lt;comment&gt;%s&lt;/comment&gt; is not yet subscribed to topic &lt;comment&gt;%s&lt;/comment&gt; for notifications of &lt;comment&gt;%s&lt;/comment&gt;: subscribing...', $identity, $topicName, $notificationType)</code>
-      <code>sprintf('Identity &lt;comment&gt;%s&lt;/comment&gt; subscribed to topic &lt;comment&gt;%s&lt;/comment&gt; for notifications of &lt;comment&gt;%s&lt;/comment&gt;', $identity, $topicName, $notificationType)</code>
-      <code>sprintf('Name: &lt;comment&gt;%s._domainkey.%s&lt;/comment&gt;; Type: &lt;comment&gt;CNAME&lt;/comment&gt;; Value: &lt;comment&gt;%s.dkim.amazonses.com&lt;/comment&gt;;', $token, $identity, $token)</code>
-      <code>sprintf('Starting to configure identities for environment &lt;comment&gt;%s&lt;/comment&gt;', $this-&gt;env)</code>
-      <code>sprintf('The "from domain" of identity &lt;comment&gt;%s&lt;/comment&gt; cannot be synched as its domain identity is not verified.', $identity)</code>
-      <code>sprintf('The "from domain" of identity &lt;comment&gt;%s&lt;/comment&gt; is already in synch: skipping...', $identity)</code>
-      <code>sprintf('The "from domain" of identity &lt;comment&gt;%s&lt;/comment&gt; is not in synch: synching...', $identity)</code>
-      <code>sprintf('The "from domain" of identity &lt;comment&gt;%s&lt;/comment&gt; is now in synch', $identity)</code>
-      <code>sprintf('Topic &lt;comment&gt;%s&lt;/comment&gt; already exists: skipping...', $topic)</code>
-      <code>sprintf('Topic &lt;comment&gt;%s&lt;/comment&gt; created: &lt;comment&gt;%s&lt;/comment&gt;', $topic, $topicEntity-&gt;getArn())</code>
-      <code>sprintf('Topic &lt;comment&gt;%s&lt;/comment&gt; for notification of &lt;comment&gt;%s&lt;/comment&gt; of identity &lt;comment&gt;%s&lt;/comment&gt; scheduled...', $topicName, $type, $identity)</code>
-      <code>sprintf('Topic for notification of &lt;comment&gt;%s&lt;/comment&gt; of identity &lt;comment&gt;%s&lt;/comment&gt; is already set: skipping...', $type, $identity)</code>
-      <code>sprintf('Topic for notification of &lt;comment&gt;%s&lt;/comment&gt; of identity &lt;comment&gt;%s&lt;/comment&gt; is not set: scheduling it...', $type, $identity)</code>
-      <code>sprintf('Verification requested for identity &lt;comment&gt;%s&lt;/comment&gt;', $identity)</code>
-    </DeprecatedFunction>
     <NonInvariantDocblockPropertyType occurrences="1">
       <code>$defaultName</code>
     </NonInvariantDocblockPropertyType>
@@ -55,6 +20,9 @@
       <code>$this-&gt;monitor-&gt;getConfiguredIdentity($identity, $type)[self::TOPIC]</code>
       <code>$this-&gt;monitor-&gt;getConfiguredIdentity($parts['domain'], $type)[self::TOPIC]</code>
     </PossiblyInvalidArrayOffset>
+    <PossiblyNullArgument occurrences="1">
+      <code>$verificationToken</code>
+    </PossiblyNullArgument>
     <PossiblyNullArrayAccess occurrences="1">
       <code>$this-&gt;monitor-&gt;getLiveTopic($topic)['arn']</code>
     </PossiblyNullArrayAccess>
@@ -71,9 +39,6 @@
     </PropertyTypeCoercion>
   </file>
   <file src="src/Command/DebugCommand.php">
-    <DeprecatedFunction occurrences="1">
-      <code>sprintf('Validating identity &lt;comment&gt;%s&lt;/comment&gt;', $identity)</code>
-    </DeprecatedFunction>
     <NonInvariantDocblockPropertyType occurrences="1">
       <code>$defaultName</code>
     </NonInvariantDocblockPropertyType>
@@ -87,9 +52,6 @@
     </PropertyTypeCoercion>
   </file>
   <file src="src/Command/SesSendTestEmailsCommand.php">
-    <DeprecatedFunction occurrences="1">
-      <code>sprintf('&lt;info&gt;Sending an email from &lt;comment&gt;%s&lt;/comment&gt; to &lt;comment&gt;%s&lt;/comment&gt;&lt;/info&gt;', $fromAddress, $toAddress)</code>
-    </DeprecatedFunction>
     <NonInvariantDocblockPropertyType occurrences="1">
       <code>$defaultName</code>
     </NonInvariantDocblockPropertyType>
@@ -98,21 +60,6 @@
     </ReservedWord>
   </file>
   <file src="src/DependencyInjection/Configuration.php">
-    <DeprecatedFunction occurrences="13">
-      <code>sprintf('%s-%s-ses-%s-%s', $host, $identity, $env, $type)</code>
-      <code>sprintf('Check the configuration at path "%s".', $currentPath)</code>
-      <code>sprintf('The domain "%s" of the email identity "%s" is NOT explicitly configured. You need to explicitly configure the domain identity "%s" to use its topic for the email identity "%s". %s', $parts[self::DOMAIN], $identity, $parts[self::DOMAIN], $identity, $checkCurrentPath)</code>
-      <code>sprintf('The email identity "%s" is for testing on development machines purposes only. You cannot set it to use the domain\'s topic that has to be used only in production. %s', $identity, $identity, $type, $checkCurrentPath)</code>
-      <code>sprintf('The identity "%s" is not an email. The value "%s" can be used only with email identities. %s', $identity, self::USE_DOMAIN, $checkCurrentPath)</code>
-      <code>sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $bouncesPath)</code>
-      <code>sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $complaintsPath)</code>
-      <code>sprintf('The test email identity "%s" at path "%s" uses the same topic name of the production identity at path "%s". This is not allowed.', $identity, $currentPath, $deliveriesPath)</code>
-      <code>sprintf('You have not enabled the tracking of "%s" for identity "%s" but you have anyway set the name of its topic. Either remove the name of the topic at path "shq_aws_ses_monitor.identities.%s.%s.topic" or enabled the tracking setting "shq_aws_ses_monitor.identities.%s.%s.track" to "true".', $type, $identity, $identity, $type, $identity, $type)</code>
-      <code>sprintf('shq_aws_ses_monitor.identities.%s.%s.topic', $identity, $type)</code>
-      <code>sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity)</code>
-      <code>sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity)</code>
-      <code>sprintf('shq_aws_ses_monitor.identities.%s.bounces.topic', $otherIdentity)</code>
-    </DeprecatedFunction>
     <MissingConstructor occurrences="1">
       <code>$identityGuesser</code>
     </MissingConstructor>
@@ -122,11 +69,6 @@
       <code>addDefaultsIfNotSet</code>
       <code>children</code>
     </PossiblyUndefinedMethod>
-  </file>
-  <file src="src/DependencyInjection/SHQAwsSesMonitorExtension.php">
-    <DeprecatedFunction occurrences="1">
-      <code>sprintf('swiftmailer.%s.plugin', $mailer)</code>
-    </DeprecatedFunction>
   </file>
   <file src="src/Entity/Bounce.php">
     <MissingConstructor occurrences="7">
@@ -160,13 +102,56 @@
     </MissingConstructor>
   </file>
   <file src="src/Entity/EmailStatus.php">
+    <InvalidReturnStatement occurrences="3">
+      <code>$this-&gt;bounces</code>
+      <code>$this-&gt;complaints</code>
+      <code>$this-&gt;deliveries</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType occurrences="3">
+      <code>Collection</code>
+      <code>Collection</code>
+      <code>Collection</code>
+    </InvalidReturnType>
+    <MismatchingDocblockPropertyType occurrences="3">
+      <code>Collection</code>
+      <code>Collection</code>
+      <code>Collection</code>
+    </MismatchingDocblockPropertyType>
     <MissingClosureParamType occurrences="3">
       <code>$key</code>
       <code>$key</code>
       <code>$key</code>
     </MissingClosureParamType>
+    <PossiblyInvalidMethodCall occurrences="6">
+      <code>add</code>
+      <code>add</code>
+      <code>add</code>
+      <code>exists</code>
+      <code>exists</code>
+      <code>exists</code>
+    </PossiblyInvalidMethodCall>
   </file>
   <file src="src/Entity/MailMessage.php">
+    <InvalidReturnStatement occurrences="3">
+      <code>$this-&gt;bounces</code>
+      <code>$this-&gt;complaints</code>
+      <code>$this-&gt;deliveries</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType occurrences="3">
+      <code>Collection</code>
+      <code>Collection</code>
+      <code>Collection</code>
+    </InvalidReturnType>
+    <MismatchingDocblockPropertyType occurrences="3">
+      <code>Collection</code>
+      <code>Collection</code>
+      <code>Collection</code>
+    </MismatchingDocblockPropertyType>
+    <PossiblyInvalidMethodCall occurrences="3">
+      <code>add</code>
+      <code>add</code>
+      <code>add</code>
+    </PossiblyInvalidMethodCall>
     <PropertyNotSetInConstructor occurrences="5">
       <code>$messageId</code>
       <code>$sendingAccountId</code>
@@ -238,12 +223,6 @@
     </PossiblyNullIterator>
   </file>
   <file src="src/Service/Monitor.php">
-    <DeprecatedFunction occurrences="4">
-      <code>sprintf('   Retrieving attributes for subscription &lt;comment&gt;%s&lt;/comment&gt;', $subscription[self::SUBSCRIPTION_ARN])</code>
-      <code>sprintf('   Retrieving attributes for topic &lt;comment&gt;%s&lt;/comment&gt;', $topic[self::TOPIC_ARN])</code>
-      <code>sprintf('The Domain Identity "%s" is not configured.', $identity)</code>
-      <code>sprintf('The Email Identity "%s" nor its Domain identity are configured.', $identity)</code>
-    </DeprecatedFunction>
     <InvalidArrayOffset occurrences="1">
       <code>$topicConfig[self::TOPIC]</code>
     </InvalidArrayOffset>
@@ -277,10 +256,6 @@
     <TypeDoesNotContainType occurrences="1">
       <code>$ignoreEnv</code>
     </TypeDoesNotContainType>
-    <UndefinedConstant occurrences="2">
-      <code>self::DOMAIN</code>
-      <code>self::DOMAIN</code>
-    </UndefinedConstant>
   </file>
   <file src="src/Util/Console.php">
     <MismatchingDocblockReturnType occurrences="1">
@@ -294,16 +269,6 @@
     <PossiblyInvalidArrayOffset occurrences="1">
       <code>$this-&gt;monitor-&gt;findConfiguredIdentity($identity, 'bounces')['filter']</code>
     </PossiblyInvalidArrayOffset>
-  </file>
-  <file src="src/Util/IdentityGuesser.php">
-    <DeprecatedFunction occurrences="1">
-      <code>sprintf('The value "%s" is not an Email identity.', $identity)</code>
-    </DeprecatedFunction>
-  </file>
-  <file src="tests/Command/SesSendTestEmailsCommandTest.php">
-    <InvalidArgument occurrences="1">
-      <code>$command</code>
-    </InvalidArgument>
   </file>
   <file src="tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php">
     <MissingParamType occurrences="1">
@@ -419,6 +384,9 @@
     </PossiblyFalseArgument>
   </file>
   <file src="tests/Manager/SnsManagerTest.php">
+    <MismatchingDocblockReturnType occurrences="1">
+      <code>MockObject|RouterInterface</code>
+    </MismatchingDocblockReturnType>
     <PossiblyInvalidArgument occurrences="2">
       <code>$this-&gt;createMockRouter()</code>
       <code>$this-&gt;createMockRouter()</code>
@@ -428,6 +396,9 @@
     </TooManyArguments>
   </file>
   <file src="tests/Plugin/MonitorFilterPluginTest.php">
+    <MismatchingDocblockReturnType occurrences="1">
+      <code>MockObject|\Swift_Message</code>
+    </MismatchingDocblockReturnType>
     <PossiblyFalseArgument occurrences="6">
       <code>$recipients</code>
       <code>$recipients</code>
@@ -458,6 +429,9 @@
     </PossiblyUndefinedMethod>
   </file>
   <file src="tests/Processor/NotificationProcessorTest.php">
+    <MismatchingDocblockReturnType occurrences="1">
+      <code>MockObject|Response</code>
+    </MismatchingDocblockReturnType>
     <ReservedWord occurrences="4">
       <code>$response-&gt;getContent()</code>
       <code>$response-&gt;getContent()</code>
