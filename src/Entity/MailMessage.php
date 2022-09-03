@@ -105,7 +105,7 @@ class MailMessage
     private ?string $commonHeaders = null;
 
     /** @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce", mappedBy="mailMessage", cascade={"persist"})
-     * @var Collection<int, Bounce>|Bounce[] */
+     * @var Bounce[]|Collection<int, Bounce> */
     private Collection $bounces;
 
     /** @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint", mappedBy="mailMessage", cascade={"persist"})

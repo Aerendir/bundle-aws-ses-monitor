@@ -57,7 +57,6 @@ class Complaint
     private const COMPLAINT = 'complaint';
 
     /**
-     *
      * @ORM\Column(name="id", type="integer", unique=true)
      * @ORM\Id
      * @ORM\GeneratedValue()

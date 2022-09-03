@@ -32,7 +32,7 @@ class EmailStatus
     private string $address;
 
     /** @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce", mappedBy="emailStatus")
-     * @var Collection<int, Bounce>|Bounce[] */
+     * @var Bounce[]|Collection<int, Bounce> */
     private Collection $bounces;
 
     /** @ORM\Column(name="hard_bounces_count", type="integer") */
@@ -125,7 +125,7 @@ class EmailStatus
     public function addBounce(Bounce $bounce): self
     {
         // Add only if not already added to avoid circular references
-        $predictate = static fn($key, Bounce $element): bool => $element->getFeedbackId() === $bounce->getFeedbackId();
+        $predictate = static fn ($key, Bounce $element): bool => $element->getFeedbackId() === $bounce->getFeedbackId();
 
         if (false === $this->bounces->exists($predictate)) {
             $this->bounces->add($bounce);
@@ -151,7 +151,7 @@ class EmailStatus
     public function addComplaint(Complaint $complaint): self
     {
         // Add only if not already added to avoid circular references
-        $predictate = static fn($key, Complaint $element): bool => $element->getFeedbackId() === $complaint->getFeedbackId();
+        $predictate = static fn ($key, Complaint $element): bool => $element->getFeedbackId() === $complaint->getFeedbackId();
 
         if (false === $this->complaints->exists($predictate)) {
             $this->complaints->add($complaint);
@@ -168,7 +168,7 @@ class EmailStatus
     public function addDelivery(Delivery $delivery): self
     {
         // Add only if not already added to avoid circular references
-        $predictate = static fn($key, Delivery $element): bool => // A Delivery doesn't have a feedbackId, so we rely on timestamp that should be sufficient to get identity uniqueness
+        $predictate = static fn ($key, Delivery $element): bool => // A Delivery doesn't have a feedbackId, so we rely on timestamp that should be sufficient to get identity uniqueness
 $element->getDeliveredOn()->getTimestamp() === $delivery->getDeliveredOn()->getTimestamp();
 
         if (false === $this->deliveries->exists($predictate)) {

@@ -24,8 +24,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleSectionOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use function Safe\sprintf;
-
 /**
  * @ codeCoverageIgnore This command basically calls AWS and uses other classes already tested, so it is not testable.
  */

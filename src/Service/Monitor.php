@@ -21,32 +21,20 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\Console;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\IdentityGuesser;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use function Safe\sprintf;
-
 /**
  * Collects the current information from AWS SES and SNS.
  *
  * @internal
  */
-final class Monitor
+class Monitor
 {
-    /** @var string */
-    private const TRACK = 'track';
-
-    /** @var string */
-    private const DKIM = 'dkim';
-
-    /** @var string */
-    private const TOPIC = 'topic';
-
-    /** @var string */
-    private const IDENTITIES = 'Identities';
-
-    /** @var string */
+    private const DOMAIN           = 'domain';
+    private const TRACK            = 'track';
+    private const DKIM             = 'dkim';
+    private const TOPIC            = 'topic';
+    private const IDENTITIES       = 'Identities';
     private const SUBSCRIPTION_ARN = 'SubscriptionArn';
-
-    /** @var string */
-    private const TOPIC_ARN = 'TopicArn';
+    private const TOPIC_ARN        = 'TopicArn';
 
     private string $env;
     private IdentitiesStore $configuredIdentities;

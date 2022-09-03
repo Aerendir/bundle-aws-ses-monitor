@@ -19,8 +19,6 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
-use function Safe\sprintf;
-
 final class Configuration implements ConfigurationInterface
 {
     /** @var string */
@@ -88,8 +86,8 @@ final class Configuration implements ConfigurationInterface
                     ->end()->end()
                 ->end()
                 ->validate()
-                    ->ifTrue(fn(array $tree): bool => $this->validateConfiguration($tree))
-                    ->then(fn(array $tree): array => $this->prepareConfiguration($tree))
+                    ->ifTrue(fn (array $tree): bool => $this->validateConfiguration($tree))
+                    ->then(fn (array $tree): array  => $this->prepareConfiguration($tree))
                 ->end();
 
         return $treeBuilder;
