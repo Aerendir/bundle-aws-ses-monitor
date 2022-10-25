@@ -50,6 +50,7 @@ final class SesManager
      * @param string $notificationType The type of notification
      *
      * @see http://docs.aws.amazon.com/aws-sdk-php/v3/api/api-email-2010-12-01.html#setidentitynotificationtopic
+     *
      * @ codeCoverageIgnore
      */
     public function setTopic(string $identity, string $notificationType, string $topicArn): void
