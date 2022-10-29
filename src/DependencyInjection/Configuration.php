@@ -87,7 +87,7 @@ final class Configuration implements ConfigurationInterface
                 ->end()
                 ->validate()
                     ->ifTrue(fn (array $tree): bool => $this->validateConfiguration($tree))
-                    ->then(fn (array $tree): array  => $this->prepareConfiguration($tree))
+                    ->then(fn (array $tree): array => $this->prepareConfiguration($tree))
                 ->end();
 
         return $treeBuilder;
