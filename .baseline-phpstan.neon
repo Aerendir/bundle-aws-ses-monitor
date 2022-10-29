@@ -61,6 +61,21 @@ parameters:
 			path: src/Entity/EmailStatus.php
 
 		-
+			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\ReadableCollection\\<\\(int\\|string\\),mixed\\>\\:\\:exists\\(\\) expects Closure\\(\\(int\\|string\\), mixed\\)\\: bool, Closure\\(mixed, SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Bounce\\)\\: bool given\\.$#"
+			count: 1
+			path: src/Entity/EmailStatus.php
+
+		-
+			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\ReadableCollection\\<\\(int\\|string\\),mixed\\>\\:\\:exists\\(\\) expects Closure\\(\\(int\\|string\\), mixed\\)\\: bool, Closure\\(mixed, SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Complaint\\)\\: bool given\\.$#"
+			count: 1
+			path: src/Entity/EmailStatus.php
+
+		-
+			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\ReadableCollection\\<\\(int\\|string\\),mixed\\>\\:\\:exists\\(\\) expects Closure\\(\\(int\\|string\\), mixed\\)\\: bool, Closure\\(mixed, SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Delivery\\)\\: bool given\\.$#"
+			count: 1
+			path: src/Entity/EmailStatus.php
+
+		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
 			path: src/Entity/MailMessage.php
