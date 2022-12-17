@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.27.0@faf106e717c37b8c81721845dba9de3d8deed8ff">
+<files psalm-version="5.2.0@fb685a16df3050d4c18d8a4100fe83abe6458cba">
   <file src="src/Command/ConfigureCommand.php">
     <ArgumentTypeCoercion occurrences="1">
       <code>(int) $wait * 10_000_000</code>
@@ -55,9 +55,6 @@
     <NonInvariantDocblockPropertyType occurrences="1">
       <code>$defaultName</code>
     </NonInvariantDocblockPropertyType>
-    <ReservedWord occurrences="1">
-      <code>$this-&gt;getHelper('question')</code>
-    </ReservedWord>
   </file>
   <file src="src/DependencyInjection/Configuration.php">
     <MissingConstructor occurrences="1">
@@ -300,12 +297,17 @@
       <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
       <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
     </PossiblyInvalidArrayAccess>
-    <PossiblyNullArrayAccess occurrences="34">
+    <PossiblyNullArrayAccess occurrences="52">
       <code>$bouncesConfig['filter']</code>
       <code>$bouncesConfig['filter']</code>
       <code>$bouncesConfig['filter']</code>
       <code>$bouncesConfig['filter']</code>
       <code>$bouncesConfig['filter']</code>
+      <code>$bouncesConfig['filter']['force_send']</code>
+      <code>$bouncesConfig['filter']['hard_blacklist_time']</code>
+      <code>$bouncesConfig['filter']['max_bounces']</code>
+      <code>$bouncesConfig['filter']['soft_as_hard']</code>
+      <code>$bouncesConfig['filter']['soft_blacklist_time']</code>
       <code>$bouncesConfig['topic']</code>
       <code>$bouncesConfig['track']</code>
       <code>$bouncesConfig['track']</code>
@@ -314,6 +316,8 @@
       <code>$bouncesConfig['track']</code>
       <code>$complaintsConfig['filter']</code>
       <code>$complaintsConfig['filter']</code>
+      <code>$complaintsConfig['filter']['blacklist_time']</code>
+      <code>$complaintsConfig['filter']['force_send']</code>
       <code>$complaintsConfig['topic']</code>
       <code>$complaintsConfig['track']</code>
       <code>$complaintsConfig['track']</code>
@@ -335,6 +339,17 @@
       <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
       <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
       <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['bounces']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['bounces']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['bounces']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['bounces']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['bounces']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['complaints']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['complaints']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['complaints']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['complaints']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['complaints']</code>
+      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['deliveries']</code>
     </PossiblyNullArrayAccess>
     <PossiblyNullReference occurrences="13">
       <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.endpoint')</code>
@@ -432,10 +447,7 @@
     <MismatchingDocblockReturnType occurrences="1">
       <code>MockObject|Response</code>
     </MismatchingDocblockReturnType>
-    <ReservedWord occurrences="4">
-      <code>$response-&gt;getContent()</code>
-      <code>$response-&gt;getContent()</code>
-      <code>$response-&gt;getContent()</code>
+    <ReservedWord occurrences="1">
       <code>$response-&gt;getContent()</code>
     </ReservedWord>
   </file>
@@ -448,9 +460,7 @@
     <MissingClosureParamType occurrences="1">
       <code>$key</code>
     </MissingClosureParamType>
-    <ReservedWord occurrences="3">
-      <code>$response-&gt;getContent()</code>
-      <code>$response-&gt;getContent()</code>
+    <ReservedWord occurrences="1">
       <code>$response-&gt;getContent()</code>
     </ReservedWord>
   </file>
