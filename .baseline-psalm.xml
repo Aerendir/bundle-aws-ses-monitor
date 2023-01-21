@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.2.0@fb685a16df3050d4c18d8a4100fe83abe6458cba">
+<files psalm-version="5.4.0@62db5d4f6a7ae0a20f7cc5a4952d730272fc0863">
   <file src="src/Command/ConfigureCommand.php">
     <ArgumentTypeCoercion occurrences="1">
       <code>(int) $wait * 10_000_000</code>
@@ -37,6 +37,10 @@
       <code>$this-&gt;console-&gt;createSection($output)</code>
       <code>$this-&gt;console-&gt;createSection($output)</code>
     </PropertyTypeCoercion>
+    <RedundantCast occurrences="2">
+      <code>(int) Command::SUCCESS</code>
+      <code>(int) Command::SUCCESS</code>
+    </RedundantCast>
   </file>
   <file src="src/Command/DebugCommand.php">
     <NonInvariantDocblockPropertyType occurrences="1">
@@ -50,11 +54,17 @@
       <code>$this-&gt;console-&gt;createSection($output)</code>
       <code>$this-&gt;console-&gt;createSection($output)</code>
     </PropertyTypeCoercion>
+    <RedundantCast occurrences="1">
+      <code>(int) Command::SUCCESS</code>
+    </RedundantCast>
   </file>
   <file src="src/Command/SesSendTestEmailsCommand.php">
     <NonInvariantDocblockPropertyType occurrences="1">
       <code>$defaultName</code>
     </NonInvariantDocblockPropertyType>
+    <RedundantCast occurrences="1">
+      <code>(int) Command::SUCCESS</code>
+    </RedundantCast>
   </file>
   <file src="src/DependencyInjection/Configuration.php">
     <MissingConstructor occurrences="1">

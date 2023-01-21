@@ -9,7 +9,7 @@
  */
 return [
     // # Issue statistics:
-    // PhanRedefinedClassReference : 170+ occurrences
+    // PhanRedefinedClassReference : 180+ occurrences
     // PhanAccessMethodInternal : 150+ occurrences
     // PhanUnreferencedPublicMethod : 40+ occurrences
     // PhanAccessClassConstantInternal : 15+ occurrences

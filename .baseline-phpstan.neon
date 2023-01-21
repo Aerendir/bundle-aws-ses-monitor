@@ -26,6 +26,11 @@ parameters:
 			path: src/Entity/Bounce.php
 
 		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Bounce\\:\\:\\$id is never written, only read\\.$#"
+			count: 1
+			path: src/Entity/Bounce.php
+
+		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 2
 			path: src/Entity/Complaint.php
@@ -36,12 +41,22 @@ parameters:
 			path: src/Entity/Complaint.php
 
 		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Complaint\\:\\:\\$id is never written, only read\\.$#"
+			count: 1
+			path: src/Entity/Complaint.php
+
+		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
 			path: src/Entity/Delivery.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Delivery\\:\\:create\\(\\) has parameter \\$notification with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Entity/Delivery.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Delivery\\:\\:\\$id is never written, only read\\.$#"
 			count: 1
 			path: src/Entity/Delivery.php
 
@@ -84,6 +99,11 @@ parameters:
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\MailMessage\\:\\:getDeliveries\\(\\) return type with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
 			count: 1
 			path: src/Entity/MailMessage.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Entity\\\\Topic\\:\\:\\$id is never written, only read\\.$#"
+			count: 1
+			path: src/Entity/Topic.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Handler\\\\AbstractNotification\\:\\:processNotification\\(\\) has parameter \\$notification with no value type specified in iterable type array\\.$#"
