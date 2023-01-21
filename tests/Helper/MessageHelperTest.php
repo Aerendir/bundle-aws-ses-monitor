@@ -93,11 +93,11 @@ final class MessageHelperTest extends TestCase
                         'diagnosticCode' => 'Amazon SES has suppressed sending to this address because it has a recent history of bouncing as an invalid address. For more information about how to remove an address from the suppression list, see the Amazon SES Developer Guide: http://docs.aws.amazon.com/ses/latest/DeveloperGuide/remove-from-suppressionlist.html ',
                     ],
                 ],
-                'timestamp'    => '2018-07-14T10:24:50.776Z',
-                'feedbackId'   => '010201649852581b-c3ef3128-b920-4dfa-aaf9-b9af96e9e0ed-000000',
-                'reportingMTA' => 'dns; amazonses.com',
+                'timestamp'         => '2018-07-14T10:24:50.776Z',
+                'feedbackId'        => '010201649852581b-c3ef3128-b920-4dfa-aaf9-b9af96e9e0ed-000000',
+                'reportingMTA'      => 'dns; amazonses.com',
             ],
-            'mail' => [
+            'mail'             => [
                 'timestamp'        => '2018-07-14T10:24:48.000Z',
                 'source'           => 'ciao@trustback.me',
                 'sourceArn'        => 'arn:aws:ses:eu-west-1:159321217982:identity/trustback.me',

@@ -89,7 +89,7 @@ final class AwsDataProcessorTest extends TestCase
     public function testProcessIdentitiesDkimAttributes(): void
     {
         $test = [
-            'serendipityhq.com' => [
+            'serendipityhq.com'       => [
                 'DkimEnabled'            => true,
                 'DkimVerificationStatus' => 'Pending',
                 'DkimTokens'             => ['token1', 'token2', 'token3'],
@@ -119,7 +119,7 @@ final class AwsDataProcessorTest extends TestCase
     public function testProcessIdentitiesMailFromDomainAttributes(): void
     {
         $test = [
-            'serendipityhq.com' => [
+            'serendipityhq.com'       => [
                 'BehaviorOnMXFailure'  => 'Reject',
                 'MailFromDomainStatus' => 'Verified',
                 'MailFromDomain'       => 'www.serendipityhq.com',
@@ -148,7 +148,7 @@ final class AwsDataProcessorTest extends TestCase
     public function testProcessIdentitiesNotificationAttributes(): void
     {
         $test = [
-            'serendipityhq.com' => [
+            'serendipityhq.com'       => [
                 'ForwardingEnabled'                      => true,
                 'HeadersInBounceNotificationsEnabled'    => false,
                 'HeadersInComplaintNotificationsEnabled' => false,
@@ -192,7 +192,7 @@ final class AwsDataProcessorTest extends TestCase
     public function testProcessIdentitiesVerificationAttributes(): void
     {
         $test = [
-            'serendipityhq.com' => [
+            'serendipityhq.com'       => [
                 'VerificationStatus' => 'Pending',
                 'VerificationToken'  => 'token',
             ],
@@ -218,7 +218,7 @@ final class AwsDataProcessorTest extends TestCase
     public function testProcessSubscriptions(): void
     {
         $test = [
-            'serendipityhq.com' => [
+            'serendipityhq.com'       => [
                 'SubscriptionArn' => 'subscription:arn:12345',
                 'Owner'           => 1_234_567_890,
                 'Protocol'        => 'https',
