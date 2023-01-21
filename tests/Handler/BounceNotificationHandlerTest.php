@@ -33,11 +33,11 @@ final class BounceNotificationHandlerTest extends TestCase
                     'action'         => 'the action to take',
                 ],
             ],
-            'timestamp'     => '2016-08-01 00:00:00',
-            'bounceType'    => 'type of bounce',
-            'bounceSubType' => 'sub type of bounce',
-            'feedbackId'    => 'the id of the feedback',
-            'reportingMta'  => 'the MTA that reported the bounce',
+            'timestamp'         => '2016-08-01 00:00:00',
+            'bounceType'        => 'type of bounce',
+            'bounceSubType'     => 'sub type of bounce',
+            'feedbackId'        => 'the id of the feedback',
+            'reportingMta'      => 'the MTA that reported the bounce',
         ],
     ];
 
