@@ -1,7 +1,7 @@
 {
     "require-dev": {
         "dg/bypass-finals": "^1.5",
-        "phpunit/phpunit": "9.6.15",
+        "phpunit/phpunit": "9.6.16",
         "symfony/phpunit-bridge": "7.0.2",
         "vimeo/psalm": "5.19.1",
         "psalm/plugin-phpunit": "0.18.4",
