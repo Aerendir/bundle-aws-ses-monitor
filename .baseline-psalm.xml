@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.14.1@b9d355e0829c397b9b3b47d0c0ed042a8a70284d">
+<files psalm-version="5.20.0@3f284e96c9d9be6fe6b15c79416e1d1903dcfef4">
   <file src="src/Command/ConfigureCommand.php">
     <ArgumentTypeCoercion>
       <code>(int) $wait * 10_000_000</code>
@@ -82,6 +82,9 @@
     <MissingConstructor>
       <code>$identityGuesser</code>
     </MissingConstructor>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[\strstr($identity, 'test')]]></code>
+    </RiskyTruthyFalsyComparison>
     <TooManyArguments>
       <code>sprintf</code>
     </TooManyArguments>
