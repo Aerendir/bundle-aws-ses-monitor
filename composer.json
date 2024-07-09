@@ -24,7 +24,7 @@
         "doctrine/doctrine-bundle": "^1.7 || ^2.0",
         "doctrine/orm": "^2.5",
         "symfony/framework-bundle": "~4.4|~5.4|~6.0",
-        "symfony/http-kernel": "~4.4|~5.4|~6.0",
+        "symfony/http-kernel": "~4.4|~5.4|~6.0|~7.0",
         "symfony/swiftmailer-bundle": "^3.0",
         "symfony/yaml": "~4.4|~5.4|~6.0|~7.0",
         "thecodingmachine/safe": "^1.0|^2.0"
