@@ -11,6 +11,11 @@ parameters:
 			path: src/Command/SesSendTestEmailsCommand.php
 
 		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\AwsSesMonitorBundle\\\\Command\\\\SesSendTestEmailsCommand\\:\\:\\$defaultDescription has no type specified\\.$#"
+			count: 1
+			path: src/Command/SesSendTestEmailsCommand.php
+
+		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
 			path: src/Entity/Bounce.php
@@ -267,11 +272,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$haystack of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertContains\\(\\) expects iterable, mixed given\\.$#"
-			count: 4
-			path: tests/Plugin/MonitorFilterPluginTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$haystack of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotContains\\(\\) expects iterable, mixed given\\.$#"
 			count: 1
 			path: tests/Plugin/MonitorFilterPluginTest.php
 

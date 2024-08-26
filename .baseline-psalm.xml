@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.20.0@3f284e96c9d9be6fe6b15c79416e1d1903dcfef4">
+<files psalm-version="5.25.0@01a8eb06b9e9cc6cfb6a320bf9fb14331919d505">
   <file src="src/Command/ConfigureCommand.php">
     <ArgumentTypeCoercion>
-      <code>(int) $wait * 10_000_000</code>
+      <code><![CDATA[(int) $wait * 10_000_000]]></code>
     </ArgumentTypeCoercion>
     <NonInvariantDocblockPropertyType>
-      <code>$defaultName</code>
+      <code><![CDATA[$defaultName]]></code>
     </NonInvariantDocblockPropertyType>
     <PossiblyFalseArgument>
       <code><![CDATA[sprintf(
@@ -20,7 +20,7 @@
                         )]]></code>
     </PossiblyFalseArgument>
     <PossiblyInvalidArgument>
-      <code>$topicName</code>
+      <code><![CDATA[$topicName]]></code>
     </PossiblyInvalidArgument>
     <PossiblyInvalidArrayAccess>
       <code><![CDATA[$this->monitor->getConfiguredIdentity($identity, $type)[self::TOPIC]]]></code>
@@ -33,97 +33,97 @@
       <code><![CDATA[$this->monitor->getConfiguredIdentity($parts['domain'], $type)[self::TOPIC]]]></code>
     </PossiblyInvalidArrayOffset>
     <PossiblyNullArgument>
-      <code>$verificationToken</code>
+      <code><![CDATA[$verificationToken]]></code>
     </PossiblyNullArgument>
     <PossiblyNullArrayAccess>
       <code><![CDATA[$this->monitor->getLiveTopic($topic)['arn']]]></code>
     </PossiblyNullArrayAccess>
     <PropertyNotSetInConstructor>
-      <code>$allowedIdentities</code>
-      <code>$ioWriter</code>
-      <code>$sectionBody</code>
-      <code>$sectionTitle</code>
-      <code>$skippedIdentities</code>
+      <code><![CDATA[$allowedIdentities]]></code>
+      <code><![CDATA[$ioWriter]]></code>
+      <code><![CDATA[$sectionBody]]></code>
+      <code><![CDATA[$sectionTitle]]></code>
+      <code><![CDATA[$skippedIdentities]]></code>
     </PropertyNotSetInConstructor>
     <PropertyTypeCoercion>
       <code><![CDATA[$this->console->createSection($output)]]></code>
       <code><![CDATA[$this->console->createSection($output)]]></code>
     </PropertyTypeCoercion>
     <RedundantCast>
-      <code>(int) Command::SUCCESS</code>
-      <code>(int) Command::SUCCESS</code>
+      <code><![CDATA[(int) Command::SUCCESS]]></code>
+      <code><![CDATA[(int) Command::SUCCESS]]></code>
     </RedundantCast>
   </file>
   <file src="src/Command/DebugCommand.php">
     <NonInvariantDocblockPropertyType>
-      <code>$defaultName</code>
+      <code><![CDATA[$defaultName]]></code>
     </NonInvariantDocblockPropertyType>
     <PropertyNotSetInConstructor>
-      <code>$sectionBody</code>
-      <code>$sectionTitle</code>
+      <code><![CDATA[$sectionBody]]></code>
+      <code><![CDATA[$sectionTitle]]></code>
     </PropertyNotSetInConstructor>
     <PropertyTypeCoercion>
       <code><![CDATA[$this->console->createSection($output)]]></code>
       <code><![CDATA[$this->console->createSection($output)]]></code>
     </PropertyTypeCoercion>
     <RedundantCast>
-      <code>(int) Command::SUCCESS</code>
+      <code><![CDATA[(int) Command::SUCCESS]]></code>
     </RedundantCast>
   </file>
   <file src="src/Command/SesSendTestEmailsCommand.php">
     <NonInvariantDocblockPropertyType>
-      <code>$defaultName</code>
+      <code><![CDATA[$defaultName]]></code>
     </NonInvariantDocblockPropertyType>
     <RedundantCast>
-      <code>(int) Command::SUCCESS</code>
+      <code><![CDATA[(int) Command::SUCCESS]]></code>
     </RedundantCast>
   </file>
   <file src="src/DependencyInjection/Configuration.php">
     <MissingConstructor>
-      <code>$identityGuesser</code>
+      <code><![CDATA[$identityGuesser]]></code>
     </MissingConstructor>
     <RiskyTruthyFalsyComparison>
       <code><![CDATA[\strstr($identity, 'test')]]></code>
     </RiskyTruthyFalsyComparison>
     <TooManyArguments>
-      <code>sprintf</code>
+      <code><![CDATA[sprintf]]></code>
     </TooManyArguments>
     <UndefinedMethod>
-      <code>addDefaultsIfNotSet</code>
-      <code>addDefaultsIfNotSet</code>
-      <code>addDefaultsIfNotSet</code>
-      <code>children</code>
+      <code><![CDATA[addDefaultsIfNotSet]]></code>
+      <code><![CDATA[addDefaultsIfNotSet]]></code>
+      <code><![CDATA[addDefaultsIfNotSet]]></code>
+      <code><![CDATA[children]]></code>
     </UndefinedMethod>
   </file>
   <file src="src/Entity/Bounce.php">
     <MissingConstructor>
-      <code>$bouncedOn</code>
-      <code>$emailStatus</code>
-      <code>$feedbackId</code>
-      <code>$id</code>
-      <code>$mailMessage</code>
-      <code>$subType</code>
-      <code>$type</code>
+      <code><![CDATA[$bouncedOn]]></code>
+      <code><![CDATA[$emailStatus]]></code>
+      <code><![CDATA[$feedbackId]]></code>
+      <code><![CDATA[$id]]></code>
+      <code><![CDATA[$mailMessage]]></code>
+      <code><![CDATA[$subType]]></code>
+      <code><![CDATA[$type]]></code>
     </MissingConstructor>
   </file>
   <file src="src/Entity/Complaint.php">
     <MissingConstructor>
-      <code>$complainedOn</code>
-      <code>$emailStatus</code>
-      <code>$feedbackId</code>
-      <code>$id</code>
-      <code>$mailMessage</code>
-      <code>$userAgent</code>
+      <code><![CDATA[$complainedOn]]></code>
+      <code><![CDATA[$emailStatus]]></code>
+      <code><![CDATA[$feedbackId]]></code>
+      <code><![CDATA[$id]]></code>
+      <code><![CDATA[$mailMessage]]></code>
+      <code><![CDATA[$userAgent]]></code>
     </MissingConstructor>
   </file>
   <file src="src/Entity/Delivery.php">
     <MissingConstructor>
-      <code>$deliveredOn</code>
-      <code>$emailStatus</code>
-      <code>$id</code>
-      <code>$mailMessage</code>
-      <code>$processingTimeMillis</code>
-      <code>$smtpResponse</code>
+      <code><![CDATA[$deliveredOn]]></code>
+      <code><![CDATA[$emailStatus]]></code>
+      <code><![CDATA[$id]]></code>
+      <code><![CDATA[$mailMessage]]></code>
+      <code><![CDATA[$processingTimeMillis]]></code>
+      <code><![CDATA[$smtpResponse]]></code>
     </MissingConstructor>
   </file>
   <file src="src/Entity/EmailStatus.php">
@@ -133,27 +133,27 @@
       <code><![CDATA[$this->deliveries]]></code>
     </InvalidReturnStatement>
     <InvalidReturnType>
-      <code>Collection</code>
-      <code>Collection</code>
-      <code>Collection</code>
+      <code><![CDATA[Collection]]></code>
+      <code><![CDATA[Collection]]></code>
+      <code><![CDATA[Collection]]></code>
     </InvalidReturnType>
     <MismatchingDocblockPropertyType>
-      <code>Collection</code>
-      <code>Collection</code>
-      <code>Collection</code>
+      <code><![CDATA[Collection]]></code>
+      <code><![CDATA[Collection]]></code>
+      <code><![CDATA[Collection]]></code>
     </MismatchingDocblockPropertyType>
     <MissingClosureParamType>
-      <code>$key</code>
-      <code>$key</code>
-      <code>$key</code>
+      <code><![CDATA[$key]]></code>
+      <code><![CDATA[$key]]></code>
+      <code><![CDATA[$key]]></code>
     </MissingClosureParamType>
     <PossiblyInvalidMethodCall>
-      <code>add</code>
-      <code>add</code>
-      <code>add</code>
-      <code>exists</code>
-      <code>exists</code>
-      <code>exists</code>
+      <code><![CDATA[add]]></code>
+      <code><![CDATA[add]]></code>
+      <code><![CDATA[add]]></code>
+      <code><![CDATA[exists]]></code>
+      <code><![CDATA[exists]]></code>
+      <code><![CDATA[exists]]></code>
     </PossiblyInvalidMethodCall>
   </file>
   <file src="src/Entity/MailMessage.php">
@@ -163,31 +163,31 @@
       <code><![CDATA[$this->deliveries]]></code>
     </InvalidReturnStatement>
     <InvalidReturnType>
-      <code>Collection</code>
-      <code>Collection</code>
-      <code>Collection</code>
+      <code><![CDATA[Collection]]></code>
+      <code><![CDATA[Collection]]></code>
+      <code><![CDATA[Collection]]></code>
     </InvalidReturnType>
     <MismatchingDocblockPropertyType>
-      <code>Collection</code>
-      <code>Collection</code>
-      <code>Collection</code>
+      <code><![CDATA[Collection]]></code>
+      <code><![CDATA[Collection]]></code>
+      <code><![CDATA[Collection]]></code>
     </MismatchingDocblockPropertyType>
     <PossiblyInvalidMethodCall>
-      <code>add</code>
-      <code>add</code>
-      <code>add</code>
+      <code><![CDATA[add]]></code>
+      <code><![CDATA[add]]></code>
+      <code><![CDATA[add]]></code>
     </PossiblyInvalidMethodCall>
     <PropertyNotSetInConstructor>
-      <code>$messageId</code>
-      <code>$sendingAccountId</code>
-      <code>$sentFrom</code>
-      <code>$sentOn</code>
-      <code>$sourceArn</code>
+      <code><![CDATA[$messageId]]></code>
+      <code><![CDATA[$sendingAccountId]]></code>
+      <code><![CDATA[$sentFrom]]></code>
+      <code><![CDATA[$sentOn]]></code>
+      <code><![CDATA[$sourceArn]]></code>
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Entity/Topic.php">
     <PropertyNotSetInConstructor>
-      <code>$id</code>
+      <code><![CDATA[$id]]></code>
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Manager/SesManager.php">
@@ -197,15 +197,15 @@
   </file>
   <file src="src/Manager/SnsManager.php">
     <PossiblyNullArgument>
-      <code>$topicArn</code>
+      <code><![CDATA[$topicArn]]></code>
     </PossiblyNullArgument>
   </file>
   <file src="src/Plugin/MonitorFilterPlugin.php">
     <ParamNameMismatch>
-      <code>$event</code>
+      <code><![CDATA[$event]]></code>
     </ParamNameMismatch>
     <PropertyNotSetInConstructor>
-      <code>$blacklisted</code>
+      <code><![CDATA[$blacklisted]]></code>
     </PropertyNotSetInConstructor>
     <RedundantConditionGivenDocblockType>
       <code><![CDATA[null !== $message->getBcc()]]></code>
@@ -226,11 +226,11 @@
       <code><![CDATA[$attributes['SubscriptionsConfirmed']]]></code>
       <code><![CDATA[$attributes['SubscriptionsDeleted']]]></code>
       <code><![CDATA[$attributes['SubscriptionsPending']]]></code>
-      <code>$attributes[self::SUBSCRIPTION_ARN]</code>
-      <code>$attributes[self::SUBSCRIPTION_ARN]</code>
-      <code>$attributes[self::SUBSCRIPTION_ARN]</code>
-      <code>$attributes[self::TOPIC_ARN]</code>
-      <code>$attributes[self::TOPIC_ARN]</code>
+      <code><![CDATA[$attributes[self::SUBSCRIPTION_ARN]]]></code>
+      <code><![CDATA[$attributes[self::SUBSCRIPTION_ARN]]]></code>
+      <code><![CDATA[$attributes[self::SUBSCRIPTION_ARN]]]></code>
+      <code><![CDATA[$attributes[self::TOPIC_ARN]]]></code>
+      <code><![CDATA[$attributes[self::TOPIC_ARN]]]></code>
     </PossiblyNullArrayAccess>
     <PossiblyNullArrayOffset>
       <code><![CDATA[$this->data[self::SUBSCRIPTIONS]]]></code>
@@ -249,42 +249,42 @@
   </file>
   <file src="src/Service/Monitor.php">
     <InvalidArrayOffset>
-      <code>$topicConfig[self::TOPIC]</code>
+      <code><![CDATA[$topicConfig[self::TOPIC]]]></code>
     </InvalidArrayOffset>
     <MissingReturnType>
-      <code>getAccount</code>
+      <code><![CDATA[getAccount]]></code>
     </MissingReturnType>
     <PossiblyInvalidArrayAccess>
       <code><![CDATA[$config['filter']]]></code>
       <code><![CDATA[$config['filter']]]></code>
-      <code>$config[self::TRACK]</code>
-      <code>$config[self::TRACK]</code>
-      <code>$topicConfig[self::TOPIC]</code>
-      <code>$topicConfig[self::TRACK]</code>
+      <code><![CDATA[$config[self::TRACK]]]></code>
+      <code><![CDATA[$config[self::TRACK]]]></code>
+      <code><![CDATA[$topicConfig[self::TOPIC]]]></code>
+      <code><![CDATA[$topicConfig[self::TRACK]]]></code>
     </PossiblyInvalidArrayAccess>
     <PossiblyInvalidArrayOffset>
       <code><![CDATA[$config['filter']]]></code>
       <code><![CDATA[$config['filter']]]></code>
-      <code>$config[self::TRACK]</code>
-      <code>$config[self::TRACK]</code>
-      <code>$topicConfig[self::TRACK]</code>
+      <code><![CDATA[$config[self::TRACK]]]></code>
+      <code><![CDATA[$config[self::TRACK]]]></code>
+      <code><![CDATA[$topicConfig[self::TRACK]]]></code>
     </PossiblyInvalidArrayOffset>
     <PossiblyNullIterator>
       <code><![CDATA[$subscriptions->get('Subscriptions')]]></code>
       <code><![CDATA[$topics->get('Topics')]]></code>
     </PossiblyNullIterator>
     <PropertyNotSetInConstructor>
-      <code>$liveData</code>
-      <code>$sectionBody</code>
-      <code>$sectionTitle</code>
+      <code><![CDATA[$liveData]]></code>
+      <code><![CDATA[$sectionBody]]></code>
+      <code><![CDATA[$sectionTitle]]></code>
     </PropertyNotSetInConstructor>
     <TypeDoesNotContainType>
-      <code>$ignoreEnv</code>
+      <code><![CDATA[$ignoreEnv]]></code>
     </TypeDoesNotContainType>
   </file>
   <file src="src/Util/Console.php">
     <MismatchingDocblockReturnType>
-      <code>ConsoleSectionOutput|OutputInterface</code>
+      <code><![CDATA[ConsoleSectionOutput|OutputInterface]]></code>
     </MismatchingDocblockReturnType>
   </file>
   <file src="src/Util/EmailStatusAnalyzer.php">
@@ -297,18 +297,18 @@
   </file>
   <file src="tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php">
     <MissingParamType>
-      <code>$resource</code>
+      <code><![CDATA[$resource]]></code>
     </MissingParamType>
     <MissingReturnType>
-      <code>loadConfiguration</code>
-      <code>testDefaultConfig</code>
-      <code>testTrackingDisabledDoesntRequireTopicBounces</code>
-      <code>testTrackingDisabledDoesntRequireTopicComplaints</code>
-      <code>testTrackingDisabledDoesntRequireTopicDeliveries</code>
-      <code>testTrackingDisabledForBothConfigFilterIsNotLoaded</code>
-      <code>testTrackingEnabledForBothConfigFilterIsLoaded</code>
-      <code>testTrackingEnabledForBouncesOnlyConfigFilterIsLoaded</code>
-      <code>testTrackingEnabledForComplaintsOnlyConfigFilterIsLoaded</code>
+      <code><![CDATA[loadConfiguration]]></code>
+      <code><![CDATA[testDefaultConfig]]></code>
+      <code><![CDATA[testTrackingDisabledDoesntRequireTopicBounces]]></code>
+      <code><![CDATA[testTrackingDisabledDoesntRequireTopicComplaints]]></code>
+      <code><![CDATA[testTrackingDisabledDoesntRequireTopicDeliveries]]></code>
+      <code><![CDATA[testTrackingDisabledForBothConfigFilterIsNotLoaded]]></code>
+      <code><![CDATA[testTrackingEnabledForBothConfigFilterIsLoaded]]></code>
+      <code><![CDATA[testTrackingEnabledForBouncesOnlyConfigFilterIsLoaded]]></code>
+      <code><![CDATA[testTrackingEnabledForComplaintsOnlyConfigFilterIsLoaded]]></code>
     </MissingReturnType>
     <PossiblyInvalidArrayAccess>
       <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.endpoint')['host']]]></code>
@@ -412,68 +412,68 @@
   </file>
   <file src="tests/DependencyInjection/YamlAwsSesMonitorBundleExtensionTest.php">
     <MissingParamType>
-      <code>$resource</code>
+      <code><![CDATA[$resource]]></code>
     </MissingParamType>
   </file>
   <file src="tests/Entity/ComplaintTest.php">
     <PossiblyNullReference>
-      <code>format</code>
+      <code><![CDATA[format]]></code>
     </PossiblyNullReference>
   </file>
   <file src="tests/Helper/MessageHelperTest.php">
     <PossiblyFalseArgument>
-      <code>$message</code>
-      <code>$message</code>
+      <code><![CDATA[$message]]></code>
+      <code><![CDATA[$message]]></code>
     </PossiblyFalseArgument>
   </file>
   <file src="tests/Manager/SnsManagerTest.php">
     <MismatchingDocblockReturnType>
-      <code>MockObject|RouterInterface</code>
+      <code><![CDATA[MockObject|RouterInterface]]></code>
     </MismatchingDocblockReturnType>
     <PossiblyInvalidArgument>
       <code><![CDATA[$this->createMockRouter()]]></code>
       <code><![CDATA[$this->createMockRouter()]]></code>
     </PossiblyInvalidArgument>
     <TooManyArguments>
-      <code>append</code>
+      <code><![CDATA[append]]></code>
     </TooManyArguments>
   </file>
   <file src="tests/Plugin/MonitorFilterPluginTest.php">
     <MismatchingDocblockReturnType>
-      <code>MockObject|\Swift_Message</code>
+      <code><![CDATA[MockObject|\Swift_Message]]></code>
     </MismatchingDocblockReturnType>
     <PossiblyFalseArgument>
-      <code>$recipients</code>
-      <code>$recipients</code>
-      <code>$recipients</code>
-      <code>$recipients</code>
-      <code>$recipients</code>
-      <code>$recipients</code>
+      <code><![CDATA[$recipients]]></code>
+      <code><![CDATA[$recipients]]></code>
+      <code><![CDATA[$recipients]]></code>
+      <code><![CDATA[$recipients]]></code>
+      <code><![CDATA[$recipients]]></code>
+      <code><![CDATA[$recipients]]></code>
     </PossiblyFalseArgument>
     <PossiblyUndefinedMethod>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
     </PossiblyUndefinedMethod>
   </file>
   <file src="tests/Processor/NotificationProcessorTest.php">
     <MismatchingDocblockReturnType>
-      <code>MockObject|Response</code>
+      <code><![CDATA[MockObject|Response]]></code>
     </MismatchingDocblockReturnType>
     <ReservedWord>
       <code><![CDATA[$response->getContent()]]></code>
@@ -486,7 +486,7 @@
   </file>
   <file src="tests/Processor/SubscriptionProcessorTest.php">
     <MissingClosureParamType>
-      <code>$key</code>
+      <code><![CDATA[$key]]></code>
     </MissingClosureParamType>
     <ReservedWord>
       <code><![CDATA[$response->getContent()]]></code>
@@ -497,24 +497,24 @@
       <code><![CDATA[$this->createMock(IdentityGuesser::class)]]></code>
     </InvalidPropertyAssignmentValue>
     <TooManyArguments>
-      <code>append</code>
-      <code>append</code>
-      <code>append</code>
-      <code>append</code>
-      <code>append</code>
-      <code>append</code>
-      <code>append</code>
-      <code>append</code>
-      <code>append</code>
-      <code>append</code>
-      <code>append</code>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[append]]></code>
     </TooManyArguments>
     <UndefinedMethod>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
+      <code><![CDATA[method]]></code>
+      <code><![CDATA[method]]></code>
+      <code><![CDATA[method]]></code>
+      <code><![CDATA[method]]></code>
+      <code><![CDATA[method]]></code>
     </UndefinedMethod>
   </file>
   <file src="tests/Util/IdentityGuesserTest.php">
