@@ -18,6 +18,7 @@ return [
     // PhanRedefinedExtendedClass : 6 occurrences
     // PhanUnreferencedClass : 6 occurrences
     // PhanUnreferencedClosure : 5 occurrences
+    // PhanDeprecatedImplicitNullableParam : 4 occurrences
     // PhanReadOnlyPrivateProperty : 4 occurrences
     // PhanUndeclaredMethod : 3 occurrences
     // PhanUnusedPublicNoOverrideMethodParameter : 3 occurrences
@@ -52,7 +53,7 @@ return [
         'src/Processor/RequestProcessor.php' => ['PhanRedefinedClassReference'],
         'src/Processor/SubscriptionProcessor.php' => ['PhanAccessMethodInternal', 'PhanRedefinedClassReference'],
         'src/SHQAwsSesMonitorBundle.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUnreferencedClass'],
-        'src/Service/Monitor.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanRedefinedClassReference', 'PhanUnreferencedPublicMethod', 'PhanUnusedVariableCaughtException'],
+        'src/Service/Monitor.php' => ['PhanAccessClassConstantInternal', 'PhanAccessMethodInternal', 'PhanDeprecatedImplicitNullableParam', 'PhanRedefinedClassReference', 'PhanUnreferencedPublicMethod', 'PhanUnusedVariableCaughtException'],
         'src/Util/Console.php' => ['PhanRedefinedClassReference', 'PhanTypeMismatchDeclaredReturn', 'PhanUndeclaredMethod'],
         'src/Util/EmailStatusAnalyzer.php' => ['PhanAccessMethodInternal'],
     ],
