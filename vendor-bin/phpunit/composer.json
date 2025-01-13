@@ -6,7 +6,7 @@
         "vimeo/psalm": "5.26.1",
         "psalm/plugin-phpunit": "0.19.0",
         "weirdan/doctrine-psalm-plugin": "2.9.0",
-        "symfony/framework-bundle": "~5.4"
+        "symfony/framework-bundle": "~7.2"
     },
     "config": {
         "allow-plugins": {
