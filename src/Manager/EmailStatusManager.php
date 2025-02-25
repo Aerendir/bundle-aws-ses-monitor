@@ -19,7 +19,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\EmailStatus;
 /**
  * Manages EmailStatus entities.
  */
-final class EmailStatusManager
+class EmailStatusManager
 {
     private EntityManagerInterface $entityManager;
 

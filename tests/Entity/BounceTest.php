@@ -34,7 +34,7 @@ final class BounceTest extends TestCase
                 'diagnosticCode' => 'dummy_diagnostic_code',
                 'action'         => 'dummy_action',
             ],
-            'notification' => [
+            'notification'     => [
                 'bounce' => [
                     'timestamp'     => '2018-07-12 00:00:00',
                     'bounceType'    => Bounce::TYPE_PERMANENT,

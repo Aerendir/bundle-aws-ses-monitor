@@ -25,7 +25,7 @@ final class DeliveryNotificationHandlerTest extends TestCase
     /** @var array<string, array<string, int|string|string[]>> */
     private const TEST = [
         'delivery' => [
-            'recipients' => [
+            'recipients'           => [
                 'test_recipient@example.com',
             ],
             'timestamp'            => '2016-08-01 00:00:00',

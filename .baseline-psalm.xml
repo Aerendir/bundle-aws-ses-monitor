@@ -1,436 +1,526 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.24.0@06dd975cb55d36af80f242561738f16c5f58264f">
+<files psalm-version="5.25.0@01a8eb06b9e9cc6cfb6a320bf9fb14331919d505">
   <file src="src/Command/ConfigureCommand.php">
-    <ArgumentTypeCoercion occurrences="1">
-      <code>(int) $wait * 10000000</code>
+    <ArgumentTypeCoercion>
+      <code><![CDATA[(int) $wait * 10_000_000]]></code>
     </ArgumentTypeCoercion>
-    <NonInvariantDocblockPropertyType occurrences="1">
-      <code>$defaultName</code>
+    <NonInvariantDocblockPropertyType>
+      <code><![CDATA[$defaultName]]></code>
     </NonInvariantDocblockPropertyType>
-    <PossiblyInvalidArgument occurrences="1">
-      <code>$topicName</code>
+    <PossiblyFalseArgument>
+      <code><![CDATA[sprintf(
+                            "To enable DKIM signing for identity <comment>%s</comment>, the records below must be entered in your DNS settings.\n"
+                            . "AWS will automatically detect the presence of these records, and allow DKIM signing at that time.\n"
+                            . 'Note that verification of these settings may take up to 72 hours.'
+                            . "\n"
+                            . $this->buildDkimDnsString($identity, $tokens[0]) . "\n"
+                            . $this->buildDkimDnsString($identity, $tokens[1]) . "\n"
+                            . $this->buildDkimDnsString($identity, $tokens[2]) . "\n",
+                            $identity
+                        )]]></code>
+    </PossiblyFalseArgument>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$topicName]]></code>
     </PossiblyInvalidArgument>
-    <PossiblyInvalidArrayAccess occurrences="3">
-      <code>$this-&gt;monitor-&gt;getConfiguredIdentity($identity, $type)[self::TOPIC]</code>
-      <code>$this-&gt;monitor-&gt;getConfiguredIdentity($identity, $type)[self::TOPIC]</code>
-      <code>$this-&gt;monitor-&gt;getConfiguredIdentity($parts['domain'], $type)[self::TOPIC]</code>
+    <PossiblyInvalidArrayAccess>
+      <code><![CDATA[$this->monitor->getConfiguredIdentity($identity, $type)[self::TOPIC]]]></code>
+      <code><![CDATA[$this->monitor->getConfiguredIdentity($identity, $type)[self::TOPIC]]]></code>
+      <code><![CDATA[$this->monitor->getConfiguredIdentity($parts['domain'], $type)[self::TOPIC]]]></code>
     </PossiblyInvalidArrayAccess>
-    <PossiblyInvalidArrayOffset occurrences="3">
-      <code>$this-&gt;monitor-&gt;getConfiguredIdentity($identity, $type)[self::TOPIC]</code>
-      <code>$this-&gt;monitor-&gt;getConfiguredIdentity($identity, $type)[self::TOPIC]</code>
-      <code>$this-&gt;monitor-&gt;getConfiguredIdentity($parts['domain'], $type)[self::TOPIC]</code>
+    <PossiblyInvalidArrayOffset>
+      <code><![CDATA[$this->monitor->getConfiguredIdentity($identity, $type)[self::TOPIC]]]></code>
+      <code><![CDATA[$this->monitor->getConfiguredIdentity($identity, $type)[self::TOPIC]]]></code>
+      <code><![CDATA[$this->monitor->getConfiguredIdentity($parts['domain'], $type)[self::TOPIC]]]></code>
     </PossiblyInvalidArrayOffset>
-    <PossiblyNullArrayAccess occurrences="1">
-      <code>$this-&gt;monitor-&gt;getLiveTopic($topic)['arn']</code>
+    <PossiblyNullArgument>
+      <code><![CDATA[$verificationToken]]></code>
+    </PossiblyNullArgument>
+    <PossiblyNullArrayAccess>
+      <code><![CDATA[$this->monitor->getLiveTopic($topic)['arn']]]></code>
     </PossiblyNullArrayAccess>
-    <PropertyNotSetInConstructor occurrences="5">
-      <code>$allowedIdentities</code>
-      <code>$ioWriter</code>
-      <code>$sectionBody</code>
-      <code>$sectionTitle</code>
-      <code>$skippedIdentities</code>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$allowedIdentities]]></code>
+      <code><![CDATA[$ioWriter]]></code>
+      <code><![CDATA[$sectionBody]]></code>
+      <code><![CDATA[$sectionTitle]]></code>
+      <code><![CDATA[$skippedIdentities]]></code>
     </PropertyNotSetInConstructor>
-    <PropertyTypeCoercion occurrences="2">
-      <code>$this-&gt;console-&gt;createSection($output)</code>
-      <code>$this-&gt;console-&gt;createSection($output)</code>
+    <PropertyTypeCoercion>
+      <code><![CDATA[$this->console->createSection($output)]]></code>
+      <code><![CDATA[$this->console->createSection($output)]]></code>
     </PropertyTypeCoercion>
+    <RedundantCast>
+      <code><![CDATA[(int) Command::SUCCESS]]></code>
+      <code><![CDATA[(int) Command::SUCCESS]]></code>
+    </RedundantCast>
   </file>
   <file src="src/Command/DebugCommand.php">
-    <NonInvariantDocblockPropertyType occurrences="1">
-      <code>$defaultName</code>
+    <NonInvariantDocblockPropertyType>
+      <code><![CDATA[$defaultName]]></code>
     </NonInvariantDocblockPropertyType>
-    <PropertyNotSetInConstructor occurrences="2">
-      <code>$sectionBody</code>
-      <code>$sectionTitle</code>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$sectionBody]]></code>
+      <code><![CDATA[$sectionTitle]]></code>
     </PropertyNotSetInConstructor>
-    <PropertyTypeCoercion occurrences="2">
-      <code>$this-&gt;console-&gt;createSection($output)</code>
-      <code>$this-&gt;console-&gt;createSection($output)</code>
+    <PropertyTypeCoercion>
+      <code><![CDATA[$this->console->createSection($output)]]></code>
+      <code><![CDATA[$this->console->createSection($output)]]></code>
     </PropertyTypeCoercion>
+    <RedundantCast>
+      <code><![CDATA[(int) Command::SUCCESS]]></code>
+    </RedundantCast>
   </file>
   <file src="src/Command/SesSendTestEmailsCommand.php">
-    <NonInvariantDocblockPropertyType occurrences="1">
-      <code>$defaultName</code>
+    <NonInvariantDocblockPropertyType>
+      <code><![CDATA[$defaultName]]></code>
     </NonInvariantDocblockPropertyType>
-    <ReservedWord occurrences="1">
-      <code>$this-&gt;getHelper('question')</code>
-    </ReservedWord>
+    <RedundantCast>
+      <code><![CDATA[(int) Command::SUCCESS]]></code>
+    </RedundantCast>
   </file>
   <file src="src/DependencyInjection/Configuration.php">
-    <MissingConstructor occurrences="1">
-      <code>$identityGuesser</code>
+    <MissingConstructor>
+      <code><![CDATA[$identityGuesser]]></code>
     </MissingConstructor>
-    <PossiblyUndefinedMethod occurrences="4">
-      <code>addDefaultsIfNotSet</code>
-      <code>addDefaultsIfNotSet</code>
-      <code>addDefaultsIfNotSet</code>
-      <code>children</code>
-    </PossiblyUndefinedMethod>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[\strstr($identity, 'test')]]></code>
+    </RiskyTruthyFalsyComparison>
+    <TooManyArguments>
+      <code><![CDATA[sprintf]]></code>
+    </TooManyArguments>
+    <UndefinedMethod>
+      <code><![CDATA[addDefaultsIfNotSet]]></code>
+      <code><![CDATA[addDefaultsIfNotSet]]></code>
+      <code><![CDATA[addDefaultsIfNotSet]]></code>
+      <code><![CDATA[children]]></code>
+    </UndefinedMethod>
   </file>
   <file src="src/Entity/Bounce.php">
-    <MissingConstructor occurrences="7">
-      <code>$bouncedOn</code>
-      <code>$emailStatus</code>
-      <code>$feedbackId</code>
-      <code>$id</code>
-      <code>$mailMessage</code>
-      <code>$subType</code>
-      <code>$type</code>
+    <MissingConstructor>
+      <code><![CDATA[$bouncedOn]]></code>
+      <code><![CDATA[$emailStatus]]></code>
+      <code><![CDATA[$feedbackId]]></code>
+      <code><![CDATA[$id]]></code>
+      <code><![CDATA[$mailMessage]]></code>
+      <code><![CDATA[$subType]]></code>
+      <code><![CDATA[$type]]></code>
     </MissingConstructor>
   </file>
   <file src="src/Entity/Complaint.php">
-    <MissingConstructor occurrences="6">
-      <code>$complainedOn</code>
-      <code>$emailStatus</code>
-      <code>$feedbackId</code>
-      <code>$id</code>
-      <code>$mailMessage</code>
-      <code>$userAgent</code>
+    <MissingConstructor>
+      <code><![CDATA[$complainedOn]]></code>
+      <code><![CDATA[$emailStatus]]></code>
+      <code><![CDATA[$feedbackId]]></code>
+      <code><![CDATA[$id]]></code>
+      <code><![CDATA[$mailMessage]]></code>
+      <code><![CDATA[$userAgent]]></code>
     </MissingConstructor>
   </file>
   <file src="src/Entity/Delivery.php">
-    <MissingConstructor occurrences="6">
-      <code>$deliveredOn</code>
-      <code>$emailStatus</code>
-      <code>$id</code>
-      <code>$mailMessage</code>
-      <code>$processingTimeMillis</code>
-      <code>$smtpResponse</code>
+    <MissingConstructor>
+      <code><![CDATA[$deliveredOn]]></code>
+      <code><![CDATA[$emailStatus]]></code>
+      <code><![CDATA[$id]]></code>
+      <code><![CDATA[$mailMessage]]></code>
+      <code><![CDATA[$processingTimeMillis]]></code>
+      <code><![CDATA[$smtpResponse]]></code>
     </MissingConstructor>
   </file>
   <file src="src/Entity/EmailStatus.php">
-    <MissingClosureParamType occurrences="3">
-      <code>$key</code>
-      <code>$key</code>
-      <code>$key</code>
+    <InvalidReturnStatement>
+      <code><![CDATA[$this->bounces]]></code>
+      <code><![CDATA[$this->complaints]]></code>
+      <code><![CDATA[$this->deliveries]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[Collection]]></code>
+      <code><![CDATA[Collection]]></code>
+      <code><![CDATA[Collection]]></code>
+    </InvalidReturnType>
+    <MismatchingDocblockPropertyType>
+      <code><![CDATA[Collection]]></code>
+      <code><![CDATA[Collection]]></code>
+      <code><![CDATA[Collection]]></code>
+    </MismatchingDocblockPropertyType>
+    <MissingClosureParamType>
+      <code><![CDATA[$key]]></code>
+      <code><![CDATA[$key]]></code>
+      <code><![CDATA[$key]]></code>
     </MissingClosureParamType>
+    <PossiblyInvalidMethodCall>
+      <code><![CDATA[add]]></code>
+      <code><![CDATA[add]]></code>
+      <code><![CDATA[add]]></code>
+      <code><![CDATA[exists]]></code>
+      <code><![CDATA[exists]]></code>
+      <code><![CDATA[exists]]></code>
+    </PossiblyInvalidMethodCall>
   </file>
   <file src="src/Entity/MailMessage.php">
-    <PropertyNotSetInConstructor occurrences="5">
-      <code>$messageId</code>
-      <code>$sendingAccountId</code>
-      <code>$sentFrom</code>
-      <code>$sentOn</code>
-      <code>$sourceArn</code>
+    <InvalidReturnStatement>
+      <code><![CDATA[$this->bounces]]></code>
+      <code><![CDATA[$this->complaints]]></code>
+      <code><![CDATA[$this->deliveries]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[Collection]]></code>
+      <code><![CDATA[Collection]]></code>
+      <code><![CDATA[Collection]]></code>
+    </InvalidReturnType>
+    <MismatchingDocblockPropertyType>
+      <code><![CDATA[Collection]]></code>
+      <code><![CDATA[Collection]]></code>
+      <code><![CDATA[Collection]]></code>
+    </MismatchingDocblockPropertyType>
+    <PossiblyInvalidMethodCall>
+      <code><![CDATA[add]]></code>
+      <code><![CDATA[add]]></code>
+      <code><![CDATA[add]]></code>
+    </PossiblyInvalidMethodCall>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$messageId]]></code>
+      <code><![CDATA[$sendingAccountId]]></code>
+      <code><![CDATA[$sentFrom]]></code>
+      <code><![CDATA[$sentOn]]></code>
+      <code><![CDATA[$sourceArn]]></code>
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Entity/Topic.php">
-    <PropertyNotSetInConstructor occurrences="1">
-      <code>$id</code>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$id]]></code>
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Manager/SesManager.php">
-    <NullableReturnStatement occurrences="1">
-      <code>$result-&gt;get('VerificationToken')</code>
+    <NullableReturnStatement>
+      <code><![CDATA[$result->get('VerificationToken')]]></code>
     </NullableReturnStatement>
   </file>
   <file src="src/Manager/SnsManager.php">
-    <PossiblyNullArgument occurrences="1">
-      <code>$topicArn</code>
+    <PossiblyNullArgument>
+      <code><![CDATA[$topicArn]]></code>
     </PossiblyNullArgument>
   </file>
   <file src="src/Plugin/MonitorFilterPlugin.php">
-    <ParamNameMismatch occurrences="1">
-      <code>$event</code>
+    <ParamNameMismatch>
+      <code><![CDATA[$event]]></code>
     </ParamNameMismatch>
-    <PropertyNotSetInConstructor occurrences="1">
-      <code>$blacklisted</code>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$blacklisted]]></code>
     </PropertyNotSetInConstructor>
-    <RedundantConditionGivenDocblockType occurrences="3">
-      <code>null !== $message-&gt;getBcc()</code>
-      <code>null !== $message-&gt;getCc()</code>
-      <code>null !== $message-&gt;getTo()</code>
+    <RedundantConditionGivenDocblockType>
+      <code><![CDATA[null !== $message->getBcc()]]></code>
+      <code><![CDATA[null !== $message->getCc()]]></code>
+      <code><![CDATA[null !== $message->getTo()]]></code>
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Processor/AwsDataProcessor.php">
-    <PossiblyNullArrayAccess occurrences="16">
-      <code>$attributes['ConfirmationWasAuthenticated']</code>
-      <code>$attributes['DisplayName']</code>
-      <code>$attributes['EffectiveDeliveryPolicy']</code>
-      <code>$attributes['EffectiveDeliveryPolicy']</code>
-      <code>$attributes['Owner']</code>
-      <code>$attributes['PendingConfirmation']</code>
-      <code>$attributes['Policy']</code>
-      <code>$attributes['RawMessageDelivery']</code>
-      <code>$attributes['SubscriptionsConfirmed']</code>
-      <code>$attributes['SubscriptionsDeleted']</code>
-      <code>$attributes['SubscriptionsPending']</code>
-      <code>$attributes[self::SUBSCRIPTION_ARN]</code>
-      <code>$attributes[self::SUBSCRIPTION_ARN]</code>
-      <code>$attributes[self::SUBSCRIPTION_ARN]</code>
-      <code>$attributes[self::TOPIC_ARN]</code>
-      <code>$attributes[self::TOPIC_ARN]</code>
+    <PossiblyNullArrayAccess>
+      <code><![CDATA[$attributes['ConfirmationWasAuthenticated']]]></code>
+      <code><![CDATA[$attributes['DisplayName']]]></code>
+      <code><![CDATA[$attributes['EffectiveDeliveryPolicy']]]></code>
+      <code><![CDATA[$attributes['EffectiveDeliveryPolicy']]]></code>
+      <code><![CDATA[$attributes['Owner']]]></code>
+      <code><![CDATA[$attributes['PendingConfirmation']]]></code>
+      <code><![CDATA[$attributes['Policy']]]></code>
+      <code><![CDATA[$attributes['RawMessageDelivery']]]></code>
+      <code><![CDATA[$attributes['SubscriptionsConfirmed']]]></code>
+      <code><![CDATA[$attributes['SubscriptionsDeleted']]]></code>
+      <code><![CDATA[$attributes['SubscriptionsPending']]]></code>
+      <code><![CDATA[$attributes[self::SUBSCRIPTION_ARN]]]></code>
+      <code><![CDATA[$attributes[self::SUBSCRIPTION_ARN]]]></code>
+      <code><![CDATA[$attributes[self::SUBSCRIPTION_ARN]]]></code>
+      <code><![CDATA[$attributes[self::TOPIC_ARN]]]></code>
+      <code><![CDATA[$attributes[self::TOPIC_ARN]]]></code>
     </PossiblyNullArrayAccess>
-    <PossiblyNullArrayOffset occurrences="4">
-      <code>$this-&gt;data[self::SUBSCRIPTIONS]</code>
-      <code>$this-&gt;data[self::SUBSCRIPTIONS]</code>
-      <code>$this-&gt;data[self::SUBSCRIPTIONS]</code>
-      <code>$this-&gt;data[self::TOPICS]</code>
+    <PossiblyNullArrayOffset>
+      <code><![CDATA[$this->data[self::SUBSCRIPTIONS]]]></code>
+      <code><![CDATA[$this->data[self::SUBSCRIPTIONS]]]></code>
+      <code><![CDATA[$this->data[self::SUBSCRIPTIONS]]]></code>
+      <code><![CDATA[$this->data[self::TOPICS]]]></code>
     </PossiblyNullArrayOffset>
-    <PossiblyNullIterator occurrences="6">
-      <code>$result-&gt;get('DkimAttributes')</code>
-      <code>$result-&gt;get('MailFromDomainAttributes')</code>
-      <code>$result-&gt;get('NotificationAttributes')</code>
-      <code>$result-&gt;get('Subscriptions')</code>
-      <code>$result-&gt;get('Topics')</code>
-      <code>$result-&gt;get('VerificationAttributes')</code>
+    <PossiblyNullIterator>
+      <code><![CDATA[$result->get('DkimAttributes')]]></code>
+      <code><![CDATA[$result->get('MailFromDomainAttributes')]]></code>
+      <code><![CDATA[$result->get('NotificationAttributes')]]></code>
+      <code><![CDATA[$result->get('Subscriptions')]]></code>
+      <code><![CDATA[$result->get('Topics')]]></code>
+      <code><![CDATA[$result->get('VerificationAttributes')]]></code>
     </PossiblyNullIterator>
   </file>
   <file src="src/Service/Monitor.php">
-    <InvalidArrayOffset occurrences="1">
-      <code>$topicConfig[self::TOPIC]</code>
+    <InvalidArrayOffset>
+      <code><![CDATA[$topicConfig[self::TOPIC]]]></code>
     </InvalidArrayOffset>
-    <MissingReturnType occurrences="1">
-      <code>getAccount</code>
+    <MissingReturnType>
+      <code><![CDATA[getAccount]]></code>
     </MissingReturnType>
-    <PossiblyInvalidArrayAccess occurrences="6">
-      <code>$config['filter']</code>
-      <code>$config['filter']</code>
-      <code>$config[self::TRACK]</code>
-      <code>$config[self::TRACK]</code>
-      <code>$topicConfig[self::TOPIC]</code>
-      <code>$topicConfig[self::TRACK]</code>
+    <PossiblyInvalidArrayAccess>
+      <code><![CDATA[$config['filter']]]></code>
+      <code><![CDATA[$config['filter']]]></code>
+      <code><![CDATA[$config[self::TRACK]]]></code>
+      <code><![CDATA[$config[self::TRACK]]]></code>
+      <code><![CDATA[$topicConfig[self::TOPIC]]]></code>
+      <code><![CDATA[$topicConfig[self::TRACK]]]></code>
     </PossiblyInvalidArrayAccess>
-    <PossiblyInvalidArrayOffset occurrences="5">
-      <code>$config['filter']</code>
-      <code>$config['filter']</code>
-      <code>$config[self::TRACK]</code>
-      <code>$config[self::TRACK]</code>
-      <code>$topicConfig[self::TRACK]</code>
+    <PossiblyInvalidArrayOffset>
+      <code><![CDATA[$config['filter']]]></code>
+      <code><![CDATA[$config['filter']]]></code>
+      <code><![CDATA[$config[self::TRACK]]]></code>
+      <code><![CDATA[$config[self::TRACK]]]></code>
+      <code><![CDATA[$topicConfig[self::TRACK]]]></code>
     </PossiblyInvalidArrayOffset>
-    <PossiblyNullIterator occurrences="2">
-      <code>$subscriptions-&gt;get('Subscriptions')</code>
-      <code>$topics-&gt;get('Topics')</code>
+    <PossiblyNullIterator>
+      <code><![CDATA[$subscriptions->get('Subscriptions')]]></code>
+      <code><![CDATA[$topics->get('Topics')]]></code>
     </PossiblyNullIterator>
-    <PropertyNotSetInConstructor occurrences="3">
-      <code>$liveData</code>
-      <code>$sectionBody</code>
-      <code>$sectionTitle</code>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$liveData]]></code>
+      <code><![CDATA[$sectionBody]]></code>
+      <code><![CDATA[$sectionTitle]]></code>
     </PropertyNotSetInConstructor>
-    <TypeDoesNotContainType occurrences="1">
-      <code>$ignoreEnv</code>
+    <TypeDoesNotContainType>
+      <code><![CDATA[$ignoreEnv]]></code>
     </TypeDoesNotContainType>
-    <UndefinedConstant occurrences="2">
-      <code>self::DOMAIN</code>
-      <code>self::DOMAIN</code>
-    </UndefinedConstant>
   </file>
   <file src="src/Util/Console.php">
-    <MismatchingDocblockReturnType occurrences="1">
-      <code>ConsoleSectionOutput|OutputInterface</code>
+    <MismatchingDocblockReturnType>
+      <code><![CDATA[ConsoleSectionOutput|OutputInterface]]></code>
     </MismatchingDocblockReturnType>
   </file>
   <file src="src/Util/EmailStatusAnalyzer.php">
-    <PossiblyInvalidArrayAccess occurrences="1">
-      <code>$this-&gt;monitor-&gt;findConfiguredIdentity($identity, 'bounces')['filter']</code>
+    <PossiblyInvalidArrayAccess>
+      <code><![CDATA[$this->monitor->findConfiguredIdentity($identity, 'bounces')['filter']]]></code>
     </PossiblyInvalidArrayAccess>
-    <PossiblyInvalidArrayOffset occurrences="1">
-      <code>$this-&gt;monitor-&gt;findConfiguredIdentity($identity, 'bounces')['filter']</code>
+    <PossiblyInvalidArrayOffset>
+      <code><![CDATA[$this->monitor->findConfiguredIdentity($identity, 'bounces')['filter']]]></code>
     </PossiblyInvalidArrayOffset>
   </file>
-  <file src="tests/Command/SesSendTestEmailsCommandTest.php">
-    <InvalidArgument occurrences="1">
-      <code>$command</code>
-    </InvalidArgument>
-  </file>
   <file src="tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php">
-    <MissingParamType occurrences="1">
-      <code>$resource</code>
+    <MissingParamType>
+      <code><![CDATA[$resource]]></code>
     </MissingParamType>
-    <MissingReturnType occurrences="9">
-      <code>loadConfiguration</code>
-      <code>testDefaultConfig</code>
-      <code>testTrackingDisabledDoesntRequireTopicBounces</code>
-      <code>testTrackingDisabledDoesntRequireTopicComplaints</code>
-      <code>testTrackingDisabledDoesntRequireTopicDeliveries</code>
-      <code>testTrackingDisabledForBothConfigFilterIsNotLoaded</code>
-      <code>testTrackingEnabledForBothConfigFilterIsLoaded</code>
-      <code>testTrackingEnabledForBouncesOnlyConfigFilterIsLoaded</code>
-      <code>testTrackingEnabledForComplaintsOnlyConfigFilterIsLoaded</code>
+    <MissingReturnType>
+      <code><![CDATA[loadConfiguration]]></code>
+      <code><![CDATA[testDefaultConfig]]></code>
+      <code><![CDATA[testTrackingDisabledDoesntRequireTopicBounces]]></code>
+      <code><![CDATA[testTrackingDisabledDoesntRequireTopicComplaints]]></code>
+      <code><![CDATA[testTrackingDisabledDoesntRequireTopicDeliveries]]></code>
+      <code><![CDATA[testTrackingDisabledForBothConfigFilterIsNotLoaded]]></code>
+      <code><![CDATA[testTrackingEnabledForBothConfigFilterIsLoaded]]></code>
+      <code><![CDATA[testTrackingEnabledForBouncesOnlyConfigFilterIsLoaded]]></code>
+      <code><![CDATA[testTrackingEnabledForComplaintsOnlyConfigFilterIsLoaded]]></code>
     </MissingReturnType>
-    <PossiblyInvalidArrayAccess occurrences="13">
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.endpoint')['host']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.endpoint')['scheme']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
+    <PossiblyInvalidArrayAccess>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.endpoint')['host']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.endpoint')['scheme']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
     </PossiblyInvalidArrayAccess>
-    <PossiblyNullArrayAccess occurrences="34">
-      <code>$bouncesConfig['filter']</code>
-      <code>$bouncesConfig['filter']</code>
-      <code>$bouncesConfig['filter']</code>
-      <code>$bouncesConfig['filter']</code>
-      <code>$bouncesConfig['filter']</code>
-      <code>$bouncesConfig['topic']</code>
-      <code>$bouncesConfig['track']</code>
-      <code>$bouncesConfig['track']</code>
-      <code>$bouncesConfig['track']</code>
-      <code>$bouncesConfig['track']</code>
-      <code>$bouncesConfig['track']</code>
-      <code>$complaintsConfig['filter']</code>
-      <code>$complaintsConfig['filter']</code>
-      <code>$complaintsConfig['topic']</code>
-      <code>$complaintsConfig['track']</code>
-      <code>$complaintsConfig['track']</code>
-      <code>$complaintsConfig['track']</code>
-      <code>$complaintsConfig['track']</code>
-      <code>$complaintsConfig['track']</code>
-      <code>$deliveriesConfig['topic']</code>
-      <code>$deliveriesConfig['track']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.endpoint')['host']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.endpoint')['scheme']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']</code>
+    <PossiblyNullArrayAccess>
+      <code><![CDATA[$bouncesConfig['filter']]]></code>
+      <code><![CDATA[$bouncesConfig['filter']]]></code>
+      <code><![CDATA[$bouncesConfig['filter']]]></code>
+      <code><![CDATA[$bouncesConfig['filter']]]></code>
+      <code><![CDATA[$bouncesConfig['filter']]]></code>
+      <code><![CDATA[$bouncesConfig['filter']['force_send']]]></code>
+      <code><![CDATA[$bouncesConfig['filter']['hard_blacklist_time']]]></code>
+      <code><![CDATA[$bouncesConfig['filter']['max_bounces']]]></code>
+      <code><![CDATA[$bouncesConfig['filter']['soft_as_hard']]]></code>
+      <code><![CDATA[$bouncesConfig['filter']['soft_blacklist_time']]]></code>
+      <code><![CDATA[$bouncesConfig['topic']]]></code>
+      <code><![CDATA[$bouncesConfig['track']]]></code>
+      <code><![CDATA[$bouncesConfig['track']]]></code>
+      <code><![CDATA[$bouncesConfig['track']]]></code>
+      <code><![CDATA[$bouncesConfig['track']]]></code>
+      <code><![CDATA[$bouncesConfig['track']]]></code>
+      <code><![CDATA[$complaintsConfig['filter']]]></code>
+      <code><![CDATA[$complaintsConfig['filter']]]></code>
+      <code><![CDATA[$complaintsConfig['filter']['blacklist_time']]]></code>
+      <code><![CDATA[$complaintsConfig['filter']['force_send']]]></code>
+      <code><![CDATA[$complaintsConfig['topic']]]></code>
+      <code><![CDATA[$complaintsConfig['track']]]></code>
+      <code><![CDATA[$complaintsConfig['track']]]></code>
+      <code><![CDATA[$complaintsConfig['track']]]></code>
+      <code><![CDATA[$complaintsConfig['track']]]></code>
+      <code><![CDATA[$complaintsConfig['track']]]></code>
+      <code><![CDATA[$deliveriesConfig['topic']]]></code>
+      <code><![CDATA[$deliveriesConfig['track']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.endpoint')['host']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.endpoint')['scheme']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['bounces']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['bounces']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['bounces']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['bounces']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['bounces']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['complaints']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['complaints']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['complaints']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['complaints']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['complaints']]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')['serendipityhq.com']['deliveries']]]></code>
     </PossiblyNullArrayAccess>
-    <PossiblyNullReference occurrences="13">
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.endpoint')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.endpoint')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
+    <PossiblyNullReference>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.endpoint')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.endpoint')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
     </PossiblyNullReference>
-    <UndefinedInterfaceMethod occurrences="13">
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.endpoint')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.endpoint')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
-      <code>$this-&gt;container-&gt;getParameter('shq_aws_ses_monitor.identities')</code>
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.endpoint')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.endpoint')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
+      <code><![CDATA[$this->container->getParameter('shq_aws_ses_monitor.identities')]]></code>
     </UndefinedInterfaceMethod>
   </file>
   <file src="tests/DependencyInjection/YamlAwsSesMonitorBundleExtensionTest.php">
-    <MissingParamType occurrences="1">
-      <code>$resource</code>
+    <MissingParamType>
+      <code><![CDATA[$resource]]></code>
     </MissingParamType>
   </file>
   <file src="tests/Entity/ComplaintTest.php">
-    <PossiblyNullReference occurrences="1">
-      <code>format</code>
+    <PossiblyNullReference>
+      <code><![CDATA[format]]></code>
     </PossiblyNullReference>
   </file>
   <file src="tests/Helper/MessageHelperTest.php">
-    <PossiblyFalseArgument occurrences="2">
-      <code>$message</code>
-      <code>$message</code>
+    <PossiblyFalseArgument>
+      <code><![CDATA[$message]]></code>
+      <code><![CDATA[$message]]></code>
     </PossiblyFalseArgument>
   </file>
   <file src="tests/Manager/SnsManagerTest.php">
-    <PossiblyInvalidArgument occurrences="2">
-      <code>$this-&gt;createMockRouter()</code>
-      <code>$this-&gt;createMockRouter()</code>
+    <MismatchingDocblockReturnType>
+      <code><![CDATA[MockObject|RouterInterface]]></code>
+    </MismatchingDocblockReturnType>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$this->createMockRouter()]]></code>
+      <code><![CDATA[$this->createMockRouter()]]></code>
     </PossiblyInvalidArgument>
-    <TooManyArguments occurrences="1">
-      <code>append</code>
+    <TooManyArguments>
+      <code><![CDATA[append]]></code>
     </TooManyArguments>
   </file>
   <file src="tests/Plugin/MonitorFilterPluginTest.php">
-    <PossiblyFalseArgument occurrences="6">
-      <code>$recipients</code>
-      <code>$recipients</code>
-      <code>$recipients</code>
-      <code>$recipients</code>
-      <code>$recipients</code>
-      <code>$recipients</code>
+    <MismatchingDocblockReturnType>
+      <code><![CDATA[MockObject|\Swift_Message]]></code>
+    </MismatchingDocblockReturnType>
+    <PossiblyFalseArgument>
+      <code><![CDATA[$recipients]]></code>
+      <code><![CDATA[$recipients]]></code>
+      <code><![CDATA[$recipients]]></code>
+      <code><![CDATA[$recipients]]></code>
+      <code><![CDATA[$recipients]]></code>
+      <code><![CDATA[$recipients]]></code>
     </PossiblyFalseArgument>
-    <PossiblyUndefinedMethod occurrences="18">
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
-      <code>expects</code>
+    <PossiblyUndefinedMethod>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
+      <code><![CDATA[expects]]></code>
     </PossiblyUndefinedMethod>
   </file>
   <file src="tests/Processor/NotificationProcessorTest.php">
-    <ReservedWord occurrences="4">
-      <code>$response-&gt;getContent()</code>
-      <code>$response-&gt;getContent()</code>
-      <code>$response-&gt;getContent()</code>
-      <code>$response-&gt;getContent()</code>
+    <MismatchingDocblockReturnType>
+      <code><![CDATA[MockObject|Response]]></code>
+    </MismatchingDocblockReturnType>
+    <ReservedWord>
+      <code><![CDATA[$response->getContent()]]></code>
     </ReservedWord>
   </file>
   <file src="tests/Processor/RequestProcessorTest.php">
-    <ReservedWord occurrences="1">
-      <code>$response-&gt;getContent()</code>
+    <ReservedWord>
+      <code><![CDATA[$response->getContent()]]></code>
     </ReservedWord>
   </file>
   <file src="tests/Processor/SubscriptionProcessorTest.php">
-    <MissingClosureParamType occurrences="1">
-      <code>$key</code>
+    <MissingClosureParamType>
+      <code><![CDATA[$key]]></code>
     </MissingClosureParamType>
-    <ReservedWord occurrences="3">
-      <code>$response-&gt;getContent()</code>
-      <code>$response-&gt;getContent()</code>
-      <code>$response-&gt;getContent()</code>
+    <ReservedWord>
+      <code><![CDATA[$response->getContent()]]></code>
     </ReservedWord>
   </file>
   <file src="tests/Service/MonitorTest.php">
-    <InvalidPropertyAssignmentValue occurrences="1">
-      <code>$this-&gt;createMock(IdentityGuesser::class)</code>
+    <InvalidPropertyAssignmentValue>
+      <code><![CDATA[$this->createMock(IdentityGuesser::class)]]></code>
     </InvalidPropertyAssignmentValue>
-    <TooManyArguments occurrences="11">
-      <code>append</code>
-      <code>append</code>
-      <code>append</code>
-      <code>append</code>
-      <code>append</code>
-      <code>append</code>
-      <code>append</code>
-      <code>append</code>
-      <code>append</code>
-      <code>append</code>
-      <code>append</code>
+    <TooManyArguments>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[append]]></code>
     </TooManyArguments>
-    <UndefinedMethod occurrences="5">
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
-      <code>method</code>
+    <UndefinedMethod>
+      <code><![CDATA[method]]></code>
+      <code><![CDATA[method]]></code>
+      <code><![CDATA[method]]></code>
+      <code><![CDATA[method]]></code>
+      <code><![CDATA[method]]></code>
     </UndefinedMethod>
+  </file>
+  <file src="tests/Util/IdentityGuesserTest.php">
+    <DeprecatedFunction>
+      <code><![CDATA[sprintf('%s@%s', $this->productionMailbox, $this->domainIdentity)]]></code>
+      <code><![CDATA[sprintf('%s@s%s', IdentityGuesser::TEST_MAILBOX, $this->domainIdentity)]]></code>
+    </DeprecatedFunction>
   </file>
 </files>

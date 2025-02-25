@@ -43,6 +43,8 @@ final class MonitorFilterPluginTest extends TestCase
 
     /**
      * @noRector \Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector
+     *
+     * ast
      */
     public function testBeforeSendPerformedWithGetToRecipients(): void
     {
@@ -70,6 +72,8 @@ final class MonitorFilterPluginTest extends TestCase
 
     /**
      * @noRector \Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector
+     *
+     * ast
      */
     public function testBeforeSendPerformedWithGetCcRecipients(): void
     {
@@ -97,6 +101,8 @@ final class MonitorFilterPluginTest extends TestCase
 
     /**
      * @noRector \Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector
+     *
+     * ast
      */
     public function testBeforeSendPerformedWithGetBccRecipients(): void
     {
@@ -167,7 +173,7 @@ final class MonitorFilterPluginTest extends TestCase
     /**
      * @return MockObject|\Swift_Message
      */
-    private function getMessageWithRecipients()
+    private function getMessageWithRecipients(): MockObject
     {
         $message = $this->createMock(\Swift_Message::class);
         $message->expects(self::once())->method('getFrom')->willReturn(['hello@serendipityhq.com']);
@@ -191,7 +197,7 @@ final class MonitorFilterPluginTest extends TestCase
         $mockBouncedEmailStatus->method('getHardBouncesCount')->willReturn(3);
         $mockBouncedEmailStatus->method('getSoftBouncesCount')->willReturn(3);
 
-        $mockComplainedCollection = $this->getMockBuilder(ArrayCollection::class)->getMock();
+        $mockComplainedCollection = $this->createMock(ArrayCollection::class);
         $mockComplainedCollection->method('count')->willReturn(1);
         $mockComplainedEmailStatus = $this->createMock(EmailStatus::class);
         $mockComplainedEmailStatus->method('getAddress')->willReturn('complained@example.com');

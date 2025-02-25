@@ -19,7 +19,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\Monitor;
 /**
  * Helps to analyze an EmailStatus to understand if it is bounced, complained or healthy.
  */
-final class EmailStatusAnalyzer
+class EmailStatusAnalyzer
 {
     private Monitor $monitor;
 

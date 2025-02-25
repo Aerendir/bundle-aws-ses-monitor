@@ -37,7 +37,7 @@ final class RequestProcessor
     public function processRequest(Request $request): Response
     {
         if (false === $request->isMethod('POST')) {
-            return new Response('Only POST requests are accepted.', 405);
+            return new Response('Only POST requests are accepted.', Response::HTTP_METHOD_NOT_ALLOWED);
         }
 
         $messageTypeHeader = $request->headers->get('x-amz-sns-message-type');

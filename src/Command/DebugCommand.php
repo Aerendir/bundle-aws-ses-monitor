@@ -24,8 +24,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleSectionOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use function Safe\sprintf;
-
 /**
  * @ codeCoverageIgnore This command basically calls AWS and uses other classes already tested, so it is not testable.
  */
@@ -43,6 +41,7 @@ final class DebugCommand extends Command
     /** @var string */
     protected static $defaultName = 'aws:ses:debug';
 
+    protected static $defaultDescription = 'Debugs the aws ses configuration helping discovering errors and wrong settings.';
     private Console $console;
     private Monitor $monitor;
     private ConsoleSectionOutput $sectionTitle;
@@ -57,8 +56,7 @@ final class DebugCommand extends Command
 
     protected function configure(): void
     {
-        $this->setDescription('Debugs the aws ses configuration helping discovering errors and wrong settings.')
-             ->addOption('full-log', null, InputOption::VALUE_NONE, 'Shows logs line by line, without simply changing the current one.');
+        $this->addOption('full-log', null, InputOption::VALUE_NONE, 'Shows logs line by line, without simply changing the current one.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -86,7 +84,7 @@ final class DebugCommand extends Command
         $this->console->clear($this->sectionTitle);
         $table->render();
 
-        return 0;
+        return (int) Command::SUCCESS;
     }
 
     private function validateAccountData(): array
