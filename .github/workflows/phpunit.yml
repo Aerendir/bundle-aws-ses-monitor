@@ -16,9 +16,9 @@ jobs:
             matrix:
                 os: [ ubuntu-latest ]
                 # When you change a version here, change it also in the SonarCloud if condition
-                php: [ '8.0', '8.1' ]
+                php: [ '8.3' ]
                 # aws/aws-sdk-php-symfony doesn't support SF^6
-                symfony: [ '~4.4', '~5.4']
+                symfony: [ '~6.4', '~7.0']
 
         steps:
             -   name: Checkout
