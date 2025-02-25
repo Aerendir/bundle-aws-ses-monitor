@@ -16,32 +16,32 @@
         }
     ],
     "require": {
-        "php": "^7.4|^8.0",
+        "php": "^8.3",
         "aws/aws-php-sns-message-validator": "^1.5",
         "aws/aws-sdk-php": "^3.39.0",
         "aws/aws-sdk-php-symfony": "^2.0",
         "doctrine/common": "^2.4 || ^3.0",
         "doctrine/doctrine-bundle": "^1.7 || ^2.0",
-        "doctrine/orm": "^2.5",
-        "symfony/framework-bundle": "~4.4|~5.4|~6.0",
-        "symfony/http-kernel": "~4.4|~5.4|~6.0",
-        "symfony/swiftmailer-bundle": "^3.0",
-        "symfony/yaml": "~4.4|~5.4|~6.0",
-        "thecodingmachine/safe": "^1.0|^2.0"
+        "doctrine/orm": "^2.5 || ^3.0",
+        "symfony/framework-bundle": "~4.4|~5.4|~6.0|~7.0",
+        "symfony/http-kernel": "~4.4|~5.4|~6.0|~7.0",
+        "symfony/yaml": "~4.4|~5.4|~6.0|~7.0",
+        "thecodingmachine/safe": "^1.0|^2.0|^3.0"
     },
     "require-dev": {
         "ext-ast": "*",
         "bamarni/composer-bin-plugin": "^1.4",
-        "phpstan/phpstan": "1.8.2",
-        "phpstan/phpstan-doctrine": "1.3.11",
-        "phpstan/phpstan-phpunit": "1.1.1",
-        "phpstan/phpstan-symfony": "1.2.8",
-        "rector/rector": "0.13.9",
+        "phpstan/phpstan": "2.1.6",
+        "phpstan/phpstan-doctrine": "2.0.1",
+        "phpstan/phpstan-phpunit": "2.0.4",
+        "phpstan/phpstan-symfony": "2.0.2",
+        "rector/rector": "2.0.9",
         "roave/security-advisories": "dev-master",
         "serendipity_hq/rector-config": "^1.0",
+        "symfony/swiftmailer-bundle": "^3.0",
         "symfony/console": "~4.4|~5.4|~6.0",
         "symfony/var-dumper": "~4.4|~5.4|~6.0",
-        "thecodingmachine/phpstan-safe-rule": "v1.2.0"
+        "thecodingmachine/phpstan-safe-rule": "1.4.0"
     },
     "autoload": {
         "psr-4": {

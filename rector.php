@@ -16,12 +16,17 @@ use Rector\Core\ValueObject\PhpVersion;
 use SerendipityHQ\Integration\Rector\SerendipityHQ;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->phpVersion(PhpVersion::PHP_74);
+    $rectorConfig->phpVersion(PhpVersion::PHP_83);
     $rectorConfig->paths([__DIR__ . '/src', __DIR__ . '/tests']);
 
     $rectorConfig->bootstrapFiles([__DIR__ . '/vendor-bin/phpunit/vendor/autoload.php']);
     $rectorConfig->import(SerendipityHQ::SHQ_SYMFONY_BUNDLE);
 
     $toSkip = SerendipityHQ::buildToSkip(SerendipityHQ::SHQ_SYMFONY_BUNDLE_SKIP);
+
+    // @todo reactivate
+    $toSkip[] = __DIR__ . '/tests/bootstrap.php';
+    $toSkip[] = __DIR__ . '/tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php';
+    $toSkip[] = \Rector\TypeDeclaration\Rector\ClassMethod\ReturnNeverTypeRector::class;
     $rectorConfig->skip($toSkip);
 };

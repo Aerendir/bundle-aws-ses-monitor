@@ -75,7 +75,7 @@ final class SnsManagerTest extends TestCase
     /**
      * @return MockObject|RouterInterface
      */
-    private function createMockRouter()
+    private function createMockRouter(): MockObject
     {
         $mockContext = $this->createMock(RequestContext::class);
         $mockRouter  = $this->createMock(RouterInterface::class);

@@ -28,7 +28,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 use function Safe\preg_replace;
-use function Safe\sprintf;
 
 /**
  * @ codeCoverageIgnore This command basically calls AWS and uses other classes already tested, so it is not testable.
@@ -44,6 +43,7 @@ final class ConfigureCommand extends Command
     /** @var string */
     protected static $defaultName = 'aws:ses:configure';
 
+    protected static $defaultDescription = 'Configures the identities on AWS SES and their topics.';
     private string $env;
     private EntityManagerInterface $entityManager;
     private array $actionsToTakeNow = [];
@@ -80,8 +80,7 @@ final class ConfigureCommand extends Command
 
     protected function configure(): void
     {
-        $this->setDescription('Configures the identities on AWS SES and their topics.')
-            ->addOption(self::FORCE, null, InputOption::VALUE_NONE, 'Forces the configuration of production identities, too.')
+        $this->addOption(self::FORCE, null, InputOption::VALUE_NONE, 'Forces the configuration of production identities, too.')
             ->addOption('full-log', null, InputOption::VALUE_NONE, 'Shows logs line by line, without simply changing the current one.');
     }
 
@@ -94,7 +93,7 @@ final class ConfigureCommand extends Command
         $this->ioWriter->writeln(sprintf('Starting to configure identities for environment <comment>%s</comment>', $this->env));
 
         if (false === $this->canProceed($input)) {
-            return 0;
+            return (int) Command::SUCCESS;
         }
 
         $this->initializeConfiguration($output);
@@ -112,7 +111,7 @@ final class ConfigureCommand extends Command
         $this->logActionsToTake();
         $this->logSkippedIdentities();
 
-        return 0;
+        return (int) Command::SUCCESS;
     }
 
     private function canProceed(InputInterface $input): bool
@@ -414,7 +413,7 @@ EOF
             $elapsed = \microtime(true) - $lastCall;
             while ($elapsed < 0.1000000) {
                 $wait = 0.1000000 - $elapsed;
-                \usleep((int) $wait * 10000000);
+                \usleep((int) $wait * 10_000_000);
                 $elapsed = \microtime(true) - $lastCall;
             }
 
@@ -477,7 +476,7 @@ EOF
      */
     private function logActionsToTake(): void
     {
-        if (false === empty($this->actionsToTakeNow)) {
+        if ([] !== $this->actionsToTakeNow) {
             $this->ioWriter->warning('There are pending actions.');
             $this->ioWriter->writeln('You have to take the actions listed below, then run again the command <comment>bin/console aws:ses:configure</comment> to complete the configuration.');
 
@@ -497,7 +496,7 @@ EOF
      */
     private function logSkippedIdentities(): void
     {
-        if (false === empty($this->skippedIdentities)) {
+        if ([] !== $this->skippedIdentities) {
             $this->ioWriter->warning('There are skipped entities:');
 
             foreach ($this->skippedIdentities as $identity) {

@@ -19,8 +19,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 
-use function Safe\sprintf;
-
 /**
  * Sends test emails to the addresses provided by AWS SES.
  *
@@ -40,6 +38,7 @@ final class SesSendTestEmailsCommand extends Command
     /** @var string */
     protected static $defaultName = 'aws:ses:monitor:test:swiftmailer';
 
+    protected static $defaultDescription = 'Sends test emails through SwiftMailer to the addresses provided by AWS SES.';
     private \Swift_Mailer $mailer;
 
     public function __construct(\Swift_Mailer $mailer)
@@ -51,9 +50,6 @@ final class SesSendTestEmailsCommand extends Command
 
     protected function configure(): void
     {
-        $this->setDescription(
-            'Sends test emails through SwiftMailer to the addresses provided by AWS SES.'
-        );
     }
 
     /**
@@ -94,7 +90,7 @@ final class SesSendTestEmailsCommand extends Command
             $output->writeln($sent);
         }
 
-        return 0;
+        return (int) Command::SUCCESS;
     }
 
     private function createMessage(string $sendFrom, string $sendTo): \Swift_Message

@@ -31,6 +31,6 @@ final class DeliveryNotificationHandler extends AbstractNotification
             Delivery::create($email, $mailMessage, $notification);
         }
 
-        return new Response('', 200);
+        return new Response('', Response::HTTP_OK);
     }
 }

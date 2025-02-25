@@ -25,7 +25,7 @@ final class ComplaintNotificationHandlerTest extends TestCase
     /** @var array<string, array<string, array<int, array<string, string>>|string>> */
     private const TEST = [
         'complaint' => [
-            'complainedRecipients' => [
+            'complainedRecipients'  => [
                 [
                     'emailAddress'   => 'test_recipient@example.com',
                     'status'         => 'status',

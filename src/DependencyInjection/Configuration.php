@@ -19,8 +19,6 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
-use function Safe\sprintf;
-
 final class Configuration implements ConfigurationInterface
 {
     /** @var string */
@@ -88,12 +86,8 @@ final class Configuration implements ConfigurationInterface
                     ->end()->end()
                 ->end()
                 ->validate()
-                    ->ifTrue(function (array $tree): bool {
-                        return $this->validateConfiguration($tree);
-                    })
-                    ->then(function (array $tree): array {
-                        return $this->prepareConfiguration($tree);
-                    })
+                    ->ifTrue(fn (array $tree): bool => $this->validateConfiguration($tree))
+                    ->then(fn (array $tree): array => $this->prepareConfiguration($tree))
                 ->end();
 
         return $treeBuilder;
@@ -163,7 +157,7 @@ final class Configuration implements ConfigurationInterface
 
     private function validateConfiguration(array $tree): bool
     {
-        if ((\is_array($tree[self::IDENTITIES]) || $tree[self::IDENTITIES] instanceof \Countable ? \count($tree[self::IDENTITIES]) : 0) < 1) {
+        if ((is_countable($tree[self::IDENTITIES]) ? \count($tree[self::IDENTITIES]) : 0) < 1) {
             throw new InvalidConfigurationException('You have to configure at least one identity you want be managed. Please, set it in path "shq_aws_monitor.identities".');
         }
 

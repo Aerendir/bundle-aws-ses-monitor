@@ -65,13 +65,11 @@ class Bounce
     private const BOUNCE = 'bounce';
 
     /**
-     * @var int
-     *
      * @ORM\Column(name="id", type="integer", unique=true)
      * @ORM\Id
      * @ORM\GeneratedValue()
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="EmailStatus", inversedBy="bounces", cascade={"persist"})
