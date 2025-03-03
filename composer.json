@@ -32,7 +32,7 @@
         "ext-ast": "*",
         "bamarni/composer-bin-plugin": "^1.4",
         "phpstan/phpstan": "2.1.6",
-        "phpstan/phpstan-doctrine": "2.0.1",
+        "phpstan/phpstan-doctrine": "2.0.2",
         "phpstan/phpstan-phpunit": "2.0.4",
         "phpstan/phpstan-symfony": "2.0.2",
         "rector/rector": "2.0.9",
