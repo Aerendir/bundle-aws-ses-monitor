@@ -35,7 +35,7 @@
         "phpstan/phpstan-doctrine": "2.0.2",
         "phpstan/phpstan-phpunit": "2.0.4",
         "phpstan/phpstan-symfony": "2.0.2",
-        "rector/rector": "2.0.9",
+        "rector/rector": "2.0.10",
         "roave/security-advisories": "dev-master",
         "serendipity_hq/rector-config": "^1.0",
         "symfony/swiftmailer-bundle": "^3.0",
