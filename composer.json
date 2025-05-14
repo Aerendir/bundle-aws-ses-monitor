@@ -34,7 +34,7 @@
         "phpstan/phpstan": "2.1.15",
         "phpstan/phpstan-doctrine": "2.0.3",
         "phpstan/phpstan-phpunit": "2.0.6",
-        "phpstan/phpstan-symfony": "2.0.3",
+        "phpstan/phpstan-symfony": "2.0.6",
         "rector/rector": "2.0.16",
         "roave/security-advisories": "dev-master",
         "serendipity_hq/rector-config": "^1.0",
