@@ -41,7 +41,7 @@
         "symfony/swiftmailer-bundle": "^3.0",
         "symfony/console": "~4.4|~5.4|~6.0",
         "symfony/var-dumper": "~4.4|~5.4|~6.0",
-        "thecodingmachine/phpstan-safe-rule": "1.4.3"
+        "thecodingmachine/phpstan-safe-rule": "1.4.4"
     },
     "autoload": {
         "psr-4": {
