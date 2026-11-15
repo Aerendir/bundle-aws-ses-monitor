@@ -15,9 +15,8 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ ubuntu-latest ]
-                php: [ '8.3' ]
-                # aws/aws-sdk-php-symfony doesn't support SF^6
-                symfony: [ '~6.4', '~7.0' ]
+                php: [ '8.2' ]
+                symfony: [ '~6.4' ]
 
         steps:
             -   name: Checkout
@@ -40,11 +39,6 @@ jobs:
                 run: |
                     composer rem rector/rector --dev --no-update
 
-            -   name: Remove Roave Security Advisories
-                # Not compatible with symfony/framework-bundle <5.4
-                run: |
-                    composer rem roave/security-advisories --dev --no-update
-
             -   name: Install Composer deps
                 uses: ramsey/composer-install@v4
                 with:
@@ -61,8 +55,9 @@ jobs:
                     working-directory: './vendor-bin/phpunit'
 
             -   name: Remove Kernel.php
+                # Symfony Flex installs the recipe of the FrameworkBundle, which creates it
                 run: |
-                    rm ./src/Kernel.php
+                    rm -f ./src/Kernel.php
 
             -   name: Run PSalm
                 run: |

@@ -18,7 +18,6 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor\NotificationProcessor;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor\RequestProcessor;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor\SubscriptionProcessor;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\SnsTypes;
-use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -53,13 +52,8 @@ final class RequestProcessorTest extends TestCase
 
     public function testSnsTypeHeaderMustBeSet(): void
     {
-        $mockRequest = $this->createMock(Request::class);
-        $mockRequest->expects(self::exactly(1))->method('isMethod')->willReturn(true);
-
-        $mockHeaders = $this->createMock(HeaderBag::class);
-        $mockHeaders->expects(self::exactly(1))->method('get')->willReturn(null);
-
-        $mockRequest->headers = $mockHeaders;
+        // A real Request: Symfony 8 doesn't let a mocked one have its headers replaced
+        $mockRequest = Request::create('/', 'POST');
 
         $this->expectException(BadRequestHttpException::class);
         $this->requestProcessor->processRequest($mockRequest);
@@ -67,13 +61,8 @@ final class RequestProcessorTest extends TestCase
 
     public function testUnknownSnsTypeHeaderThrowAnException(): void
     {
-        $mockRequest = $this->createMock(Request::class);
-        $mockRequest->expects(self::exactly(1))->method('isMethod')->willReturn(true);
-
-        $mockHeaders = $this->createMock(HeaderBag::class);
-        $mockHeaders->expects(self::exactly(1))->method('get')->willReturn('dummy-header');
-
-        $mockRequest->headers = $mockHeaders;
+        // A real Request: Symfony 8 doesn't let a mocked one have its headers replaced
+        $mockRequest = Request::create('/', 'POST', server: ['HTTP_X_AMZ_SNS_MESSAGE_TYPE' => 'dummy-header']);
 
         $this->expectException(\RuntimeException::class);
         $this->requestProcessor->processRequest($mockRequest);
@@ -81,13 +70,8 @@ final class RequestProcessorTest extends TestCase
 
     public function testNotificationProcessing(): void
     {
-        $mockRequest = $this->createMock(Request::class);
-        $mockRequest->expects(self::exactly(1))->method('isMethod')->willReturn(true);
-
-        $mockHeaders = $this->createMock(HeaderBag::class);
-        $mockHeaders->expects(self::exactly(1))->method('get')->willReturn(SnsTypes::HEADER_TYPE_NOTIFICATION);
-
-        $mockRequest->headers = $mockHeaders;
+        // A real Request: Symfony 8 doesn't let a mocked one have its headers replaced
+        $mockRequest = Request::create('/', 'POST', server: ['HTTP_X_AMZ_SNS_MESSAGE_TYPE' => SnsTypes::HEADER_TYPE_NOTIFICATION]);
 
         $result = $this->requestProcessor->processRequest($mockRequest);
 
@@ -96,13 +80,8 @@ final class RequestProcessorTest extends TestCase
 
     public function testSubscriptionConfirmationProcessing(): void
     {
-        $mockRequest = $this->createMock(Request::class);
-        $mockRequest->expects(self::exactly(1))->method('isMethod')->willReturn(true);
-
-        $mockHeaders = $this->createMock(HeaderBag::class);
-        $mockHeaders->expects(self::exactly(1))->method('get')->willReturn(SnsTypes::HEADER_TYPE_CONFIRM_SUBSCRIPTION);
-
-        $mockRequest->headers = $mockHeaders;
+        // A real Request: Symfony 8 doesn't let a mocked one have its headers replaced
+        $mockRequest = Request::create('/', 'POST', server: ['HTTP_X_AMZ_SNS_MESSAGE_TYPE' => SnsTypes::HEADER_TYPE_CONFIRM_SUBSCRIPTION]);
 
         $result = $this->requestProcessor->processRequest($mockRequest);
 

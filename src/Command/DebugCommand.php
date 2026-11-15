@@ -16,6 +16,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Command;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Processor\AwsDataProcessor;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\Monitor;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\Console;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableCell;
@@ -27,6 +28,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @ codeCoverageIgnore This command basically calls AWS and uses other classes already tested, so it is not testable.
  */
+#[AsCommand(name: 'aws:ses:debug', description: 'Debugs the aws ses configuration helping discovering errors and wrong settings.')]
 final class DebugCommand extends Command
 {
     /** @var string */
@@ -38,10 +40,6 @@ final class DebugCommand extends Command
     /** @var string */
     private const TABLE_CELL_COLSPAN = 'colspan';
 
-    /** @var string */
-    protected static $defaultName = 'aws:ses:debug';
-
-    protected static $defaultDescription = 'Debugs the aws ses configuration helping discovering errors and wrong settings.';
     private Console $console;
     private Monitor $monitor;
     private ConsoleSectionOutput $sectionTitle;
