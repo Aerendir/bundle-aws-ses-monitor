@@ -22,7 +22,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * @noRector \Rector\DeadCode\Rector\Node\RemoveNonExistingVarAnnotationRector
  */
-abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
+abstract class AbstractSerendipityHQAwsSesBouncerExtensionTestCase extends TestCase
 {
     private ContainerBuilder $container;
 

@@ -16,4 +16,6 @@ use DG\BypassFinals;
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../vendor-bin/phpunit/vendor/autoload.php';
 
-BypassFinals::enable();
+// Only the classes of the bundle need to be mocked: leaving the vendors alone keeps PHPUnit's readonly classes intact
+BypassFinals::allowPaths([\dirname(__DIR__) . '/src/*']);
+BypassFinals::enable(bypassReadOnly: false);

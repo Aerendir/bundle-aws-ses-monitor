@@ -12,11 +12,11 @@ declare(strict_types=1);
  */
 
 use Rector\Config\RectorConfig;
-use Rector\Core\ValueObject\PhpVersion;
+use Rector\ValueObject\PhpVersion;
 use SerendipityHQ\Integration\Rector\SerendipityHQ;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->phpVersion(PhpVersion::PHP_83);
+    $rectorConfig->phpVersion(PhpVersion::PHP_82);
     $rectorConfig->paths([__DIR__ . '/src', __DIR__ . '/tests']);
 
     $rectorConfig->bootstrapFiles([__DIR__ . '/vendor-bin/phpunit/vendor/autoload.php']);
@@ -26,7 +26,7 @@ return static function (RectorConfig $rectorConfig): void {
 
     // @todo reactivate
     $toSkip[] = __DIR__ . '/tests/bootstrap.php';
-    $toSkip[] = __DIR__ . '/tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTest.php';
-    $toSkip[] = \Rector\TypeDeclaration\Rector\ClassMethod\ReturnNeverTypeRector::class;
+    $toSkip[] = __DIR__ . '/tests/DependencyInjection/AbstractSerendipityHQAwsSesBouncerExtensionTestCase.php';
+    $toSkip[] = Rector\TypeDeclaration\Rector\ClassMethod\ReturnNeverTypeRector::class;
     $rectorConfig->skip($toSkip);
 };
