@@ -13,27 +13,25 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * A Topic entity.
- *
- * @ORM\Table(name="shq_aws_ses_monitor_topics")
- * @ORM\Entity()
  */
+#[ORM\Table(name: 'shq_aws_ses_monitor_topics')]
+#[ORM\Entity]
 class Topic
 {
-    /**
-     * @ORM\Column(name="id", type="integer", unique=true)
-     * @ORM\Id
-     * @ORM\GeneratedValue()
-     */
+    #[ORM\Column(name: 'id', type: Types::INTEGER, unique: true)]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
     private int $id;
 
-    /** @ORM\Column(name="name", type="string", length=296) */
+    #[ORM\Column(name: 'name', type: Types::STRING, length: 296)]
     private string $name;
 
-    /** @ORM\Column(name="arn", type="string", length=296) */
+    #[ORM\Column(name: 'arn', type: Types::STRING, length: 296)]
     private string $arn;
 
     /**

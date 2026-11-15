@@ -13,16 +13,16 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Represents a Complaint.
  *
  * @see http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notification-contents.html#complaint-object
- *
- * @ORM\Table(name="shq_aws_ses_monitor_complaints")
- * @ORM\Entity()
  */
+#[ORM\Table(name: 'shq_aws_ses_monitor_complaints')]
+#[ORM\Entity]
 class Complaint
 {
     /** Indicates unsolicited email or some other kind of email abuse.
@@ -56,25 +56,18 @@ class Complaint
     /** @var string */
     private const COMPLAINT = 'complaint';
 
-    /**
-     * @ORM\Column(name="id", type="integer", unique=true)
-     * @ORM\Id
-     * @ORM\GeneratedValue()
-     */
+    #[ORM\Column(name: 'id', type: Types::INTEGER, unique: true)]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
     private int $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="EmailStatus", inversedBy="complaints", cascade={"persist"})
-     * @ORM\JoinColumn(name="email_status", referencedColumnName="address")
-     */
+    #[ORM\JoinColumn(name: 'email_status', referencedColumnName: 'address')]
+    #[ORM\ManyToOne(targetEntity: EmailStatus::class, inversedBy: 'complaints', cascade: ['persist'])]
     private EmailStatus $emailStatus;
 
-    /**
-     * The MessageObject that reported this complaint.
-     *
-     * @ORM\ManyToOne(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage", inversedBy="complaints")
-     * @ORM\JoinColumn(name="mail_message", referencedColumnName="message_id")
-     */
+    /** The MessageObject that reported this complaint. */
+    #[ORM\JoinColumn(name: 'mail_message', referencedColumnName: 'message_id')]
+    #[ORM\ManyToOne(targetEntity: MailMessage::class, inversedBy: 'complaints')]
     private MailMessage $mailMessage;
 
     /**
@@ -82,43 +75,36 @@ class Complaint
      *
      * Note that this is the time at which the notification was sent by the ISP, and not the time at which it was
      * received by Amazon SES.
-     *
-     * @ORM\Column(name="complained_on", type="datetime")
      */
+    #[ORM\Column(name: 'complained_on', type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $complainedOn;
 
-    /**
-     * A unique ID for the bounce.
-     *
-     * @ORM\Column(name="feedback_id", type="string")
-     */
+    /** A unique ID for the bounce. */
+    #[ORM\Column(name: 'feedback_id', type: Types::STRING)]
     private string $feedbackId;
 
     /**
      * The value of the User-Agent field from the feedback report.
      *
      * This indicates the name and version of the system that generated the report.
-     *
-     * @ORM\Column(name="user_agent")
      */
+    #[ORM\Column(name: 'user_agent')]
     private string $userAgent;
 
     /**
      * The value of the Feedback-Type field from the feedback report received from the ISP.
      *
      * This contains the type of feedback.
-     *
-     * @ORM\Column(name="complaint_feedback_type", type="string", nullable=true)
      */
+    #[ORM\Column(name: 'complaint_feedback_type', type: Types::STRING, nullable: true)]
     private ?string $complaintFeedbackType = null;
 
     /**
      * The value of the Arrival-Date or Received-Date field from the feedback report (in ISO8601 format).
      *
      * This field may be absent in the report (and therefore also absent in the JSON).
-     *
-     * @ORM\Column(name="arrival_date", type="datetime", nullable=true)
      */
+    #[ORM\Column(name: 'arrival_date', type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $arrivalDate = null;
 
     public static function create(EmailStatus $email, MailMessage $mailMessage, array $notification): Complaint

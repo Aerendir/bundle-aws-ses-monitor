@@ -13,16 +13,16 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * A Bounce Entity.
  *
  * @see http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notification-contents.html#bounce-object
- *
- * @ORM\Table(name="shq_aws_ses_monitor_bounces")
- * @ORM\Entity()
  */
+#[ORM\Table(name: 'shq_aws_ses_monitor_bounces')]
+#[ORM\Entity]
 class Bounce
 {
     /** Hard bounces and subtypes.
@@ -64,25 +64,18 @@ class Bounce
     /** @var string */
     private const BOUNCE = 'bounce';
 
-    /**
-     * @ORM\Column(name="id", type="integer", unique=true)
-     * @ORM\Id
-     * @ORM\GeneratedValue()
-     */
+    #[ORM\Column(name: 'id', type: Types::INTEGER, unique: true)]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
     private int $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="EmailStatus", inversedBy="bounces", cascade={"persist"})
-     * @ORM\JoinColumn(name="email_status", referencedColumnName="address")
-     */
+    #[ORM\JoinColumn(name: 'email_status', referencedColumnName: 'address')]
+    #[ORM\ManyToOne(targetEntity: EmailStatus::class, inversedBy: 'bounces', cascade: ['persist'])]
     private EmailStatus $emailStatus;
 
-    /**
-     * The MessageObject that reported this bounce.
-     *
-     * @ORM\ManyToOne(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage", inversedBy="bounces")
-     * @ORM\JoinColumn(name="mail_message", referencedColumnName="message_id")
-     */
+    /** The MessageObject that reported this bounce. */
+    #[ORM\JoinColumn(name: 'mail_message', referencedColumnName: 'message_id')]
+    #[ORM\ManyToOne(targetEntity: MailMessage::class, inversedBy: 'bounces')]
     private MailMessage $mailMessage;
 
     /**
@@ -90,22 +83,18 @@ class Bounce
      *
      * Note that this is the time at which the notification was sent by the ISP, and not the time at which it was
      * received by Amazon SES.
-     *
-     * @ORM\Column(name="bounced_on", type="datetime")
      */
+    #[ORM\Column(name: 'bounced_on', type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $bouncedOn;
 
-    /** @ORM\Column(name="type", type="string") */
+    #[ORM\Column(name: 'type', type: Types::STRING)]
     private string $type;
 
-    /** @ORM\Column(name="sub_type", type="string") */
+    #[ORM\Column(name: 'sub_type', type: Types::STRING)]
     private string $subType;
 
-    /**
-     * A unique ID for the bounce.
-     *
-     * @ORM\Column(name="feedback_id", type="string")
-     */
+    /** A unique ID for the bounce. */
+    #[ORM\Column(name: 'feedback_id', type: Types::STRING)]
     private string $feedbackId;
 
     /**
@@ -113,9 +102,8 @@ class Bounce
      *
      * This is the value of the Message Transfer Authority (MTA) that attempted to perform the delivery, relay, or
      * gateway operation described in the DSN.
-     *
-     * @ORM\Column(name="reporting_mta", type="string", nullable=true)
      */
+    #[ORM\Column(name: 'reporting_mta', type: Types::STRING, nullable: true)]
     private ?string $reportingMta = null;
 
     /**
@@ -123,18 +111,16 @@ class Bounce
      *
      * This indicates the action performed by the Reporting-MTA as a result of its attempt to deliver the message to
      * this recipient.
-     *
-     * @ORM\Column(name="action", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'action', type: Types::TEXT, nullable: true)]
     private ?string $action = null;
 
     /**
      * The value of the EmailStatus field from the DSN.
      *
      * This is the per-recipient transport-independent status code that indicates the delivery status of the message.
-     *
-     * @ORM\Column(name="status", type="string", nullable=true)
      */
+    #[ORM\Column(name: 'status', type: Types::STRING, nullable: true)]
     private ?string $status = null;
 
     /**
@@ -142,9 +128,8 @@ class Bounce
      *
      * This is the value of the Diagnostic-Code field from the DSN. This field may be absent in the DSN (and therefore
      * also absent in the JSON).
-     *
-     * @ORM\Column(name="diagnostic_code", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'diagnostic_code', type: Types::TEXT, nullable: true)]
     private ?string $diagnosticCode = null;
 
     public static function create(EmailStatus $email, MailMessage $mailMessage, array $bouncedRecipient, array $notification): Bounce
