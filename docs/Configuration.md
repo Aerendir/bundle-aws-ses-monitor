@@ -414,54 +414,59 @@ No need for a migration as we are going to create new tables related to `SHQAwsS
 
 ATTENTION: If you modified any other Doctrine entity adding, removing or editing fields, this command will apply these modifications, too. In this case it is better to use migrations!
 
-Step 7: Configure Swiftmailer to use AWS SES
---------------------------------------------
+Step 7: Configure Symfony Mailer to use AWS SES
+-----------------------------------------------
 
-The last step is to configure [Swiftmailer](https://symfony.com/doc/current/email.html) to instruct it to use AWS SES to send emails.
+The last step is to configure [Symfony Mailer](https://symfony.com/doc/current/mailer.html) to instruct it to use AWS SES to send emails.
 
-If you haven't already installed it, [run this command](https://symfony.com/doc/current/email.html#installation):
+If you haven't already installed it, [run this command](https://symfony.com/doc/current/mailer.html#installation):
 
 ```console
-$ composer require symfony/swiftmailer-bundle
+$ composer require symfony/mailer
 ```
 
 Open the file `.env` and find this block:
 
 ```apacheconfig
-###> symfony/swiftmailer-bundle ###
-# For Gmail as a transport, use: "gmail://username:password@localhost"
-# For a generic SMTP server, use: "smtp://localhost:25?encryption=&auth_mode="
-# Delivery is disabled by default via "null://localhost"
-MAILER_URL=null://localhost
-###< symfony/swiftmailer-bundle ###
+###> symfony/mailer ###
+MAILER_DSN=null://null
+###< symfony/mailer ###
 ```
 
 You need to change it to something like this:
 
 ```apacheconfig
-###> symfony/swiftmailer-bundle ###
-# For Gmail as a transport, use: "gmail://username:password@localhost"
-# For a generic SMTP server, use: "smtp://localhost:25?encryption=&auth_mode="
-# Delivery is disabled by default via "null://localhost"
-MAILER_URL=smtp://email-smtp.eu-west-1.amazonaws.com:587?encryption=tls&username=YOUR-AWS-USERNAME&password=YOUR-AWS-PASSWORD
-###< symfony/swiftmailer-bundle ###
+###> symfony/mailer ###
+MAILER_DSN=smtp://YOUR-AWS-USERNAME:YOUR-AWS-PASSWORD@email-smtp.eu-west-1.amazonaws.com:587
+###< symfony/mailer ###
 ```
 
 Let' break it in parts:
 
 ```
-[smtp]://[email-smtp.eu-west-1.amazonaws.com]:[587]?encryption=tls&[username=YOUR-AWS-USERNAME]&[password=YOUR-AWS-PASSWORD]
+[smtp]://[YOUR-AWS-USERNAME]:[YOUR-AWS-PASSWORD]@[email-smtp.eu-west-1.amazonaws.com]:[587]
 ```
 
 - `smtp` is the protocol to use;
+- `YOUR-AWS-USERNAME` and `YOUR-AWS-PASSWORD` are the credentials to use to connect via SMTP (URL-encode them if they contain special characters);
 - `email-smtp.eu-west-1.amazonaws.com`: is the SMTP host;
-- `587`: is the port;
-
-Then there are the username and password to use to connect via SMTP.
+- `587`: is the port.
 
 You can find the host and the port in your AWS SES console in `Email Sending > SMTP Settings`.
 
-From that page you can create also a pait of credentials to use in the string required to configure Swiftmailer: follow the procedure, then set the pair in the Swiftmailer's configuration string.
+From that page you can create also a pair of credentials to use in the DSN: follow the procedure, then set the pair in the DSN.
+
+If you prefer, you can also use [the Amazon SES transport of Symfony Mailer](https://symfony.com/doc/current/mailer.html#using-a-3rd-party-transport) (`composer require symfony/amazon-mailer`): the bundle filters the messages whatever transport sends them.
+
+### Step 7.1: How the recipients are filtered
+
+`SHQAwsSesMonitorBundle` removes the bounced and complained recipients from every message sent through Symfony Mailer, before the message is sent: they are removed from the `To`, `Cc` and `Bcc` headers and from the envelope, and when no recipient is left the message is not sent at all.
+
+If the message is sent asynchronously through Symfony Messenger, the recipients are filtered when the message is actually sent, not when it is queued.
+
+The messages of every Mailer transport are filtered. The `mailers` option, that with Swiftmailer listed the mailers to filter, is deprecated since `2.2` and ignored: remove it from your configuration.
+
+The filter is active only if at least one identity tracks bounces or complaints.
 
 Now that you have completed the configuration of the `SHQAwsSesMonitorBundle`, it is time to configure your AWS SES and AWS SNS accounts to integrate them.
 

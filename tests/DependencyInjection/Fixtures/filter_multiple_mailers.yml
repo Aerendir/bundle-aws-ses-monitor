@@ -3,15 +3,7 @@ shq_aws_ses_monitor:
         - default
         - second
         - third
-    bounces:
-        topic:
-            endpoint:
-                host: localhost.local
-    complaints:
-        topic:
-            endpoint:
-                host: localhost.local
-    deliveries:
-        topic:
-            endpoint:
-                host: localhost.local
+    endpoint:
+        host: localhost.local
+    identities:
+        serendipityhq.com: ~

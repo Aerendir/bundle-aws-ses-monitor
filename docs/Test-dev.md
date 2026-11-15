@@ -15,66 +15,70 @@ Those addresses simulates the behavior of mailboxes that returns the various pos
 
 `SHQAwsSesMonitorBundle` has a command to send an email to each one of those addresses: this way AWS SES will send back the notifications and you can see how exactly the bundle behaves and how it manages them.
 
-The command is `aws:ses:monitor:test:swiftmailer`.
+The command is `aws:ses:monitor:test:mailer` (`aws:ses:monitor:test:swiftmailer` still works as an alias).
 
-But before you can use it from your development machine, you have to be sure Swiftmailer is not sending emails to the `TEST_DELIVERY_ADDRESS` you can set in your application.
+It sends the emails synchronously through the default transport of Symfony Mailer, also when your application sends its emails asynchronously through Symfony Messenger, and tells you which ones were not sent: those rejected because all their recipients are bounced or complained, and those the transport failed to send.
 
-Step 11: Ensuring SwiftMailer `dev` configuration is correct
-------------------------------------------------------------
+But before you can use it from your development machine, you have to be sure Symfony Mailer is really sending emails in your `dev` environment.
+
+Step 11: Ensuring Symfony Mailer `dev` configuration is correct
+---------------------------------------------------------------
 
 Before you can send emails to the test mailboxes of AWS SES, you need to be sure that nothing is configured in `dev` in a way that can prevent the emails from being sent or delivered.
 
-Below are the instructions to correctly configure SwiftMailer in `dev` environments.
+Below are the instructions to correctly configure Symfony Mailer in `dev` environments.
 
-###Enabling delivery in SwiftMailer in a `dev` envrionment, too
+### Enabling delivery in Symfony Mailer in a `dev` environment, too
 
-SwiftMailer has a handy option that [disables the real sending of emails](https://symfony.com/doc/current/email/dev_environment.html#disabling-sending): this is useful in `dev` environments to avoid sending emails to real recipients when developing the application.
+Symfony Mailer can [disable the real sending of emails](https://symfony.com/doc/current/mailer.html#disabling-delivery): this is useful in `dev` environments to avoid sending emails to real recipients when developing the application.
 
 To test the `SHQAwsSesMonitorBundle` you need to enable the sending of emails for real also in `dev` environment.
 
 Otherwise, the emails will not be delivered to AWS SES test mailboxes.
 
-To enable the sending of emails in SwiftMailer when it runs in `dev` environment, open the file `config/packages/dev/swiftmailer.yaml`.
-
-There there is a config node called `disable_delivery`: be sure it is set to false or it is not present at all (the default value is, in fact, `false`, so if it isn't there, the emails are sent for real):
+Be sure the `MAILER_DSN` used in `dev` is not `null://null` and that no `framework.mailer.dsn` set to `null://null` exists in `config/packages/dev/` (or in a `when@dev` block):
 
 ```yaml
-# config/packages/test/swiftmailer.yaml
-
-swiftmailer:
-    disable_delivery: false
+# config/packages/mailer.yaml
+when@dev:
+    framework:
+        mailer:
+            dsn: '%env(MAILER_DSN)%'
 ```
 
-###Disabling the `TEST_DELIVERY_ADDRESS` in SwiftMailer
+### Disabling the forced recipients in Symfony Mailer
 
-SwiftMailer has another handy option to set a test delivery address: this way anytime you send an email from your application running in a development or test environment, the email is not sent to the real recipient but, instead, it is sent to a test email address.
+Symfony Mailer can [always send to the same address](https://symfony.com/doc/current/mailer.html#always-send-to-the-same-address): this way anytime you send an email from your application running in a development or test environment, the email is not sent to the real recipient but, instead, it is sent to a test email address.
 
-To test the `SHQAwsSesMonitorBundle` you need to disable the sending of emails to the test mailbox or to whitelist the AWS SES mailboxes.
+To test the `SHQAwsSesMonitorBundle` you need to disable the sending of emails to the test mailbox or to allow the AWS SES mailboxes.
 
 Otherwise, the emails will not be delivered to AWS SES test mailboxes.
 
-To disable the sending of emails to the test mailbox in `dev` environment, open the file `config/packages/dev/swiftmailer.yaml`.
+If the `envelope.recipients` node is set in `dev`, the best approach is to allow the AWS SES mailboxes: this way, you will not forget to edit again the configuration once finished to test the bundle.
 
-There there is a config node called `delivery_addresses`: if it is set, then the best approach is to whitelist the AWS SES mailboxes: this way, you will not forget to edit again the configuration once finished to test the bundle.
-
-[To whitelist the AWS SES mailboxes](https://symfony.com/doc/current/email/dev_environment.html#sending-to-a-specified-address-but-with-exceptions), add the node `delivery_whitelist`:
+To allow the AWS SES mailboxes (Symfony 7.1 and later), add the node `envelope.allowed_recipients`:
 
 ```yaml
-# config/packages/dev/swiftmailer.yaml
-swiftmailer:
-    delivery_addresses: ['dev@example.com']
-    delivery_whitelist:
-       # all email addresses matching these regexes will be delivered
-       # like normal, as well as being sent to dev@example.com
-       # simulator.amonses.com is the domain of test mailboxes
-       # and we whitelist it
-       - '/@simulator\.amazonses\.com$/'
+# config/packages/mailer.yaml
+when@dev:
+    framework:
+        mailer:
+            envelope:
+                recipients: ['dev@example.com']
+                allowed_recipients:
+                    # all email addresses matching these regexes will be delivered
+                    # like normal, as well as being sent to dev@example.com
+                    # simulator.amazonses.com is the domain of test mailboxes
+                    # and we allow it
+                    - '.*@simulator\.amazonses\.com'
 ```
+
+On Symfony 6.4, which has no `allowed_recipients`, remove the `envelope.recipients` node while you test the bundle.
 
 Step 12: Sending the test email to the test mailboxes of AWS SES
 ----------------------------------------------------------------
 
-To send the test emails, simply run the command `aws:ses:monitor:test:swiftmailer` and provide the verified test Identity `test_aws@example.com` when required:
+To send the test emails, simply run the command `aws:ses:monitor:test:mailer` and provide the verified test Identity `test_aws@example.com` when required:
 
 ![](http://www.serendipityhq.com/assets/open-source-projects/bundle-aws-ses-monitor/aws-ses-monitor-test-swiftmailer.gif "Send test email to test AWS SES mailboxes")
 
@@ -82,10 +86,10 @@ Once the command finishes, if you check Ngrok again, you will see the notificati
 
 ![](http://www.serendipityhq.com/assets/open-source-projects/bundle-aws-ses-monitor/ngrok-aws-sns-aws-ses-monitor-test-swiftmailer-min.png "Send test email to test AWS SES mailboxes")
 
-If you check your database, the notifications are also in the database and will be used by the Swiftmailer plugin to filter out recipients that are bounced or complained.
+If you check your database, the notifications are also in the database and will be used by the Symfony Mailer filter to remove the recipients that are bounced or complained.
 
 *NOTE: To send emails through AWS SES you need to use a verified Identity.
-Technically, the command `aws:ses:monitor:test:swiftmailer` accepts any verified Identity.
+Technically, the command `aws:ses:monitor:test:mailer` accepts any verified Identity.
 But currently, if you have followed this documentation until now, you have only one identity configured: `test_aws`.
 If this is the case, then you need to use this `test_aws@example.com` Identity to send the test email.
 If you use an Identity not configured, an `\InvalidArgumentException` is thrown.*

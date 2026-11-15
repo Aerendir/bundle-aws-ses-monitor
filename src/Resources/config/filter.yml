@@ -3,4 +3,4 @@ services:
         autowire: true
         autoconfigure: true
         public: false
-    SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin\MonitorFilterPlugin: ~
+    SerendipityHQ\Bundle\AwsSesMonitorBundle\EventListener\MonitorFilterListener: ~

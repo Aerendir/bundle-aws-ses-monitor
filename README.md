@@ -69,9 +69,16 @@ Using AWS SES Monitor Bundle you can, using the console of your Symfony's App, c
 
 The bundle exposes some endpoints called by AWS Simple Email Service when an e-mail is bounced or complained. When those endpoints are called, AWS SES Monitor Bundle persists these emails in the database.
 
-The SwiftMailer plugin included reads these e-mails and automatically disable the sending of e-mails to those addresses.
+The Symfony Mailer filter included reads these e-mails and automatically removes those addresses from the recipients of the e-mails you send.
 
 The entire procedure is automated by the bundle in a really simple and easy way.
+
+### Upgrading from Swiftmailer
+
+Since `2.2` the bundle filters the recipients of the e-mails sent through [Symfony Mailer](https://symfony.com/doc/current/mailer.html), as Swiftmailer is abandoned and doesn't work with any maintained version of Symfony:
+
+- the recipients of the e-mails of every Mailer transport are filtered: the `shq_aws_ses_monitor.mailers` option is deprecated and ignored, so remove it from your configuration;
+- the command to send the test e-mails is `aws:ses:monitor:test:mailer`: `aws:ses:monitor:test:swiftmailer` still works as an alias.
 
 ## Documentation
 

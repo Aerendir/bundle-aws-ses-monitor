@@ -21,7 +21,7 @@ Step 13: Committing changes to `git`
 Git will tell you exactly what you changed, but just in case, here there is a complete list of the files you should commit:
 
 - `config/packages/dev/shq_aws_ses_monitor.yaml`
-- `config/packages/dev/swiftmailer.yaml`
+- `config/packages/mailer.yaml`
 - `config/packages/aws.yaml`
 - `config/packages/shq_aws_ses_monitor.yaml`
 - `config/routes/shq_aws_ses_monitor.yaml`
@@ -49,7 +49,7 @@ Assuming you know how to configure environment variables on you production machi
 - `AWS_SES_TOPIC_BOUNCES`
 - `AWS_SES_TOPIC_COMPLAINTS`
 - `AWS_SES_TOPIC_DELIVERIES`
-- `MAILER_URL` (if you have just installed `SwiftMailerBundle`)
+- `MAILER_DSN` (if you have just installed Symfony Mailer)
 
 You don't need to set `NGROK_APP_SCHEME` nor `NGROK_APP_HOST` as they are meant to be used only in `dev` environment.
 

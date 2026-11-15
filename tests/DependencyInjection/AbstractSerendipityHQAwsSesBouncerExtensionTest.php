@@ -15,7 +15,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\DependencyInjection;
 
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection\SHQAwsSesMonitorExtension;
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin\MonitorFilterPlugin;
+use SerendipityHQ\Bundle\AwsSesMonitorBundle\EventListener\MonitorFilterListener;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -37,8 +37,8 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         $this->loadConfiguration($this->container, 'default_config');
         $this->container->compile(true);
 
-        // Test mailers
-        self::assertSame(['default'], $this->container->getParameter('shq_aws_ses_monitor.mailers'));
+        // Test mailers: deprecated and ignored
+        self::assertSame([], $this->container->getParameter('shq_aws_ses_monitor.mailers'));
 
         // Test endpoint configuration
         self::assertSame('https', $this->container->getParameter('shq_aws_ses_monitor.endpoint')['scheme']);
@@ -106,7 +106,7 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         self::assertFalse($complaintsConfig['track']);
 
         // The filter isn't loaded at all
-        self::assertArrayNotHasKey(MonitorFilterPlugin::class, $this->container->getRemovedIds());
+        self::assertArrayNotHasKey(MonitorFilterListener::class, $this->container->getRemovedIds());
     }
 
     public function testTrackingEnabledForBothConfigFilterIsLoaded()
@@ -121,7 +121,7 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         self::assertTrue($complaintsConfig['track']);
 
         // The filter was loaded (but also removed by the container)
-        self::assertArrayHasKey(MonitorFilterPlugin::class, $this->container->getRemovedIds());
+        self::assertArrayHasKey(MonitorFilterListener::class, $this->container->getRemovedIds());
     }
 
     public function testTrackingEnabledForBouncesOnlyConfigFilterIsLoaded()
@@ -136,7 +136,7 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         self::assertFalse($complaintsConfig['track']);
 
         // The filter was loaded (but also removed by the container)
-        self::assertArrayHasKey(MonitorFilterPlugin::class, $this->container->getRemovedIds());
+        self::assertArrayHasKey(MonitorFilterListener::class, $this->container->getRemovedIds());
     }
 
     public function testTrackingEnabledForComplaintsOnlyConfigFilterIsLoaded()
@@ -151,7 +151,51 @@ abstract class AbstractSerendipityHQAwsSesBouncerExtensionTest extends TestCase
         self::assertTrue($complaintsConfig['track']);
 
         // The filter was loaded (but also removed by the container)
-        self::assertArrayHasKey(MonitorFilterPlugin::class, $this->container->getRemovedIds());
+        self::assertArrayHasKey(MonitorFilterListener::class, $this->container->getRemovedIds());
+    }
+
+    public function testMailersIsDeprecatedAndIgnored(): void
+    {
+        $deprecations = [];
+        \set_error_handler(static function (int $level, string $message) use (&$deprecations): bool {
+            $deprecations[] = $message;
+
+            return true;
+        }, \E_USER_DEPRECATED);
+
+        try {
+            $this->loadConfiguration($this->container, 'filter_multiple_mailers');
+            $this->container->compile(true);
+        } finally {
+            \restore_error_handler();
+        }
+
+        self::assertContains('Since serendipity_hq/bundle-aws-ses-monitor 2.2: The option "shq_aws_ses_monitor.mailers" is deprecated and ignored: the recipients of the messages of every Symfony Mailer transport are filtered. Remove it from your configuration.', $deprecations);
+
+        // Still available to the applications that read it
+        self::assertSame(['default', 'second', 'third'], $this->container->getParameter('shq_aws_ses_monitor.mailers'));
+
+        // The filter is loaded anyway (and removed by the container, as nothing uses it)
+        self::assertArrayHasKey(MonitorFilterListener::class, $this->container->getRemovedIds());
+    }
+
+    public function testDefaultConfigTriggersNoDeprecation(): void
+    {
+        $deprecations = [];
+        \set_error_handler(static function (int $level, string $message) use (&$deprecations): bool {
+            $deprecations[] = $message;
+
+            return true;
+        }, \E_USER_DEPRECATED);
+
+        try {
+            $this->loadConfiguration($this->container, 'default_config');
+            $this->container->compile(true);
+        } finally {
+            \restore_error_handler();
+        }
+
+        self::assertSame([], \array_values(\array_filter($deprecations, static fn (string $message): bool => \str_contains($message, 'serendipity_hq/bundle-aws-ses-monitor'))));
     }
 
     abstract protected function loadConfiguration(ContainerBuilder $container, $resource);
