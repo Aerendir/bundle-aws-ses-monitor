@@ -52,38 +52,38 @@ final class RequestProcessorTest extends TestCase
 
     public function testSnsTypeHeaderMustBeSet(): void
     {
-        // A real Request: Symfony 8 doesn't let a mocked one have its headers replaced
-        $mockRequest = Request::create('/', 'POST');
+        // A real Request, as Symfony 8 doesn't let a mocked one have its headers replaced
+        $request = Request::create('/', 'POST');
 
         $this->expectException(BadRequestHttpException::class);
-        $this->requestProcessor->processRequest($mockRequest);
+        $this->requestProcessor->processRequest($request);
     }
 
     public function testUnknownSnsTypeHeaderThrowAnException(): void
     {
-        // A real Request: Symfony 8 doesn't let a mocked one have its headers replaced
-        $mockRequest = Request::create('/', 'POST', server: ['HTTP_X_AMZ_SNS_MESSAGE_TYPE' => 'dummy-header']);
+        // A real Request, as Symfony 8 doesn't let a mocked one have its headers replaced
+        $request = Request::create('/', 'POST', server: ['HTTP_X_AMZ_SNS_MESSAGE_TYPE' => 'dummy-header']);
 
         $this->expectException(\RuntimeException::class);
-        $this->requestProcessor->processRequest($mockRequest);
+        $this->requestProcessor->processRequest($request);
     }
 
     public function testNotificationProcessing(): void
     {
-        // A real Request: Symfony 8 doesn't let a mocked one have its headers replaced
-        $mockRequest = Request::create('/', 'POST', server: ['HTTP_X_AMZ_SNS_MESSAGE_TYPE' => SnsTypes::HEADER_TYPE_NOTIFICATION]);
+        // A real Request, as Symfony 8 doesn't let a mocked one have its headers replaced
+        $request = Request::create('/', 'POST', server: ['HTTP_X_AMZ_SNS_MESSAGE_TYPE' => SnsTypes::HEADER_TYPE_NOTIFICATION]);
 
-        $result = $this->requestProcessor->processRequest($mockRequest);
+        $result = $this->requestProcessor->processRequest($request);
 
         self::assertInstanceOf(Response::class, $result);
     }
 
     public function testSubscriptionConfirmationProcessing(): void
     {
-        // A real Request: Symfony 8 doesn't let a mocked one have its headers replaced
-        $mockRequest = Request::create('/', 'POST', server: ['HTTP_X_AMZ_SNS_MESSAGE_TYPE' => SnsTypes::HEADER_TYPE_CONFIRM_SUBSCRIPTION]);
+        // A real Request, as Symfony 8 doesn't let a mocked one have its headers replaced
+        $request = Request::create('/', 'POST', server: ['HTTP_X_AMZ_SNS_MESSAGE_TYPE' => SnsTypes::HEADER_TYPE_CONFIRM_SUBSCRIPTION]);
 
-        $result = $this->requestProcessor->processRequest($mockRequest);
+        $result = $this->requestProcessor->processRequest($request);
 
         self::assertInstanceOf(Response::class, $result);
     }
