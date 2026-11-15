@@ -57,19 +57,19 @@ jobs:
                     composer config --no-plugins allow-plugins.symfony/flex true
 
             -   name: Install Composer deps
-                uses: ramsey/composer-install@v4
+                uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
                 with:
                     composer-options: --no-scripts
 
             -   name: Update Composer deps (with Flex)
                 # The second update is to make Flex able to do its job
-                uses: ramsey/composer-install@v4
+                uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
                 with:
                     dependency-versions: ${{ matrix.dependency-versions }}
                     composer-options: --no-scripts
 
             -   name: Install Composer bin PHPUnit
-                uses: ramsey/composer-install@v4
+                uses: ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda # 4.0.0
                 with:
                     working-directory: './vendor-bin/phpunit'
 
