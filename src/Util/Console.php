@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Util;
 
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\ConsoleSectionOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -52,8 +51,6 @@ final class Console
      * accordingly to the linked issue, as there problems with static analysis.
      *
      * @see https://github.com/symfony/symfony/issues/27998
-     *
-     * @param ConsoleOutput|OutputInterface $output
      *
      * @return ConsoleSectionOutput|OutputInterface
      *
