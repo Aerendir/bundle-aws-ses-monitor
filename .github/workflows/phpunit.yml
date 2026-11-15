@@ -63,19 +63,10 @@ jobs:
 
             -   name: Update Composer deps (with Flex)
                 # The second update is to make Flex able to do its job
-                run: |
-                    if [ "${{ matrix.dependency-versions }}" == "lowest" ]; then
-                        # On PHP 8.4+ and Symfony 7.4/8.0, the "lowest" dependencies may install an incompatible version of phpstan/phpdoc-parser (2.x)
-                        # that is not compatible with the installed version of symfony/property-info.
-                        # We force phpstan/phpdoc-parser to ^1.33 to avoid the TypeError.
-                        if [[ "${{ matrix.php }}" == "8.4" || "${{ matrix.php }}" == "8.5" ]] && [[ "${{ matrix.symfony }}" == "~7.4" || "${{ matrix.symfony }}" == "~8.0" ]]; then
-                            composer update --no-interaction --no-scripts --prefer-lowest --with="phpstan/phpdoc-parser:^2"
-                        else
-                            composer update --no-interaction --no-scripts --prefer-lowest
-                        fi
-                    else
-                        composer update --no-interaction --no-scripts
-                    fi
+                uses: ramsey/composer-install@v4
+                with:
+                    dependency-versions: ${{ matrix.dependency-versions }}
+                    composer-options: --no-scripts
 
             -   name: Install Composer bin PHPUnit
                 uses: ramsey/composer-install@v4
