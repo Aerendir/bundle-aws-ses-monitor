@@ -44,7 +44,7 @@ final class AwsDataProcessorTest extends TestCase
         $mockResult->expects(self::exactly(3))->method('get')->willReturnMap([
             ['Max24HourSend', $test['Max24HourSend']],
             ['MaxSendRate', $test['MaxSendRate']],
-        ['SentLast24Hours', $test['SentLast24Hours']],
+            ['SentLast24Hours', $test['SentLast24Hours']],
         ]);
 
         $resource = new AwsDataProcessor();

@@ -28,7 +28,7 @@ final class RequestProcessor
 
     public function __construct(
         NotificationProcessor $snsNotificationProcessor,
-        SubscriptionProcessor $subscriptionHandler
+        SubscriptionProcessor $subscriptionHandler,
     ) {
         $this->snsNotificationProcessor = $snsNotificationProcessor;
         $this->subscriptionHandler      = $subscriptionHandler;

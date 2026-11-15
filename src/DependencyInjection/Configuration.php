@@ -60,8 +60,10 @@ final class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('mailers')
+                    ->setDeprecated('serendipity_hq/bundle-aws-ses-monitor', '2.2', 'The option "%path%.%node%" is deprecated and ignored: the recipients of the messages of every Symfony Mailer transport are filtered. Remove it from your configuration.')
+                    ->info('Deprecated and ignored: the messages of every Symfony Mailer transport are filtered.')
                     ->prototype('scalar')->end()
-                    ->defaultValue(['default'])
+                    ->defaultValue([])
                 ->end()
                 ->arrayNode('endpoint')
                     ->isRequired()

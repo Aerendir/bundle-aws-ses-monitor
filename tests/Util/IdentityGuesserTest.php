@@ -16,8 +16,6 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Util;
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\IdentityGuesser;
 
-use function Safe\sprintf;
-
 final class IdentityGuesserTest extends TestCase
 {
     private string $testIdentity;

@@ -13,15 +13,15 @@
 </p>
 <p>
     Supports:
-    <a title="Supports Symfony ^4.4" href="https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev"><img title="Supports Symfony ^4.4" src="https://img.shields.io/badge/Symfony-%5E4.4-333?style=flat-square&logo=symfony" /></a>
-    <a title="Supports Symfony ^5.4" href="https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev"><img title="Supports Symfony ^5.4" src="https://img.shields.io/badge/Symfony-%5E5.4-333?style=flat-square&logo=symfony" /></a>
-    <a title="Supports Symfony ^6.0" href="https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev"><img title="Supports Symfony ^6.0" src="https://img.shields.io/badge/Symfony-%5E6.0-333?style=flat-square&logo=symfony" /></a>
+    <a title="Supports Symfony ^6.4" href="https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev"><img title="Supports Symfony ^6.4" src="https://img.shields.io/badge/Symfony-%5E6.4-333?style=flat-square&logo=symfony" /></a>
+    <a title="Supports Symfony ^7.4" href="https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev"><img title="Supports Symfony ^7.4" src="https://img.shields.io/badge/Symfony-%5E7.4-333?style=flat-square&logo=symfony" /></a>
+    <a title="Supports Symfony ^8.0" href="https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev"><img title="Supports Symfony ^8.0" src="https://img.shields.io/badge/Symfony-%5E8.0-333?style=flat-square&logo=symfony" /></a>
 </p>
 <p>
-    Supports:
-    <a title="Tested with Symfony ^4.4" href="https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev"><img title="Tested with Symfony ^4.4" src="https://img.shields.io/badge/Symfony-%5E4.4-333?style=flat-square&logo=symfony" /></a>
-    <a title="Tested with Symfony ^5.4" href="https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev"><img title="Tested with Symfony ^5.4" src="https://img.shields.io/badge/Symfony-%5E5.4-333?style=flat-square&logo=symfony" /></a>
-    <a title="Tested with Symfony ^6.0" href="https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev"><img title="Tested with Symfony ^6.0" src="https://img.shields.io/badge/Symfony-%5E6.0-333?style=flat-square&logo=symfony" /></a>
+    Tested with:
+    <a title="Tested with Symfony ^6.4" href="https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev"><img title="Tested with Symfony ^6.4" src="https://img.shields.io/badge/Symfony-%5E6.4-333?style=flat-square&logo=symfony" /></a>
+    <a title="Tested with Symfony ^7.4" href="https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev"><img title="Tested with Symfony ^7.4" src="https://img.shields.io/badge/Symfony-%5E7.4-333?style=flat-square&logo=symfony" /></a>
+    <a title="Tested with Symfony ^8.0" href="https://github.com/Aerendir/bundle-aws-ses-monitor/actions?query=branch%3Adev"><img title="Tested with Symfony ^8.0" src="https://img.shields.io/badge/Symfony-%5E8.0-333?style=flat-square&logo=symfony" /></a>
 </p>
 
 ## Current Status
@@ -69,9 +69,16 @@ Using AWS SES Monitor Bundle you can, using the console of your Symfony's App, c
 
 The bundle exposes some endpoints called by AWS Simple Email Service when an e-mail is bounced or complained. When those endpoints are called, AWS SES Monitor Bundle persists these emails in the database.
 
-The SwiftMailer plugin included reads these e-mails and automatically disable the sending of e-mails to those addresses.
+The Symfony Mailer filter included reads these e-mails and automatically removes those addresses from the recipients of the e-mails you send.
 
 The entire procedure is automated by the bundle in a really simple and easy way.
+
+### Upgrading from Swiftmailer
+
+Since `2.2` the bundle filters the recipients of the e-mails sent through [Symfony Mailer](https://symfony.com/doc/current/mailer.html), as Swiftmailer is abandoned and doesn't work with any maintained version of Symfony:
+
+- the recipients of the e-mails of every Mailer transport are filtered: the `shq_aws_ses_monitor.mailers` option is deprecated and ignored, so remove it from your configuration;
+- the command to send the test e-mails is `aws:ses:monitor:test:mailer`: `aws:ses:monitor:test:swiftmailer` still works as an alias.
 
 ## Documentation
 

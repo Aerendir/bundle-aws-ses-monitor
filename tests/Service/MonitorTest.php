@@ -32,15 +32,15 @@ final class MonitorTest extends TestCase
     private const MOCK_ENV = 'prod';
 
     /** @var IdentitiesStore&MockObject $mockConfiguredIdentities */
-    private $mockConfiguredIdentities;
+    private MockObject $mockConfiguredIdentities;
 
     private array $mockLiveData;
 
     /** @var AwsDataProcessor&MockObject $mockAwsDataProcessor */
-    private $mockAwsDataProcessor;
+    private MockObject $mockAwsDataProcessor;
 
     /** @var Console&MockObject $mockConsole */
-    private $mockConsole;
+    private MockObject $mockConsole;
 
     private SesClient $mockSesClient;
     private MockHandler $mockSesClientHandler;
@@ -48,7 +48,7 @@ final class MonitorTest extends TestCase
     private MockHandler $mockSnsClientHandler;
 
     /** @var IdentityGuesser&MockHandler $mockIdentityGuesser */
-    private $mockIdentityGuesser;
+    private MockObject $mockIdentityGuesser;
 
     /** @var MockObject&OutputInterface $sectionTitle */
     private MockObject $mockSectionTitle;
@@ -192,13 +192,12 @@ final class MonitorTest extends TestCase
 
         $this->mockConfiguredIdentities
             ->method('identityExists')
-            ->withConsecutive(
+            ->willReturnMap([
                 // 2. Is not explicitly configured
-                ['hello@serendipityhq.com'],
+                ['hello@serendipityhq.com', false],
                 // 3. Its Domain identity is configured
-                ['serendipityhq.com']
-            )
-            ->willReturnOnConsecutiveCalls(false, true);
+                ['serendipityhq.com', true],
+            ]);
 
         $this->mockIdentityGuesser->method('getEmailParts')->with('hello@serendipityhq.com')->willReturn([IdentityGuesser::DOMAIN => 'serendipityhq.com']);
 
@@ -222,13 +221,12 @@ final class MonitorTest extends TestCase
 
         $this->mockConfiguredIdentities
             ->method('identityExists')
-            ->withConsecutive(
+            ->willReturnMap([
                 // 2. Is not explicitly configured
-                ['hello@serendipityhq.com'],
+                ['hello@serendipityhq.com', false],
                 // 3. Its Domain identity is NOT configured
-                ['serendipityhq.com']
-            )
-            ->willReturnOnConsecutiveCalls(false, false);
+                ['serendipityhq.com', false],
+            ]);
 
         $this->mockIdentityGuesser->method('getEmailParts')->with('hello@serendipityhq.com')->willReturn(['domain' => 'serendipityhq.com']);
 

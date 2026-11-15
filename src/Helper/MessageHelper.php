@@ -17,8 +17,6 @@ use Aws\Sns\Message;
 use Aws\Sns\MessageValidator;
 use Symfony\Component\HttpFoundation\Request;
 
-use function Safe\json_decode;
-
 /**
  * Helps to create and validate the received message.
  *

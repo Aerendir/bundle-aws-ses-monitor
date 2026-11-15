@@ -42,7 +42,7 @@ final class NotificationProcessor
         ComplaintNotificationHandler $complaintNotificationHandler,
         DeliveryNotificationHandler $deliveryNotificationHandler,
         EntityManagerInterface $entityManager,
-        MessageHelper $messageHelper
+        MessageHelper $messageHelper,
     ) {
         $this->bounceNotificationHandler    = $bounceNotificationHandler;
         $this->complaintNotificationHandler = $complaintNotificationHandler;

@@ -15,14 +15,14 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ ubuntu-latest ]
-                php: [ '8.3' ]
+                php: [ '8.2', '8.3', '8.4', '8.5' ]
 
         steps:
             -   name: Checkout
-                uses: actions/checkout@v4
+                uses: actions/checkout@v7
 
             -   name: Setup PHP
-                uses: shivammathur/setup-php@2.32.0
+                uses: shivammathur/setup-php@2.40.0
                 with:
                     php-version: ${{ matrix.php }}
                     coverage: none # disable xdebug, pcov
@@ -30,7 +30,7 @@ jobs:
                     extensions: ast
 
             -   name: Install Composer deps
-                uses: ramsey/composer-install@v3
+                uses: ramsey/composer-install@v4
                 with:
                     composer-options: --no-scripts
 
