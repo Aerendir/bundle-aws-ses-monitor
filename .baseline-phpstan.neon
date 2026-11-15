@@ -146,7 +146,7 @@ parameters:
 			path: src/Helper/MessageHelper.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of function Safe\\\\json_decode expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$json of function json_decode expects string, mixed given\\.$#"
 			count: 1
 			path: src/Helper/MessageHelper.php
 

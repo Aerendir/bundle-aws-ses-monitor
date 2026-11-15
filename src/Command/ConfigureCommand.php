@@ -27,8 +27,6 @@ use Symfony\Component\Console\Output\ConsoleSectionOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-use function Safe\preg_replace;
-
 /**
  * @ codeCoverageIgnore This command basically calls AWS and uses other classes already tested, so it is not testable.
  */
@@ -444,7 +442,10 @@ EOF
 
     private function normalizeTopicName(string $topicName): string
     {
-        $topicName = preg_replace('#[^A-Za-z0-9-_]#', '_', $topicName);
+        $topicName = \preg_replace('#[^A-Za-z0-9-_]#', '_', $topicName);
+        if (null === $topicName) {
+            throw new \RuntimeException(\preg_last_error_msg());
+        }
 
         return \strtolower($topicName);
     }
