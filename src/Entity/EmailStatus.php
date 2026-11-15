@@ -15,50 +15,49 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Represents an email address and records information about its health.
- *
- * @ORM\Table(name="shq_aws_ses_monitor_email_statuses", indexes={@ORM\Index(name="emails_statuses", columns={"address"})})
- * @ORM\Entity()
  */
+#[ORM\Table(name: 'shq_aws_ses_monitor_email_statuses')]
+#[ORM\Index(name: 'emails_statuses', columns: ['address'])]
+#[ORM\Entity]
 class EmailStatus
 {
-    /**
-     * @ORM\Column(unique=true)
-     * @ORM\Id
-     */
+    #[ORM\Column(unique: true)]
+    #[ORM\Id]
     private string $address;
 
-    /** @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce", mappedBy="emailStatus")
-     * @var Bounce[]|Collection<int, Bounce> */
+    /** @var Bounce[]|Collection<int, Bounce> */
+    #[ORM\OneToMany(targetEntity: Bounce::class, mappedBy: 'emailStatus')]
     private Collection $bounces;
 
-    /** @ORM\Column(name="hard_bounces_count", type="integer") */
+    #[ORM\Column(name: 'hard_bounces_count', type: Types::INTEGER)]
     private int $hardBouncesCount = 0;
 
-    /** @ORM\Column(name="soft_bounces_count", type="integer") */
+    #[ORM\Column(name: 'soft_bounces_count', type: Types::INTEGER)]
     private int $softBouncesCount = 0;
 
-    /** @ORM\Column(name="last_bounce_type", type="string", nullable=true) */
+    #[ORM\Column(name: 'last_bounce_type', type: Types::STRING, nullable: true)]
     private ?string $lastBounceType = null;
 
-    /** @ORM\Column(name="last_time_bounced", type="datetime", nullable=true) */
+    #[ORM\Column(name: 'last_time_bounced', type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $lastTimeBounced = null;
 
-    /** @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint", mappedBy="emailStatus")
-     * @var Collection<int, Complaint>|Complaint[] */
+    /** @var Collection<int, Complaint>|Complaint[] */
+    #[ORM\OneToMany(targetEntity: Complaint::class, mappedBy: 'emailStatus')]
     private Collection $complaints;
 
-    /** @ORM\Column(name="last_time_complained", type="datetime", nullable=true) */
+    #[ORM\Column(name: 'last_time_complained', type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $lastTimeComplained = null;
 
-    /** @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery", mappedBy="emailStatus")
-     * @var Collection<int, Delivery>|Delivery[] */
+    /** @var Collection<int, Delivery>|Delivery[] */
+    #[ORM\OneToMany(targetEntity: Delivery::class, mappedBy: 'emailStatus')]
     private Collection $deliveries;
 
-    /** @ORM\Column(name="last_time_delivered", type="datetime", nullable=true) */
+    #[ORM\Column(name: 'last_time_delivered', type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $lastTimeDelivered = null;
 
     public function __construct(string $email)
@@ -74,6 +73,9 @@ class EmailStatus
         return $this->address;
     }
 
+    /**
+     * @return Collection<int, Bounce>
+     */
     public function getBounces(): Collection
     {
         return $this->bounces;
@@ -99,6 +101,9 @@ class EmailStatus
         return $this->lastTimeBounced;
     }
 
+    /**
+     * @return Collection<int, Complaint>
+     */
     public function getComplaints(): Collection
     {
         return $this->complaints;
@@ -109,6 +114,9 @@ class EmailStatus
         return $this->lastTimeComplained;
     }
 
+    /**
+     * @return Collection<int, Delivery>
+     */
     public function getDeliveries(): Collection
     {
         return $this->deliveries;

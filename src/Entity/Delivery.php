@@ -13,71 +13,56 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Represents a Delivery.
  *
  * @see https://docs.aws.amazon.com/ses/latest/DeveloperGuide/notification-contents.html#delivery-object
- *
- * @ORM\Table(name="shq_aws_ses_monitor_deliveries")
- * @ORM\Entity()
  */
+#[ORM\Table(name: 'shq_aws_ses_monitor_deliveries')]
+#[ORM\Entity]
 class Delivery
 {
     /** @var string */
     private const DELIVERY = 'delivery';
 
-    /**
-     * @ORM\Column(name="id", type="integer", unique=true)
-     * @ORM\Id
-     * @ORM\GeneratedValue()
-     */
+    #[ORM\Column(name: 'id', type: Types::INTEGER, unique: true)]
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
     private int $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="EmailStatus", inversedBy="deliveries", cascade={"persist"})
-     * @ORM\JoinColumn(name="email_status", referencedColumnName="address")
-     */
+    #[ORM\JoinColumn(name: 'email_status', referencedColumnName: 'address')]
+    #[ORM\ManyToOne(targetEntity: EmailStatus::class, inversedBy: 'deliveries', cascade: ['persist'])]
     private EmailStatus $emailStatus;
 
-    /**
-     * The MessageObject that reported this complaint.
-     *
-     * @ORM\ManyToOne(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\MailMessage", inversedBy="deliveries")
-     * @ORM\JoinColumn(name="mail_message", referencedColumnName="message_id")
-     */
+    /** The MessageObject that reported this complaint. */
+    #[ORM\JoinColumn(name: 'mail_message', referencedColumnName: 'message_id')]
+    #[ORM\ManyToOne(targetEntity: MailMessage::class, inversedBy: 'deliveries')]
     private MailMessage $mailMessage;
 
-    /**
-     * The time Amazon SES delivered the email to the recipient's mail server (in ISO8601 format).
-     *
-     * @ORM\Column(name="delivered_on", type="datetime")
-     */
+    /** The time Amazon SES delivered the email to the recipient's mail server (in ISO8601 format). */
+    #[ORM\Column(name: 'delivered_on', type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $deliveredOn;
 
     /**
      * The time in milliseconds between when Amazon SES accepted the request from the sender to passing the message to
      * the recipient's mail server.
-     *
-     * @ORM\Column(name="processing_time_millis", type="integer")
      */
+    #[ORM\Column(name: 'processing_time_millis', type: Types::INTEGER)]
     private int $processingTimeMillis;
 
     /**
      * The SMTP response message of the remote ISP that accepted the email from Amazon SES.
      *
      * This message will vary by email, by receiving mail server, and by receiving ISP.
-     *
-     * @ORM\Column(name="smtp_response", type="text")
      */
+    #[ORM\Column(name: 'smtp_response', type: Types::TEXT)]
     private string $smtpResponse;
 
-    /**
-     * The host name of the Amazon SES mail server that sent the mail.
-     *
-     * @ORM\Column(name="reporting_mta", type="string", nullable=true)
-     */
+    /** The host name of the Amazon SES mail server that sent the mail. */
+    #[ORM\Column(name: 'reporting_mta', type: Types::STRING, nullable: true)]
     private ?string $reportingMta = null;
 
     public static function create(EmailStatus $email, MailMessage $mailMessage, array $notification): Delivery

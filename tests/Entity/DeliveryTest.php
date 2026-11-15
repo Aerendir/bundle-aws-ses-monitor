@@ -29,13 +29,13 @@ final class DeliveryTest extends TestCase
             'email'        => $this->createMock(EmailStatus::class),
             'mailMessage'  => $this->createMock(MailMessage::class),
             'notification' => [
-            'delivery' => [
-                'timestamp'            => '2016-08-01 00:00:00',
-                'processingTimeMillis' => 1234,
-                'smtpResponse'         => 'smtp response',
-                'reportingMta'         => 'reporting MTA',
-            ],
+                'delivery' => [
+                    'timestamp'            => '2016-08-01 00:00:00',
+                    'processingTimeMillis' => 1234,
+                    'smtpResponse'         => 'smtp response',
+                    'reportingMta'         => 'reporting MTA',
                 ],
+            ],
         ];
 
         $resource = Delivery::create($test['email'], $test['mailMessage'], $test['notification']);

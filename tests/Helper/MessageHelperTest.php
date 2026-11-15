@@ -15,6 +15,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Tests\Helper;
 
 use Aws\Sns\Message;
 use Aws\Sns\MessageValidator;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Helper\MessageHelper;
@@ -62,9 +63,7 @@ final class MessageHelperTest extends TestCase
         return $message;
     }
 
-    /**
-     * @depends testMessageHelper
-     */
+    #[Depends('testMessageHelper')]
     public function testValidateNotification(): void
     {
         $this->messageValidator->method('isValid')->willReturn(true);
@@ -75,9 +74,7 @@ final class MessageHelperTest extends TestCase
         self::assertTrue($result);
     }
 
-    /**
-     * @depends testMessageHelper
-     */
+    #[Depends('testMessageHelper')]
     public function testExtractMessageData(): void
     {
         $expected = [

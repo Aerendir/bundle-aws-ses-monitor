@@ -36,7 +36,7 @@ final class SubscriptionProcessorTest extends TestCase
     private MockObject $mockEntityManager;
 
     /** @var MessageHelper&MockObject $mockMessageHelper */
-    private $mockMessageHelper;
+    private MockObject $mockMessageHelper;
 
     protected function setUp(): void
     {
@@ -100,7 +100,7 @@ final class SubscriptionProcessorTest extends TestCase
                 self::equalTo('TopicArn'),
                 self::equalTo('Token')
             ))
-            ->will(self::returnCallback(static fn ($key): string => $testMessage[$key]));
+            ->willReturnCallback(static fn ($key): string => $testMessage[$key]);
 
         $this->mockMessageHelper->expects(self::exactly(1))->method('buildMessageFromRequest')->willReturn($mockNsnMessage);
         $this->mockMessageHelper->expects(self::exactly(1))->method('validateNotification')->willReturn(true);

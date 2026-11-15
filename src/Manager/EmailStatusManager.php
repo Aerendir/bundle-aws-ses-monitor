@@ -49,7 +49,7 @@ class EmailStatusManager
         $email = $this->loadEmailStatus($emailAddress);
 
         if ( ! $email instanceof EmailStatus) {
-            $email = $this->createEmailStatus($emailAddress);
+            return $this->createEmailStatus($emailAddress);
         }
 
         return $email;

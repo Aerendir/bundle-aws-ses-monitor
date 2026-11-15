@@ -13,11 +13,10 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\DependencyInjection;
 
-use SerendipityHQ\Bundle\AwsSesMonitorBundle\Plugin\MonitorFilterPlugin;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 final class SHQAwsSesMonitorExtension extends Extension
 {
@@ -28,26 +27,21 @@ final class SHQAwsSesMonitorExtension extends Extension
 
         // Set parameters in the container
         $container->setParameter('shq_aws_ses_monitor.endpoint', $config['endpoint']);
+        // Deprecated and ignored: kept only for the applications that read it
         $container->setParameter('shq_aws_ses_monitor.mailers', $config['mailers']);
         $container->setParameter('shq_aws_ses_monitor.identities', $config['identities']);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
 
-        // Enable the plugin if required
+        // Enable the filter if required
         if ($this->requiresFilter($config['identities'])) {
             $loader->load('filter.yml');
-
-            $mailers = $config['mailers'];
-            $filter  = $container->getDefinition(MonitorFilterPlugin::class);
-            foreach ($mailers as $mailer) {
-                $filter->addTag(sprintf('swiftmailer.%s.plugin', $mailer));
-            }
         }
     }
 
     /**
-     * Checks if at least one identity requires the SwiftMailer filter.
+     * Checks if at least one identity requires the filter of the recipients.
      */
     private function requiresFilter(array $identities): bool
     {

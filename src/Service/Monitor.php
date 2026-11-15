@@ -54,7 +54,7 @@ class Monitor
         IdentitiesStore $configuredIdentities,
         IdentityGuesser $identityGuesser,
         SesClient $sesClient,
-        SnsClient $snsClient
+        SnsClient $snsClient,
     ) {
         $this->env                  = $env;
         $this->awsDataProcessor     = $awsDataProcessor;
@@ -84,7 +84,7 @@ class Monitor
         $this->console->clear($this->sectionBody);
     }
 
-    public function getAccount(string $attributes = null)
+    public function getAccount(?string $attributes = null)
     {
         $return = $this->liveData[AwsDataProcessor::ACCOUNT];
 
@@ -103,15 +103,15 @@ class Monitor
      *
      * @return array|bool|int|string
      */
-    public function findConfiguredIdentity(string $identity, string $attributes = null)
+    public function findConfiguredIdentity(string $identity, ?string $attributes = null)
     {
         $searchingIdentity = $identity;
 
         if (
             // If this identity isn't explicitly configured
-            false === $this->configuredIdentities->identityExists($searchingIdentity) &&
+            false === $this->configuredIdentities->identityExists($searchingIdentity)
             // and it is an Email Identity
-            $this->getIdentityGuesser()->isEmailIdentity($searchingIdentity)
+            && $this->getIdentityGuesser()->isEmailIdentity($searchingIdentity)
         ) {
             // Find its domain identity
             $parts = $this->getIdentityGuesser()->getEmailParts($searchingIdentity);
@@ -134,7 +134,7 @@ class Monitor
     /**
      * @return array|bool|int|string
      */
-    public function getConfiguredIdentity(string $identity, string $attributes = null)
+    public function getConfiguredIdentity(string $identity, ?string $attributes = null)
     {
         return $this->configuredIdentities->getIdentity($identity, $attributes);
     }
@@ -156,11 +156,11 @@ class Monitor
         $allowed = [];
         foreach ($this->configuredIdentities->getIdentitiesList() as $identity) {
             // If we are in production and the identity is for production
-            ('prod' === $this->env && $this->getIdentityGuesser()->isProductionIdentity($identity)) ||
+            ('prod' === $this->env && $this->getIdentityGuesser()->isProductionIdentity($identity))
             // Or if we are on dev (or in test envthe command) and
             // we passed --force (configures also production entities) or
             // we didn't pass the --force option BUT the identity is a test one
-            (('dev' === $this->env || 'test' === $this->env) && ($ignoreEnv || $this->getIdentityGuesser()->isTestEmail($identity)))
+            || (('dev' === $this->env || 'test' === $this->env) && ($ignoreEnv || $this->getIdentityGuesser()->isTestEmail($identity)))
                 // Allow the identity
                 ? $allowed[] = $identity
                 // Skip the identity
@@ -173,7 +173,7 @@ class Monitor
         ];
     }
 
-    public function getLiveIdentity(string $identity, string $attributes = null): array
+    public function getLiveIdentity(string $identity, ?string $attributes = null): array
     {
         if (false === $this->liveIdentityExists($identity)) {
             return [];
@@ -255,8 +255,8 @@ class Monitor
     public function liveIdentityDkimIsVerified(string $identity): bool
     {
         return
-            $this->liveIdentityExists($identity) &&
-            'Success' === $this->getLiveIdentity($identity, self::DKIM)['verification_status'];
+            $this->liveIdentityExists($identity)
+            && 'Success' === $this->getLiveIdentity($identity, self::DKIM)['verification_status'];
     }
 
     public function liveIdentityExists(string $identity): bool
@@ -267,8 +267,8 @@ class Monitor
     public function liveIdentityIsVerified(string $identity): bool
     {
         return
-            $this->liveIdentityExists($identity) &&
-            'Success' === $this->getLiveIdentity($identity, 'verification')['status'];
+            $this->liveIdentityExists($identity)
+            && 'Success' === $this->getLiveIdentity($identity, 'verification')['status'];
     }
 
     /**
@@ -298,8 +298,8 @@ class Monitor
     public function fromDomainIsInSync(string $identity): bool
     {
         return
-            $this->getConfiguredIdentity($identity, 'on_mx_failure') === ($this->getLiveIdentity($identity, 'mail_from')['on_mx_failure'] ?? null) &&
-            $this->getConfiguredIdentity($identity, 'from_domain')   === ($this->getLiveIdentity($identity, 'mail_from')[self::DOMAIN]    ?? null);
+            $this->getConfiguredIdentity($identity, 'on_mx_failure')    === ($this->getLiveIdentity($identity, 'mail_from')['on_mx_failure'] ?? null)
+            && $this->getConfiguredIdentity($identity, 'from_domain')   === ($this->getLiveIdentity($identity, 'mail_from')[self::DOMAIN]    ?? null);
     }
 
     public function fromDomainCanBeSynched(string $identity): bool

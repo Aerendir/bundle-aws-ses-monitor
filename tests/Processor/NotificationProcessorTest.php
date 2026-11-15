@@ -32,19 +32,19 @@ final class NotificationProcessorTest extends TestCase
     private NotificationProcessor $notificationProcessor;
 
     /** @var BounceNotificationHandler&MockObject $bounceNotificationHandler */
-    private $bounceNotificationHandler;
+    private MockObject $bounceNotificationHandler;
 
     /** @var ComplaintNotificationHandler&MockObject $complaintNotificationHandler */
-    private $complaintNotificationHandler;
+    private MockObject $complaintNotificationHandler;
 
     /** @var DeliveryNotificationHandler&MockObject $deliveryNotificationHandler */
-    private $deliveryNotificationHandler;
+    private MockObject $deliveryNotificationHandler;
 
     /** @var EntityManagerInterface&MockObject $mockEntityManager */
     private MockObject $mockEntityManager;
 
     /** @var MessageHelper&MockObject $mockMessageHelper */
-    private $mockMessageHelper;
+    private MockObject $mockMessageHelper;
 
     protected function setUp(): void
     {

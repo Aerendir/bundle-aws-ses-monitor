@@ -20,6 +20,7 @@ use SerendipityHQ\Bundle\AwsSesMonitorBundle\Manager\SnsManager;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Service\Monitor;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\SnsTypes;
 use SerendipityHQ\Bundle\AwsSesMonitorBundle\Util\Console;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -27,11 +28,10 @@ use Symfony\Component\Console\Output\ConsoleSectionOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-use function Safe\preg_replace;
-
 /**
  * @ codeCoverageIgnore This command basically calls AWS and uses other classes already tested, so it is not testable.
  */
+#[AsCommand(name: 'aws:ses:configure', description: 'Configures the identities on AWS SES and their topics.')]
 final class ConfigureCommand extends Command
 {
     /** @var string */
@@ -40,10 +40,6 @@ final class ConfigureCommand extends Command
     /** @var string */
     private const TOPIC = 'topic';
 
-    /** @var string */
-    protected static $defaultName = 'aws:ses:configure';
-
-    protected static $defaultDescription = 'Configures the identities on AWS SES and their topics.';
     private string $env;
     private EntityManagerInterface $entityManager;
     private array $actionsToTakeNow = [];
@@ -66,7 +62,7 @@ final class ConfigureCommand extends Command
         Monitor $monitor,
         SesManager $sesManager,
         SnsManager $snsManager,
-        Console $console
+        Console $console,
     ) {
         $this->env           = $env;
         $this->entityManager = $entityManager;
@@ -444,7 +440,10 @@ EOF
 
     private function normalizeTopicName(string $topicName): string
     {
-        $topicName = preg_replace('#[^A-Za-z0-9-_]#', '_', $topicName);
+        $topicName = \preg_replace('#[^A-Za-z0-9-_]#', '_', $topicName);
+        if (null === $topicName) {
+            throw new \RuntimeException(\preg_last_error_msg());
+        }
 
         return \strtolower($topicName);
     }

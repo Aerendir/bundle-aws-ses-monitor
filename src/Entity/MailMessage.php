@@ -15,6 +15,7 @@ namespace SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,10 +24,9 @@ use Doctrine\ORM\Mapping as ORM;
  * This is called MailObject by Amazon.
  *
  * @see http://docs.aws.amazon.com/ses/latest/DeveloperGuide/notification-contents.html#mail-object
- *
- * @ORM\Table(name="shq_aws_ses_monitor_messages")
- * @ORM\Entity()
  */
+#[ORM\Table(name: 'shq_aws_ses_monitor_messages')]
+#[ORM\Entity]
 class MailMessage
 {
     /**
@@ -35,28 +35,25 @@ class MailMessage
      * Amazon SES returned this value to you when you sent the message.
      * This message ID was assigned by Amazon SES. You can find the message ID of the original
      * email in the headers and commonHeaders fields of the mail object.
-     *
-     * @ORM\Column(name="message_id", type="string")
-     * @ORM\Id
      */
+    #[ORM\Column(name: 'message_id', type: Types::STRING)]
+    #[ORM\Id]
     private string $messageId;
 
     /**
      * The time at which the original message was sent (in ISO8601 format).
      *
      * Formerly "timestamp".
-     *
-     * @ORM\Column(name="sent_on", type="datetime")
      */
+    #[ORM\Column(name: 'sent_on', type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $sentOn;
 
     /**
      * The email address from which the original message was sent (the envelope MAIL FROM address).
      *
      * Formerly "source".
-     *
-     * @ORM\Column(name="sent_from", type="string")
      */
+    #[ORM\Column(name: 'sent_from', type: Types::STRING)]
     private string $sentFrom;
 
     /**
@@ -65,18 +62,16 @@ class MailMessage
      * In the case of sending authorization, the sourceArn is the ARN of the identity that the identity owner authorized
      * the delegate sender to use to send the email. For more information about sending authorization, see Using Sending
      * Authorization.
-     *
-     * @ORM\Column(name="source_arn", type="string")
      */
+    #[ORM\Column(name: 'source_arn', type: Types::STRING)]
     private string $sourceArn;
 
     /**
      * The AWS account ID of the account that was used to send the email.
      *
      * In the case of sending authorization, the sendingAccountId is the delegate sender's account ID.
-     *
-     * @ORM\Column(name="sending_account_id", type="string")
      */
+    #[ORM\Column(name: 'sending_account_id', type: Types::STRING)]
     private string $sendingAccountId;
 
     /**
@@ -86,9 +81,8 @@ class MailMessage
      * ID that Amazon SES subsequently assigned to the message is in the messageId field of the mail object.
      *
      * (Only present if the notification settings include the original email headers.)
-     *
-     * @ORM\Column(name="headers", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'headers', type: Types::TEXT, nullable: true)]
     private ?string $headers = null;
 
     /**
@@ -99,21 +93,20 @@ class MailMessage
      * message ID that Amazon SES subsequently assigned to the message is in the messageId field of the mail object.
      *
      * (Only present if the notification settings include the original email headers.)
-     *
-     * @ORM\Column(name="common_headers", type="text", nullable=true)
      */
+    #[ORM\Column(name: 'common_headers', type: Types::TEXT, nullable: true)]
     private ?string $commonHeaders = null;
 
-    /** @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Bounce", mappedBy="mailMessage", cascade={"persist"})
-     * @var Bounce[]|Collection<int, Bounce> */
+    /** @var Bounce[]|Collection<int, Bounce> */
+    #[ORM\OneToMany(targetEntity: Bounce::class, mappedBy: 'mailMessage', cascade: ['persist'])]
     private Collection $bounces;
 
-    /** @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Complaint", mappedBy="mailMessage", cascade={"persist"})
-     * @var Collection<int, Complaint>|Complaint[] */
+    /** @var Collection<int, Complaint>|Complaint[] */
+    #[ORM\OneToMany(targetEntity: Complaint::class, mappedBy: 'mailMessage', cascade: ['persist'])]
     private Collection $complaints;
 
-    /** @ORM\OneToMany(targetEntity="SerendipityHQ\Bundle\AwsSesMonitorBundle\Entity\Delivery", mappedBy="mailMessage", cascade={"persist"})
-     * @var Collection<int, Delivery>|Delivery[] */
+    /** @var Collection<int, Delivery>|Delivery[] */
+    #[ORM\OneToMany(targetEntity: Delivery::class, mappedBy: 'mailMessage', cascade: ['persist'])]
     private Collection $deliveries;
 
     /**
@@ -167,16 +160,25 @@ class MailMessage
         return $this;
     }
 
+    /**
+     * @return Collection<int, Bounce>
+     */
     public function getBounces(): Collection
     {
         return $this->bounces;
     }
 
+    /**
+     * @return Collection<int, Complaint>
+     */
     public function getComplaints(): Collection
     {
         return $this->complaints;
     }
 
+    /**
+     * @return Collection<int, Delivery>
+     */
     public function getDeliveries(): Collection
     {
         return $this->deliveries;
