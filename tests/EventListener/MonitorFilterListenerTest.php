@@ -174,7 +174,7 @@ final class MonitorFilterListenerTest extends TestCase
     {
         $listener = $this->createListener();
 
-        foreach (['smtp://email-smtp.eu-west-1.amazonaws.com:587', 'ses+api://eu-west-1', 'null://'] as $transport) {
+        foreach (['smtps://email-smtp.eu-west-1.amazonaws.com:465', 'ses+api://eu-west-1', 'null://'] as $transport) {
             $email = (new Email())->from(self::FROM)->to('bounced@example.com', self::SUCCESS);
             $listener->onMessage(new MessageEvent($email, Envelope::create($email), $transport));
 
