@@ -3,7 +3,7 @@
         "php": "^8.2"
     },
     "require-dev": {
-        "dg/bypass-finals": "^1.9",
+        "dg/bypass-finals": "^1.11",
         "phpunit/phpunit": "^11.0 || 12.1.2",
         "symfony/phpunit-bridge": "^8.1.10",
         "vimeo/psalm": "^7.3",
